@@ -1,0 +1,11 @@
+#####################
+/SoftLiu_VSMainMenuTools/*.csproj
+
+
+#####################
+/Library/
+.vs/
+/Temp/
+/SoftLiu_VSMainMenuTools/bin/
+/SoftLiu_VSMainMenuTools/obj/
+
