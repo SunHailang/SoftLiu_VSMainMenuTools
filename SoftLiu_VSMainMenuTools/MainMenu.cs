@@ -58,5 +58,12 @@ namespace SoftLiu_VSMainMenuTools
         {
 
         }
+
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+            this.Dispose();
+            this.Close();
+        }
     }
 }
