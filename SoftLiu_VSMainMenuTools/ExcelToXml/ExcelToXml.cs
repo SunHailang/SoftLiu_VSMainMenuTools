@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SoftLiu_VSMainMenuTools
+namespace SoftLiu_VSMainMenuTools.ExcelToXml
 {
-    public partial class Form1 : Form
+    public partial class ExcelToXml : Form
     {
-        public Form1()
+        public ExcelToXml()
         {
             InitializeComponent();
+        }
+
+        private void ExcelToXml_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
