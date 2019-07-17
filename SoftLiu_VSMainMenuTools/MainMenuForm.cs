@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools
 {
-    public partial class MainMenu : Form
+    public partial class MainMenuForm : Form
     {
         private bool m_timeSpanPuse = false;
         private bool m_formClosing = false;
 
-        public MainMenu()
+        public MainMenuForm()
         {
             InitializeComponent();
         }
@@ -53,7 +53,7 @@ namespace SoftLiu_VSMainMenuTools
 
         private void excelToXmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form excelToXml = new ExcelToXml.ExcelToXml();
+            Form excelToXml = new ExcelToXml.ExcelToXmlForm();
             excelToXml.Show();
         }
 
@@ -69,26 +69,10 @@ namespace SoftLiu_VSMainMenuTools
             this.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string sql = "select * from student";
-            DataSet data = MysqlManager.Instance.SelectTables(sql);
-            //textBox1.Text = data.GetXml();
-
-            for (int i = 0; i < data.Tables.Count; i++)
-            {
-                DataTable dt = data.Tables[i];
-                DataRow[] drRowArray = dt.Select();
-                for (int j = 0; j < drRowArray.Length; j++)
-                {
-                    DataRow dr = drRowArray[j];
-                    for (int k = 0; k < dt.Columns.Count; k++)
-                    {
-                        textBox1.AppendText(dr[k].ToString());
-                        textBox1.AppendText("\n"); 
-                    }
-                }                
-            }
+            Form mySql = new MySqlBasedataForm();
+            mySql.ShowDialog();
         }
     }
 }

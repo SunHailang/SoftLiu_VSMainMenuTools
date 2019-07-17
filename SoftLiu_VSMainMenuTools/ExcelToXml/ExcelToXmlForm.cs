@@ -12,9 +12,9 @@ using System.Xml;
 
 namespace SoftLiu_VSMainMenuTools.ExcelToXml
 {
-    public partial class ExcelToXml : Form
+    public partial class ExcelToXmlForm : Form
     {
-        public ExcelToXml()
+        public ExcelToXmlForm()
         {
             InitializeComponent();
         }

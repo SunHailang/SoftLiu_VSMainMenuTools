@@ -67,17 +67,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelToXml\ExcelOrXmlManager.cs" />
-    <Compile Include="ExcelToXml\ExcelToXml.cs">
+    <Compile Include="ExcelToXml\ExcelToXmlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExcelToXml\ExcelToXml.Designer.cs">
-      <DependentUpon>ExcelToXml.cs</DependentUpon>
+    <Compile Include="ExcelToXml\ExcelToXmlForm.Designer.cs">
+      <DependentUpon>ExcelToXmlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenu.Designer.cs">
-      <DependentUpon>MainMenu.cs</DependentUpon>
+    <Compile Include="MainMenuForm.Designer.cs">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MySqlBasedataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MySqlBasedataForm.Designer.cs">
+      <DependentUpon>MySqlBasedataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,11 +94,14 @@
     <Compile Include="Utils\EventsManager\Events.cs" />
     <Compile Include="Utils\TimeUtils.cs" />
     <Compile Include="Utils\VersionUtils.cs" />
-    <EmbeddedResource Include="ExcelToXml\ExcelToXml.resx">
-      <DependentUpon>ExcelToXml.cs</DependentUpon>
+    <EmbeddedResource Include="ExcelToXml\ExcelToXmlForm.resx">
+      <DependentUpon>ExcelToXmlForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
+    <EmbeddedResource Include="MainMenuForm.resx">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MySqlBasedataForm.resx">
+      <DependentUpon>MySqlBasedataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

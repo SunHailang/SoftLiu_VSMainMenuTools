@@ -1,6 +1,6 @@
 ﻿namespace SoftLiu_VSMainMenuTools.ExcelToXml
 {
-    partial class ExcelToXml
+    partial class ExcelToXmlForm
     {
         /// <summary>
         /// Required designer variable.
