@@ -1,9 +1,13 @@
-﻿using SoftLiu_VSMainMenuTools.Singleton;
+﻿/// <summary>
+/// 
+/// __author__ = "sun hai lang"
+/// __date__ 2019-07-17
+/// 
+/// </summary>
+
+using SoftLiu_VSMainMenuTools.Singleton;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
 {

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
+using System;
+using System.Data;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -64,6 +67,28 @@ namespace SoftLiu_VSMainMenuTools
             Environment.Exit(Environment.ExitCode);
             this.Dispose();
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string sql = "select * from student";
+            DataSet data = MysqlManager.Instance.SelectTables(sql);
+            //textBox1.Text = data.GetXml();
+
+            for (int i = 0; i < data.Tables.Count; i++)
+            {
+                DataTable dt = data.Tables[i];
+                DataRow[] drRowArray = dt.Select();
+                for (int j = 0; j < drRowArray.Length; j++)
+                {
+                    DataRow dr = drRowArray[j];
+                    for (int k = 0; k < dt.Columns.Count; k++)
+                    {
+                        textBox1.AppendText(dr[k].ToString());
+                        textBox1.AppendText("\n"); 
+                    }
+                }                
+            }
         }
     }
 }

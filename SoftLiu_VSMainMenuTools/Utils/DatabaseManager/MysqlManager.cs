@@ -1,10 +1,14 @@
-﻿using MySql.Data.MySqlClient;
+﻿/// <summary>
+/// 
+/// __author__ = "sun hai lang"
+/// __date__ 2019-07-17
+/// 
+/// </summary>
+
+using MySql.Data.MySqlClient;
 using SoftLiu_VSMainMenuTools.Singleton;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
 {
@@ -19,17 +23,76 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
             }            
         }
 
-        public MySqlDataReader SelectTables(string query)
+        public DataSet SelectTables(string query)
         {
-            MySqlConnection myConnection = new MySqlConnection(m_connectString);
-            MySqlCommand myCommand = new MySqlCommand(query, myConnection);
-            myConnection.Open();
-            myCommand.ExecuteNonQuery();
-            MySqlDataReader myDataReader = myCommand.ExecuteReader();
-            myDataReader.Close();
-            myConnection.Close();
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                DataSet ds = new DataSet();
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter command = new MySqlDataAdapter(query, connection);
+                    command.Fill(ds);
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return ds;
+            }
+        }
 
-            return myDataReader;
+        public int InsesetData(string query)
+        {            
+            if (string.IsNullOrEmpty(query)) return 0;
+
+            int result = 0;
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+                    result = mycmd1.ExecuteNonQuery();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return result;
+            }
+        }
+
+        public int DeleteData(string query)
+        {
+            if (string.IsNullOrEmpty(query)) return 0;
+            int result = 0;
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+                    result = mycmd1.ExecuteNonQuery();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return result;
+            }
         }
 
         ~MysqlManager()

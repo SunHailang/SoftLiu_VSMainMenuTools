@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// <summary>
+/// 
+/// __author__ = "sun hai lang"
+/// __date__ 2019-07-17
+/// 
+/// </summary>
+
 
 namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
 {
