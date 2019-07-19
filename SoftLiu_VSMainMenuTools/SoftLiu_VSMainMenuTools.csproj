@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Student.cs" />
     <Compile Include="ExcelToXml\ExcelOrXmlManager.cs" />
     <Compile Include="ExcelToXml\ExcelToXmlForm.cs">
       <SubType>Form</SubType>
