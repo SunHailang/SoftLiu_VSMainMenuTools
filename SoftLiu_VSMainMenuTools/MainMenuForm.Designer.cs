@@ -36,9 +36,11 @@
             this.excelToXmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openMySqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openMySqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,6 +108,13 @@
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
             // 
+            // openMySqlToolStripMenuItem
+            // 
+            this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openMySqlToolStripMenuItem.Text = "Open mySql";
+            this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -120,21 +129,34 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // openMySqlToolStripMenuItem
+            // button1
             // 
-            this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openMySqlToolStripMenuItem.Text = "Open mySql";
-            this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
+            this.button1.Location = new System.Drawing.Point(53, 69);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // MainMenu
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(175, 71);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(757, 340);
+            this.textBox1.TabIndex = 3;
+            // 
+            // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 525);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainMenu";
+            this.Name = "MainMenuForm";
             this.Text = "MainMenu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -158,6 +180,8 @@
         private System.Windows.Forms.ToolStripMenuItem excelToXmlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openMySqlToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

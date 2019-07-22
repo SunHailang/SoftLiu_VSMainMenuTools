@@ -48,6 +48,9 @@
             this.buttonFind = new System.Windows.Forms.Button();
             this.textBoxFind = new System.Windows.Forms.TextBox();
             this.tabPageAddData = new System.Windows.Forms.TabPage();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -187,9 +190,9 @@
             // 
             // textBoxAddress
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(109, 232);
+            this.textBoxAddress.Location = new System.Drawing.Point(463, 227);
             this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(112, 20);
+            this.textBoxAddress.Size = new System.Drawing.Size(207, 20);
             this.textBoxAddress.TabIndex = 3;
             // 
             // buttonInsert
@@ -249,6 +252,9 @@
             // 
             // tabPageAddData
             // 
+            this.tabPageAddData.Controls.Add(this.comboBox3);
+            this.tabPageAddData.Controls.Add(this.comboBox2);
+            this.tabPageAddData.Controls.Add(this.comboBox1);
             this.tabPageAddData.Controls.Add(this.buttonInsert);
             this.tabPageAddData.Controls.Add(this.textBoxAddress);
             this.tabPageAddData.Controls.Add(this.labelAddress);
@@ -269,6 +275,33 @@
             this.tabPageAddData.TabIndex = 1;
             this.tabPageAddData.Text = "添加用户信息";
             this.tabPageAddData.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(345, 227);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(112, 21);
+            this.comboBox3.TabIndex = 5;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(227, 227);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(112, 21);
+            this.comboBox2.TabIndex = 5;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(109, 227);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(112, 21);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // ColumnIndex
             // 
@@ -305,6 +338,7 @@
             this.ColumnAddress.DataPropertyName = "Address";
             this.ColumnAddress.HeaderText = "联系地址";
             this.ColumnAddress.Name = "ColumnAddress";
+            this.ColumnAddress.Width = 80;
             // 
             // MySqlBasedataForm
             // 
@@ -347,6 +381,9 @@
         private System.Windows.Forms.TabPage tabPageAddData;
         private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Button buttonFind;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;

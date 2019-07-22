@@ -234,7 +234,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                     {
                         MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                     sb.Append(string.Format("\"{0}\": {1}", dc1, dc2));
                     if (j < dt.Columns.Count - 1)
                     {
@@ -250,10 +250,25 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                 sb.Append("\n");
             }
             sb.Append("]\n}\n");
-            
+
             string contents = Regex.Replace(sb.ToString(), "(\"(?:[^\"\\\\]|\\\\.)*\")|\\s+", "$1");
 
             File.WriteAllText(savePath, contents, System.Text.Encoding.UTF8);
         }
     }
+}
+
+public class ChinaInfo
+{
+    public string id { set; get; }
+    public string name;
+    public string pid;
+    public string sname;
+    public string level;
+    public string citycode;
+    public string yzcode;
+    public string mername;
+    public string lng;
+    public string lat;
+    public string pinyin;
 }
