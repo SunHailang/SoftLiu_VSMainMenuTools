@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace SoftLiu_VSMainMenuTools.Utils
         /// <returns></returns>
         public static string GetProjectRootPath()
         {
+            // exe 运行文件夹目录
+            //string environmentPath = Environment.CurrentDirectory;
+            // 获取一个文件夹的父对象文件夹信息
+            //string parentPath = Directory.GetParent(environmentPath).Parent.FullName;
+
             string rootPath = "";
             string BaseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory; // F:\project\WPF\AstroATE-PDR\04. 程序\01. 源代码\AstroATE\AstroATE\bin\Debug
             // 向上回退三级，得到需要的目录

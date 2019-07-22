@@ -55,7 +55,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                 //Microsoft.Office.Interop.Excel.Application excelApp;
                 Microsoft.Office.Interop.Excel._Workbook workBook;
                 Microsoft.Office.Interop.Excel._Worksheet workSheet;
-                Microsoft.Office.Interop.Excel._Worksheet workSheet1;
+                //Microsoft.Office.Interop.Excel._Worksheet workSheet1;
                 object misValue = System.Reflection.Missing.Value;
                 workBook = excelApp.Workbooks.Add(misValue);//加载模型
 

@@ -66,6 +66,7 @@ namespace SoftLiu_VSMainMenuTools
             }
 
             comboBox1.SelectedIndex = 0;
+            
         }
 
         private void ReadChinaInfo()
