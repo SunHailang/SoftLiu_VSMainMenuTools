@@ -10,5 +10,8 @@ namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
 {
     public enum Events
     {
+        UpdateAppConfigEvent,
+        UpdateVersionEvent,
+        UpdateVersionCompleteEvent,
     }
 }

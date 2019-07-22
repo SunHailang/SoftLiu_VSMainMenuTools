@@ -18,7 +18,7 @@ namespace SoftLiu_VSMainMenuTools
     {
         private DataTable m_currentDataTable = null;
 
-        private List<Student> m_currentStudentList = null;
+        private Dictionary<int, Student> m_currentStudentDic = null;
 
         private List<ChinaInfo> m_chinaList = null;
 
@@ -66,7 +66,7 @@ namespace SoftLiu_VSMainMenuTools
             }
 
             comboBox1.SelectedIndex = 0;
-            
+
         }
 
         private void ReadChinaInfo()
@@ -109,15 +109,17 @@ namespace SoftLiu_VSMainMenuTools
             this.m_currentDataTable = data.Tables[0];
             //dataGridView1.DataSource = this.m_currentDataTable.DefaultView;
             List<Student> studentList = new List<Student>();
+            Dictionary<int, Student> studentDic = new Dictionary<int, Student>();
             DataRow[] dataRows = this.m_currentDataTable.Select();
             for (int i = 0; i < dataRows.Length; i++)
             {
                 DataRow dataRow = dataRows[i];
                 Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[6].ToString(), dataRow[5].ToString());
                 studentList.Add(student);
+                studentDic.Add(i, student);
             }
-            this.m_currentStudentList = studentList;
-            ShowDataSource(this.m_currentStudentList);
+            this.m_currentStudentDic = studentDic;
+            ShowDataSource(studentList);
         }
 
         private void ShowDataSource(List<Student> studentList)
@@ -193,13 +195,32 @@ namespace SoftLiu_VSMainMenuTools
                         if (result == DialogResult.OK)
                         {
                             //TODO
+                            //TODO
+                            Student student;
+                            if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
+                            {
+                                ModifyData(student);
+                            }
+                            else
+                            {
+                                MessageBox.Show("未查到该用户数据，失败！", "修改", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                         break;
                     case "btnDelete":
                         result = MessageBox.Show("确认删除选择的信息！", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if(result == DialogResult.OK)
+                        if (result == DialogResult.OK)
                         {
                             //TODO
+                            Student student;
+                            if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
+                            {
+                                DeleteData(student);
+                            }
+                            else
+                            {
+                                MessageBox.Show("未查到该用户数据，失败！", "删除", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                         break;
                     default:
@@ -207,6 +228,15 @@ namespace SoftLiu_VSMainMenuTools
                 }
             }
         }
+        private void ModifyData(Student student)
+        {
+            //TODO
+        }
+        private void DeleteData(Student student)
+        {
+            //TODO
+        }
+
         private void textBoxPhone_KeyPress(object sender, KeyPressEventArgs e)
         {
             // 允许输入:数字、退格键(8)、全选(1)、复制(3)、粘贴(22)
@@ -252,7 +282,7 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 if (comboBox2.Items.Count <= 0)
                 {
-                    comboBox2.Items.Add("市区");
+                    comboBox2.Items.Add(comboBox1.SelectedItem);
                 }
                 comboBox2.SelectedIndex = 0;
             }
@@ -263,22 +293,32 @@ namespace SoftLiu_VSMainMenuTools
             comboBox3.Items.Clear();
             try
             {
-                foreach (var item in cityDic[comboBox1.SelectedItem.ToString()][comboBox2.SelectedItem.ToString()])
+                if (cityDic[comboBox1.SelectedItem.ToString()].ContainsKey(comboBox2.SelectedItem.ToString()))
                 {
-                    if (!comboBox3.Items.Contains(item))
+                    foreach (var item in cityDic[comboBox1.SelectedItem.ToString()][comboBox2.SelectedItem.ToString()])
                     {
-                        comboBox3.Items.Add(item);
+                        if (!comboBox3.Items.Contains(item))
+                        {
+                            comboBox3.Items.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    if (comboBox3.Items.Count <= 0)
+                    {
+                        comboBox3.Items.Add(comboBox2.SelectedItem);
                     }
                 }
             }
             catch (Exception exc)
             {
+                comboBox3.Items.Clear();
                 if (comboBox3.Items.Count <= 0)
                 {
-                    comboBox3.Items.Add("市区");
+                    comboBox3.Items.Add(comboBox2.SelectedItem);
                 }
             }
-
             comboBox3.SelectedIndex = 0;
         }
 

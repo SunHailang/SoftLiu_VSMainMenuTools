@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using SoftLiu_VSMainMenuTools.HelpMenu;
 using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
 using System;
 using System.Collections.Generic;
@@ -149,6 +150,12 @@ namespace SoftLiu_VSMainMenuTools
             //}
             //string path1 = @"C:\Users\hlsun\Desktop\1.txt";
             //File.WriteAllText(path1, sb.ToString(), Encoding.UTF8);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form about = new AboutForm();
+            about.Show();
         }
     }
 }

@@ -6,6 +6,7 @@
 /// </summary>
 
 using SoftLiu_VSMainMenuTools.Singleton;
+using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
 
 namespace SoftLiu_VSMainMenuTools.Utils
@@ -29,15 +30,25 @@ namespace SoftLiu_VSMainMenuTools.Utils
 
         public VersionUtils()
         {
-            if (version == null)
-            {
-                string ver = ConfigurationUtils.Instance.GetAppSettingValue("versionName");
-                version = new Version(ver);
-                string code = ConfigurationUtils.Instance.GetAppSettingValue("versionCode");
-                int result = 0;
-                int.TryParse(code, out result);
-                versionCode = result;
-            }
+            Update();
+            EventManager<Events>.Instance.RegisterEvent(Events.UpdateVersionEvent, OnUpdateVersionEvent);
+
+        }
+
+        private void Update()
+        {
+            string ver = ConfigurationUtils.Instance.GetAppSettingValue("versionName");
+            version = new Version(ver);
+            string code = ConfigurationUtils.Instance.GetAppSettingValue("versionCode");
+            int result = 0;
+            int.TryParse(code, out result);
+            versionCode = result;
+        }
+
+        private void OnUpdateVersionEvent(Events eventType, object[] arg2)
+        {
+            Update();
+            EventManager<Events>.Instance.TriggerEvent(Events.UpdateVersionCompleteEvent, null);
         }
 
         ~VersionUtils()
@@ -45,6 +56,8 @@ namespace SoftLiu_VSMainMenuTools.Utils
             if (version != null)
                 version = null;
             versionCode = 0;
+
+            EventManager<Events>.Instance.DeregisterEvent(Events.UpdateVersionEvent, OnUpdateVersionEvent);
         }
 
     }

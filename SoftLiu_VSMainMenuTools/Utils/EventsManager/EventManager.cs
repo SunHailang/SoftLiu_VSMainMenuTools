@@ -45,6 +45,7 @@ namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
             List<Action<T, object[]>> list;
             if (!m_events.TryGetValue(eventType, out list))
             {
+                list = new List<Action<T, object[]>>();
                 list.Add(listener);
                 m_events.Add(eventType, list);
             }

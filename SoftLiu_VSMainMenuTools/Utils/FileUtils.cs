@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// 
+/// __author__ = "sun hai lang"
+/// __date__ 2019-07-22
+/// 
+/// </summary>
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
