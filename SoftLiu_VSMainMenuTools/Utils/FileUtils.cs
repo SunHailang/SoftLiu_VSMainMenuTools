@@ -36,5 +36,62 @@ namespace SoftLiu_VSMainMenuTools.Utils
             rootPath = rootPath.Substring(0, rootPath.LastIndexOf("\\")); // @"F:\project\WPF\AstroATE-PDR\04. 程序\01. 源代码\AstroATE\AstroATE
             return rootPath;
         }
+
+        /// <summary>
+        /// 获取 一个文件夹下的所有文件  默认包含子文件夹
+        /// </summary>
+        /// <param name="dir">文件夹信息</param>
+        /// <param name="subfile">是否包含子文件夹  默认包含</param>
+        /// <returns></returns>
+        public static FileInfo[] GetDirectorAllFiles(string directory, bool subfile = true)
+        {
+            DirectoryInfo dir = new DirectoryInfo(directory);
+            if (dir == null)
+            {
+                return null;
+            }
+            List<FileInfo> fileList = new List<FileInfo>();
+            if (subfile)
+            {
+                foreach (DirectoryInfo item in dir.GetDirectories())
+                {
+                    fileList.AddRange(GetDirectorAllFiles(item.FullName, subfile));
+                }
+            }
+            foreach (FileInfo item in dir.GetFiles())
+            {
+                fileList.Add(item);
+            }
+            return fileList.ToArray<FileInfo>();
+        }
+
+        /// <summary>
+        /// 删除一个文件夹下的所有空文件夹
+        /// </summary>
+        /// <param name="directory">文件夹路径</param>
+        /// <returns></returns>
+        public static bool DeleteEmptyDirs(string directory)
+        {
+            bool didDelete = false;
+            string[] directoriesdirectories = Directory.GetDirectories(directory);
+            for (int i = 0; i < directoriesdirectories.Length; i++)
+            {
+                string dir = directoriesdirectories[i];
+                int filecount = Directory.GetFiles(dir).Length + Directory.GetDirectories(dir).Length;
+                if (filecount > 0)
+                {
+                    if (DeleteEmptyDirs(dir))
+                    {
+                        i--;
+                    }
+                }
+                else
+                {
+                    Directory.Delete(dir);
+                    didDelete = true;
+                }
+            }
+            return didDelete;
+        }
     }
 }

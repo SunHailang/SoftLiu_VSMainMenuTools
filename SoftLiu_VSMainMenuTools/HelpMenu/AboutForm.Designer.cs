@@ -38,7 +38,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(159, 188);
+            this.labelVersion.Location = new System.Drawing.Point(159, 173);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(48, 13);
             this.labelVersion.TabIndex = 0;
@@ -47,7 +47,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // labelVer
             // 
             this.labelVer.AutoSize = true;
-            this.labelVer.Location = new System.Drawing.Point(213, 188);
+            this.labelVer.Location = new System.Drawing.Point(213, 173);
             this.labelVer.Name = "labelVer";
             this.labelVer.Size = new System.Drawing.Size(48, 13);
             this.labelVer.TabIndex = 0;
@@ -55,7 +55,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(160, 222);
+            this.buttonUpdate.Location = new System.Drawing.Point(160, 207);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(99, 29);
             this.buttonUpdate.TabIndex = 1;
@@ -67,7 +67,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 277);
+            this.ClientSize = new System.Drawing.Size(430, 247);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.labelVer);
             this.Controls.Add(this.labelVersion);

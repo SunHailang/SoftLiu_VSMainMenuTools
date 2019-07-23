@@ -66,7 +66,7 @@ namespace SoftLiu_VSMainMenuTools
             }
 
             comboBox1.SelectedIndex = 0;
-
+            comboBoxFind.SelectedItem = "姓名";
         }
 
         private void ReadChinaInfo()
@@ -103,6 +103,8 @@ namespace SoftLiu_VSMainMenuTools
 
         private void secectDatabase_Click(object sender, EventArgs e)
         {
+            this.textBoxFind.Text = string.Empty;
+
             string sql = "select * from student";
             DataSet data = MysqlManager.Instance.SelectTables(sql);
 
@@ -124,9 +126,14 @@ namespace SoftLiu_VSMainMenuTools
 
         private void ShowDataSource(List<Student> studentList)
         {
+            dataGridView1.ClearSelection();
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new BindingList<Student>(studentList);
 
+            if (dataGridView1.Columns.Contains("btnModify"))
+            {
+                return;
+            }
             DataGridViewButtonColumn btnModify = new DataGridViewButtonColumn();
             btnModify.Name = "btnModify";
             btnModify.HeaderText = "";
@@ -166,7 +173,35 @@ namespace SoftLiu_VSMainMenuTools
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
-
+            string findCondition = comboBoxFind.SelectedItem.ToString();
+            
+            string findStr = textBoxFind.Text.Trim();
+            List<Student> list = new List<Student>();
+            foreach (KeyValuePair<int, Student> item in this.m_currentStudentDic)
+            {
+                switch (findCondition)
+                {
+                    case "序号":
+                        if (item.Value.Index.ToString().Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                    case "手机号":
+                        if (item.Value.PhoneNum.Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                    default:
+                        if (item.Value.Name.Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                }                
+            }
+            ShowDataSource(list);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

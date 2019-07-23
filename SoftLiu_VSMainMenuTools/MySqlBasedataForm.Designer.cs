@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectDatabase = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelAge = new System.Windows.Forms.Label();
@@ -50,18 +56,13 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
+            this.comboBoxFind = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -85,6 +86,43 @@
             this.dataGridView1.Size = new System.Drawing.Size(910, 478);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ColumnIndex
+            // 
+            this.ColumnIndex.DataPropertyName = "Index";
+            this.ColumnIndex.HeaderText = "序号";
+            this.ColumnIndex.Name = "ColumnIndex";
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "Name";
+            this.ColumnName.HeaderText = "姓名";
+            this.ColumnName.Name = "ColumnName";
+            // 
+            // ColumnAge
+            // 
+            this.ColumnAge.DataPropertyName = "Age";
+            this.ColumnAge.HeaderText = "年龄";
+            this.ColumnAge.Name = "ColumnAge";
+            // 
+            // ColumnGender
+            // 
+            this.ColumnGender.DataPropertyName = "Gender";
+            this.ColumnGender.HeaderText = "性别";
+            this.ColumnGender.Name = "ColumnGender";
+            // 
+            // ColumnPhoneNum
+            // 
+            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
+            this.ColumnPhoneNum.HeaderText = "手机号码";
+            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
+            // 
+            // ColumnAddress
+            // 
+            this.ColumnAddress.DataPropertyName = "Address";
+            this.ColumnAddress.HeaderText = "联系地址";
+            this.ColumnAddress.Name = "ColumnAddress";
+            this.ColumnAddress.Width = 80;
             // 
             // selectDatabase
             // 
@@ -217,6 +255,7 @@
             // 
             // tabPageShowData
             // 
+            this.tabPageShowData.Controls.Add(this.comboBoxFind);
             this.tabPageShowData.Controls.Add(this.buttonFind);
             this.tabPageShowData.Controls.Add(this.textBoxFind);
             this.tabPageShowData.Controls.Add(this.dataGridView1);
@@ -231,17 +270,17 @@
             // 
             // buttonFind
             // 
-            this.buttonFind.Location = new System.Drawing.Point(117, 11);
+            this.buttonFind.Location = new System.Drawing.Point(186, 11);
             this.buttonFind.Name = "buttonFind";
-            this.buttonFind.Size = new System.Drawing.Size(81, 23);
+            this.buttonFind.Size = new System.Drawing.Size(52, 23);
             this.buttonFind.TabIndex = 4;
-            this.buttonFind.Text = "搜索(用户名)";
+            this.buttonFind.Text = "搜索";
             this.buttonFind.UseVisualStyleBackColor = true;
             this.buttonFind.Click += new System.EventHandler(this.buttonFind_Click);
             // 
             // textBoxFind
             // 
-            this.textBoxFind.Location = new System.Drawing.Point(6, 13);
+            this.textBoxFind.Location = new System.Drawing.Point(75, 13);
             this.textBoxFind.Name = "textBoxFind";
             this.textBoxFind.Size = new System.Drawing.Size(105, 20);
             this.textBoxFind.TabIndex = 3;
@@ -304,82 +343,15 @@
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // ColumnIndex
+            // label5
             // 
-            this.ColumnIndex.DataPropertyName = "Index";
-            this.ColumnIndex.HeaderText = "序号";
-            this.ColumnIndex.Name = "ColumnIndex";
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.DataPropertyName = "Name";
-            this.ColumnName.HeaderText = "姓名";
-            this.ColumnName.Name = "ColumnName";
-            // 
-            // ColumnAge
-            // 
-            this.ColumnAge.DataPropertyName = "Age";
-            this.ColumnAge.HeaderText = "年龄";
-            this.ColumnAge.Name = "ColumnAge";
-            // 
-            // ColumnGender
-            // 
-            this.ColumnGender.DataPropertyName = "Gender";
-            this.ColumnGender.HeaderText = "性别";
-            this.ColumnGender.Name = "ColumnGender";
-            // 
-            // ColumnPhoneNum
-            // 
-            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
-            this.ColumnPhoneNum.HeaderText = "手机号码";
-            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
-            // 
-            // ColumnAddress
-            // 
-            this.ColumnAddress.DataPropertyName = "Address";
-            this.ColumnAddress.HeaderText = "联系地址";
-            this.ColumnAddress.Name = "ColumnAddress";
-            this.ColumnAddress.Width = 80;
-            // 
-            // labelName
-            // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(38, 35);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(37, 13);
-            this.labelName.TabIndex = 2;
-            this.labelName.Text = "姓名：";
-            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(227, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(11, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "*";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(227, 78);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "*";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(227, 118);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(11, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "*";
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(676, 233);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(11, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "*";
             // 
             // label4
             // 
@@ -391,15 +363,57 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "*";
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(676, 233);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(11, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "*";
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(227, 118);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(11, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "*";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(227, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(11, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "*";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(227, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(11, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "*";
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(38, 35);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(37, 13);
+            this.labelName.TabIndex = 2;
+            this.labelName.Text = "姓名：";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxFind
+            // 
+            this.comboBoxFind.FormattingEnabled = true;
+            this.comboBoxFind.Items.AddRange(new object[] {
+            "序号",
+            "姓名",
+            "手机号"});
+            this.comboBoxFind.Location = new System.Drawing.Point(7, 13);
+            this.comboBoxFind.Name = "comboBoxFind";
+            this.comboBoxFind.Size = new System.Drawing.Size(62, 21);
+            this.comboBoxFind.TabIndex = 5;
             // 
             // MySqlBasedataForm
             // 
@@ -456,5 +470,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.ComboBox comboBoxFind;
     }
 }

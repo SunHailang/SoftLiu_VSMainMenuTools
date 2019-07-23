@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using SoftLiu_VSMainMenuTools.HelpMenu;
+using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,18 @@ namespace SoftLiu_VSMainMenuTools
         public MainMenuForm()
         {
             InitializeComponent();
+
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowTime();
+            ShowTimeAndTimeSpan();
+            comboBoxTime.SelectedIndex = 0;
+            comboBoxMD5.SelectedIndex = 0;
         }
 
-        private void ShowTime()
+        private void ShowTimeAndTimeSpan()
         {
             Thread th = new Thread(() =>
             {
@@ -37,10 +42,10 @@ namespace SoftLiu_VSMainMenuTools
                     {
                         Thread.Sleep(200);
                         if (m_formClosing) break;
-                        //labelShowTime.Text = string.Format("{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        richTextBoxLocalTime.Text = string.Format("{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         if (m_timeSpanPuse) continue;
 
-                        //labelShowTime.Text = string.Format("{0}", (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000);
+                        richTextBoxTimeSpan.Text = string.Format("{0}", (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000);
                     }
                     catch (Exception msg)
                     {
@@ -67,13 +72,6 @@ namespace SoftLiu_VSMainMenuTools
 
         }
 
-        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Environment.Exit(Environment.ExitCode);
-            this.Dispose();
-            this.Close();
-        }
-
         private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form mySql = new MySqlBasedataForm();
@@ -89,14 +87,14 @@ namespace SoftLiu_VSMainMenuTools
         {
 
             string path = Environment.CurrentDirectory;
-            textBox1.AppendText(string.Format("path: {0}\n", path));
+            //textBox1.AppendText(string.Format("path: {0}\n", path));
             string onePath = Directory.GetParent(path).FullName;
-            textBox1.AppendText(string.Format("onePath: {0}\n", onePath));
+            //textBox1.AppendText(string.Format("onePath: {0}\n", onePath));
             DirectoryInfo dir = new DirectoryInfo(path);
             //textBox1.AppendText(string.Format("{0}\n", dir.Ge);
 
-           // Path.
-                
+            // Path.
+
 
             //string path = @"C:\Users\hlsun\Desktop\Document.txt";
             //List<ChinaInfo> chinaList = new List<ChinaInfo>();
@@ -156,6 +154,223 @@ namespace SoftLiu_VSMainMenuTools
         {
             Form about = new AboutForm();
             about.Show();
+        }
+
+        private void buttonTimeSpan_Click(object sender, EventArgs e)
+        {
+            string type = comboBoxTime.SelectedItem.ToString();
+            try
+            {
+                string info = textBoxTimeBefor.Text.Trim();
+                switch (type)
+                {
+                    case "时间转成时间戳":
+                        DateTime dt1 = Convert.ToDateTime(info);
+                        int ts = TimeUtils.ConvertDateTimeInt(dt1);
+                        textBoxTimeAfter.Text = string.Format("{0}", ts);
+                        break;
+                    case "时间戳转成时间":
+                        DateTime dt2 = TimeUtils.GetTime(info);
+                        textBoxTimeAfter.Text = string.Format("{0}", dt2.ToString("yyyy-MM-dd HH:mm:ss"));
+                        break;
+                }
+            }
+            catch (Exception msg)
+            {
+                MessageBox.Show(string.Format("{0}\n{1}", type, msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private Thread m_CountTimeTh = null;
+        private DateTime m_CountTimeDt;
+        private bool m_cancelCountTime = false;
+        private void buttonCountdown_Click(object sender, EventArgs e)
+        {
+            if (buttonCountdown.Text == "确定")
+            {
+                this.textBoxTimeCount.ReadOnly = true;
+                this.m_cancelCountTime = false;
+                buttonCountdown.Text = "取消";
+            }
+            else if (buttonCountdown.Text == "取消")
+            {
+                this.textBoxTimeCount.ReadOnly = false;
+                this.m_cancelCountTime = true;
+                buttonCountdown.Text = "确定";
+                return;
+            }
+            try
+            {
+                string timeinfo = this.textBoxTimeCount.Text.Trim();
+                m_CountTimeDt = Convert.ToDateTime(timeinfo);
+
+                if (m_CountTimeTh != null)
+                {
+                    //Monitor mo
+                    m_cancelCountTime = true;
+                    m_CountTimeTh.Abort();
+                    m_CountTimeTh = null;
+                }
+
+                if (m_CountTimeTh == null)
+                {
+                    m_cancelCountTime = false;
+                    m_CountTimeTh = new Thread(() =>
+                    {
+                        bool timeOut = false;
+                        while (!timeOut && !m_formClosing && !m_cancelCountTime)
+                        {
+                            //Thread.Sleep(100);
+                            try
+                            {
+                                double ts = (m_CountTimeDt - DateTime.Now).TotalSeconds;
+                                //textBox16.Text = (DateTime.Now - dt).ToString("yyyy - MM - dd HH: mm:ss");
+                                string time = (m_CountTimeDt - DateTime.Now).ToString();
+                                string tm = time.Substring(0, time.LastIndexOf('.'));
+                                tm = tm.Replace(".", "天");
+                                textBoxTimeShowCount.Text = string.Format("{0}", tm);
+                                if (ts <= 0)
+                                {
+                                    timeOut = true;
+                                    textBoxTimeShowCount.Text = string.Format("{0}", 0);
+                                }
+                            }
+                            catch (Exception msg)
+                            {
+                                //if (m_formClosing || m_startDealLineTime)
+                                //{
+                                //    break;
+                                //}
+                                //else
+                                //{
+                                //    MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                                //}
+                            }
+                        }
+                        textBoxTimeShowCount.Text = string.Empty;
+                    });
+                    m_CountTimeTh.Start();
+                }
+
+            }
+            catch (Exception msg)
+            {
+                MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.m_formClosing = true;
+        }
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+            this.Dispose();
+            this.Close();
+        }
+
+        private void textBoxFilePath_DragDrop(object sender, DragEventArgs e)
+        {
+            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();//获得路径
+            if (this.textBoxFilePath.Text.CompareTo(path) != 0)
+            {
+                this.textBoxFilePath.Text = path; //由一个textBox显示路径
+                this.textBoxMD5Str.Text = string.Empty;
+            }
+        }
+
+        private void textBoxFilePath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All; //重要代码：表明是所有类型的数据，比如文件路径
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private Thread m_MD5ExchargeThread = null;
+        private void buttonMD5Sure_Click(object sender, EventArgs e)
+        {
+            this.textBoxMD5Str.Text = string.Empty;
+            bool fsChecked = false;
+            bool strChecked = false;
+            switch (comboBoxMD5.SelectedItem.ToString())
+            {
+                case "文件":
+                    fsChecked = true;
+                    break;
+                default:
+                    strChecked = true;
+                    break;
+            }
+            
+            if (strChecked)
+            {
+                string change = this.textBoxFileStr.Text.Trim();
+
+                if (!string.IsNullOrEmpty(change))
+                {
+                    this.textBoxMD5Str.Text = MD5Utils.GetMD5String(change);
+                }
+                else
+                {
+                    MessageBox.Show("Exchange Text can't null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (fsChecked)
+            {
+                string m_MD5SelectFilePath = this.textBoxFilePath.Text;
+                if (File.Exists(m_MD5SelectFilePath))
+                {
+                    if (m_MD5ExchargeThread == null || m_MD5ExchargeThread.ThreadState != ThreadState.Running)
+                    {
+                        m_MD5ExchargeThread = null;
+                        m_MD5ExchargeThread = new Thread(() =>
+                        {
+                            using (FileStream fsStream = new FileStream(m_MD5SelectFilePath, FileMode.Open, FileAccess.Read))
+                            {
+                                long length = fsStream.Length;
+                                byte[] bs = new byte[length];
+                                int r = fsStream.Read(bs, 0, bs.Length);
+                                string md5Str = MD5Utils.GetMD5String(bs);
+                                if (!string.IsNullOrEmpty(md5Str))
+                                {
+                                    this.textBoxMD5Str.Text = md5Str;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Exchange File String is null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        });
+                        m_MD5ExchargeThread.Start();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Exchange MD5 Select File not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Exchange Check Box don't select.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonSelectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = true;//该值确定是否可以选择多个文件
+            dialog.Title = "请选择文件夹";
+            dialog.Filter = "所有文件(*.*)|*.*";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (this.textBoxFilePath.Text.CompareTo(dialog.FileName) != 0)
+                {
+                    this.textBoxFilePath.Text = dialog.FileName;
+                    this.textBoxMD5Str.Text = string.Empty;
+                }
+            }
         }
     }
 }

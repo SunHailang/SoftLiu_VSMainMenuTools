@@ -40,7 +40,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
         /// <returns>MD5 字符串</returns>
         public static string GetMD5String(byte[] key)
         {
-            if (key != null)
+            if (key == null)
             {
                 return null;
             }
