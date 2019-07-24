@@ -20,6 +20,7 @@ namespace SoftLiu_VSMainMenuTools.Data
             private set;
             get;
         }
+        private int m_gender = 0;
         public string Gender
         {
             private set;
@@ -57,6 +58,7 @@ namespace SoftLiu_VSMainMenuTools.Data
             this.Index = index;
             this.Name = name;
             this.Age = age;
+            this.m_gender = gender;
             this.Gender = m_Gender[gender];
             this.PhoneNum = phoneNum;
             m_Address = address;
@@ -68,6 +70,11 @@ namespace SoftLiu_VSMainMenuTools.Data
         public string GetAddressFromDatabase()
         {
             return m_Address;
+        }
+
+        public int GetGenderFromDatabase()
+        {
+            return m_gender;
         }
 
         private int DeleteStudent()

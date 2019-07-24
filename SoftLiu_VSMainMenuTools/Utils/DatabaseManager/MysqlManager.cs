@@ -48,9 +48,9 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
             }
         }
 
-        public int ExistsData(string columeName, string tableName, string conditions)
+        public bool ExistsData(string tableName, string conditions)
         {
-            string query = string.Format("select {0} from {1} where {2} limit 1;", columeName, tableName, conditions);
+            string query = string.Format("select count(*) from {0} where {1} limit 1;", tableName, conditions);
             int result = 0;
             using (MySqlConnection connection = new MySqlConnection(m_connectString))
             {
@@ -58,7 +58,11 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                 {
                     connection.Open();
                     MySqlCommand mycmd1 = new MySqlCommand(query, connection);
-                    result = mycmd1.ExecuteNonQuery();
+                    object obj = mycmd1.ExecuteScalar();
+                    if (obj != null)
+                    {
+                        result = Convert.ToInt32(obj);
+                    }
                 }
                 catch (System.Data.SqlClient.SqlException msg)
                 {
@@ -68,7 +72,11 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                 {
                     connection.Close();
                 }
-                return result;
+                if (result > 0)
+                {
+                    return true;
+                }
+                return false;
             }
         }
         /// <summary>
