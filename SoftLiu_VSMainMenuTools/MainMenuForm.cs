@@ -26,8 +26,10 @@ namespace SoftLiu_VSMainMenuTools
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             ShowTimeAndTimeSpan();
+            this.textBoxTimeCount.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
+            this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
         }
@@ -80,7 +82,12 @@ namespace SoftLiu_VSMainMenuTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReadChinaInfo();
+            //ReadChinaInfo();
+            string sql = "select * from region where level=1;";
+            DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
+            DataTable dataTable = dataSet.Tables[0];
+
+            dataGridView1.DataSource = dataTable;
         }
 
         private void ReadChinaInfo()

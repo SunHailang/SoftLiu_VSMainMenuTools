@@ -9,6 +9,8 @@ using MySql.Data.MySqlClient;
 using SoftLiu_VSMainMenuTools.Singleton;
 using System;
 using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
 {
@@ -20,7 +22,7 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
             if (string.IsNullOrEmpty(m_connectString))
             {
                 m_connectString = ConfigurationUtils.Instance.GetConnectionSettingValue("mySql");
-            }            
+            }
         }
 
         public DataSet SelectTables(string query)
@@ -46,8 +48,62 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
             }
         }
 
-        public int InsesetData(string query)
-        {            
+        public int ExistsData(string columeName, string tableName, string conditions)
+        {
+            string query = string.Format("select {0} from {1} where {2} limit 1;", columeName, tableName, conditions);
+            int result = 0;
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+                    result = mycmd1.ExecuteNonQuery();
+                }
+                catch (System.Data.SqlClient.SqlException msg)
+                {
+                    MessageBox.Show(string.Format("Mysql ExistsData Error: {0}", msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return result;
+            }
+        }
+        /// <summary>
+        /// 插入数据 表示全列插入
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="sqlData">插入的数据</param>
+        /// <returns></returns>
+        public int InsesetData(string tableName, string sqlData)
+        {
+            if (string.IsNullOrEmpty(sqlData)) return 0;
+            string query = string.Format("insert into {0} values({1});", tableName, sqlData);
+            int result = 0;
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+                    result = mycmd1.ExecuteNonQuery();
+                }
+                catch (SqlException msg)
+                {
+                    MessageBox.Show(string.Format("Mysql InsesetData Error: {0}", msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return result;
+            }
+        }
+
+        public int UpdateData(string query)
+        {
             if (string.IsNullOrEmpty(query)) return 0;
 
             int result = 0;
@@ -59,9 +115,9 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                     MySqlCommand mycmd1 = new MySqlCommand(query, connection);
                     result = mycmd1.ExecuteNonQuery();
                 }
-                catch (System.Data.SqlClient.SqlException ex)
+                catch (SqlException msg)
                 {
-                    throw new Exception(ex.Message);
+                    MessageBox.Show(string.Format("Mysql UpdateData Error: {0}", msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -83,9 +139,9 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                     MySqlCommand mycmd1 = new MySqlCommand(query, connection);
                     result = mycmd1.ExecuteNonQuery();
                 }
-                catch (System.Data.SqlClient.SqlException ex)
+                catch (SqlException msg)
                 {
-                    throw new Exception(ex.Message);
+                    MessageBox.Show(string.Format("Mysql DeleteData Error: {0}", msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {

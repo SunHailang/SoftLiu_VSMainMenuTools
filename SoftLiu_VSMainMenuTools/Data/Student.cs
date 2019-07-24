@@ -35,6 +35,12 @@ namespace SoftLiu_VSMainMenuTools.Data
             private set;
             get;
         }
+        public string CardID
+        {
+            private set;
+            get;
+        }
+        private string m_Address = string.Empty;
         public string Address
         {
             private set;
@@ -46,17 +52,23 @@ namespace SoftLiu_VSMainMenuTools.Data
             get;
         }
 
-        public Student(int index, string name, int gender, int age, string phoneNum, string address, string email)
+        public Student(int index, string name, int gender, int age, string phoneNum, string address, string email, string cardID)
         {
             this.Index = index;
             this.Name = name;
             this.Age = age;
             this.Gender = m_Gender[gender];
             this.PhoneNum = phoneNum;
-            this.Address = address;
+            m_Address = address;
+            this.Address = address.Replace("$", "");
             this.Email = email;
+            this.CardID = cardID;
         }
 
+        public string GetAddressFromDatabase()
+        {
+            return m_Address;
+        }
 
         private int DeleteStudent()
         {
@@ -67,6 +79,6 @@ namespace SoftLiu_VSMainMenuTools.Data
         {
             return 0;
         }
-        
+
     }
 }

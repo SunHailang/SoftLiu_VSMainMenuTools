@@ -61,6 +61,7 @@
             this.richTextBoxLocalTime = new System.Windows.Forms.RichTextBox();
             this.labelLocalTime = new System.Windows.Forms.Label();
             this.tabPageMD5Tools = new System.Windows.Forms.TabPage();
+            this.buttonSelectFile = new System.Windows.Forms.Button();
             this.comboBoxMD5 = new System.Windows.Forms.ComboBox();
             this.buttonMD5Sure = new System.Windows.Forms.Button();
             this.textBoxMD5Str = new System.Windows.Forms.TextBox();
@@ -70,11 +71,12 @@
             this.labelFile = new System.Windows.Forms.Label();
             this.labelStr = new System.Windows.Forms.Label();
             this.tabPageHex = new System.Windows.Forms.TabPage();
-            this.buttonSelectFile = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
             this.tabPageMD5Tools.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -88,7 +90,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(990, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1043, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -180,10 +182,10 @@
             this.tabControlMainTools.Controls.Add(this.tabPageTimeTools);
             this.tabControlMainTools.Controls.Add(this.tabPageMD5Tools);
             this.tabControlMainTools.Controls.Add(this.tabPageHex);
-            this.tabControlMainTools.Location = new System.Drawing.Point(690, 28);
+            this.tabControlMainTools.Location = new System.Drawing.Point(743, 28);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
-            this.tabControlMainTools.Size = new System.Drawing.Size(288, 529);
+            this.tabControlMainTools.Size = new System.Drawing.Size(288, 566);
             this.tabControlMainTools.TabIndex = 2;
             // 
             // tabPageTimeTools
@@ -399,10 +401,20 @@
             this.tabPageMD5Tools.Location = new System.Drawing.Point(4, 22);
             this.tabPageMD5Tools.Name = "tabPageMD5Tools";
             this.tabPageMD5Tools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 503);
+            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 540);
             this.tabPageMD5Tools.TabIndex = 1;
             this.tabPageMD5Tools.Text = "MD5转换";
             this.tabPageMD5Tools.UseVisualStyleBackColor = true;
+            // 
+            // buttonSelectFile
+            // 
+            this.buttonSelectFile.Location = new System.Drawing.Point(194, 164);
+            this.buttonSelectFile.Name = "buttonSelectFile";
+            this.buttonSelectFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectFile.TabIndex = 4;
+            this.buttonSelectFile.Text = "选择文件";
+            this.buttonSelectFile.UseVisualStyleBackColor = true;
+            this.buttonSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
             // 
             // comboBoxMD5
             // 
@@ -441,6 +453,7 @@
             this.textBoxFilePath.Location = new System.Drawing.Point(60, 103);
             this.textBoxFilePath.Multiline = true;
             this.textBoxFilePath.Name = "textBoxFilePath";
+            this.textBoxFilePath.ReadOnly = true;
             this.textBoxFilePath.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxFilePath.Size = new System.Drawing.Size(210, 54);
             this.textBoxFilePath.TabIndex = 1;
@@ -494,21 +507,23 @@
             this.tabPageHex.Text = "进制转换";
             this.tabPageHex.UseVisualStyleBackColor = true;
             // 
-            // buttonSelectFile
+            // dataGridView1
             // 
-            this.buttonSelectFile.Location = new System.Drawing.Point(194, 164);
-            this.buttonSelectFile.Name = "buttonSelectFile";
-            this.buttonSelectFile.Size = new System.Drawing.Size(75, 23);
-            this.buttonSelectFile.TabIndex = 4;
-            this.buttonSelectFile.Text = "选择文件";
-            this.buttonSelectFile.UseVisualStyleBackColor = true;
-            this.buttonSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(13, 97);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(724, 497);
+            this.dataGridView1.TabIndex = 3;
             // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 569);
+            this.ClientSize = new System.Drawing.Size(1043, 606);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
@@ -525,6 +540,7 @@
             this.tabPageTimeTools.PerformLayout();
             this.tabPageMD5Tools.ResumeLayout(false);
             this.tabPageMD5Tools.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,6 +591,7 @@
         private System.Windows.Forms.Button buttonMD5Sure;
         private System.Windows.Forms.ComboBox comboBoxMD5;
         private System.Windows.Forms.Button buttonSelectFile;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

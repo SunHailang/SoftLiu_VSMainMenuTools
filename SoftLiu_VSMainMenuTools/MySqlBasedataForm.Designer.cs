@@ -30,10 +30,12 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectDatabase = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -50,6 +52,7 @@
             this.buttonInsert = new System.Windows.Forms.Button();
             this.tabControlBasedata = new System.Windows.Forms.TabControl();
             this.tabPageShowData = new System.Windows.Forms.TabPage();
+            this.comboBoxFind = new System.Windows.Forms.ComboBox();
             this.buttonFind = new System.Windows.Forms.Button();
             this.textBoxFind = new System.Windows.Forms.TextBox();
             this.tabPageAddData = new System.Windows.Forms.TabPage();
@@ -62,7 +65,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
-            this.comboBoxFind = new System.Windows.Forms.ComboBox();
+            this.labelCardID = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxCardID = new System.Windows.Forms.TextBox();
+            this.buttonModify = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -76,10 +82,12 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnIndex,
+            this.ColumnCardID,
             this.ColumnName,
             this.ColumnAge,
             this.ColumnGender,
             this.ColumnPhoneNum,
+            this.ColumnEmail,
             this.ColumnAddress});
             this.dataGridView1.Location = new System.Drawing.Point(6, 45);
             this.dataGridView1.Name = "dataGridView1";
@@ -92,6 +100,13 @@
             this.ColumnIndex.DataPropertyName = "Index";
             this.ColumnIndex.HeaderText = "序号";
             this.ColumnIndex.Name = "ColumnIndex";
+            this.ColumnIndex.Width = 60;
+            // 
+            // ColumnCardID
+            // 
+            this.ColumnCardID.DataPropertyName = "CardID";
+            this.ColumnCardID.HeaderText = "身份证号";
+            this.ColumnCardID.Name = "ColumnCardID";
             // 
             // ColumnName
             // 
@@ -104,18 +119,26 @@
             this.ColumnAge.DataPropertyName = "Age";
             this.ColumnAge.HeaderText = "年龄";
             this.ColumnAge.Name = "ColumnAge";
+            this.ColumnAge.Width = 60;
             // 
             // ColumnGender
             // 
             this.ColumnGender.DataPropertyName = "Gender";
             this.ColumnGender.HeaderText = "性别";
             this.ColumnGender.Name = "ColumnGender";
+            this.ColumnGender.Width = 60;
             // 
             // ColumnPhoneNum
             // 
             this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
             this.ColumnPhoneNum.HeaderText = "手机号码";
             this.ColumnPhoneNum.Name = "ColumnPhoneNum";
+            // 
+            // ColumnEmail
+            // 
+            this.ColumnEmail.DataPropertyName = "Email";
+            this.ColumnEmail.HeaderText = "邮箱";
+            this.ColumnEmail.Name = "ColumnEmail";
             // 
             // ColumnAddress
             // 
@@ -137,7 +160,7 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(109, 32);
+            this.textBoxName.Location = new System.Drawing.Point(109, 60);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(112, 20);
             this.textBoxName.TabIndex = 3;
@@ -145,7 +168,7 @@
             // labelAge
             // 
             this.labelAge.AutoSize = true;
-            this.labelAge.Location = new System.Drawing.Point(38, 75);
+            this.labelAge.Location = new System.Drawing.Point(38, 103);
             this.labelAge.Name = "labelAge";
             this.labelAge.Size = new System.Drawing.Size(37, 13);
             this.labelAge.TabIndex = 2;
@@ -153,15 +176,16 @@
             // 
             // textBoxAge
             // 
-            this.textBoxAge.Location = new System.Drawing.Point(109, 72);
+            this.textBoxAge.Location = new System.Drawing.Point(109, 100);
             this.textBoxAge.Name = "textBoxAge";
             this.textBoxAge.Size = new System.Drawing.Size(112, 20);
             this.textBoxAge.TabIndex = 3;
+            this.textBoxAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAge_KeyPress);
             // 
             // labelPhone
             // 
             this.labelPhone.AutoSize = true;
-            this.labelPhone.Location = new System.Drawing.Point(14, 155);
+            this.labelPhone.Location = new System.Drawing.Point(14, 183);
             this.labelPhone.Name = "labelPhone";
             this.labelPhone.Size = new System.Drawing.Size(61, 13);
             this.labelPhone.TabIndex = 2;
@@ -169,7 +193,7 @@
             // 
             // textBoxPhone
             // 
-            this.textBoxPhone.Location = new System.Drawing.Point(109, 152);
+            this.textBoxPhone.Location = new System.Drawing.Point(109, 180);
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(112, 20);
             this.textBoxPhone.TabIndex = 3;
@@ -178,7 +202,7 @@
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(35, 195);
+            this.labelEmail.Location = new System.Drawing.Point(35, 223);
             this.labelEmail.Name = "labelEmail";
             this.labelEmail.Size = new System.Drawing.Size(37, 13);
             this.labelEmail.TabIndex = 2;
@@ -186,7 +210,7 @@
             // 
             // textBoxEmai
             // 
-            this.textBoxEmai.Location = new System.Drawing.Point(109, 192);
+            this.textBoxEmai.Location = new System.Drawing.Point(109, 220);
             this.textBoxEmai.Name = "textBoxEmai";
             this.textBoxEmai.Size = new System.Drawing.Size(112, 20);
             this.textBoxEmai.TabIndex = 3;
@@ -199,7 +223,7 @@
             "女",
             "男",
             "保密"});
-            this.comboBoxGender.Location = new System.Drawing.Point(109, 112);
+            this.comboBoxGender.Location = new System.Drawing.Point(109, 140);
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(112, 21);
             this.comboBoxGender.TabIndex = 4;
@@ -207,7 +231,7 @@
             // labelGender
             // 
             this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(38, 115);
+            this.labelGender.Location = new System.Drawing.Point(38, 143);
             this.labelGender.Name = "labelGender";
             this.labelGender.Size = new System.Drawing.Size(34, 13);
             this.labelGender.TabIndex = 2;
@@ -216,7 +240,7 @@
             // labelAddress
             // 
             this.labelAddress.AutoSize = true;
-            this.labelAddress.Location = new System.Drawing.Point(14, 235);
+            this.labelAddress.Location = new System.Drawing.Point(14, 263);
             this.labelAddress.Name = "labelAddress";
             this.labelAddress.Size = new System.Drawing.Size(61, 13);
             this.labelAddress.TabIndex = 2;
@@ -224,14 +248,14 @@
             // 
             // textBoxAddress
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(463, 227);
+            this.textBoxAddress.Location = new System.Drawing.Point(463, 255);
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(207, 20);
             this.textBoxAddress.TabIndex = 3;
             // 
             // buttonInsert
             // 
-            this.buttonInsert.Location = new System.Drawing.Point(56, 284);
+            this.buttonInsert.Location = new System.Drawing.Point(56, 312);
             this.buttonInsert.Name = "buttonInsert";
             this.buttonInsert.Size = new System.Drawing.Size(88, 33);
             this.buttonInsert.TabIndex = 1;
@@ -251,7 +275,7 @@
             this.tabControlBasedata.SelectedIndex = 0;
             this.tabControlBasedata.Size = new System.Drawing.Size(930, 555);
             this.tabControlBasedata.TabIndex = 5;
-            this.tabControlBasedata.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControlBasedata.SelectedIndexChanged += new System.EventHandler(this.tabControlBasedata_SelectedIndexChanged);
             // 
             // tabPageShowData
             // 
@@ -267,6 +291,18 @@
             this.tabPageShowData.TabIndex = 0;
             this.tabPageShowData.Text = "查看所有数据";
             this.tabPageShowData.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxFind
+            // 
+            this.comboBoxFind.FormattingEnabled = true;
+            this.comboBoxFind.Items.AddRange(new object[] {
+            "序号",
+            "姓名",
+            "手机号"});
+            this.comboBoxFind.Location = new System.Drawing.Point(7, 13);
+            this.comboBoxFind.Name = "comboBoxFind";
+            this.comboBoxFind.Size = new System.Drawing.Size(62, 21);
+            this.comboBoxFind.TabIndex = 5;
             // 
             // buttonFind
             // 
@@ -290,17 +326,21 @@
             this.tabPageAddData.Controls.Add(this.comboBox3);
             this.tabPageAddData.Controls.Add(this.comboBox2);
             this.tabPageAddData.Controls.Add(this.comboBox1);
+            this.tabPageAddData.Controls.Add(this.buttonModify);
             this.tabPageAddData.Controls.Add(this.buttonInsert);
             this.tabPageAddData.Controls.Add(this.textBoxAddress);
             this.tabPageAddData.Controls.Add(this.labelAddress);
             this.tabPageAddData.Controls.Add(this.comboBoxGender);
+            this.tabPageAddData.Controls.Add(this.textBoxCardID);
             this.tabPageAddData.Controls.Add(this.textBoxName);
             this.tabPageAddData.Controls.Add(this.textBoxEmai);
             this.tabPageAddData.Controls.Add(this.labelEmail);
             this.tabPageAddData.Controls.Add(this.label5);
             this.tabPageAddData.Controls.Add(this.label4);
             this.tabPageAddData.Controls.Add(this.label3);
+            this.tabPageAddData.Controls.Add(this.label7);
             this.tabPageAddData.Controls.Add(this.label2);
+            this.tabPageAddData.Controls.Add(this.labelCardID);
             this.tabPageAddData.Controls.Add(this.label1);
             this.tabPageAddData.Controls.Add(this.labelName);
             this.tabPageAddData.Controls.Add(this.textBoxAge);
@@ -319,7 +359,7 @@
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(345, 227);
+            this.comboBox3.Location = new System.Drawing.Point(345, 255);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(112, 21);
             this.comboBox3.TabIndex = 5;
@@ -328,7 +368,7 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(227, 227);
+            this.comboBox2.Location = new System.Drawing.Point(227, 255);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(112, 21);
             this.comboBox2.TabIndex = 5;
@@ -337,7 +377,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(109, 227);
+            this.comboBox1.Location = new System.Drawing.Point(109, 255);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(112, 21);
             this.comboBox1.TabIndex = 5;
@@ -347,7 +387,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(676, 233);
+            this.label5.Location = new System.Drawing.Point(676, 261);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 13);
             this.label5.TabIndex = 2;
@@ -357,7 +397,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(227, 158);
+            this.label4.Location = new System.Drawing.Point(227, 186);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(11, 13);
             this.label4.TabIndex = 2;
@@ -367,7 +407,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(227, 118);
+            this.label3.Location = new System.Drawing.Point(227, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 13);
             this.label3.TabIndex = 2;
@@ -377,7 +417,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(227, 78);
+            this.label2.Location = new System.Drawing.Point(227, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(11, 13);
             this.label2.TabIndex = 2;
@@ -387,7 +427,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(227, 38);
+            this.label1.Location = new System.Drawing.Point(227, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(11, 13);
             this.label1.TabIndex = 2;
@@ -396,24 +436,49 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(38, 35);
+            this.labelName.Location = new System.Drawing.Point(38, 63);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(37, 13);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "姓名：";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // comboBoxFind
+            // labelCardID
             // 
-            this.comboBoxFind.FormattingEnabled = true;
-            this.comboBoxFind.Items.AddRange(new object[] {
-            "序号",
-            "姓名",
-            "手机号"});
-            this.comboBoxFind.Location = new System.Drawing.Point(7, 13);
-            this.comboBoxFind.Name = "comboBoxFind";
-            this.comboBoxFind.Size = new System.Drawing.Size(62, 21);
-            this.comboBoxFind.TabIndex = 5;
+            this.labelCardID.AutoSize = true;
+            this.labelCardID.Location = new System.Drawing.Point(14, 26);
+            this.labelCardID.Name = "labelCardID";
+            this.labelCardID.Size = new System.Drawing.Size(61, 13);
+            this.labelCardID.TabIndex = 2;
+            this.labelCardID.Text = "身份证号：";
+            this.labelCardID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(227, 29);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(11, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "*";
+            // 
+            // textBoxCardID
+            // 
+            this.textBoxCardID.Location = new System.Drawing.Point(109, 23);
+            this.textBoxCardID.Name = "textBoxCardID";
+            this.textBoxCardID.Size = new System.Drawing.Size(112, 20);
+            this.textBoxCardID.TabIndex = 3;
+            // 
+            // buttonModify
+            // 
+            this.buttonModify.Location = new System.Drawing.Point(162, 312);
+            this.buttonModify.Name = "buttonModify";
+            this.buttonModify.Size = new System.Drawing.Size(88, 33);
+            this.buttonModify.TabIndex = 1;
+            this.buttonModify.Text = "修改数据";
+            this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
             // MySqlBasedataForm
             // 
@@ -458,12 +523,6 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -471,5 +530,17 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ComboBox comboBoxFind;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
+        private System.Windows.Forms.TextBox textBoxCardID;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelCardID;
+        private System.Windows.Forms.Button buttonModify;
     }
 }

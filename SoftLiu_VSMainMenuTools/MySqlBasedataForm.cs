@@ -24,6 +24,13 @@ namespace SoftLiu_VSMainMenuTools
 
         private Dictionary<string, Dictionary<string, List<string>>> cityDic = new Dictionary<string, Dictionary<string, List<string>>>();
 
+        //private delegate void StudentDatabaseDelegate(Student student); // 委托的声明
+
+        //private StudentDatabaseDelegate ModifyDataFunc;
+        //private StudentDatabaseDelegate DeletaDataFunc;
+
+        private Student m_currentDatabaseStudent = null;
+
         public MySqlBasedataForm()
         {
             InitializeComponent();
@@ -31,6 +38,7 @@ namespace SoftLiu_VSMainMenuTools
 
         private void MySqlBasedataForm_Load(object sender, EventArgs e)
         {
+            this.m_currentDatabaseStudent = null;
             this.tabControlBasedata.SelectTab(this.tabPageShowData);
             //初始化拉取数据
             this.secectDatabase_Click(null, new EventArgs());
@@ -116,7 +124,7 @@ namespace SoftLiu_VSMainMenuTools
             for (int i = 0; i < dataRows.Length; i++)
             {
                 DataRow dataRow = dataRows[i];
-                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[6].ToString(), dataRow[5].ToString());
+                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString());
                 studentList.Add(student);
                 studentDic.Add(i, student);
             }
@@ -154,17 +162,19 @@ namespace SoftLiu_VSMainMenuTools
         private void buttonInsert_Click(object sender, EventArgs e)
         {
             // 对应 sql 语句 如果是字符串类型 需要加双引号
-            string sql = "insert into student values({0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", {7})";
+            string tableName = "student";
+            string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
             string name = textBoxName.Text.Trim();
+            string cardID = textBoxCardID.Text.Trim();
             int age = 0;
             int.TryParse(textBoxAge.Text.Trim(), out age);
             int gender = comboBoxGender.SelectedIndex;
             string phone = textBoxPhone.Text.Trim();
             string email = textBoxEmai.Text.Trim();
-            string address = string.Format("{0}{1}{2}{3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
-            sql = string.Format(sql, 0, name, age, gender, phone, email, address, 0);
+            string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
+            sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
 
-            int insert = MysqlManager.Instance.InsesetData(sql);
+            int insert = MysqlManager.Instance.InsesetData(tableName, sql);
             if (insert > 0)
             {
                 MessageBox.Show("insert success.");
@@ -174,7 +184,7 @@ namespace SoftLiu_VSMainMenuTools
         private void buttonFind_Click(object sender, EventArgs e)
         {
             string findCondition = comboBoxFind.SelectedItem.ToString();
-            
+
             string findStr = textBoxFind.Text.Trim();
             List<Student> list = new List<Student>();
             foreach (KeyValuePair<int, Student> item in this.m_currentStudentDic)
@@ -199,22 +209,49 @@ namespace SoftLiu_VSMainMenuTools
                             list.Add(item.Value);
                         }
                         break;
-                }                
+                }
             }
             ShowDataSource(list);
         }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabControlBasedata_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.tabControlBasedata.SelectedTab == this.tabPageAddData)
+            if (this.tabControlBasedata.SelectedTab == this.tabPageAddData && this.m_currentDatabaseStudent != null)
+            {
+                Student student = this.m_currentDatabaseStudent;
+                this.textBoxName.Text = student.Name;
+                this.textBoxAge.Text = string.Format("{0}", student.Age);
+                string[] address = student.GetAddressFromDatabase().Split('$');
+                if (address.Length < 3)
+                {
+                    this.textBoxAddress.Text = student.Address;
+                }
+                else
+                {
+                    this.comboBox1.SelectedItem = address[0];
+                    this.comboBox2.SelectedItem = address[1];
+                    this.comboBox3.SelectedItem = address[2];
+                    this.textBoxAddress.Text = address[3];
+                }
+                this.textBoxEmai.Text = student.Email;
+                this.textBoxPhone.Text = student.PhoneNum;
+                this.comboBoxGender.SelectedItem = student.Gender;
+                this.textBoxCardID.Text = student.CardID;
+                this.textBoxCardID.ReadOnly = true;
+            }
+            else if (this.tabControlBasedata.SelectedTab == this.tabPageAddData)
             {
                 this.textBoxName.Text = string.Empty;
                 this.textBoxAge.Text = string.Format("{0}", 18);
                 this.textBoxAddress.Text = string.Empty;
                 this.textBoxEmai.Text = string.Empty;
                 this.textBoxPhone.Text = string.Empty;
-                this.comboBoxGender.SelectedIndex = 0;
+                this.comboBoxGender.SelectedItem = "男";
+                this.textBoxCardID.ReadOnly = false;
+                this.textBoxCardID.Text = "10010190001";
+                this.buttonInsert.Visible = true;
             }
+
+            this.m_currentDatabaseStudent = null;
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -229,7 +266,6 @@ namespace SoftLiu_VSMainMenuTools
                         result = MessageBox.Show("确认修改选择的信息！", "修改", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                         if (result == DialogResult.OK)
                         {
-                            //TODO
                             //TODO
                             Student student;
                             if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
@@ -266,6 +302,13 @@ namespace SoftLiu_VSMainMenuTools
         private void ModifyData(Student student)
         {
             //TODO
+            this.m_currentDatabaseStudent = student;
+            this.tabControlBasedata.SelectedTab = this.tabPageAddData;
+            this.buttonInsert.Visible = false;
+        }
+        private void buttonModify_Click(object sender, EventArgs e)
+        {
+
         }
         private void DeleteData(Student student)
         {
@@ -361,5 +404,17 @@ namespace SoftLiu_VSMainMenuTools
         {
 
         }
+
+        private void textBoxAge_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // 允许输入:数字、退格键(8)、全选(1)、复制(3)、粘贴(22)
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8 &&
+                    e.KeyChar != 1 && e.KeyChar != 3 && e.KeyChar != 22)
+            {
+                e.Handled = true;
+            }
+        }
+
+
     }
 }
