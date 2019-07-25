@@ -58,6 +58,8 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                 {
                     connection.Open();
                     MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+
+                    //执行查询，并返回查询所返回的结果集中第一行的第一列。所有其他的列和行将被忽略。
                     object obj = mycmd1.ExecuteScalar();
                     if (obj != null)
                     {
