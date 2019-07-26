@@ -9,6 +9,7 @@ namespace SoftLiu_VSMainMenuTools.Data
     public class Student
     {
         private string[] m_Gender = { "女", "男", "保密" };
+        private string[] m_IsDelete = { "No", "Yes" };
 
         public int Index
         {
@@ -53,7 +54,13 @@ namespace SoftLiu_VSMainMenuTools.Data
             get;
         }
 
-        public Student(int index, string name, int gender, int age, string phoneNum, string address, string email, string cardID)
+        public string IsDelete
+        {
+            private set;
+            get;
+        }
+
+        public Student(int index, string name, int gender, int age, string phoneNum, string address, string email, string cardID, int isDelete)
         {
             this.Index = index;
             this.Name = name;
@@ -65,6 +72,7 @@ namespace SoftLiu_VSMainMenuTools.Data
             this.Address = address.Replace("$", "");
             this.Email = email;
             this.CardID = cardID;
+            this.IsDelete = m_IsDelete[isDelete];
         }
 
         public string GetAddressFromDatabase()

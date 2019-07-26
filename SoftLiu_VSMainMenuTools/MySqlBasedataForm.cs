@@ -20,6 +20,8 @@ namespace SoftLiu_VSMainMenuTools
 
         private Dictionary<int, Student> m_currentStudentDic = null;
 
+        private Dictionary<int, Student> m_currentStudentIsDeleteDic = null;
+
         private List<ChinaInfo> m_chinaList = null;
 
         private Dictionary<string, Dictionary<string, List<string>>> cityDic = new Dictionary<string, Dictionary<string, List<string>>>();
@@ -117,7 +119,7 @@ namespace SoftLiu_VSMainMenuTools
         {
             this.textBoxFind.Text = string.Empty;
 
-            string sql = "select * from student";
+            string sql = "select * from student where isDelete=0";
             DataSet data = MysqlManager.Instance.SelectTables(sql);
 
             this.m_currentDataTable = data.Tables[0];
@@ -128,7 +130,8 @@ namespace SoftLiu_VSMainMenuTools
             for (int i = 0; i < dataRows.Length; i++)
             {
                 DataRow dataRow = dataRows[i];
-                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString());
+
+                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
                 studentList.Add(student);
                 studentDic.Add(i, student);
             }
@@ -141,6 +144,7 @@ namespace SoftLiu_VSMainMenuTools
             dataGridView1.ClearSelection();
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new BindingList<Student>(studentList);
+
 
             if (dataGridView1.Columns.Contains("btnModify"))
             {
@@ -231,7 +235,21 @@ namespace SoftLiu_VSMainMenuTools
         }
         private void tabControlBasedata_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
+            if (this.tabControlBasedata.SelectedTab == this.tabPageIsDelete)
+            {
+                if (this.m_currentStudentIsDeleteDic == null)
+                {
+                    this.comboBoxIsDelete.SelectedIndex = 0;
+                    buttonRushIsDelete_Click(null, new EventArgs());
+                }
+                else
+                {
+                    List<Student> lis = new List<Student>();
+                    lis.AddRange(this.m_currentStudentIsDeleteDic.Values);
+                    ShowIsDeleteDataSource(lis);
+                }
+            }
+            else if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
             {
                 Student student = this.m_currentDatabaseStudent;
                 this.textBoxModifyName.Text = student.Name;
@@ -299,7 +317,7 @@ namespace SoftLiu_VSMainMenuTools
                             Student student;
                             if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
                             {
-                                DeleteData(student);
+                                DeleteData(student, rowIndex);
                             }
                             else
                             {
@@ -379,6 +397,12 @@ namespace SoftLiu_VSMainMenuTools
                 if (result > 0)
                 {
                     MessageBox.Show("修改成功.");
+                    textBoxModifyAge.Text = string.Empty;
+                    textBoxModifyCardID.Text = string.Empty;
+                    textBoxModifyAddress.Text = string.Empty;
+                    textBoxModifyEmai.Text = string.Empty;
+                    textBoxModifyName.Text = string.Empty;
+                    textBoxModifyPhone.Text = string.Empty;
                 }
                 else
                 {
@@ -387,9 +411,20 @@ namespace SoftLiu_VSMainMenuTools
             }
             this.m_currentDatabaseStudent = null;
         }
-        private void DeleteData(Student student)
+        private void DeleteData(Student student, int index)
         {
             //TODO
+            string sql = string.Format("update student set {0} where cardID=\"{1}\";", "isDelete=1", student.CardID);
+            int resultSql = MysqlManager.Instance.UpdateData(sql);
+            if (resultSql > 0)
+            {
+                MessageBox.Show("删除成功.");
+                dataGridView1.Rows.RemoveAt(index);
+            }
+            else
+            {
+                MessageBox.Show("删除失败.");
+            }
         }
 
         private void textBoxPhone_KeyPress(object sender, KeyPressEventArgs e)
@@ -583,6 +618,117 @@ namespace SoftLiu_VSMainMenuTools
                     e.KeyChar != 1 && e.KeyChar != 3 && e.KeyChar != 22)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void buttonRushIsDelete_Click(object sender, EventArgs e)
+        {
+            this.textBoxIsDelete.Text = string.Empty;
+
+            string sql = "select * from student where isDelete=1";
+            DataSet data = MysqlManager.Instance.SelectTables(sql);
+
+            this.m_currentDataTable = data.Tables[0];
+            //dataGridView1.DataSource = this.m_currentDataTable.DefaultView;
+            List<Student> studentList = new List<Student>();
+            Dictionary<int, Student> studentDic = new Dictionary<int, Student>();
+            DataRow[] dataRows = this.m_currentDataTable.Select();
+            for (int i = 0; i < dataRows.Length; i++)
+            {
+                DataRow dataRow = dataRows[i];
+
+                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
+                studentList.Add(student);
+                studentDic.Add(i, student);
+            }
+            this.m_currentStudentIsDeleteDic = studentDic;
+            ShowIsDeleteDataSource(studentList);
+        }
+        private void ShowIsDeleteDataSource(List<Student> studentList)
+        {
+            dataGridViewIsDelete.ClearSelection();
+            dataGridViewIsDelete.AutoGenerateColumns = false;
+            dataGridViewIsDelete.DataSource = new BindingList<Student>(studentList);
+
+
+            if (dataGridViewIsDelete.Columns.Contains("btnRestore"))
+            {
+                return;
+            }
+            DataGridViewButtonColumn btnModify = new DataGridViewButtonColumn();
+            btnModify.Name = "btnRestore";
+            btnModify.HeaderText = "";
+            btnModify.DefaultCellStyle.NullValue = "恢复";
+            btnModify.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            btnModify.DefaultCellStyle.BackColor = Color.Green;
+            dataGridViewIsDelete.Columns.Add(btnModify);
+        }
+
+        private void buttonFindIsDelete_Click(object sender, EventArgs e)
+        {
+            string findCondition = comboBoxIsDelete.SelectedItem.ToString();
+
+            string findStr = textBoxIsDelete.Text.Trim();
+            List<Student> list = new List<Student>();
+            foreach (KeyValuePair<int, Student> item in this.m_currentStudentIsDeleteDic)
+            {
+                switch (findCondition)
+                {
+                    case "序号":
+                        if (item.Value.Index.ToString().Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                    case "手机号":
+                        if (item.Value.PhoneNum.Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                    default:
+                        if (item.Value.Name.Equals(findStr))
+                        {
+                            list.Add(item.Value);
+                        }
+                        break;
+                }
+            }
+            ShowIsDeleteDataSource(list);
+        }
+
+        private void dataGridViewIsDelete_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int columnIndex = e.ColumnIndex;
+            if (rowIndex >= 0)
+            {
+                DialogResult result = DialogResult.None;
+                switch (dataGridViewIsDelete.Columns[columnIndex].Name)
+                {
+                    case "btnRestore":
+                        result = MessageBox.Show("确认恢复的信息！", "恢复", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if (result == DialogResult.OK)
+                        {
+                            //TODO
+                            Student student;
+                            if (this.m_currentStudentIsDeleteDic.TryGetValue(rowIndex, out student))
+                            {
+                                string sql = string.Format("update student set {0} where cardID=\"{1}\";", "isDelete=0", student.CardID);
+                                int resultSql = MysqlManager.Instance.UpdateData(sql);
+                                if (resultSql > 0)
+                                {
+                                    MessageBox.Show("恢复成功.");
+                                    dataGridViewIsDelete.Rows.RemoveAt(rowIndex);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("恢复失败.");
+                                }
+                            }
+                        }
+                        break;
+                }
             }
         }
     }

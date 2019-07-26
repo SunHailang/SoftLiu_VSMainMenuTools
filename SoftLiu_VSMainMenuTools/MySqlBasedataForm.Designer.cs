@@ -29,14 +29,6 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectDatabase = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelAge = new System.Windows.Forms.Label();
@@ -93,11 +85,36 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.tabPageIsDelete = new System.Windows.Forms.TabPage();
+            this.comboBoxIsDelete = new System.Windows.Forms.ComboBox();
+            this.buttonFindIsDelete = new System.Windows.Forms.Button();
+            this.textBoxIsDelete = new System.Windows.Forms.TextBox();
+            this.dataGridViewIsDelete = new System.Windows.Forms.DataGridView();
+            this.buttonRushIsDelete = new System.Windows.Forms.Button();
+            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeletePhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteEmil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
             this.tabPageAddData.SuspendLayout();
             this.tabPageModifyData.SuspendLayout();
+            this.tabPageIsDelete.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIsDelete)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -119,58 +136,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(910, 478);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // ColumnIndex
-            // 
-            this.ColumnIndex.DataPropertyName = "Index";
-            this.ColumnIndex.HeaderText = "序号";
-            this.ColumnIndex.Name = "ColumnIndex";
-            this.ColumnIndex.Width = 60;
-            // 
-            // ColumnCardID
-            // 
-            this.ColumnCardID.DataPropertyName = "CardID";
-            this.ColumnCardID.HeaderText = "身份证号";
-            this.ColumnCardID.Name = "ColumnCardID";
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.DataPropertyName = "Name";
-            this.ColumnName.HeaderText = "姓名";
-            this.ColumnName.Name = "ColumnName";
-            // 
-            // ColumnAge
-            // 
-            this.ColumnAge.DataPropertyName = "Age";
-            this.ColumnAge.HeaderText = "年龄";
-            this.ColumnAge.Name = "ColumnAge";
-            this.ColumnAge.Width = 60;
-            // 
-            // ColumnGender
-            // 
-            this.ColumnGender.DataPropertyName = "Gender";
-            this.ColumnGender.HeaderText = "性别";
-            this.ColumnGender.Name = "ColumnGender";
-            this.ColumnGender.Width = 60;
-            // 
-            // ColumnPhoneNum
-            // 
-            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
-            this.ColumnPhoneNum.HeaderText = "手机号码";
-            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
-            // 
-            // ColumnEmail
-            // 
-            this.ColumnEmail.DataPropertyName = "Email";
-            this.ColumnEmail.HeaderText = "邮箱";
-            this.ColumnEmail.Name = "ColumnEmail";
-            // 
-            // ColumnAddress
-            // 
-            this.ColumnAddress.DataPropertyName = "Address";
-            this.ColumnAddress.HeaderText = "联系地址";
-            this.ColumnAddress.Name = "ColumnAddress";
-            this.ColumnAddress.Width = 80;
             // 
             // selectDatabase
             // 
@@ -294,6 +259,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlBasedata.Controls.Add(this.tabPageShowData);
+            this.tabControlBasedata.Controls.Add(this.tabPageIsDelete);
             this.tabControlBasedata.Controls.Add(this.tabPageAddData);
             this.tabControlBasedata.Controls.Add(this.tabPageModifyData);
             this.tabControlBasedata.Location = new System.Drawing.Point(12, 12);
@@ -746,6 +712,209 @@
             this.label19.TabIndex = 17;
             this.label19.Text = "性别：";
             // 
+            // tabPageIsDelete
+            // 
+            this.tabPageIsDelete.Controls.Add(this.comboBoxIsDelete);
+            this.tabPageIsDelete.Controls.Add(this.buttonFindIsDelete);
+            this.tabPageIsDelete.Controls.Add(this.textBoxIsDelete);
+            this.tabPageIsDelete.Controls.Add(this.dataGridViewIsDelete);
+            this.tabPageIsDelete.Controls.Add(this.buttonRushIsDelete);
+            this.tabPageIsDelete.Location = new System.Drawing.Point(4, 22);
+            this.tabPageIsDelete.Name = "tabPageIsDelete";
+            this.tabPageIsDelete.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageIsDelete.Size = new System.Drawing.Size(922, 529);
+            this.tabPageIsDelete.TabIndex = 3;
+            this.tabPageIsDelete.Text = "查看已删除数据";
+            this.tabPageIsDelete.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxIsDelete
+            // 
+            this.comboBoxIsDelete.FormattingEnabled = true;
+            this.comboBoxIsDelete.Items.AddRange(new object[] {
+            "序号",
+            "姓名",
+            "手机号"});
+            this.comboBoxIsDelete.Location = new System.Drawing.Point(7, 13);
+            this.comboBoxIsDelete.Name = "comboBoxIsDelete";
+            this.comboBoxIsDelete.Size = new System.Drawing.Size(62, 21);
+            this.comboBoxIsDelete.TabIndex = 10;
+            // 
+            // buttonFindIsDelete
+            // 
+            this.buttonFindIsDelete.Location = new System.Drawing.Point(186, 11);
+            this.buttonFindIsDelete.Name = "buttonFindIsDelete";
+            this.buttonFindIsDelete.Size = new System.Drawing.Size(52, 23);
+            this.buttonFindIsDelete.TabIndex = 9;
+            this.buttonFindIsDelete.Text = "搜索";
+            this.buttonFindIsDelete.UseVisualStyleBackColor = true;
+            this.buttonFindIsDelete.Click += new System.EventHandler(this.buttonFindIsDelete_Click);
+            // 
+            // textBoxIsDelete
+            // 
+            this.textBoxIsDelete.Location = new System.Drawing.Point(75, 13);
+            this.textBoxIsDelete.Name = "textBoxIsDelete";
+            this.textBoxIsDelete.Size = new System.Drawing.Size(105, 20);
+            this.textBoxIsDelete.TabIndex = 8;
+            // 
+            // dataGridViewIsDelete
+            // 
+            this.dataGridViewIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewIsDelete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewIsDelete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnIsDeleteIndex,
+            this.ColumnIsDeleteCardID,
+            this.ColumnIsDeleteName,
+            this.ColumnIsDeleteAge,
+            this.ColumnIsDeleteGender,
+            this.ColumnIsDeletePhoneNum,
+            this.ColumnIsDeleteEmil,
+            this.ColumnIsDeleteAddress,
+            this.ColumnIsDeleteInfo});
+            this.dataGridViewIsDelete.Location = new System.Drawing.Point(6, 45);
+            this.dataGridViewIsDelete.Name = "dataGridViewIsDelete";
+            this.dataGridViewIsDelete.Size = new System.Drawing.Size(910, 478);
+            this.dataGridViewIsDelete.TabIndex = 6;
+            this.dataGridViewIsDelete.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellContentClick);
+            // 
+            // buttonRushIsDelete
+            // 
+            this.buttonRushIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRushIsDelete.Location = new System.Drawing.Point(828, 6);
+            this.buttonRushIsDelete.Name = "buttonRushIsDelete";
+            this.buttonRushIsDelete.Size = new System.Drawing.Size(88, 33);
+            this.buttonRushIsDelete.TabIndex = 7;
+            this.buttonRushIsDelete.Text = "刷新所有数据";
+            this.buttonRushIsDelete.UseVisualStyleBackColor = true;
+            this.buttonRushIsDelete.Click += new System.EventHandler(this.buttonRushIsDelete_Click);
+            // 
+            // ColumnIndex
+            // 
+            this.ColumnIndex.DataPropertyName = "Index";
+            this.ColumnIndex.HeaderText = "序号";
+            this.ColumnIndex.Name = "ColumnIndex";
+            this.ColumnIndex.ReadOnly = true;
+            this.ColumnIndex.Width = 60;
+            // 
+            // ColumnCardID
+            // 
+            this.ColumnCardID.DataPropertyName = "CardID";
+            this.ColumnCardID.HeaderText = "身份证号";
+            this.ColumnCardID.Name = "ColumnCardID";
+            this.ColumnCardID.ReadOnly = true;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "Name";
+            this.ColumnName.HeaderText = "姓名";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            // 
+            // ColumnAge
+            // 
+            this.ColumnAge.DataPropertyName = "Age";
+            this.ColumnAge.HeaderText = "年龄";
+            this.ColumnAge.Name = "ColumnAge";
+            this.ColumnAge.ReadOnly = true;
+            this.ColumnAge.Width = 60;
+            // 
+            // ColumnGender
+            // 
+            this.ColumnGender.DataPropertyName = "Gender";
+            this.ColumnGender.HeaderText = "性别";
+            this.ColumnGender.Name = "ColumnGender";
+            this.ColumnGender.ReadOnly = true;
+            this.ColumnGender.Width = 60;
+            // 
+            // ColumnPhoneNum
+            // 
+            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
+            this.ColumnPhoneNum.HeaderText = "手机号码";
+            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
+            this.ColumnPhoneNum.ReadOnly = true;
+            // 
+            // ColumnEmail
+            // 
+            this.ColumnEmail.DataPropertyName = "Email";
+            this.ColumnEmail.HeaderText = "邮箱";
+            this.ColumnEmail.Name = "ColumnEmail";
+            this.ColumnEmail.ReadOnly = true;
+            // 
+            // ColumnAddress
+            // 
+            this.ColumnAddress.DataPropertyName = "Address";
+            this.ColumnAddress.HeaderText = "联系地址";
+            this.ColumnAddress.Name = "ColumnAddress";
+            this.ColumnAddress.ReadOnly = true;
+            this.ColumnAddress.Width = 80;
+            // 
+            // ColumnIsDeleteIndex
+            // 
+            this.ColumnIsDeleteIndex.DataPropertyName = "Index";
+            this.ColumnIsDeleteIndex.HeaderText = "序号";
+            this.ColumnIsDeleteIndex.Name = "ColumnIsDeleteIndex";
+            this.ColumnIsDeleteIndex.ReadOnly = true;
+            this.ColumnIsDeleteIndex.Width = 60;
+            // 
+            // ColumnIsDeleteCardID
+            // 
+            this.ColumnIsDeleteCardID.DataPropertyName = "CardID";
+            this.ColumnIsDeleteCardID.HeaderText = "身份证号";
+            this.ColumnIsDeleteCardID.Name = "ColumnIsDeleteCardID";
+            this.ColumnIsDeleteCardID.ReadOnly = true;
+            // 
+            // ColumnIsDeleteName
+            // 
+            this.ColumnIsDeleteName.DataPropertyName = "Name";
+            this.ColumnIsDeleteName.HeaderText = "姓名";
+            this.ColumnIsDeleteName.Name = "ColumnIsDeleteName";
+            this.ColumnIsDeleteName.ReadOnly = true;
+            // 
+            // ColumnIsDeleteAge
+            // 
+            this.ColumnIsDeleteAge.DataPropertyName = "Age";
+            this.ColumnIsDeleteAge.HeaderText = "年龄";
+            this.ColumnIsDeleteAge.Name = "ColumnIsDeleteAge";
+            this.ColumnIsDeleteAge.ReadOnly = true;
+            this.ColumnIsDeleteAge.Width = 60;
+            // 
+            // ColumnIsDeleteGender
+            // 
+            this.ColumnIsDeleteGender.DataPropertyName = "Gender";
+            this.ColumnIsDeleteGender.HeaderText = "性别";
+            this.ColumnIsDeleteGender.Name = "ColumnIsDeleteGender";
+            this.ColumnIsDeleteGender.ReadOnly = true;
+            this.ColumnIsDeleteGender.Width = 60;
+            // 
+            // ColumnIsDeletePhoneNum
+            // 
+            this.ColumnIsDeletePhoneNum.DataPropertyName = "PhoneNum";
+            this.ColumnIsDeletePhoneNum.HeaderText = "手机号码";
+            this.ColumnIsDeletePhoneNum.Name = "ColumnIsDeletePhoneNum";
+            this.ColumnIsDeletePhoneNum.ReadOnly = true;
+            // 
+            // ColumnIsDeleteEmil
+            // 
+            this.ColumnIsDeleteEmil.DataPropertyName = "Email";
+            this.ColumnIsDeleteEmil.HeaderText = "邮箱";
+            this.ColumnIsDeleteEmil.Name = "ColumnIsDeleteEmil";
+            this.ColumnIsDeleteEmil.ReadOnly = true;
+            // 
+            // ColumnIsDeleteAddress
+            // 
+            this.ColumnIsDeleteAddress.DataPropertyName = "Address";
+            this.ColumnIsDeleteAddress.HeaderText = "联系地址";
+            this.ColumnIsDeleteAddress.Name = "ColumnIsDeleteAddress";
+            this.ColumnIsDeleteAddress.ReadOnly = true;
+            this.ColumnIsDeleteAddress.Width = 80;
+            // 
+            // ColumnIsDeleteInfo
+            // 
+            this.ColumnIsDeleteInfo.DataPropertyName = "IsDelete";
+            this.ColumnIsDeleteInfo.HeaderText = "逻辑删除";
+            this.ColumnIsDeleteInfo.Name = "ColumnIsDeleteInfo";
+            this.ColumnIsDeleteInfo.ReadOnly = true;
+            // 
             // MySqlBasedataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -763,6 +932,9 @@
             this.tabPageAddData.PerformLayout();
             this.tabPageModifyData.ResumeLayout(false);
             this.tabPageModifyData.PerformLayout();
+            this.tabPageIsDelete.ResumeLayout(false);
+            this.tabPageIsDelete.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIsDelete)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -785,6 +957,7 @@
         private System.Windows.Forms.Button buttonInsert;
         private System.Windows.Forms.TabControl tabControlBasedata;
         private System.Windows.Forms.TabPage tabPageShowData;
+        private System.Windows.Forms.TabPage tabPageIsDelete;
         private System.Windows.Forms.TabPage tabPageAddData;
         private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Button buttonFind;
@@ -798,14 +971,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ComboBox comboBoxFind;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
         private System.Windows.Forms.TextBox textBoxCardID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label labelCardID;
@@ -834,5 +999,27 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBoxIsDelete;
+        private System.Windows.Forms.Button buttonFindIsDelete;
+        private System.Windows.Forms.TextBox textBoxIsDelete;
+        private System.Windows.Forms.DataGridView dataGridViewIsDelete;
+        private System.Windows.Forms.Button buttonRushIsDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeletePhoneNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteEmil;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteInfo;
     }
 }
