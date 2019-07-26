@@ -66,23 +66,23 @@ namespace SoftLiu_VSMainMenuTools.Data
             this.Name = name;
             this.Age = age;
             this.m_gender = gender;
-            this.Gender = m_Gender[gender];
+            this.Gender = this.m_Gender[gender];
             this.PhoneNum = phoneNum;
-            m_Address = address;
+            this.m_Address = address;
             this.Address = address.Replace("$", "");
             this.Email = email;
             this.CardID = cardID;
-            this.IsDelete = m_IsDelete[isDelete];
+            this.IsDelete = this.m_IsDelete[isDelete];
         }
 
         public string GetAddressFromDatabase()
         {
-            return m_Address;
+            return this.m_Address;
         }
 
         public int GetGenderFromDatabase()
         {
-            return m_gender;
+            return this.m_gender;
         }
 
         private int DeleteStudent()
