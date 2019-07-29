@@ -93,5 +93,22 @@ namespace SoftLiu_VSMainMenuTools.Utils
             }
             return didDelete;
         }
+
+        public static byte[] ReadFileBytes(string m_path)
+        {
+            if (!File.Exists(m_path))
+            {
+                return null;
+            }
+            using (FileStream stream = new FileStream(m_path, FileMode.Open, FileAccess.Read))
+            {
+                byte[] bytes = null;
+                int len = (int)stream.Length;
+                bytes = new byte[len];
+                int readLend = stream.Read(bytes, 0, len);
+
+                return bytes;
+            }
+        }
     }
 }

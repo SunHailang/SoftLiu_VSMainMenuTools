@@ -87,7 +87,7 @@ namespace SoftLiu_VSMainMenuTools
         {
             string pathRoot = FileUtils.GetProjectRootPath();
 
-            string path = "ChinaInfo.txt";//pathRoot + @"\ChinaInfo.txt";
+            string path = @"Resources\ChinaInfo.txt";//pathRoot + @"\ChinaInfo.txt";
             List<ChinaInfo> chinaList = new List<ChinaInfo>();
             string[] data = File.ReadAllLines(path);
             StringBuilder sb = new StringBuilder();

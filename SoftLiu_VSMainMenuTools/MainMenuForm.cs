@@ -26,12 +26,17 @@ namespace SoftLiu_VSMainMenuTools
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
             ShowTimeAndTimeSpan();
             this.textBoxTimeCount.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
+
+            // load csv file to language
+
+            textBox1.AppendText(Localization.Instance.Get("STRING_FISHQUIP_COD_01") + "\n");
+            textBox1.AppendText(Localization.Instance.Format("STRING_FISHQUIP_SMALLTURTLE_01", "One", "Two") + "\n");
         }
 
         private void ShowTimeAndTimeSpan()
@@ -310,7 +315,7 @@ namespace SoftLiu_VSMainMenuTools
                     strChecked = true;
                     break;
             }
-            
+
             if (strChecked)
             {
                 string change = this.textBoxFileStr.Text.Trim();
@@ -378,6 +383,255 @@ namespace SoftLiu_VSMainMenuTools
                     this.textBoxMD5Str.Text = string.Empty;
                 }
             }
+        }
+
+        private void textBoxTenExchange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // 允许输入:数字、退格键(8)、全选(1)、复制(3)、粘贴(22)
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8 &&
+                    e.KeyChar != 1 && e.KeyChar != 3 && e.KeyChar != 22)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void buttonTenExchange_Click(object sender, EventArgs e)
+        {
+            string str = textBoxTenExchange.Text.Trim();
+            int result = 0;
+            if (int.TryParse(str, out result))
+            {
+                StringBuilder sb16 = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+                List<int> list = Get16thList(result);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int index = list[i];
+                    sb16.Append(Get16thString(list[i]));
+                    List<int> list2 = Get2thString(index);
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < list2.Count; j++)
+                    {
+                        sb.Append(list2[j]);
+                    }
+                    string str2 = sb.ToString();
+                    for (int k = str2.Length; k < 4; k++)
+                    {
+                        str2 = string.Format("{0}{1}", 0, str2);
+                    }
+                    sb2.Append(str2);
+                    if (i < list.Count - 1)
+                    {
+                        sb2.Append(" ");
+                    }
+                }
+                int len = sb16.ToString().Length % 2;
+                string head = "";
+                if (len != 0)
+                {
+                    head = "0";
+                }
+                textBoxSixExchange.Text = "0x" + head + sb16.ToString();
+                textBoxTwoExchange.Text = sb2.ToString();
+            }
+            else
+            {
+                MessageBox.Show("输入有误.");
+            }
+        }
+
+        private List<int> Get16thList(int value)
+        {
+            List<int> list = new List<int>();
+
+            if (value / 16 > 0)
+            {
+                list.AddRange(Get16thList(value / 16));
+            }
+            list.Add(value % 16);
+
+            return list;
+        }
+        private List<int> Get2thString(int index)
+        {
+            List<int> list = new List<int>();
+            if (index / 2 > 0)
+            {
+                list.AddRange(Get2thString(index / 2));
+            }
+            list.Add(index % 2);
+            return list;
+        }
+
+        private char Get16thString(int index)
+        {
+            char ch = '0';
+            switch (index)
+            {
+                case 10:
+                    ch = 'A';
+                    break;
+                case 11:
+                    ch = 'B';
+                    break;
+                case 12:
+                    ch = 'C';
+                    break;
+                case 13:
+                    ch = 'D';
+                    break;
+                case 14:
+                    ch = 'E';
+                    break;
+                case 15:
+                    ch = 'F';
+                    break;
+                default:
+                    ch = index.ToString().ToCharArray(0, 1)[0];
+                    break;
+            }
+            return ch;
+        }
+
+        private int GetHexInt(char hex)
+        {
+            int ch = 0;
+            switch (hex)
+            {
+                case 'A':
+                    ch = 10;
+                    break;
+                case 'B':
+                    ch = 11;
+                    break;
+                case 'C':
+                    ch = 12;
+                    break;
+                case 'D':
+                    ch = 13;
+                    break;
+                case 'E':
+                    ch = 14;
+                    break;
+                case 'F':
+                    ch = 15;
+                    break;
+                default:
+                    int.TryParse(hex.ToString(), out ch);
+                    break;
+            }
+            return ch;
+        }
+
+        private void textBoxSix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void textBoxTwo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void buttonSixExchange_Click(object sender, EventArgs e)
+        {
+            string input = textBoxSix.Text.Trim();
+            input = input.ToUpper().Replace("0X", "");
+
+            // 12FF
+            StringBuilder sb2 = new StringBuilder();
+            List<int> hexList = new List<int>();
+            List<int> list2 = null;
+            for (int i = 0; i < input.Length; i++)
+            {
+                int hex = GetHexInt(input[input.Length - i - 1]);
+                hexList.Add(hex);
+                list2 = Get2thString(GetHexInt(input[i]));
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < list2.Count; j++)
+                {
+                    sb.Append(list2[j]);
+                }
+                string str2 = sb.ToString();
+                for (int k = str2.Length; k < 4; k++)
+                {
+                    str2 = string.Format("{0}{1}", 0, str2);
+                }
+                sb2.Append(str2);
+                if (i < input.Length - 1)
+                {
+                    sb2.Append(" ");
+                }
+            }
+
+            int hexInt = 0;
+            for (int i = 0; i < hexList.Count; i++)
+            {
+                int val = hexList[i];
+                hexInt += (int)Math.Pow(16, i) * val;
+            }
+            // 因为0的0次方是1 所以结果要减1
+            textBoxTenToSix.Text = hexInt.ToString();
+            textBoxTwoToSix.Text = sb2.ToString();
+        }
+
+        private void buttonTwoExchange_Click(object sender, EventArgs e)
+        {
+            string input = textBoxTwo.Text.Trim();
+            List<string> list = new List<string>();
+            input = input.Replace(" ", "");
+            int len = input.Length % 4;
+            if (len != 0)
+            {
+                for (int i = 0; i < 4 - len; i++)
+                {
+                    input = string.Format("{0}{1}", 0, input);
+                }
+            }
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i % 4 == 0)
+                {
+                    string s = input.Substring(i, 4);
+                    list.Add(s);
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            List<int> hexList = new List<int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                string item = list[i];
+                int hex = 0;
+                for (int j = item.Length - 1; j >= 0; j--)
+                {
+                    if (item[item.Length - j - 1] != '0')
+                    {
+                        hex += (int)Math.Pow(2, j);
+                    }
+                }
+                sb.Append(Get16thString(hex));
+                hexList.Add(hex);
+            }
+
+            int hexInt = 0;
+            for (int i = hexList.Count - 1; i >= 0; i--)
+            {
+                int val = (int)Math.Pow(16, i) * hexList[hexList.Count - i - 1];
+                hexInt += val;
+            }
+            string outStr = sb.ToString();
+            len = outStr.Length % 2;
+            if (len != 0)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    outStr = "0" + outStr;
+                }
+            }
+
+            textBoxSixToTwo.Text = "0X" + outStr;
+            textBoxTenToTwo.Text = hexInt.ToString();
         }
     }
 }

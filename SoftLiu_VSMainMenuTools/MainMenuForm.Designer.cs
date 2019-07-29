@@ -72,11 +72,40 @@
             this.labelStr = new System.Windows.Forms.Label();
             this.tabPageHex = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBoxTen = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxTenExchange = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxTwoExchange = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxSixExchange = new System.Windows.Forms.TextBox();
+            this.buttonTenExchange = new System.Windows.Forms.Button();
+            this.groupBoxSix = new System.Windows.Forms.GroupBox();
+            this.buttonSixExchange = new System.Windows.Forms.Button();
+            this.textBoxTenToSix = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxTwoToSix = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxSix = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBoxTwo = new System.Windows.Forms.GroupBox();
+            this.buttonTwoExchange = new System.Windows.Forms.Button();
+            this.textBoxSixToTwo = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxTenToTwo = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxTwo = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
             this.tabPageMD5Tools.SuspendLayout();
+            this.tabPageHex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBoxTen.SuspendLayout();
+            this.groupBoxSix.SuspendLayout();
+            this.groupBoxTwo.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -90,7 +119,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1043, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1050, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -124,14 +153,14 @@
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
             // 
@@ -146,7 +175,7 @@
             // openMySqlToolStripMenuItem
             // 
             this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openMySqlToolStripMenuItem.Text = "Open mySql";
             this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
             // 
@@ -161,7 +190,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -182,10 +211,10 @@
             this.tabControlMainTools.Controls.Add(this.tabPageTimeTools);
             this.tabControlMainTools.Controls.Add(this.tabPageMD5Tools);
             this.tabControlMainTools.Controls.Add(this.tabPageHex);
-            this.tabControlMainTools.Location = new System.Drawing.Point(743, 28);
+            this.tabControlMainTools.Location = new System.Drawing.Point(750, 28);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
-            this.tabControlMainTools.Size = new System.Drawing.Size(288, 566);
+            this.tabControlMainTools.Size = new System.Drawing.Size(288, 552);
             this.tabControlMainTools.TabIndex = 2;
             // 
             // tabPageTimeTools
@@ -212,7 +241,7 @@
             this.tabPageTimeTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimeTools.Name = "tabPageTimeTools";
             this.tabPageTimeTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 503);
+            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 540);
             this.tabPageTimeTools.TabIndex = 0;
             this.tabPageTimeTools.Text = "时间转换";
             this.tabPageTimeTools.UseVisualStyleBackColor = true;
@@ -499,10 +528,13 @@
             // tabPageHex
             // 
             this.tabPageHex.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageHex.Controls.Add(this.groupBoxTwo);
+            this.tabPageHex.Controls.Add(this.groupBoxSix);
+            this.tabPageHex.Controls.Add(this.groupBoxTen);
             this.tabPageHex.Location = new System.Drawing.Point(4, 22);
             this.tabPageHex.Name = "tabPageHex";
             this.tabPageHex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHex.Size = new System.Drawing.Size(280, 503);
+            this.tabPageHex.Size = new System.Drawing.Size(280, 526);
             this.tabPageHex.TabIndex = 2;
             this.tabPageHex.Text = "进制转换";
             this.tabPageHex.UseVisualStyleBackColor = true;
@@ -513,16 +545,264 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 97);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 487);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(724, 497);
+            this.dataGridView1.Size = new System.Drawing.Size(731, 93);
             this.dataGridView1.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(13, 66);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(724, 372);
+            this.textBox1.TabIndex = 4;
+            // 
+            // groupBoxTen
+            // 
+            this.groupBoxTen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTen.Controls.Add(this.buttonTenExchange);
+            this.groupBoxTen.Controls.Add(this.textBoxSixExchange);
+            this.groupBoxTen.Controls.Add(this.label9);
+            this.groupBoxTen.Controls.Add(this.textBoxTwoExchange);
+            this.groupBoxTen.Controls.Add(this.label8);
+            this.groupBoxTen.Controls.Add(this.textBoxTenExchange);
+            this.groupBoxTen.Controls.Add(this.label7);
+            this.groupBoxTen.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxTen.Name = "groupBoxTen";
+            this.groupBoxTen.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxTen.TabIndex = 0;
+            this.groupBoxTen.TabStop = false;
+            this.groupBoxTen.Text = "10进制转其他";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 24);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "10进制：";
+            // 
+            // textBoxTenExchange
+            // 
+            this.textBoxTenExchange.Location = new System.Drawing.Point(70, 21);
+            this.textBoxTenExchange.Name = "textBoxTenExchange";
+            this.textBoxTenExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenExchange.TabIndex = 1;
+            this.textBoxTenExchange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTenExchange_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 50);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "二进制：";
+            // 
+            // textBoxTwoExchange
+            // 
+            this.textBoxTwoExchange.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTwoExchange.Name = "textBoxTwoExchange";
+            this.textBoxTwoExchange.ReadOnly = true;
+            this.textBoxTwoExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwoExchange.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 76);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "16进制：";
+            // 
+            // textBoxSixExchange
+            // 
+            this.textBoxSixExchange.Location = new System.Drawing.Point(70, 73);
+            this.textBoxSixExchange.Name = "textBoxSixExchange";
+            this.textBoxSixExchange.ReadOnly = true;
+            this.textBoxSixExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSixExchange.TabIndex = 1;
+            // 
+            // buttonTenExchange
+            // 
+            this.buttonTenExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonTenExchange.Name = "buttonTenExchange";
+            this.buttonTenExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonTenExchange.TabIndex = 2;
+            this.buttonTenExchange.Text = "转换";
+            this.buttonTenExchange.UseVisualStyleBackColor = true;
+            this.buttonTenExchange.Click += new System.EventHandler(this.buttonTenExchange_Click);
+            // 
+            // groupBoxSix
+            // 
+            this.groupBoxSix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSix.Controls.Add(this.buttonSixExchange);
+            this.groupBoxSix.Controls.Add(this.textBoxTenToSix);
+            this.groupBoxSix.Controls.Add(this.label10);
+            this.groupBoxSix.Controls.Add(this.textBoxTwoToSix);
+            this.groupBoxSix.Controls.Add(this.label11);
+            this.groupBoxSix.Controls.Add(this.textBoxSix);
+            this.groupBoxSix.Controls.Add(this.label12);
+            this.groupBoxSix.Location = new System.Drawing.Point(6, 153);
+            this.groupBoxSix.Name = "groupBoxSix";
+            this.groupBoxSix.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxSix.TabIndex = 0;
+            this.groupBoxSix.TabStop = false;
+            this.groupBoxSix.Text = "16进制转其他";
+            // 
+            // buttonSixExchange
+            // 
+            this.buttonSixExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonSixExchange.Name = "buttonSixExchange";
+            this.buttonSixExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonSixExchange.TabIndex = 2;
+            this.buttonSixExchange.Text = "转换";
+            this.buttonSixExchange.UseVisualStyleBackColor = true;
+            this.buttonSixExchange.Click += new System.EventHandler(this.buttonSixExchange_Click);
+            // 
+            // textBoxTenToSix
+            // 
+            this.textBoxTenToSix.Location = new System.Drawing.Point(70, 73);
+            this.textBoxTenToSix.Name = "textBoxTenToSix";
+            this.textBoxTenToSix.ReadOnly = true;
+            this.textBoxTenToSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenToSix.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 76);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "10进制：";
+            // 
+            // textBoxTwoToSix
+            // 
+            this.textBoxTwoToSix.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTwoToSix.Name = "textBoxTwoToSix";
+            this.textBoxTwoToSix.ReadOnly = true;
+            this.textBoxTwoToSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwoToSix.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 50);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "二进制：";
+            // 
+            // textBoxSix
+            // 
+            this.textBoxSix.Location = new System.Drawing.Point(70, 21);
+            this.textBoxSix.Name = "textBoxSix";
+            this.textBoxSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSix.TabIndex = 1;
+            this.textBoxSix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSix_KeyPress);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 24);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "16进制：";
+            // 
+            // groupBoxTwo
+            // 
+            this.groupBoxTwo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTwo.Controls.Add(this.buttonTwoExchange);
+            this.groupBoxTwo.Controls.Add(this.textBoxSixToTwo);
+            this.groupBoxTwo.Controls.Add(this.label13);
+            this.groupBoxTwo.Controls.Add(this.textBoxTenToTwo);
+            this.groupBoxTwo.Controls.Add(this.label14);
+            this.groupBoxTwo.Controls.Add(this.textBoxTwo);
+            this.groupBoxTwo.Controls.Add(this.label15);
+            this.groupBoxTwo.Location = new System.Drawing.Point(6, 300);
+            this.groupBoxTwo.Name = "groupBoxTwo";
+            this.groupBoxTwo.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxTwo.TabIndex = 0;
+            this.groupBoxTwo.TabStop = false;
+            this.groupBoxTwo.Text = "二进制转其他";
+            // 
+            // buttonTwoExchange
+            // 
+            this.buttonTwoExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonTwoExchange.Name = "buttonTwoExchange";
+            this.buttonTwoExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonTwoExchange.TabIndex = 2;
+            this.buttonTwoExchange.Text = "转换";
+            this.buttonTwoExchange.UseVisualStyleBackColor = true;
+            this.buttonTwoExchange.Click += new System.EventHandler(this.buttonTwoExchange_Click);
+            // 
+            // textBoxSixToTwo
+            // 
+            this.textBoxSixToTwo.Location = new System.Drawing.Point(70, 73);
+            this.textBoxSixToTwo.Name = "textBoxSixToTwo";
+            this.textBoxSixToTwo.ReadOnly = true;
+            this.textBoxSixToTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSixToTwo.TabIndex = 1;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 76);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(49, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "16进制：";
+            // 
+            // textBoxTenToTwo
+            // 
+            this.textBoxTenToTwo.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTenToTwo.Name = "textBoxTenToTwo";
+            this.textBoxTenToTwo.ReadOnly = true;
+            this.textBoxTenToTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenToTwo.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 50);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "10进制：";
+            // 
+            // textBoxTwo
+            // 
+            this.textBoxTwo.Location = new System.Drawing.Point(70, 21);
+            this.textBoxTwo.Name = "textBoxTwo";
+            this.textBoxTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwo.TabIndex = 1;
+            this.textBoxTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTwo_KeyPress);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(49, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "二进制：";
             // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 606);
+            this.ClientSize = new System.Drawing.Size(1050, 592);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);
             this.Controls.Add(this.button1);
@@ -540,7 +820,14 @@
             this.tabPageTimeTools.PerformLayout();
             this.tabPageMD5Tools.ResumeLayout(false);
             this.tabPageMD5Tools.PerformLayout();
+            this.tabPageHex.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBoxTen.ResumeLayout(false);
+            this.groupBoxTen.PerformLayout();
+            this.groupBoxSix.ResumeLayout(false);
+            this.groupBoxSix.PerformLayout();
+            this.groupBoxTwo.ResumeLayout(false);
+            this.groupBoxTwo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,6 +879,31 @@
         private System.Windows.Forms.ComboBox comboBoxMD5;
         private System.Windows.Forms.Button buttonSelectFile;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBoxTen;
+        private System.Windows.Forms.Button buttonTenExchange;
+        private System.Windows.Forms.TextBox textBoxSixExchange;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxTwoExchange;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxTenExchange;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBoxSix;
+        private System.Windows.Forms.Button buttonSixExchange;
+        private System.Windows.Forms.TextBox textBoxTenToSix;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxTwoToSix;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxSix;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBoxTwo;
+        private System.Windows.Forms.Button buttonTwoExchange;
+        private System.Windows.Forms.TextBox textBoxSixToTwo;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBoxTenToTwo;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBoxTwo;
+        private System.Windows.Forms.Label label15;
     }
 }
 
