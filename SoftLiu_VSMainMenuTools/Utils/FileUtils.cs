@@ -1,16 +1,15 @@
-﻿/// <summary>
+﻿
+using Microsoft.Win32;
+/// <summary>
 /// 
 /// __author__ = "sun hai lang"
 /// __date__ 2019-07-22
 /// 
 /// </summary>
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
@@ -93,7 +92,11 @@ namespace SoftLiu_VSMainMenuTools.Utils
             }
             return didDelete;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m_path"></param>
+        /// <returns></returns>
         public static byte[] ReadFileBytes(string m_path)
         {
             if (!File.Exists(m_path))
@@ -108,6 +111,31 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 int readLend = stream.Read(bytes, 0, len);
 
                 return bytes;
+            }
+        }
+        /// <summary>
+        /// 设置开机自启动
+        /// </summary>
+        /// <param name="appName">名字</param>
+        /// <param name="appPath">程序的路径</param>
+        /// <param name="isCurrentUser">是否设置为当前用户</param>
+        private static void AddStartSoft(string appName, string appPath, bool isCurrentUser = false)
+        {
+            if (isCurrentUser)
+            {
+                RegistryKey rKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                if (rKey.GetValue(appName) == null)
+                {
+                    rKey.SetValue(appName, appPath);
+                }
+            }
+            else
+            {
+                RegistryKey rKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                if (rKey.GetValue(appName) == null)
+                {
+                    rKey.SetValue(appName, appPath);
+                }
             }
         }
     }

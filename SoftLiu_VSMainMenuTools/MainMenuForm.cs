@@ -22,7 +22,7 @@ namespace SoftLiu_VSMainMenuTools
         {
             InitializeComponent();
 
-            Control.CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -93,73 +93,6 @@ namespace SoftLiu_VSMainMenuTools
             DataTable dataTable = dataSet.Tables[0];
 
             dataGridView1.DataSource = dataTable;
-        }
-
-        private void ReadChinaInfo()
-        {
-
-            string path = Environment.CurrentDirectory;
-            //textBox1.AppendText(string.Format("path: {0}\n", path));
-            string onePath = Directory.GetParent(path).FullName;
-            //textBox1.AppendText(string.Format("onePath: {0}\n", onePath));
-            DirectoryInfo dir = new DirectoryInfo(path);
-            //textBox1.AppendText(string.Format("{0}\n", dir.Ge);
-
-            // Path.
-
-
-            //string path = @"C:\Users\hlsun\Desktop\Document.txt";
-            //List<ChinaInfo> chinaList = new List<ChinaInfo>();
-            //string[] data = File.ReadAllLines(path);
-            //StringBuilder sb = new StringBuilder();
-
-            /*string[] data1 = data[2].Split('(', ')');
-            string[] data2 = data1[1].Trim().Split('\'');
-
-            textBox1.AppendText(data2.Length.ToString() + "\n");            
-
-            for (int i = 0; i < data2.Length; i++)
-            {
-                string vinfo = string.Format("index: {0} , value: {1}\n", i, data2[i].ToString());
-                textBox1.AppendText(vinfo);
-                sb.Append(vinfo);
-            }
-            */
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    //textBox1.AppendText(data[i] + "\n");
-
-
-            //    string[] data1 = data[i].Split('(', ')');
-            //    string[] data2 = data1[1].Trim().Split('\'');
-            //    //for (int j = 0; j < data2.Length; j++)
-            //    //{
-            //    //    string info = data2[j].Replace('\'', ' ').Trim();
-            //    //}
-            //    ChinaInfo china = new ChinaInfo();
-            //    china.id = data2[1].Trim();
-            //    china.name = data2[3].Trim();
-            //    china.pid = data2[5].Trim();
-            //    china.sname = data2[7].Trim();
-            //    china.level = data2[9].Replace('\'', ' ').Trim();
-            //    china.citycode = data2[11].Replace('\'', ' ').Trim();
-            //    china.yzcode = data2[13].Replace('\'', ' ').Trim();
-            //    china.mername = data2[15].Replace('\'', ' ').Trim();
-            //    china.lng = data2[17].Replace('\'', ' ').Trim();
-            //    china.lat = data2[19].Replace('\'', ' ').Trim();
-            //    china.pinyin = data2[21].Replace('\'', ' ').Trim();
-
-            //    chinaList.Add(china);
-            //}
-
-            //ExcelToXml.ExcelOrXmlManager.m_chinaList = chinaList;
-
-            //for (int i = 0; i < chinaList.Count; i++)
-            //{
-            //    sb.Append(string.Format("省：{0} , 市：{1} , 全称：{2}{3}",chinaList[i].name, chinaList[i].sname, chinaList[i].mername, "\n"));
-            //}
-            //string path1 = @"C:\Users\hlsun\Desktop\1.txt";
-            //File.WriteAllText(path1, sb.ToString(), Encoding.UTF8);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -517,7 +450,10 @@ namespace SoftLiu_VSMainMenuTools
                     ch = 15;
                     break;
                 default:
-                    int.TryParse(hex.ToString(), out ch);
+                    if(!int.TryParse(hex.ToString(), out ch))
+                    {
+                        ch = -1;
+                    }
                     break;
             }
             return ch;
@@ -536,17 +472,31 @@ namespace SoftLiu_VSMainMenuTools
         private void buttonSixExchange_Click(object sender, EventArgs e)
         {
             string input = textBoxSix.Text.Trim();
-            input = input.ToUpper().Replace("0X", "");
+            input = input.ToUpper().Replace(" ","").Replace("0X", "");
 
             // 12FF
             StringBuilder sb2 = new StringBuilder();
             List<int> hexList = new List<int>();
             List<int> list2 = null;
+            bool isAllZero = true;
             for (int i = 0; i < input.Length; i++)
             {
                 int hex = GetHexInt(input[input.Length - i - 1]);
+                if (hex < 0)
+                {
+                    MessageBox.Show("输入有错，重新输入.");
+                    //textBoxSix.Text = string.Empty;
+                    return;
+                }
                 hexList.Add(hex);
-                list2 = Get2thString(GetHexInt(input[i]));
+                int index = GetHexInt(input[i]);
+                if (index < 0)
+                {
+                    MessageBox.Show("输入有错，重新输入.");
+                    //textBoxSix.Text = string.Empty;
+                    return;
+                }
+                list2 = Get2thString(index);
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < list2.Count; j++)
                 {
@@ -557,6 +507,11 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     str2 = string.Format("{0}{1}", 0, str2);
                 }
+                if (isAllZero && str2 == "0000")
+                {
+                    continue;
+                }
+                isAllZero = false;
                 sb2.Append(str2);
                 if (i < input.Length - 1)
                 {
@@ -570,7 +525,7 @@ namespace SoftLiu_VSMainMenuTools
                 int val = hexList[i];
                 hexInt += (int)Math.Pow(16, i) * val;
             }
-            // 因为0的0次方是1 所以结果要减1
+
             textBoxTenToSix.Text = hexInt.ToString();
             textBoxTwoToSix.Text = sb2.ToString();
         }
