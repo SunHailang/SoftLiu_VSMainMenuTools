@@ -588,5 +588,23 @@ namespace SoftLiu_VSMainMenuTools
             textBoxSixToTwo.Text = "0X" + outStr;
             textBoxTenToTwo.Text = hexInt.ToString();
         }
+
+        private void buttonSecondsCount_Click(object sender, EventArgs e)
+        {
+            string input = textBoxInSecondsCount.Text.Trim();
+            int result = 0;
+            if (int.TryParse(input, out result))
+            {
+                int sec = result % 60;
+                int min = result / 60 % 60;
+                int hour = result / 3600 % 24;
+                int day = result / (3600 * 24);
+                textBoxoutSecondsCount.Text = string.Format("{0}天 {1}时{2}分{3}秒", day, hour, min, sec);
+            }
+            else
+            {
+                MessageBox.Show("输入数据有误，重新输入！");
+            }
+        }
     }
 }

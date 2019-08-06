@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -178,6 +179,12 @@ namespace SoftLiu_VSMainMenuTools
             int.TryParse(textBoxAge.Text.Trim(), out age);
             int gender = comboBoxGender.SelectedIndex;
             string phone = textBoxPhone.Text.Trim();
+            if (!RegexUtils.IsPhoneNumber(phone))
+            {
+                // 判断是否是手机号码
+                MessageBox.Show("不是手机号码，重新输入.");
+                return;
+            }
             string email = textBoxEmai.Text.Trim();
             string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
             sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
