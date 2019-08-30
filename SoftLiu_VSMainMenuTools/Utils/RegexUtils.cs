@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
@@ -12,7 +7,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
 
         public static bool IsPhoneNumber(string phoneNumber)
         {
-            return Regex.IsMatch(phoneNumber, @"^1(3[0-9]|5[0-9]|7[6-8]|8[0-9])[0-9]{8}$");
+            return Regex.IsMatch(phoneNumber.Replace(" ", ""), @"^1(3[0-9]|5[0-9]|7[6-8]|8[0-9])[0-9]{8}$");
         }
         public static bool IPCheck(string str_IP)
         {

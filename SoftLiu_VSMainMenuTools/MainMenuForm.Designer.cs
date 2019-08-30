@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,17 +43,23 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabControlMainTools = new System.Windows.Forms.TabControl();
             this.tabPageTimeTools = new System.Windows.Forms.TabPage();
+            this.buttonSecondsCount = new System.Windows.Forms.Button();
             this.buttonCountdown = new System.Windows.Forms.Button();
             this.buttonTimeSpan = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxTime = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.labelSecondsCount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTimeAfter = new System.Windows.Forms.TextBox();
+            this.textBoxoutSecondsCount = new System.Windows.Forms.TextBox();
+            this.textBoxInSecondsCount = new System.Windows.Forms.TextBox();
             this.textBoxTimeShowCount = new System.Windows.Forms.TextBox();
             this.textBoxTimeCount = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBoxTimeBefor = new System.Windows.Forms.TextBox();
             this.textBoxTimeCountdown = new System.Windows.Forms.TextBox();
             this.textBoxDesc = new System.Windows.Forms.TextBox();
@@ -95,14 +102,32 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxTenExchange = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.tabPageColor = new System.Windows.Forms.TabPage();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.labelColorHex = new System.Windows.Forms.Label();
+            this.textBoxColorShowHex = new System.Windows.Forms.TextBox();
+            this.textBoxColorHex = new System.Windows.Forms.TextBox();
+            this.textBoxColorBShow = new System.Windows.Forms.TextBox();
+            this.textBoxColorGShow = new System.Windows.Forms.TextBox();
+            this.textBoxColorB = new System.Windows.Forms.TextBox();
+            this.textBoxColorRShow = new System.Windows.Forms.TextBox();
+            this.textBoxColorG = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBoxColorR = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.labelColorB = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.labelColorG = new System.Windows.Forms.Label();
+            this.labelColorR = new System.Windows.Forms.Label();
+            this.buttonColorEx = new System.Windows.Forms.Button();
+            this.buttonColorShow = new System.Windows.Forms.Button();
+            this.buttonColor = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBoxInSecondsCount = new System.Windows.Forms.TextBox();
-            this.textBoxoutSecondsCount = new System.Windows.Forms.TextBox();
-            this.labelSecondsCount = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.buttonSecondsCount = new System.Windows.Forms.Button();
+            this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.tCPIPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -111,6 +136,7 @@
             this.groupBoxTwo.SuspendLayout();
             this.groupBoxSix.SuspendLayout();
             this.groupBoxTen.SuspendLayout();
+            this.tabPageColor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,7 +151,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1094, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(986, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -159,21 +185,22 @@
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openMySqlToolStripMenuItem});
+            this.openMySqlToolStripMenuItem,
+            this.tCPIPTestToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
@@ -181,7 +208,7 @@
             // openMySqlToolStripMenuItem
             // 
             this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openMySqlToolStripMenuItem.Text = "Open mySql";
             this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
             // 
@@ -196,7 +223,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -217,10 +244,11 @@
             this.tabControlMainTools.Controls.Add(this.tabPageTimeTools);
             this.tabControlMainTools.Controls.Add(this.tabPageMD5Tools);
             this.tabControlMainTools.Controls.Add(this.tabPageHex);
-            this.tabControlMainTools.Location = new System.Drawing.Point(794, 28);
+            this.tabControlMainTools.Controls.Add(this.tabPageColor);
+            this.tabControlMainTools.Location = new System.Drawing.Point(686, 28);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
-            this.tabControlMainTools.Size = new System.Drawing.Size(288, 566);
+            this.tabControlMainTools.Size = new System.Drawing.Size(288, 556);
             this.tabControlMainTools.TabIndex = 2;
             // 
             // tabPageTimeTools
@@ -253,10 +281,20 @@
             this.tabPageTimeTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimeTools.Name = "tabPageTimeTools";
             this.tabPageTimeTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 540);
+            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 530);
             this.tabPageTimeTools.TabIndex = 0;
             this.tabPageTimeTools.Text = "时间转换";
             this.tabPageTimeTools.UseVisualStyleBackColor = true;
+            // 
+            // buttonSecondsCount
+            // 
+            this.buttonSecondsCount.Location = new System.Drawing.Point(195, 501);
+            this.buttonSecondsCount.Name = "buttonSecondsCount";
+            this.buttonSecondsCount.Size = new System.Drawing.Size(75, 32);
+            this.buttonSecondsCount.TabIndex = 7;
+            this.buttonSecondsCount.Text = "确定";
+            this.buttonSecondsCount.UseVisualStyleBackColor = true;
+            this.buttonSecondsCount.Click += new System.EventHandler(this.buttonSecondsCount_Click);
             // 
             // buttonCountdown
             // 
@@ -307,6 +345,15 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "转换后：";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(11, 478);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(61, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "剩余时间：";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -315,6 +362,15 @@
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "剩余时间：";
+            // 
+            // labelSecondsCount
+            // 
+            this.labelSecondsCount.AutoSize = true;
+            this.labelSecondsCount.Location = new System.Drawing.Point(20, 452);
+            this.labelSecondsCount.Name = "labelSecondsCount";
+            this.labelSecondsCount.Size = new System.Drawing.Size(37, 13);
+            this.labelSecondsCount.TabIndex = 4;
+            this.labelSecondsCount.Text = "秒数：";
             // 
             // label4
             // 
@@ -342,6 +398,21 @@
             this.textBoxTimeAfter.Size = new System.Drawing.Size(195, 20);
             this.textBoxTimeAfter.TabIndex = 3;
             // 
+            // textBoxoutSecondsCount
+            // 
+            this.textBoxoutSecondsCount.Location = new System.Drawing.Point(75, 475);
+            this.textBoxoutSecondsCount.Name = "textBoxoutSecondsCount";
+            this.textBoxoutSecondsCount.ReadOnly = true;
+            this.textBoxoutSecondsCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxoutSecondsCount.TabIndex = 3;
+            // 
+            // textBoxInSecondsCount
+            // 
+            this.textBoxInSecondsCount.Location = new System.Drawing.Point(75, 449);
+            this.textBoxInSecondsCount.Name = "textBoxInSecondsCount";
+            this.textBoxInSecondsCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxInSecondsCount.TabIndex = 3;
+            // 
             // textBoxTimeShowCount
             // 
             this.textBoxTimeShowCount.Location = new System.Drawing.Point(75, 328);
@@ -356,6 +427,18 @@
             this.textBoxTimeCount.Name = "textBoxTimeCount";
             this.textBoxTimeCount.Size = new System.Drawing.Size(195, 20);
             this.textBoxTimeCount.TabIndex = 3;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Location = new System.Drawing.Point(11, 403);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(259, 30);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.Text = "总秒数转化\r\n时间格式：dd HH:mm:ss";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxTimeBefor
             // 
@@ -442,7 +525,7 @@
             this.tabPageMD5Tools.Location = new System.Drawing.Point(4, 22);
             this.tabPageMD5Tools.Name = "tabPageMD5Tools";
             this.tabPageMD5Tools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 540);
+            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 530);
             this.tabPageMD5Tools.TabIndex = 1;
             this.tabPageMD5Tools.Text = "MD5转换";
             this.tabPageMD5Tools.UseVisualStyleBackColor = true;
@@ -546,7 +629,7 @@
             this.tabPageHex.Location = new System.Drawing.Point(4, 22);
             this.tabPageHex.Name = "tabPageHex";
             this.tabPageHex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHex.Size = new System.Drawing.Size(280, 540);
+            this.tabPageHex.Size = new System.Drawing.Size(280, 530);
             this.tabPageHex.TabIndex = 2;
             this.tabPageHex.Text = "进制转换";
             this.tabPageHex.UseVisualStyleBackColor = true;
@@ -788,6 +871,210 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "10进制：";
             // 
+            // tabPageColor
+            // 
+            this.tabPageColor.Controls.Add(this.textBox3);
+            this.tabPageColor.Controls.Add(this.label16);
+            this.tabPageColor.Controls.Add(this.labelColorHex);
+            this.tabPageColor.Controls.Add(this.textBoxColorShowHex);
+            this.tabPageColor.Controls.Add(this.textBoxColorHex);
+            this.tabPageColor.Controls.Add(this.textBoxColorBShow);
+            this.tabPageColor.Controls.Add(this.textBoxColorGShow);
+            this.tabPageColor.Controls.Add(this.textBoxColorB);
+            this.tabPageColor.Controls.Add(this.textBoxColorRShow);
+            this.tabPageColor.Controls.Add(this.textBoxColorG);
+            this.tabPageColor.Controls.Add(this.label20);
+            this.tabPageColor.Controls.Add(this.textBoxColorR);
+            this.tabPageColor.Controls.Add(this.label19);
+            this.tabPageColor.Controls.Add(this.labelColorB);
+            this.tabPageColor.Controls.Add(this.label18);
+            this.tabPageColor.Controls.Add(this.labelColorG);
+            this.tabPageColor.Controls.Add(this.labelColorR);
+            this.tabPageColor.Controls.Add(this.buttonColorEx);
+            this.tabPageColor.Controls.Add(this.buttonColorShow);
+            this.tabPageColor.Controls.Add(this.buttonColor);
+            this.tabPageColor.Location = new System.Drawing.Point(4, 22);
+            this.tabPageColor.Name = "tabPageColor";
+            this.tabPageColor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageColor.Size = new System.Drawing.Size(280, 530);
+            this.tabPageColor.TabIndex = 3;
+            this.tabPageColor.Text = "调色板";
+            this.tabPageColor.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(12, 111);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(256, 33);
+            this.textBox3.TabIndex = 6;
+            this.textBox3.Text = "在 Hex Color(不包含Alpha)  或者 RGB 中任选一个\r\n输入颜色的值";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(28, 157);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 13);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "Hex Color";
+            // 
+            // labelColorHex
+            // 
+            this.labelColorHex.AutoSize = true;
+            this.labelColorHex.Location = new System.Drawing.Point(190, 24);
+            this.labelColorHex.Name = "labelColorHex";
+            this.labelColorHex.Size = new System.Drawing.Size(53, 13);
+            this.labelColorHex.TabIndex = 5;
+            this.labelColorHex.Text = "Hex Color";
+            // 
+            // textBoxColorShowHex
+            // 
+            this.textBoxColorShowHex.Location = new System.Drawing.Point(12, 176);
+            this.textBoxColorShowHex.Name = "textBoxColorShowHex";
+            this.textBoxColorShowHex.Size = new System.Drawing.Size(89, 20);
+            this.textBoxColorShowHex.TabIndex = 4;
+            this.textBoxColorShowHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxColorHex
+            // 
+            this.textBoxColorHex.Location = new System.Drawing.Point(179, 47);
+            this.textBoxColorHex.Name = "textBoxColorHex";
+            this.textBoxColorHex.ReadOnly = true;
+            this.textBoxColorHex.Size = new System.Drawing.Size(89, 20);
+            this.textBoxColorHex.TabIndex = 4;
+            this.textBoxColorHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxColorBShow
+            // 
+            this.textBoxColorBShow.Location = new System.Drawing.Point(146, 203);
+            this.textBoxColorBShow.Name = "textBoxColorBShow";
+            this.textBoxColorBShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorBShow.TabIndex = 3;
+            // 
+            // textBoxColorGShow
+            // 
+            this.textBoxColorGShow.Location = new System.Drawing.Point(146, 176);
+            this.textBoxColorGShow.Name = "textBoxColorGShow";
+            this.textBoxColorGShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorGShow.TabIndex = 3;
+            // 
+            // textBoxColorB
+            // 
+            this.textBoxColorB.Location = new System.Drawing.Point(107, 74);
+            this.textBoxColorB.Name = "textBoxColorB";
+            this.textBoxColorB.ReadOnly = true;
+            this.textBoxColorB.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorB.TabIndex = 3;
+            // 
+            // textBoxColorRShow
+            // 
+            this.textBoxColorRShow.Location = new System.Drawing.Point(146, 150);
+            this.textBoxColorRShow.Name = "textBoxColorRShow";
+            this.textBoxColorRShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorRShow.TabIndex = 3;
+            // 
+            // textBoxColorG
+            // 
+            this.textBoxColorG.Location = new System.Drawing.Point(107, 47);
+            this.textBoxColorG.Name = "textBoxColorG";
+            this.textBoxColorG.ReadOnly = true;
+            this.textBoxColorG.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorG.TabIndex = 3;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(122, 206);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(17, 13);
+            this.label20.TabIndex = 2;
+            this.label20.Tag = "";
+            this.label20.Text = "B:";
+            // 
+            // textBoxColorR
+            // 
+            this.textBoxColorR.Location = new System.Drawing.Point(107, 21);
+            this.textBoxColorR.Name = "textBoxColorR";
+            this.textBoxColorR.ReadOnly = true;
+            this.textBoxColorR.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorR.TabIndex = 3;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(122, 179);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(18, 13);
+            this.label19.TabIndex = 2;
+            this.label19.Text = "G:";
+            // 
+            // labelColorB
+            // 
+            this.labelColorB.AutoSize = true;
+            this.labelColorB.Location = new System.Drawing.Point(83, 77);
+            this.labelColorB.Name = "labelColorB";
+            this.labelColorB.Size = new System.Drawing.Size(17, 13);
+            this.labelColorB.TabIndex = 2;
+            this.labelColorB.Tag = "";
+            this.labelColorB.Text = "B:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(122, 153);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(18, 13);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "R:";
+            // 
+            // labelColorG
+            // 
+            this.labelColorG.AutoSize = true;
+            this.labelColorG.Location = new System.Drawing.Point(83, 50);
+            this.labelColorG.Name = "labelColorG";
+            this.labelColorG.Size = new System.Drawing.Size(18, 13);
+            this.labelColorG.TabIndex = 2;
+            this.labelColorG.Text = "G:";
+            // 
+            // labelColorR
+            // 
+            this.labelColorR.AutoSize = true;
+            this.labelColorR.Location = new System.Drawing.Point(83, 24);
+            this.labelColorR.Name = "labelColorR";
+            this.labelColorR.Size = new System.Drawing.Size(18, 13);
+            this.labelColorR.TabIndex = 2;
+            this.labelColorR.Text = "R:";
+            // 
+            // buttonColorEx
+            // 
+            this.buttonColorEx.Location = new System.Drawing.Point(179, 229);
+            this.buttonColorEx.Name = "buttonColorEx";
+            this.buttonColorEx.Size = new System.Drawing.Size(89, 32);
+            this.buttonColorEx.TabIndex = 0;
+            this.buttonColorEx.Text = "转换";
+            this.buttonColorEx.UseVisualStyleBackColor = true;
+            this.buttonColorEx.Click += new System.EventHandler(this.buttonColorEx_Click);
+            // 
+            // buttonColorShow
+            // 
+            this.buttonColorShow.Location = new System.Drawing.Point(207, 158);
+            this.buttonColorShow.Name = "buttonColorShow";
+            this.buttonColorShow.Size = new System.Drawing.Size(61, 54);
+            this.buttonColorShow.TabIndex = 0;
+            this.buttonColorShow.UseVisualStyleBackColor = true;
+            // 
+            // buttonColor
+            // 
+            this.buttonColor.Location = new System.Drawing.Point(11, 29);
+            this.buttonColor.Name = "buttonColor";
+            this.buttonColor.Size = new System.Drawing.Size(61, 54);
+            this.buttonColor.TabIndex = 0;
+            this.buttonColor.UseVisualStyleBackColor = true;
+            this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -796,81 +1083,33 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 58);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(775, 378);
+            this.dataGridView1.Size = new System.Drawing.Size(667, 368);
             this.dataGridView1.TabIndex = 3;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 442);
+            this.textBox1.Location = new System.Drawing.Point(12, 432);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(776, 152);
+            this.textBox1.Size = new System.Drawing.Size(668, 152);
             this.textBox1.TabIndex = 4;
             // 
-            // textBox2
+            // tCPIPTestToolStripMenuItem
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(11, 403);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(259, 30);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "总秒数转化\r\n时间格式：dd HH:mm:ss";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBoxInSecondsCount
-            // 
-            this.textBoxInSecondsCount.Location = new System.Drawing.Point(75, 449);
-            this.textBoxInSecondsCount.Name = "textBoxInSecondsCount";
-            this.textBoxInSecondsCount.Size = new System.Drawing.Size(195, 20);
-            this.textBoxInSecondsCount.TabIndex = 3;
-            // 
-            // textBoxoutSecondsCount
-            // 
-            this.textBoxoutSecondsCount.Location = new System.Drawing.Point(75, 475);
-            this.textBoxoutSecondsCount.Name = "textBoxoutSecondsCount";
-            this.textBoxoutSecondsCount.ReadOnly = true;
-            this.textBoxoutSecondsCount.Size = new System.Drawing.Size(195, 20);
-            this.textBoxoutSecondsCount.TabIndex = 3;
-            // 
-            // labelSecondsCount
-            // 
-            this.labelSecondsCount.AutoSize = true;
-            this.labelSecondsCount.Location = new System.Drawing.Point(20, 452);
-            this.labelSecondsCount.Name = "labelSecondsCount";
-            this.labelSecondsCount.Size = new System.Drawing.Size(37, 13);
-            this.labelSecondsCount.TabIndex = 4;
-            this.labelSecondsCount.Text = "秒数：";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 478);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(61, 13);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "剩余时间：";
-            // 
-            // buttonSecondsCount
-            // 
-            this.buttonSecondsCount.Location = new System.Drawing.Point(195, 501);
-            this.buttonSecondsCount.Name = "buttonSecondsCount";
-            this.buttonSecondsCount.Size = new System.Drawing.Size(75, 32);
-            this.buttonSecondsCount.TabIndex = 7;
-            this.buttonSecondsCount.Text = "确定";
-            this.buttonSecondsCount.UseVisualStyleBackColor = true;
-            this.buttonSecondsCount.Click += new System.EventHandler(this.buttonSecondsCount_Click);
+            this.tCPIPTestToolStripMenuItem.Name = "tCPIPTestToolStripMenuItem";
+            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
+            this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
             // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 606);
+            this.ClientSize = new System.Drawing.Size(986, 596);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);
@@ -896,6 +1135,8 @@
             this.groupBoxSix.PerformLayout();
             this.groupBoxTen.ResumeLayout(false);
             this.groupBoxTen.PerformLayout();
+            this.tabPageColor.ResumeLayout(false);
+            this.tabPageColor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -979,6 +1220,30 @@
         private System.Windows.Forms.TextBox textBoxoutSecondsCount;
         private System.Windows.Forms.TextBox textBoxInSecondsCount;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TabPage tabPageColor;
+        private System.Windows.Forms.Button buttonColor;
+        private System.Windows.Forms.ColorDialog colorDialogColorPanel;
+        private System.Windows.Forms.TextBox textBoxColorB;
+        private System.Windows.Forms.TextBox textBoxColorG;
+        private System.Windows.Forms.TextBox textBoxColorR;
+        private System.Windows.Forms.Label labelColorB;
+        private System.Windows.Forms.Label labelColorG;
+        private System.Windows.Forms.Label labelColorR;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Label labelColorHex;
+        private System.Windows.Forms.TextBox textBoxColorHex;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBoxColorShowHex;
+        private System.Windows.Forms.TextBox textBoxColorBShow;
+        private System.Windows.Forms.TextBox textBoxColorGShow;
+        private System.Windows.Forms.TextBox textBoxColorRShow;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttonColorShow;
+        private System.Windows.Forms.Button buttonColorEx;
+        private System.Windows.Forms.ToolStripMenuItem tCPIPTestToolStripMenuItem;
     }
 }
 

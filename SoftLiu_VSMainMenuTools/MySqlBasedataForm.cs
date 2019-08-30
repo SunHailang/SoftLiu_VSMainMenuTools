@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,6 +34,8 @@ namespace SoftLiu_VSMainMenuTools
         //private StudentDatabaseDelegate DeletaDataFunc;
 
         private Student m_currentDatabaseStudent = null;
+
+        private bool m_autoInsertData = false;
 
         public MySqlBasedataForm()
         {
@@ -170,41 +173,18 @@ namespace SoftLiu_VSMainMenuTools
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
-            // 对应 sql 语句 如果是字符串类型 需要加双引号
-            string tableName = "student";
-            string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
-            string name = textBoxName.Text.Trim();
-            string cardID = textBoxCardID.Text.Trim();
-            int age = 0;
-            int.TryParse(textBoxAge.Text.Trim(), out age);
-            int gender = comboBoxGender.SelectedIndex;
-            string phone = textBoxPhone.Text.Trim();
-            if (!RegexUtils.IsPhoneNumber(phone))
+            int insert = InsesetDataToBasedata();
+            if (insert > 0)
             {
-                // 判断是否是手机号码
-                MessageBox.Show("不是手机号码，重新输入.");
-                return;
+                MessageBox.Show("insert success.");
             }
-            string email = textBoxEmai.Text.Trim();
-            string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
-            sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
-
-            bool exists = MysqlManager.Instance.ExistsData(tableName, string.Format("CardID=\"{0}\"", cardID));
-            if (exists)
+            else if (insert == -2)
             {
                 MessageBox.Show("insert data has exists.");
             }
             else
             {
-                int insert = MysqlManager.Instance.InsesetData(tableName, sql);
-                if (insert > 0)
-                {
-                    MessageBox.Show("insert success.");
-                }
-                else
-                {
-                    MessageBox.Show("insert Failed.");
-                }
+                MessageBox.Show("insert Failed.");
             }
         }
 
@@ -281,6 +261,10 @@ namespace SoftLiu_VSMainMenuTools
             }
             else if (this.tabControlBasedata.SelectedTab == this.tabPageAddData)
             {
+                if (m_autoInsertData)
+                {
+                    return;
+                }
                 this.textBoxName.Text = string.Empty;
                 this.textBoxAge.Text = string.Format("{0}", 18);
                 this.textBoxAddress.Text = string.Empty;
@@ -737,6 +721,151 @@ namespace SoftLiu_VSMainMenuTools
                         break;
                 }
             }
+        }
+
+        private void buttonAutoAddUser_Click(object sender, EventArgs e)
+        {
+            StartStep();
+
+            //int insert = InsesetDataToBasedata();
+            //if (insert > 0)
+            //{
+            //    MessageBox.Show("insert success.");
+            //}
+            //else if (insert == -2)
+            //{
+            //    MessageBox.Show("insert data has exists.");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("insert Failed.");
+            //}
+        }
+
+        private void StartStep()
+        {
+            bool insesetting = false;
+            string tableName = "student";
+            bool back = false;
+            int index = 0;
+            List<string> sqlList = new List<string>();
+            List<string> cardIdList = new List<string>();
+            Thread th = new Thread(() =>
+            {
+                m_autoInsertData = true;
+                long cardId = 10010190028;
+                object obj = MysqlManager.Instance.GetMaxData(tableName, "cardID");
+                long.TryParse(obj.ToString(), out cardId);
+                if (cardId <= 0)
+                {
+                    back = true;
+                }
+                while (true)
+                {
+                    if (++index > 100)
+                    {
+                        back = true;
+                    }
+                    if (back)
+                    {
+                        break;
+                    }
+                    cardId += 1;
+                    textBoxCardID.Text = string.Format("{0}", cardId);
+                    StringBuilder sb = new StringBuilder();
+                    Random ra = new Random();
+                    int key = ra.Next(97, 123);
+                    for (int i = 0; i < 6; i++)
+                    {
+                        sb.Append((char)key);
+                    }
+                    textBoxName.Text = string.Format("{0}", sb.ToString());
+
+                    textBoxAge.Text = ra.Next(0, 100).ToString();
+                    comboBoxGender.SelectedIndex = ra.Next(0, 3);
+                    //@"^1(3[0-9]|5[0-9]|7[6-8]|8[0-9])[0-9]{8}$"
+                    char[] charS = { '3', '5', '7', '8' };
+                    string num = string.Format("1{0}{1}{2}{3}", charS[ra.Next(0, charS.Length)], ra.Next(0, 10), ra.Next(1000, 9999), ra.Next(1000, 9999));
+                    textBoxPhone.Text = num;
+                    textBoxEmai.Text = num + "@qq.com";
+                    comboBox1.SelectedIndex = ra.Next(0, comboBox1.Items.Count);
+                    Thread.Sleep(200);
+                    comboBox2.SelectedIndex = ra.Next(0, comboBox2.Items.Count);
+                    Thread.Sleep(200);
+                    comboBox3.SelectedIndex = ra.Next(0, comboBox3.Items.Count);
+                    textBoxAddress.Text = string.Format("{0}村{1}", comboBox1.SelectedItem.ToString(), ra.Next(1, 100));
+
+                    Thread.Sleep(1000);
+
+                    // 对应 sql 语句 如果是字符串类型 需要加双引号
+
+                    string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
+                    string name = textBoxName.Text.Trim();
+                    string cardID = textBoxCardID.Text.Trim();
+                    int age = 0;
+                    int.TryParse(textBoxAge.Text.Trim(), out age);
+                    int gender = comboBoxGender.SelectedIndex;
+                    string phone = textBoxPhone.Text.Trim();
+                    string email = textBoxEmai.Text.Trim();
+                    string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
+
+                    if (!cardIdList.Contains(cardID.ToString()))
+                    {
+                        sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
+                        sqlList.Add(sql);
+                        cardIdList.Add(cardID.ToString());
+                    }
+                }
+
+                int insert = MysqlManager.Instance.InsesetBigData(tableName, sqlList);
+                if (insert > 0)
+                {
+                    MessageBox.Show("insert success.");
+                }
+                else
+                {
+                    MessageBox.Show("insert Failed.");
+                }
+                m_autoInsertData = false;
+            });
+            th.Start();
+
+
+        }
+
+        private int InsesetDataToBasedata()
+        {
+            int result = -1;
+            // 对应 sql 语句 如果是字符串类型 需要加双引号
+            string tableName = "student";
+            string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
+            string name = textBoxName.Text.Trim();
+            string cardID = textBoxCardID.Text.Trim();
+            int age = 0;
+            int.TryParse(textBoxAge.Text.Trim(), out age);
+            int gender = comboBoxGender.SelectedIndex;
+            string phone = textBoxPhone.Text.Trim();
+            if (!RegexUtils.IsPhoneNumber(phone))
+            {
+                // 判断是否是手机号码
+                MessageBox.Show("不是手机号码，重新输入.");
+                return result;
+            }
+            string email = textBoxEmai.Text.Trim();
+            string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
+            sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
+
+            bool exists = MysqlManager.Instance.ExistsData(tableName, string.Format("CardID=\"{0}\"", cardID));
+            if (exists)
+            {
+                //MessageBox.Show("insert data has exists.");
+                result = -2;
+            }
+            else
+            {
+                result = MysqlManager.Instance.InsesetData(tableName, sql);
+            }
+            return result;
         }
     }
 }

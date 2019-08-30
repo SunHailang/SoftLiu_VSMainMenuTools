@@ -2,10 +2,12 @@
 using SoftLiu_VSMainMenuTools.HelpMenu;
 using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
+using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -82,17 +84,21 @@ namespace SoftLiu_VSMainMenuTools
         private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form mySql = new MySqlBasedataForm();
-            mySql.ShowDialog();
+            mySql.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //ReadChinaInfo();
-            string sql = "select * from region where level=1;";
-            DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
-            DataTable dataTable = dataSet.Tables[0];
+            //string sql = "select * from region where level=1;";
+            //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
+            //DataTable dataTable = dataSet.Tables[0];
 
-            dataGridView1.DataSource = dataTable;
+            //dataGridView1.DataSource = dataTable;
+
+            //PdfDocument doc = new PdfDocument();
+            //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
+            //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -376,7 +382,6 @@ namespace SoftLiu_VSMainMenuTools
         private List<int> Get16thList(int value)
         {
             List<int> list = new List<int>();
-
             if (value / 16 > 0)
             {
                 list.AddRange(Get16thList(value / 16));
@@ -450,7 +455,7 @@ namespace SoftLiu_VSMainMenuTools
                     ch = 15;
                     break;
                 default:
-                    if(!int.TryParse(hex.ToString(), out ch))
+                    if (!int.TryParse(hex.ToString(), out ch))
                     {
                         ch = -1;
                     }
@@ -472,7 +477,7 @@ namespace SoftLiu_VSMainMenuTools
         private void buttonSixExchange_Click(object sender, EventArgs e)
         {
             string input = textBoxSix.Text.Trim();
-            input = input.ToUpper().Replace(" ","").Replace("0X", "");
+            input = input.ToUpper().Replace(" ", "").Replace("0X", "");
 
             // 12FF
             StringBuilder sb2 = new StringBuilder();
@@ -605,6 +610,136 @@ namespace SoftLiu_VSMainMenuTools
             {
                 MessageBox.Show("输入数据有误，重新输入！");
             }
+        }
+
+        private void buttonColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialogColorPanel.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialogColorPanel.Color;
+                int r = Convert.ToInt32(color.R);
+                int g = Convert.ToInt32(color.G);
+                int b = Convert.ToInt32(color.B);
+                textBoxColorR.Text = r.ToString();
+                textBoxColorG.Text = g.ToString();
+                textBoxColorB.Text = b.ToString();
+
+                List<int> list = new List<int>();
+                List<int> listR = Get16thList(r);
+                for (int i = listR.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listR);
+                List<int> listG = Get16thList(g);
+                for (int i = listG.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listG);
+                List<int> listB = Get16thList(b);
+                for (int i = listB.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listB);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("0x");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int value = list[i];
+                    sb.Append(Get16thString(value));
+                }
+                textBoxColorHex.Text = sb.ToString();
+
+                buttonColor.BackColor = color;
+            }
+        }
+
+        private void buttonColorEx_Click(object sender, EventArgs e)
+        {
+            string hexInput = textBoxColorShowHex.Text.Replace(" ", "");
+            string rInput = textBoxColorRShow.Text.Replace(" ", "");
+            string gInput = textBoxColorGShow.Text.Replace(" ", "");
+            string bInput = textBoxColorBShow.Text.Replace(" ", "");
+            if (!string.IsNullOrEmpty(hexInput))
+            {
+                StringBuilder sb = new StringBuilder();
+                string input = hexInput.ToUpper().Replace("0X", "");
+                for (int i = input.Length; i < 6; i++)
+                {
+                    sb.Append('0');
+                }
+                sb.Append(input);
+                List<string> listStr = new List<string>();
+                for (int i = 0; i < 6; i += 2)
+                {
+                    listStr.Add(sb.ToString().Substring(i, 2));
+                }
+                textBoxColorShowHex.Text = "0x" + sb.ToString().Substring(0, 6);
+                List<int> colorInt = new List<int>();
+                for (int i = 0; i < listStr.Count; i++)
+                {
+                    string value = listStr[i];
+                    int one = GetHexInt(value[0]);
+                    int two = GetHexInt(value[1]);
+                    colorInt.Add(one * 16 + two);
+                }
+                textBoxColorRShow.Text = colorInt[0].ToString();
+                textBoxColorGShow.Text = colorInt[1].ToString();
+                textBoxColorBShow.Text = colorInt[2].ToString();
+
+                buttonColorShow.BackColor = Color.FromArgb(colorInt[0], colorInt[1], colorInt[2]);
+            }
+            else if (!string.IsNullOrEmpty(rInput.Replace(" ", ""))
+                        || !string.IsNullOrEmpty(gInput.Replace(" ", ""))
+                        || !string.IsNullOrEmpty(bInput.Replace(" ", "")))
+            {
+                int r = 0;
+                int g = 0;
+                int b = 0;
+                int.TryParse(rInput.Replace(" ", ""), out r);
+                int.TryParse(gInput.Replace(" ", ""), out g);
+                int.TryParse(bInput.Replace(" ", ""), out b);
+                List<int> list = new List<int>();
+                List<int> listR = Get16thList(r);
+                for (int i = listR.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listR);
+                List<int> listG = Get16thList(g);
+                for (int i = listG.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listG);
+                List<int> listB = Get16thList(b);
+                for (int i = listB.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listB);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("0x");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int value = list[i];
+                    sb.Append(Get16thString(value));
+                }
+                textBoxColorShowHex.Text = sb.ToString();
+                buttonColorShow.BackColor = Color.FromArgb(r, g, b);
+            }
+            else
+            {
+                MessageBox.Show("输入有误，重新输入.");
+            }
+        }
+
+        private void tCPIPTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form tcp = new TCP_IPMenuForm();
+            tcp.Show();
         }
     }
 }

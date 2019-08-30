@@ -108,6 +108,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.buttonAutoAddUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -524,6 +525,7 @@
             this.tabPageAddData.Controls.Add(this.comboBox3);
             this.tabPageAddData.Controls.Add(this.comboBox2);
             this.tabPageAddData.Controls.Add(this.comboBox1);
+            this.tabPageAddData.Controls.Add(this.buttonAutoAddUser);
             this.tabPageAddData.Controls.Add(this.buttonInsert);
             this.tabPageAddData.Controls.Add(this.textBoxAddress);
             this.tabPageAddData.Controls.Add(this.labelAddress);
@@ -918,6 +920,16 @@
             this.label19.TabIndex = 17;
             this.label19.Text = "性别：";
             // 
+            // buttonAutoAddUser
+            // 
+            this.buttonAutoAddUser.Location = new System.Drawing.Point(56, 368);
+            this.buttonAutoAddUser.Name = "buttonAutoAddUser";
+            this.buttonAutoAddUser.Size = new System.Drawing.Size(88, 33);
+            this.buttonAutoAddUser.TabIndex = 1;
+            this.buttonAutoAddUser.Text = "自动插入数据";
+            this.buttonAutoAddUser.UseVisualStyleBackColor = true;
+            this.buttonAutoAddUser.Click += new System.EventHandler(this.buttonAutoAddUser_Click);
+            // 
             // MySqlBasedataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1024,5 +1036,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteEmil;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteInfo;
+        private System.Windows.Forms.Button buttonAutoAddUser;
     }
 }
