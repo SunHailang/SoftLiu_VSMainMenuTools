@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
-    class FileUtils
+    public partial class FileUtils
     {
 
         /// <summary>
