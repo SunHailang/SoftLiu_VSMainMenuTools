@@ -1,4 +1,7 @@
 ﻿using Newtonsoft.Json;
+using SoftLiu_VSMainMenuTools.Data;
+using SoftLiu_VSMainMenuTools.Utils;
+using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,7 +47,43 @@ namespace SoftLiu_VSMainMenuTools
 
             toolStripProgressBar1.Value = 50;
 
+            EventManager<TCPEvents>.Instance.RegisterEvent(TCPEvents.TrainCheckCodeType, OnTrainCheckCodeType);
+
         }
+
+        ~TCP_IPMenuForm()
+        {
+            
+        }
+
+        private void OnTrainCheckCodeType(TCPEvents arg1, object[] arg2)
+        {
+            textBoxTCPRecv.AppendText(arg2.ToString() + "\n");
+            if (arg2 != null && arg2.Length > 0)
+            {
+                Dictionary<string, object> jsonData = arg2[0] as Dictionary<string, object>;
+                if (jsonData != null)
+                {
+                    int status = (int)jsonData["status"];
+                    string result = jsonData["result"].ToString();
+                    byte[] data = Convert.FromBase64String(result);
+                    MemoryStream ms = new MemoryStream(data);
+                    ms.Position = 0;
+                    Image graphicPhoto = Image.FromStream(ms);
+                    ms.Close();
+                    pictureBoxCheckCode.Image = graphicPhoto;
+                }
+                else
+                {
+                    textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: jsonData is null." + "\n");
+                }
+            }
+            else
+            {
+                textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: arg2" + "\n");
+            }
+        }
+
         private void buttonSend_Click(object sender, EventArgs e)
         {
             try
@@ -52,7 +91,7 @@ namespace SoftLiu_VSMainMenuTools
                 if (clientTcp.Connected)
                 {
                     Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("code", "Tickets");
+                    dic.Add("code", "TrainQuery");
                     dic.Add("status", 0);
                     dic.Add("date", DateTime.Now.ToString("yyy-MM-dd"));
                     dic.Add("from_station", "上海");
@@ -84,6 +123,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     try
                     {
+                        textBoxTCPRecv.AppendText("had client connect...\n");
                         clientTcp.Connect(new IPEndPoint(m_tcpIP, m_tcpPort));
                         this.radioConnectStatus.Checked = true;
                     }
@@ -102,6 +142,7 @@ namespace SoftLiu_VSMainMenuTools
                 clientTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
+                    textBoxTCPRecv.AppendText("new client connect...\n");
                     clientTcp.Connect(new IPEndPoint(m_tcpIP, m_tcpPort));
                     this.radioConnectStatus.Checked = true;
                 }
@@ -115,7 +156,6 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        bool hasThread = false;
 
         private void RecvThread(Socket soc)
         {
@@ -124,14 +164,11 @@ namespace SoftLiu_VSMainMenuTools
                 //if (hasThread) return;
                 if (obj != null && obj is Socket)
                 {
-
-                    hasThread = false;
                     Socket client = obj as Socket;
                     while (client != null && client.Connected)
                     {
                         try
                         {
-
                             byte[] cacheBuf = null;
                             byte[] datasize = new byte[1024];
                             int receiveLength = 0;
@@ -160,14 +197,28 @@ namespace SoftLiu_VSMainMenuTools
                                 {
                                     byte[] msgbyte = new byte[msgl];
                                     Array.Copy(cacheBuf, 4, msgbyte, 0, msgl);
-                                    textBoxTCPRecv.AppendText(msgbyte.Length + "\n");
-                                    //test(msgbyte, soc);//拿到完整消息，具体消息操作
 
-                                    MemoryStream ms = new MemoryStream(msgbyte);
-                                    ms.Position = 0;
-                                    Image graphicPhoto = Image.FromStream(ms);
-                                    ms.Close();
-                                    pictureBoxCheckCode.Image = graphicPhoto;
+                                    //test(msgbyte, soc);//拿到完整消息，具体消息操作
+                                    string jsonMsg = Encoding.UTF8.GetString(msgbyte);
+                                    Dictionary<string, object> jsonObject = JsonUtils.Instance.JsonToDictionary(jsonMsg);
+                                    if (jsonObject != null)
+                                    {
+                                        TCPEvents eventType = TCPEvents.None;
+                                        bool parse = Enum.TryParse<TCPEvents>(jsonObject["code"].ToString(), out eventType);
+                                        if (parse)
+                                        {
+                                            EventManager<TCPEvents>.Instance.TriggerEvent(eventType, jsonObject);
+                                        }
+                                        else
+                                        {
+                                            textBoxTCPRecv.AppendText("Error Code Parse: " + jsonObject["code"].ToString() + "\n");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        textBoxTCPRecv.AppendText("Error Json Message: " + jsonMsg + "\n");
+                                    }
+
                                     if (msgl + 4 == cacheBuf.Length)
                                     {
                                         cacheBuf = null;
@@ -179,13 +230,12 @@ namespace SoftLiu_VSMainMenuTools
                                         cacheBuf = tmpByte;
                                     }
                                 }
-
                             }
-
                         }
                         catch (Exception msg)
                         {
-
+                            Console.WriteLine("Recv Data Thread End.\n" + msg.Message, "Error");
+                            break;
                         }
 
                     }
@@ -218,6 +268,8 @@ namespace SoftLiu_VSMainMenuTools
 
         private void TCP_IPMenuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            EventManager<TCPEvents>.Instance.DeregisterEvent(TCPEvents.TrainCheckCodeType, OnTrainCheckCodeType);
+
             if (clientTcp != null)
             {
                 clientTcp.Close();
@@ -226,6 +278,8 @@ namespace SoftLiu_VSMainMenuTools
             {
                 clientUdp.Close();
             }
+            clientTcp = null;
+            clientUdp = null;
         }
 
         private void buttonCheckCode_Click(object sender, EventArgs e)
@@ -240,7 +294,7 @@ namespace SoftLiu_VSMainMenuTools
                 if (clientTcp.Connected)
                 {
                     Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("code", "TrainCheckCode");
+                    dic.Add("code", "TrainCheckCodeType");
                     dic.Add("status", 0);
                     string sendMessage = string.Format("{0}", JsonConvert.SerializeObject(dic));
                     clientTcp.Send(Encoding.UTF8.GetBytes(sendMessage));
@@ -255,16 +309,6 @@ namespace SoftLiu_VSMainMenuTools
             {
                 MessageBox.Show(msg.Message, "Connect Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

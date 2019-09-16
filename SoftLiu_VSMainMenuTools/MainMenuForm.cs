@@ -1,17 +1,14 @@
-﻿using MySql.Data.MySqlClient;
-using SoftLiu_VSMainMenuTools.HelpMenu;
+﻿using SoftLiu_VSMainMenuTools.HelpMenu;
 using SoftLiu_VSMainMenuTools.Utils;
-using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
-using Spire.Pdf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -99,6 +96,19 @@ namespace SoftLiu_VSMainMenuTools
             //PdfDocument doc = new PdfDocument();
             //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
             //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
+            //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
+            //JavaScriptSerializer jss = new JavaScriptSerializer();
+            //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
+            //if (dic == null)
+            //{
+            //    textBox1.AppendText(js + "\n");
+            //}
+            //else
+            //{
+            //    textBox1.AppendText(dic["code"] + "\n");
+            //}
+            //调出输出窗口
+            //Console.WriteLine(js);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

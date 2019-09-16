@@ -119,6 +119,7 @@
     <Compile Include="Utils\EventsManager\EventManager.cs" />
     <Compile Include="Utils\EventsManager\Events.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Utils\Localization.cs" />
     <Compile Include="Utils\MD5Utils.cs" />
     <Compile Include="Utils\RandomUtils.cs" />

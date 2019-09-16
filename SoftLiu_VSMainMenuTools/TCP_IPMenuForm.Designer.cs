@@ -35,6 +35,15 @@
             this.uDPClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlClient = new System.Windows.Forms.TabControl();
             this.tabPageTCP_Client = new System.Windows.Forms.TabPage();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonCheckCode = new System.Windows.Forms.Button();
+            this.pictureBoxCheckCode = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.textBoxUserName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.textBoxTCPSend = new System.Windows.Forms.TextBox();
             this.textBoxTCPRecv = new System.Windows.Forms.TextBox();
             this.buttonDisconnectTCP = new System.Windows.Forms.Button();
@@ -45,20 +54,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxUserName = new System.Windows.Forms.TextBox();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.pictureBoxCheckCode = new System.Windows.Forms.PictureBox();
-            this.buttonCheckCode = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControlClient.SuspendLayout();
             this.tabPageTCP_Client.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -136,6 +136,85 @@
             this.tabPageTCP_Client.TabIndex = 0;
             this.tabPageTCP_Client.Text = "TCP Client";
             this.tabPageTCP_Client.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(7, 230);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(217, 66);
+            this.textBox2.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(275, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Check Code:";
+            // 
+            // buttonCheckCode
+            // 
+            this.buttonCheckCode.Location = new System.Drawing.Point(662, 158);
+            this.buttonCheckCode.Name = "buttonCheckCode";
+            this.buttonCheckCode.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckCode.TabIndex = 8;
+            this.buttonCheckCode.Text = "Check Code";
+            this.buttonCheckCode.UseVisualStyleBackColor = true;
+            this.buttonCheckCode.Click += new System.EventHandler(this.buttonCheckCode_Click);
+            // 
+            // pictureBoxCheckCode
+            // 
+            this.pictureBoxCheckCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBoxCheckCode.Location = new System.Drawing.Point(278, 113);
+            this.pictureBoxCheckCode.Name = "pictureBoxCheckCode";
+            this.pictureBoxCheckCode.Size = new System.Drawing.Size(293, 190);
+            this.pictureBoxCheckCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxCheckCode.TabIndex = 7;
+            this.pictureBoxCheckCode.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(344, 83);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(132, 20);
+            this.textBox1.TabIndex = 6;
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(344, 52);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(132, 20);
+            this.textBoxPassword.TabIndex = 6;
+            // 
+            // textBoxUserName
+            // 
+            this.textBoxUserName.Location = new System.Drawing.Point(344, 21);
+            this.textBoxUserName.Name = "textBoxUserName";
+            this.textBoxUserName.Size = new System.Drawing.Size(132, 20);
+            this.textBoxUserName.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(275, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Password:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(275, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "User Name:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxTCPSend
             // 
@@ -237,87 +316,6 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 18);
             this.toolStripProgressBar1.Value = 50;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(275, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "User Name:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(275, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Password:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxUserName
-            // 
-            this.textBoxUserName.Location = new System.Drawing.Point(344, 21);
-            this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(132, 20);
-            this.textBoxUserName.TabIndex = 6;
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Location = new System.Drawing.Point(344, 52);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(132, 20);
-            this.textBoxPassword.TabIndex = 6;
-            // 
-            // pictureBoxCheckCode
-            // 
-            this.pictureBoxCheckCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBoxCheckCode.Location = new System.Drawing.Point(278, 113);
-            this.pictureBoxCheckCode.Name = "pictureBoxCheckCode";
-            this.pictureBoxCheckCode.Size = new System.Drawing.Size(293, 190);
-            this.pictureBoxCheckCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxCheckCode.TabIndex = 7;
-            this.pictureBoxCheckCode.TabStop = false;
-            // 
-            // buttonCheckCode
-            // 
-            this.buttonCheckCode.Location = new System.Drawing.Point(662, 158);
-            this.buttonCheckCode.Name = "buttonCheckCode";
-            this.buttonCheckCode.Size = new System.Drawing.Size(75, 23);
-            this.buttonCheckCode.TabIndex = 8;
-            this.buttonCheckCode.Text = "Check Code";
-            this.buttonCheckCode.UseVisualStyleBackColor = true;
-            this.buttonCheckCode.Click += new System.EventHandler(this.buttonCheckCode_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(275, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Check Code:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(344, 83);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(7, 230);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(217, 66);
-            this.textBox2.TabIndex = 10;
-            // 
             // TCP_IPMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,9 +334,9 @@
             this.tabControlClient.ResumeLayout(false);
             this.tabPageTCP_Client.ResumeLayout(false);
             this.tabPageTCP_Client.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
