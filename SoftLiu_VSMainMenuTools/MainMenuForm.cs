@@ -32,6 +32,16 @@ namespace SoftLiu_VSMainMenuTools
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
 
+            //Dictionary<string, object> dic = new Dictionary<string, object>()
+            //{
+            //    {"Hello", "Hello {0} !" }
+            //};
+            //string js = JsonUtils.Instance.DictionaryToJson(dic);
+            //string jsonAdd = string.Format("{" + js + "}", "World");
+
+            //Console.WriteLine(js);
+            //Console.WriteLine(jsonAdd);
+
             // load csv file to language
 
             textBox1.AppendText(Localization.Instance.Get("STRING_FISHQUIP_COD_01") + "\n");

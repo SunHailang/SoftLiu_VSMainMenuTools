@@ -45,7 +45,7 @@ namespace SoftLiu_VSMainMenuTools
         {
             toolStripStatusLabel1.Text = "Hello World !";
 
-            toolStripProgressBar1.Value = 50;
+            toolStripProgressBar1.Value = 0;
 
             EventManager<TCPEvents>.Instance.RegisterEvent(TCPEvents.TrainCheckCodeType, OnTrainCheckCodeType);
 
@@ -138,7 +138,6 @@ namespace SoftLiu_VSMainMenuTools
             }
             else
             {
-
                 clientTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
@@ -237,7 +236,6 @@ namespace SoftLiu_VSMainMenuTools
                             Console.WriteLine("Recv Data Thread End.\n" + msg.Message, "Error");
                             break;
                         }
-
                     }
                 }
             });
