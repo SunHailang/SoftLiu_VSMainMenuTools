@@ -149,11 +149,11 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
 
         private void readContent()
         {
-            string path = @"Resources\content_en.ts";
+            string path = @"Resources\enFb.ts";
 
             byte[] bytes = FileUtils.ReadFileBytes(path);
             Console.WriteLine(bytes.Length);
-            string data = Encoding.UTF8.GetString(bytes);
+            string data = Encoding.UTF8.GetString(bytes).Trim().Trim('{', '}');
             string[] needData = data.Split('=')[1].Split('\n');
 
             Dictionary<string, Dictionary<string, string>> dic = new Dictionary<string, Dictionary<string, string>>();
@@ -163,22 +163,22 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
 
             foreach (var str in needData)
             {
-                string item = str.Trim();
+                string item = str.Replace("\r", "").Trim();
                 if (string.IsNullOrEmpty(item) || item.Contains("//"))
                 {
                     continue;
                 }
                 // TODO
-                if (item.Contains("{"))
+                if (item.Contains("{") && !item.Contains("${"))
                 {
                     //start
                     if (item.Contains(":"))
                     {
                         // new start
                         string[] data1 = item.Split(':');
-                        cur_str = data1[0].Trim(' ');
+                        cur_str = data1[0].Trim();
 
-                        if (!dic.ContainsKey(cur_str))
+                        if (!string.IsNullOrEmpty(cur_str) && !dic.ContainsKey(cur_str))
                         {
                             Dictionary<string, string> curDic = new Dictionary<string, string>();
                             dic.Add(cur_str, curDic);
@@ -194,15 +194,16 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                         }
                     }
                 }
-                if (!item.Contains("{") && !item.Contains("}"))
+                if (!item.Contains("{") && !item.Contains("}") || item.Contains("${"))
                 {
                     string[] data1 = item.Split(':');
-                    if (data1.Length == 2)
+                    if (data1.Length == 2 && !dic[cur_str].ContainsKey(data1[0].Trim()))
                     {
+
                         dic[cur_str].Add(data1[0].Trim(), data1[1].Trim().Trim(',').Trim('\'', '"'));
                     }
                 }
-                if (item.Contains("}"))
+                if (item.Contains("},") && !item.Contains("${"))
                 {
                     //end 添加
                     cur_str = "normal";

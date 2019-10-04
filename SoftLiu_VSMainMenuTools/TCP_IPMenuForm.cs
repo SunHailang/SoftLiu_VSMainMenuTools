@@ -91,7 +91,7 @@ namespace SoftLiu_VSMainMenuTools
                 if (clientTcp.Connected)
                 {
                     Dictionary<string, object> dic = new Dictionary<string, object>();
-                    dic.Add("code", "TrainQuery");
+                    dic.Add("code", "TrainQueryType");
                     dic.Add("status", 0);
                     dic.Add("date", DateTime.Now.ToString("yyy-MM-dd"));
                     dic.Add("from_station", "上海");
@@ -295,7 +295,11 @@ namespace SoftLiu_VSMainMenuTools
                     dic.Add("code", "TrainCheckCodeType");
                     dic.Add("status", 0);
                     string sendMessage = string.Format("{0}", JsonConvert.SerializeObject(dic));
-                    clientTcp.Send(Encoding.UTF8.GetBytes(sendMessage));
+                    byte[] sendData = Encoding.UTF8.GetBytes(sendMessage);
+                    byte[] sendDataLen = BitConverter.GetBytes(sendData.Length);
+                    clientTcp.Send(sendDataLen);
+                    //Console.WriteLine(sendData.Length);
+                    clientTcp.Send(sendData);
                     textBoxTCPSend.Text = JsonConvert.SerializeObject(dic);
                 }
                 else
@@ -307,6 +311,17 @@ namespace SoftLiu_VSMainMenuTools
             {
                 MessageBox.Show(msg.Message, "Connect Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public static byte[] int2bytes(int i)
+        {
+            byte[] b = new byte[4];
+
+            b[0] = (byte)(0xff & i);
+            b[1] = (byte)((0xff00 & i) >> 8);
+            b[2] = (byte)((0xff0000 & i) >> 16);
+            b[3] = (byte)((0xff000000 & i) >> 24);
+            return b;
         }
     }
 }
