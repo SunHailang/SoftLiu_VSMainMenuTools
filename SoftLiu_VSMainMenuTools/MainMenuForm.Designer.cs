@@ -38,6 +38,7 @@
             this.excelToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMySqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tCPIPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
@@ -127,7 +128,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.tCPIPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otherToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -177,7 +178,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.excelToXmlToolStripMenuItem,
-            this.excelToCSVToolStripMenuItem});
+            this.excelToCSVToolStripMenuItem,
+            this.otherToolsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -208,9 +210,16 @@
             // openMySqlToolStripMenuItem
             // 
             this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openMySqlToolStripMenuItem.Text = "Open mySql";
             this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
+            // 
+            // tCPIPTestToolStripMenuItem
+            // 
+            this.tCPIPTestToolStripMenuItem.Name = "tCPIPTestToolStripMenuItem";
+            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
+            this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -223,7 +232,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1098,12 +1107,12 @@
             this.textBox1.Size = new System.Drawing.Size(668, 152);
             this.textBox1.TabIndex = 4;
             // 
-            // tCPIPTestToolStripMenuItem
+            // otherToolsToolStripMenuItem
             // 
-            this.tCPIPTestToolStripMenuItem.Name = "tCPIPTestToolStripMenuItem";
-            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
-            this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
+            this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
+            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.otherToolsToolStripMenuItem.Text = "OtherTools";
+            this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
             // MainMenuForm
             // 
@@ -1244,6 +1253,7 @@
         private System.Windows.Forms.Button buttonColorShow;
         private System.Windows.Forms.Button buttonColorEx;
         private System.Windows.Forms.ToolStripMenuItem tCPIPTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otherToolsToolStripMenuItem;
     }
 }
 

@@ -373,5 +373,27 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
         {
             readContent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string path = textBox1.Text.Trim();
+            string str = textBox2.Text.Trim();
+
+            FileInfo[] fileList = FileUtils.GetDirectorAllFiles(path);
+            foreach (var item in fileList)
+            {
+                if (item.Exists)
+                {
+                    if (item.Extension.Contains(str))
+                    {
+                        if ((item.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                        {
+                            File.SetAttributes(item.FullName, item.Attributes & ~FileAttributes.ReadOnly & ~FileAttributes.Hidden);
+                        }
+                        File.Delete(item.FullName);
+                    }
+                }
+            }
+        }
     }
 }

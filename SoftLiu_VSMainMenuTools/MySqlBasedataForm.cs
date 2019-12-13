@@ -146,9 +146,14 @@ namespace SoftLiu_VSMainMenuTools
         private void ShowDataSource(List<Student> studentList)
         {
             dataGridView1.ClearSelection();
+            //dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new BindingList<Student>(studentList);
 
+            DataGridViewCell cell =  dataGridView1.Rows[1].Cells[2];
+            cell.ReadOnly = false;
+            cell.Value = "Hello";
+            Console.WriteLine(cell.Value.ToString());
 
             if (dataGridView1.Columns.Contains("btnModify"))
             {
@@ -169,6 +174,22 @@ namespace SoftLiu_VSMainMenuTools
             btnDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             btnDelete.DefaultCellStyle.BackColor = Color.Red;
             dataGridView1.Columns.Add(btnDelete);
+        }
+
+        private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            //是否可以进行编辑的条件检查
+            if (dgv.Columns[e.ColumnIndex].Name == "Column1" && !(bool)dgv["Column2", e.RowIndex].Value)
+            {
+                //取消编辑
+                e.Cancel = true;
+            }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void buttonInsert_Click(object sender, EventArgs e)
@@ -867,5 +888,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             return result;
         }
+
+        
     }
 }

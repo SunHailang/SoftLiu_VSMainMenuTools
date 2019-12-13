@@ -74,6 +74,7 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonAutoAddUser = new System.Windows.Forms.Button();
             this.textBoxCardID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.buttonAutoAddUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -120,7 +120,8 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -136,7 +137,9 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(910, 478);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // ColumnIndex
             // 
@@ -200,7 +203,7 @@
             // 
             // selectDatabase
             // 
-            this.selectDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.selectDatabase.Location = new System.Drawing.Point(828, 6);
             this.selectDatabase.Name = "selectDatabase";
             this.selectDatabase.Size = new System.Drawing.Size(88, 33);
@@ -423,7 +426,8 @@
             // 
             // dataGridViewIsDelete
             // 
-            this.dataGridViewIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewIsDelete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewIsDelete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -511,7 +515,7 @@
             // 
             // buttonRushIsDelete
             // 
-            this.buttonRushIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRushIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRushIsDelete.Location = new System.Drawing.Point(828, 6);
             this.buttonRushIsDelete.Name = "buttonRushIsDelete";
             this.buttonRushIsDelete.Size = new System.Drawing.Size(88, 33);
@@ -581,6 +585,16 @@
             this.comboBox1.Size = new System.Drawing.Size(112, 21);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // buttonAutoAddUser
+            // 
+            this.buttonAutoAddUser.Location = new System.Drawing.Point(56, 368);
+            this.buttonAutoAddUser.Name = "buttonAutoAddUser";
+            this.buttonAutoAddUser.Size = new System.Drawing.Size(88, 33);
+            this.buttonAutoAddUser.TabIndex = 1;
+            this.buttonAutoAddUser.Text = "自动插入数据";
+            this.buttonAutoAddUser.UseVisualStyleBackColor = true;
+            this.buttonAutoAddUser.Click += new System.EventHandler(this.buttonAutoAddUser_Click);
             // 
             // textBoxCardID
             // 
@@ -919,16 +933,6 @@
             this.label19.Size = new System.Drawing.Size(34, 13);
             this.label19.TabIndex = 17;
             this.label19.Text = "性别：";
-            // 
-            // buttonAutoAddUser
-            // 
-            this.buttonAutoAddUser.Location = new System.Drawing.Point(56, 368);
-            this.buttonAutoAddUser.Name = "buttonAutoAddUser";
-            this.buttonAutoAddUser.Size = new System.Drawing.Size(88, 33);
-            this.buttonAutoAddUser.TabIndex = 1;
-            this.buttonAutoAddUser.Text = "自动插入数据";
-            this.buttonAutoAddUser.UseVisualStyleBackColor = true;
-            this.buttonAutoAddUser.Click += new System.EventHandler(this.buttonAutoAddUser_Click);
             // 
             // MySqlBasedataForm
             // 
