@@ -170,6 +170,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Localization_Chinese.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -187,6 +188,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Art\btn_disabled.png" />
+    <Content Include="Resources\Art\btn_down.png" />
+    <Content Include="Resources\Art\btn_gold.png" />
+    <Content Include="Resources\Art\btn_hover.png" />
+    <Content Include="Resources\Art\btn_idle.png" />
+    <Content Include="Resources\Art\btn_red.png" />
+    <Content Include="Resources\ChinaInfo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Audio\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -59,5 +59,15 @@ namespace SoftLiu_VSMainMenuTools.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_gold {
+            get {
+                object obj = ResourceManager.GetObject("btn_gold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

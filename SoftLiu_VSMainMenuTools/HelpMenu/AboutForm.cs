@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace SoftLiu_VSMainMenuTools.HelpMenu
 {
@@ -29,7 +30,22 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             m_version = VersionUtils.Instance.version;
             labelVer.Text = m_version.ToString();
         }
+        private void AboutForm_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Color FColor = Color.Blue;
+            Color TColor = Color.Yellow;
 
+
+            Brush b = new LinearGradientBrush(this.ClientRectangle, FColor, TColor, LinearGradientMode.ForwardDiagonal);
+
+
+            g.FillRectangle(b, this.ClientRectangle);
+        }
+        private void AboutForm_Resize(object sender, EventArgs e)
+        {
+            this.Invalidate();//重绘窗体
+        }
         private void OnUpdaVersiononCompleteEvent(Events eventType, object[] arg2)
         {
             m_version = VersionUtils.Instance.version;
@@ -54,5 +70,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         {
             EventManager<Events>.Instance.DeregisterEvent(Utils.EventsManager.Events.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
         }
+
+       
     }
 }
