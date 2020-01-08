@@ -15,4 +15,16 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartProgram>D:\VS2015Program\SoftLiu_VSMainMenuTools\Out\SoftLiu_VSMainMenuTools.exe</StartProgram>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\VS2015Program\SoftLiu_VSMainMenuTools\Out\SoftLiu_VSMainMenuTools.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\VS2015Program\SoftLiu_VSMainMenuTools\Out\SoftLiu_VSMainMenuTools.exe</StartProgram>
+  </PropertyGroup>
 </Project>

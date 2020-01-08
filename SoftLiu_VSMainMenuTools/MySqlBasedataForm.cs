@@ -150,10 +150,10 @@ namespace SoftLiu_VSMainMenuTools
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new BindingList<Student>(studentList);
 
-            DataGridViewCell cell =  dataGridView1.Rows[1].Cells[2];
-            cell.ReadOnly = false;
-            cell.Value = "Hello";
-            Console.WriteLine(cell.Value.ToString());
+            //DataGridViewCell cell = dataGridView1.Rows[1].Cells[2];
+            //cell.ReadOnly = false;
+            //cell.Value = "Hello";
+            //Console.WriteLine(cell.Value.ToString());
 
             if (dataGridView1.Columns.Contains("btnModify"))
             {
@@ -215,29 +215,39 @@ namespace SoftLiu_VSMainMenuTools
 
             string findStr = textBoxFind.Text.Trim();
             List<Student> list = new List<Student>();
-            foreach (KeyValuePair<int, Student> item in this.m_currentStudentDic)
+            IEnumerable<KeyValuePair<int, Student>> listPair = null;
+            switch (findCondition)
             {
-                switch (findCondition)
-                {
-                    case "序号":
-                        if (item.Value.Index.ToString().Equals(findStr))
-                        {
-                            list.Add(item.Value);
-                        }
-                        break;
-                    case "手机号":
-                        if (item.Value.PhoneNum.Equals(findStr))
-                        {
-                            list.Add(item.Value);
-                        }
-                        break;
-                    default:
-                        if (item.Value.Name.Equals(findStr))
-                        {
-                            list.Add(item.Value);
-                        }
-                        break;
-                }
+                case "序号":
+                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    {
+                        return dic.Value.Index.ToString().CompareTo(findStr) == 0;
+                    });
+                    foreach (var item in listPair)
+                    {
+                        list.Add(item.Value);
+                    }
+                    break;
+                case "手机号":
+                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    {
+                        return dic.Value.PhoneNum.ToString().CompareTo(findStr) == 0;
+                    });
+                    foreach (var item in listPair)
+                    {
+                        list.Add(item.Value);
+                    }
+                    break;
+                case "姓名":
+                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    {
+                        return dic.Value.Name.ToString().CompareTo(findStr) == 0;
+                    });
+                    foreach (var item in listPair)
+                    {
+                        list.Add(item.Value);
+                    }
+                    break;
             }
             ShowDataSource(list);
         }
@@ -522,6 +532,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception exc)
             {
+                Console.WriteLine("comboBox2_SelectedIndexChanged : " + exc.Message);
                 comboBox3.Items.Clear();
                 if (comboBox3.Items.Count <= 0)
                 {
@@ -603,6 +614,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception exc)
             {
+                Console.WriteLine("comboBox2Modify_SelectedIndexChanged : " + exc.Message);
                 comboBox3Modify.Items.Clear();
                 if (comboBox3Modify.Items.Count <= 0)
                 {
@@ -765,7 +777,6 @@ namespace SoftLiu_VSMainMenuTools
 
         private void StartStep()
         {
-            bool insesetting = false;
             string tableName = "student";
             bool back = false;
             int index = 0;
@@ -889,6 +900,6 @@ namespace SoftLiu_VSMainMenuTools
             return result;
         }
 
-        
+
     }
 }

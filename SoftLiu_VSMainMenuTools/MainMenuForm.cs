@@ -17,21 +17,23 @@ namespace SoftLiu_VSMainMenuTools
         private bool m_timeSpanPuse = false;
         private bool m_formClosing = false;
 
-
-        SynchronizationContext m_SyncContext = null;
-
         public MainMenuForm()
         {
             InitializeComponent();
-
-            CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainMenuForm_Load(object sender, EventArgs e)
         {
-            //获取UI线程同步上下文
-            m_SyncContext = SynchronizationContext.Current;
+            Console.WriteLine("SoftLiu_VSMainMenuTools");
+            this.Hide();
+            SplashLoader splash = new SplashLoader();
+            splash.InitConfiger(this);
+            splash.ShowDialog();
+        }
 
+        public void MainMenuForm_Init()
+        {
+            //this.Show();
             ShowTimeAndTimeSpan();
             this.textBoxTimeCount.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
@@ -213,6 +215,7 @@ namespace SoftLiu_VSMainMenuTools
                             }
                             catch (Exception msg)
                             {
+                                Console.WriteLine("buttonCountdown_Click m_CountTimeTh : " + msg.Message);
                                 //if (m_formClosing || m_startDealLineTime)
                                 //{
                                 //    break;

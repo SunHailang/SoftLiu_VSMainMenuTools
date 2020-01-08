@@ -86,6 +86,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutForm_FormClosing);
             this.Load += new System.EventHandler(this.AboutForm_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutForm_Paint);
             this.Resize += new System.EventHandler(this.AboutForm_Resize);
