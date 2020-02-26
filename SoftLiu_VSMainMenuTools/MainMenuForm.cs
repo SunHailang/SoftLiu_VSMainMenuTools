@@ -24,7 +24,7 @@ namespace SoftLiu_VSMainMenuTools
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("SoftLiu_VSMainMenuTools");
+            Console.WriteLine("SoftLiu_VSMainMenuTools Load");
             this.Hide();
             SplashLoader splash = new SplashLoader();
             splash.InitConfiger(this);
@@ -39,18 +39,6 @@ namespace SoftLiu_VSMainMenuTools
             this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
-
-            //Dictionary<string, object> dic = new Dictionary<string, object>()
-            //{
-            //    {"Hello", "Hello {0} !" }
-            //};
-            //string js = JsonUtils.Instance.DictionaryToJson(dic);
-            //string jsonAdd = string.Format("{" + js + "}", "World");
-
-            //Console.WriteLine(js);
-            //Console.WriteLine(jsonAdd);
-
-            // load csv file to language
 
             textBox1.AppendText(Localization.Instance.Get("STRING_FISHQUIP_COD_01") + "\n");
             textBox1.AppendText(Localization.Instance.Format("STRING_FISHQUIP_SMALLTURTLE_01", "One", "Two") + "\n");

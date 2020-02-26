@@ -31,7 +31,7 @@ namespace SoftLiu_VSMainMenuTools
 
         public void InitConfiger(MainMenuForm parent)
         {
-            Console.WriteLine("InitConfiger");
+            //Console.WriteLine("InitConfiger");
             //MessageBox.Show("InitConfiger");
             m_parent = parent;
         }

@@ -50,5 +50,15 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 return null;
             }
         }
+
+        public T JsonToObject<T>(string jsonData)
+        {
+            return m_jsonScript.Deserialize<T>(jsonData);
+        }
+
+        public string ObjectToJson(object objData)
+        {
+            return m_jsonScript.Serialize(objData);
+        }
     }
 }

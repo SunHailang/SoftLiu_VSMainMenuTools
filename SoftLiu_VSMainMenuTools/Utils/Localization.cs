@@ -14,7 +14,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
 
         public Localization()
         {
-            
+
         }
 
         public void Init()
@@ -49,7 +49,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 string key = lines[i].Substring(0, index);
                 string value = lines[i].Substring(index + 1, lines[i].Length - index - 1);
 
-                mTemp.Add(key, value);
+                mTemp.Add(key, value.Trim('"'));
             }
             m_localizationVals = mTemp;
         }
