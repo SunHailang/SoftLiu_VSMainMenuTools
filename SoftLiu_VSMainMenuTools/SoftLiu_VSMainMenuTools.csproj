@@ -130,6 +130,8 @@
     <Compile Include="Utils\MD5Utils.cs" />
     <Compile Include="Utils\RandomUtils.cs" />
     <Compile Include="Utils\RegexUtils.cs" />
+    <Compile Include="Utils\ServerManager\RequestHandler.cs" />
+    <Compile Include="Utils\ServerManager\RequestManager.cs" />
     <Compile Include="Utils\ThreadPoolManager.cs" />
     <Compile Include="Utils\TimeUtils.cs" />
     <Compile Include="Utils\VersionUtils.cs" />
@@ -188,6 +190,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy  /e/y/i/f/s  $(ProjectDir)Resources  $(OutDir)Resources</PostBuildEvent>

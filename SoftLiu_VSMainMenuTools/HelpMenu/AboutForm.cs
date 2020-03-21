@@ -1,5 +1,6 @@
 ﻿using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.EventsManager;
+using SoftLiu_VSMainMenuTools.Utils.ServerManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,15 +40,25 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             //TODU
-            DialogResult result = MessageBox.Show("在线更新", "更新", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if(result == DialogResult.Yes)
+            //DialogResult result = MessageBox.Show("在线更新", "更新", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //if(result == DialogResult.Yes)
+            //{
+            //    if(ConfigurationUtils.Instance.existItem("versionName"))
+            //    {
+            //        ConfigurationUtils.Instance.modifyItem("versionName", "1.0.182356");//string.Format("{0}", m_version.MinorRevision + 1));
+            //        EventManager<Events>.Instance.TriggerEvent(Utils.EventsManager.Events.UpdateAppConfigEvent, null);
+            //    }
+            //}
+            try
             {
-                if(ConfigurationUtils.Instance.existItem("versionName"))
-                {
-                    ConfigurationUtils.Instance.modifyItem("versionName", "1.0.182356");//string.Format("{0}", m_version.MinorRevision + 1));
-                    EventManager<Events>.Instance.TriggerEvent(Utils.EventsManager.Events.UpdateAppConfigEvent, null);
-                }
+                string url = "http://localhost:8080/AssetBundles/";
+                RequestManager.Instance.DownloadFile(url, progressBarDownload, labelProcess);
             }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.Message);
+            }
+            
         }
 
         ~AboutForm()
