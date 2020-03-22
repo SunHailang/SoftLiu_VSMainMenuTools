@@ -30,6 +30,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelVer = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
@@ -57,12 +58,26 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // 
             // buttonUpdate
             // 
+<<<<<<< HEAD
             this.buttonUpdate.Location = new System.Drawing.Point(160, 191);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(99, 27);
+=======
+            this.buttonUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.buttonUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonUpdate.BackgroundImage")));
+            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUpdate.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonUpdate.FlatAppearance.BorderSize = 0;
+            this.buttonUpdate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUpdate.Location = new System.Drawing.Point(160, 207);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(101, 29);
+>>>>>>> adf8593ac407dbc4618a978fa6f44fb648609d55
             this.buttonUpdate.TabIndex = 1;
             this.buttonUpdate.Text = "在线升级";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // progressBarDownload
@@ -100,7 +115,10 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutForm_FormClosing);
             this.Load += new System.EventHandler(this.AboutForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutForm_Paint);
+            this.Resize += new System.EventHandler(this.AboutForm_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

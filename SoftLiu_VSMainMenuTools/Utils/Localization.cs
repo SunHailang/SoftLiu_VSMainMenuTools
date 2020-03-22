@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using SoftLiu_VSMainMenuTools.Singleton;
+using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
@@ -9,13 +10,20 @@ namespace SoftLiu_VSMainMenuTools.Utils
     {
         private Dictionary<string, string> m_localizationVals = new Dictionary<string, string>();
 
-        private string m_path = @"Resources\Localization_Chinese.csv";
+        private const string m_path = @"\Resources\Localization_Chinese.csv";
 
         public Localization()
         {
-            // load localization language
-            ReadCSVFile(m_path);
+
         }
+
+        public void Init()
+        {
+            string csvPath = Application.StartupPath + m_path;
+            // load localization language
+            ReadCSVFile(csvPath);
+        }
+
         /// <summary>
         /// KEY,Language
         /// 01,balabala...
@@ -41,7 +49,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 string key = lines[i].Substring(0, index);
                 string value = lines[i].Substring(index + 1, lines[i].Length - index - 1);
 
-                mTemp.Add(key, value);
+                mTemp.Add(key, value.Trim('"'));
             }
             m_localizationVals = mTemp;
         }

@@ -31,7 +31,7 @@ namespace SoftLiu_VSMainMenuTools
         //IPAddress m_tcpIP = IPAddress.Parse("202.59.232.58");
         int m_tcpPort = 11060;
 
-        Socket serverTcp;
+        //Socket serverTcp;
 
         //创建一个数据缓冲区
         private static byte[] m_clientDataBuffer = new byte[1024];

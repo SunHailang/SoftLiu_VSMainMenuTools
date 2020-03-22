@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.OtherTools
 {
     public partial class OtherTools : Form
     {
+        private Dictionary<string, CheckBox> m_checkBoxDic = new Dictionary<string, CheckBox>();
         public OtherTools()
         {
             InitializeComponent();
@@ -20,7 +15,11 @@ namespace SoftLiu_VSMainMenuTools.OtherTools
 
         private void OtherTools_Load(object sender, EventArgs e)
         {
-
+            m_checkBoxDic.Clear();
+            m_checkBoxDic.Add(".meta", checkBoxMeta);
+            m_checkBoxDic.Add(".png", checkBoxPng);
+            m_checkBoxDic.Add(".jpg", checkBoxJpg);
+            m_checkBoxDic.Add(".cs", checkBoxCs);
         }
 
         private void textBoxFilePath_DragDrop(object sender, DragEventArgs e)
@@ -37,28 +36,41 @@ namespace SoftLiu_VSMainMenuTools.OtherTools
                 e.Effect = DragDropEffects.None;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSure_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog dialog = new OpenFileDialog();
-            //dialog.Multiselect = true;//该值确定是否可以选择多个文件
-            //dialog.Title = "请选择文件夹";
-            //dialog.Filter = "所有文件(*.*)|*.*";
-            //if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    if (this.textBoxFilePath.Text.CompareTo(dialog.FileName) != 0)
-            //    {
-            //        this.textBoxFilePath.Text = dialog.FileName;
-            //    }
-            //}
+            List<string> delStr = new List<string>();
+            delStr.Clear();
+            foreach (var item in m_checkBoxDic)
+            {
+                if (item.Value.Checked)
+                {
+                    delStr.Add(item.Key);
+                }
+            }
+            toolStripProgressBarDelete.Value = 0;
             DirectoryInfo info = new DirectoryInfo(textBoxFilePath.Text);
-            Delete(info, ".meta");
+            List<FileInfo> list = Delete(info, delStr);
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (File.Exists(list[i].FullName))
+                    {
+                        list[i].Delete();
+                    }
+                    int value = (int)(100.0f / list.Count * i);
+                    toolStripProgressBarDelete.Value = value < 0 ? 0 : value >= 100 ? 100 : value;
+                }
+            }
+            toolStripProgressBarDelete.Value = 100;
         }
 
-        private void Delete(DirectoryInfo info, string ends)
+        private List<FileInfo> Delete(DirectoryInfo info, List<string> ends)
         {
+            List<FileInfo> fileList = new List<FileInfo>();
             foreach (var item in info.GetDirectories())
             {
-                Delete(item, ends);
+                fileList.AddRange(Delete(item, ends));
             }
             foreach (var item in info.GetFiles())
             {
@@ -67,11 +79,14 @@ namespace SoftLiu_VSMainMenuTools.OtherTools
                     item.IsReadOnly = false;
                     //item.Attributes = FileAttributes.w;
                 }
-                if (item.FullName.EndsWith(ends))
+                string s = Path.GetExtension(item.FullName);
+                if (ends.Contains(s.ToLower()))
                 {
-                    item.Delete();
-                }                
+                    //item.Delete();
+                    fileList.Add(item);
+                }
             }
+            return fileList;
         }
     }
 }

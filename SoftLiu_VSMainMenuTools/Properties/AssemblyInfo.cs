@@ -5,12 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SoftLiu_VSMainMenuTools")]
+[assembly: AssemblyTitle("MainMenuTools")]
 [assembly: AssemblyDescription("")]
+// 配置文件，如零售、发布、调试等信息。程序集在运行时不会使用该信息
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SoftLiu_VSMainMenuTools")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("SoftLiu")]
+[assembly: AssemblyProduct("MenuTools")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.1")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
