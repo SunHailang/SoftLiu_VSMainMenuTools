@@ -14,4 +14,12 @@ namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
         UpdateVersionEvent,
         UpdateVersionCompleteEvent,
     }
+
+    public enum TCPEvents
+    {
+        None,
+        TrainCheckCodeType,
+        TrainLoginType,
+        TrainQueryType
+    }
 }

@@ -1,20 +1,19 @@
-﻿/// <summary>
+﻿
+using Microsoft.Win32;
+/// <summary>
 /// 
 /// __author__ = "sun hai lang"
 /// __date__ 2019-07-22
 /// 
 /// </summary>
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
-    class FileUtils
+    public partial class FileUtils
     {
 
         /// <summary>
@@ -92,6 +91,123 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 }
             }
             return didDelete;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m_path"></param>
+        /// <returns></returns>
+        public static byte[] ReadFileBytes(string m_path)
+        {
+            if (!File.Exists(m_path))
+            {
+                return null;
+            }
+            byte[] bytes = null;
+            try
+            {
+                using (FileStream stream = new FileStream(m_path, FileMode.Open, FileAccess.Read))
+                {
+                    long leftLength = stream.Length;
+                    bytes = new byte[leftLength];
+                    int buffersize = 1024;
+                    byte[] buffer = new byte[buffersize];
+
+                    int rNum = 0;
+                    int fileStart = 0;
+                    while (leftLength > 0)
+                    {
+                        stream.Position = fileStart;
+                        if (leftLength < buffersize)
+                        {
+                            rNum = stream.Read(buffer, 0, Convert.ToInt32(leftLength));
+                        }
+                        else
+                        {
+                            rNum = stream.Read(buffer, 0, buffersize);
+                        }
+                        if (rNum == 0)
+                        {
+                            break;
+                        }
+                        Array.Copy(buffer, 0, bytes, fileStart, rNum);
+                        fileStart += rNum;
+                        leftLength -= rNum;
+                    }
+
+                    //int len = (int)stream.Length;
+                    //bytes = new byte[len];
+                    //int readLend = stream.Read(bytes, 0, len);
+                }
+            }
+            catch (Exception msg)
+            {
+                bytes = null;
+                Console.WriteLine("Error: " + msg.Message);
+            }
+
+            return bytes;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="m_bytes"></param>
+        /// <param name="m_path"></param>
+        /// <param name="create">如果没有 是否创建，默认创建 </param>
+        /// <returns></returns>
+        public static bool WriteFileBytes(byte[] m_bytes, string m_path, bool create = true)
+        {
+            FileMode f_Mode = FileMode.OpenOrCreate;
+            if (!create)
+            {
+                f_Mode = FileMode.Open;
+            }
+            if (f_Mode == FileMode.Open)
+            {
+                if (!File.Exists(m_path))
+                {
+                    return false;
+                }
+            }
+            try
+            {
+                using (FileStream stream = new FileStream(m_path, f_Mode, FileAccess.Write))
+                {
+                    stream.Write(m_bytes, 0, m_bytes.Length);
+                }
+            }
+            catch (Exception msg)
+            {
+                Console.WriteLine("Write File Bytes Error: " + msg.Message);
+                return false;
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 设置开机自启动
+        /// </summary>
+        /// <param name="appName">名字</param>
+        /// <param name="appPath">程序的路径</param>
+        /// <param name="isCurrentUser">是否设置为当前用户</param>
+        private static void AddStartSoft(string appName, string appPath, bool isCurrentUser = false)
+        {
+            if (isCurrentUser)
+            {
+                RegistryKey rKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                if (rKey.GetValue(appName) == null)
+                {
+                    rKey.SetValue(appName, appPath);
+                }
+            }
+            else
+            {
+                RegistryKey rKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+                if (rKey.GetValue(appName) == null)
+                {
+                    rKey.SetValue(appName, appPath);
+                }
+            }
         }
     }
 }

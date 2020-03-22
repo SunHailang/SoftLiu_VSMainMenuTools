@@ -33,41 +33,64 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelVer = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
+            this.progressBarDownload = new System.Windows.Forms.ProgressBar();
+            this.labelProcess = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(159, 173);
+            this.labelVersion.Location = new System.Drawing.Point(159, 160);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(48, 13);
+            this.labelVersion.Size = new System.Drawing.Size(59, 12);
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version: ";
             // 
             // labelVer
             // 
             this.labelVer.AutoSize = true;
-            this.labelVer.Location = new System.Drawing.Point(213, 173);
+            this.labelVer.Location = new System.Drawing.Point(213, 160);
             this.labelVer.Name = "labelVer";
-            this.labelVer.Size = new System.Drawing.Size(48, 13);
+            this.labelVer.Size = new System.Drawing.Size(59, 12);
             this.labelVer.TabIndex = 0;
             this.labelVer.Text = "Version: ";
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(160, 207);
+            this.buttonUpdate.Location = new System.Drawing.Point(160, 191);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(99, 29);
+            this.buttonUpdate.Size = new System.Drawing.Size(99, 27);
             this.buttonUpdate.TabIndex = 1;
             this.buttonUpdate.Text = "在线升级";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
+            // progressBarDownload
+            // 
+            this.progressBarDownload.Location = new System.Drawing.Point(64, 93);
+            this.progressBarDownload.Name = "progressBarDownload";
+            this.progressBarDownload.Size = new System.Drawing.Size(306, 18);
+            this.progressBarDownload.TabIndex = 2;
+            // 
+            // labelProcess
+            // 
+            this.labelProcess.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.labelProcess.AutoSize = true;
+            this.labelProcess.BackColor = System.Drawing.SystemColors.Control;
+            this.labelProcess.Location = new System.Drawing.Point(203, 70);
+            this.labelProcess.Name = "labelProcess";
+            this.labelProcess.Size = new System.Drawing.Size(23, 12);
+            this.labelProcess.TabIndex = 3;
+            this.labelProcess.Text = "50%";
+            this.labelProcess.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AboutForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 247);
+            this.ClientSize = new System.Drawing.Size(430, 228);
+            this.Controls.Add(this.labelProcess);
+            this.Controls.Add(this.progressBarDownload);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.labelVer);
             this.Controls.Add(this.labelVersion);
@@ -88,5 +111,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelVer;
         private System.Windows.Forms.Button buttonUpdate;
+        private ProgressBar progressBarDownload;
+        private Label labelProcess;
     }
 }

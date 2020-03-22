@@ -8,6 +8,7 @@
 using MySql.Data.MySqlClient;
 using SoftLiu_VSMainMenuTools.Singleton;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -110,6 +111,84 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
                 }
                 return result;
             }
+        }
+
+        public int InsesetBigData(string tableName, List<string> SQLStringList)
+        {
+            using (MySqlConnection conn = new MySqlConnection(m_connectString))
+            {
+                int result = 0;
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                MySqlTransaction tx = conn.BeginTransaction();
+                cmd.Transaction = tx;
+                try
+                {
+                    for (int n = 0; n < SQLStringList.Count; n++)
+                    {
+                        string value = SQLStringList[n];
+                        //if (ExistsData(tableName, string.Format("CardID=\"{0}\"", value.Split(',')[6])))
+                        //{
+                        //    continue;
+                        //}
+                        string strsql = string.Format("insert into {0} values({1});", tableName, value);
+                        if (strsql.Trim().Length > 1)
+                        {
+                            cmd.CommandText = strsql;
+                            result += cmd.ExecuteNonQuery();
+                        }
+                        //后来加上的，防止数据量过大，事务卡死现象
+                        if (n > 0 && (n % 500 == 0 || n == SQLStringList.Count - 1))
+                        {
+                            tx.Commit();
+                            //二次事务处理  
+                            tx = conn.BeginTransaction();
+                            cmd.Transaction = tx;
+                        }
+                    }
+                    //最后一次提交（网上提供的这句话是被注释掉的，大爷的，错了。该句必须有，不然最后一个循环的数据无法提交）
+                    tx.Commit();
+                }
+                catch (System.Data.SqlClient.SqlException E)
+                {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(E.Message);
+                }
+                catch (Exception ex)
+                {
+                    result = -1;
+                    tx.Rollback();
+                    throw new Exception(ex.Message);
+                }
+
+                return result;
+            }
+        }
+
+        public object GetMaxData(string tableName, string columnName)
+        {
+            string sql = string.Format("select max({0}) from {1};", columnName, tableName);
+            using (MySqlConnection connection = new MySqlConnection(m_connectString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand mycmd1 = new MySqlCommand(sql, connection);
+                    return mycmd1.ExecuteScalar();
+                }
+                catch (SqlException msg)
+                {
+                    MessageBox.Show(string.Format("Mysql UpdateData Error: {0}", msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
         }
 
         public int UpdateData(string query)

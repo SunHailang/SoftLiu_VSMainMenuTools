@@ -1,15 +1,14 @@
-﻿using MySql.Data.MySqlClient;
-using SoftLiu_VSMainMenuTools.HelpMenu;
+﻿using SoftLiu_VSMainMenuTools.HelpMenu;
 using SoftLiu_VSMainMenuTools.Utils;
-using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -18,20 +17,41 @@ namespace SoftLiu_VSMainMenuTools
         private bool m_timeSpanPuse = false;
         private bool m_formClosing = false;
 
+
+        SynchronizationContext m_SyncContext = null;
+
         public MainMenuForm()
         {
             InitializeComponent();
 
-            Control.CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
+            //获取UI线程同步上下文
+            m_SyncContext = SynchronizationContext.Current;
+
             ShowTimeAndTimeSpan();
             this.textBoxTimeCount.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
+
+            //Dictionary<string, object> dic = new Dictionary<string, object>()
+            //{
+            //    {"Hello", "Hello {0} !" }
+            //};
+            //string js = JsonUtils.Instance.DictionaryToJson(dic);
+            //string jsonAdd = string.Format("{" + js + "}", "World");
+
+            //Console.WriteLine(js);
+            //Console.WriteLine(jsonAdd);
+
+            // load csv file to language
+
+            textBox1.AppendText(Localization.Instance.Get("STRING_FISHQUIP_COD_01") + "\n");
+            textBox1.AppendText(Localization.Instance.Format("STRING_FISHQUIP_SMALLTURTLE_01", "One", "Two") + "\n");
         }
 
         private void ShowTimeAndTimeSpan()
@@ -77,84 +97,34 @@ namespace SoftLiu_VSMainMenuTools
         private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form mySql = new MySqlBasedataForm();
-            mySql.ShowDialog();
+            mySql.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //ReadChinaInfo();
-            string sql = "select * from region where level=1;";
-            DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
-            DataTable dataTable = dataSet.Tables[0];
+            //string sql = "select * from region where level=1;";
+            //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
+            //DataTable dataTable = dataSet.Tables[0];
 
-            dataGridView1.DataSource = dataTable;
-        }
+            //dataGridView1.DataSource = dataTable;
 
-        private void ReadChinaInfo()
-        {
-
-            string path = Environment.CurrentDirectory;
-            //textBox1.AppendText(string.Format("path: {0}\n", path));
-            string onePath = Directory.GetParent(path).FullName;
-            //textBox1.AppendText(string.Format("onePath: {0}\n", onePath));
-            DirectoryInfo dir = new DirectoryInfo(path);
-            //textBox1.AppendText(string.Format("{0}\n", dir.Ge);
-
-            // Path.
-
-
-            //string path = @"C:\Users\hlsun\Desktop\Document.txt";
-            //List<ChinaInfo> chinaList = new List<ChinaInfo>();
-            //string[] data = File.ReadAllLines(path);
-            //StringBuilder sb = new StringBuilder();
-
-            /*string[] data1 = data[2].Split('(', ')');
-            string[] data2 = data1[1].Trim().Split('\'');
-
-            textBox1.AppendText(data2.Length.ToString() + "\n");            
-
-            for (int i = 0; i < data2.Length; i++)
-            {
-                string vinfo = string.Format("index: {0} , value: {1}\n", i, data2[i].ToString());
-                textBox1.AppendText(vinfo);
-                sb.Append(vinfo);
-            }
-            */
-            //for (int i = 0; i < data.Length; i++)
+            //PdfDocument doc = new PdfDocument();
+            //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
+            //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
+            //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
+            //JavaScriptSerializer jss = new JavaScriptSerializer();
+            //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
+            //if (dic == null)
             //{
-            //    //textBox1.AppendText(data[i] + "\n");
-
-
-            //    string[] data1 = data[i].Split('(', ')');
-            //    string[] data2 = data1[1].Trim().Split('\'');
-            //    //for (int j = 0; j < data2.Length; j++)
-            //    //{
-            //    //    string info = data2[j].Replace('\'', ' ').Trim();
-            //    //}
-            //    ChinaInfo china = new ChinaInfo();
-            //    china.id = data2[1].Trim();
-            //    china.name = data2[3].Trim();
-            //    china.pid = data2[5].Trim();
-            //    china.sname = data2[7].Trim();
-            //    china.level = data2[9].Replace('\'', ' ').Trim();
-            //    china.citycode = data2[11].Replace('\'', ' ').Trim();
-            //    china.yzcode = data2[13].Replace('\'', ' ').Trim();
-            //    china.mername = data2[15].Replace('\'', ' ').Trim();
-            //    china.lng = data2[17].Replace('\'', ' ').Trim();
-            //    china.lat = data2[19].Replace('\'', ' ').Trim();
-            //    china.pinyin = data2[21].Replace('\'', ' ').Trim();
-
-            //    chinaList.Add(china);
+            //    textBox1.AppendText(js + "\n");
             //}
-
-            //ExcelToXml.ExcelOrXmlManager.m_chinaList = chinaList;
-
-            //for (int i = 0; i < chinaList.Count; i++)
+            //else
             //{
-            //    sb.Append(string.Format("省：{0} , 市：{1} , 全称：{2}{3}",chinaList[i].name, chinaList[i].sname, chinaList[i].mername, "\n"));
+            //    textBox1.AppendText(dic["code"] + "\n");
             //}
-            //string path1 = @"C:\Users\hlsun\Desktop\1.txt";
-            //File.WriteAllText(path1, sb.ToString(), Encoding.UTF8);
+            //调出输出窗口
+            //Console.WriteLine(js);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -310,7 +280,7 @@ namespace SoftLiu_VSMainMenuTools
                     strChecked = true;
                     break;
             }
-            
+
             if (strChecked)
             {
                 string change = this.textBoxFileStr.Text.Trim();
@@ -378,6 +348,430 @@ namespace SoftLiu_VSMainMenuTools
                     this.textBoxMD5Str.Text = string.Empty;
                 }
             }
+        }
+
+        private void textBoxTenExchange_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // 允许输入:数字、退格键(8)、全选(1)、复制(3)、粘贴(22)
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8 &&
+                    e.KeyChar != 1 && e.KeyChar != 3 && e.KeyChar != 22)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void buttonTenExchange_Click(object sender, EventArgs e)
+        {
+            string str = textBoxTenExchange.Text.Trim();
+            int result = 0;
+            if (int.TryParse(str, out result))
+            {
+                StringBuilder sb16 = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+                List<int> list = Get16thList(result);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int index = list[i];
+                    sb16.Append(Get16thString(list[i]));
+                    List<int> list2 = Get2thString(index);
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < list2.Count; j++)
+                    {
+                        sb.Append(list2[j]);
+                    }
+                    string str2 = sb.ToString();
+                    for (int k = str2.Length; k < 4; k++)
+                    {
+                        str2 = string.Format("{0}{1}", 0, str2);
+                    }
+                    sb2.Append(str2);
+                    if (i < list.Count - 1)
+                    {
+                        sb2.Append(" ");
+                    }
+                }
+                int len = sb16.ToString().Length % 2;
+                string head = "";
+                if (len != 0)
+                {
+                    head = "0";
+                }
+                textBoxSixExchange.Text = "0x" + head + sb16.ToString();
+                textBoxTwoExchange.Text = sb2.ToString();
+            }
+            else
+            {
+                MessageBox.Show("输入有误.");
+            }
+        }
+
+        private List<int> Get16thList(int value)
+        {
+            List<int> list = new List<int>();
+            if (value / 16 > 0)
+            {
+                list.AddRange(Get16thList(value / 16));
+            }
+            list.Add(value % 16);
+
+            return list;
+        }
+        private List<int> Get2thString(int index)
+        {
+            List<int> list = new List<int>();
+            if (index / 2 > 0)
+            {
+                list.AddRange(Get2thString(index / 2));
+            }
+            list.Add(index % 2);
+            return list;
+        }
+
+        private char Get16thString(int index)
+        {
+            char ch = '0';
+            switch (index)
+            {
+                case 10:
+                    ch = 'A';
+                    break;
+                case 11:
+                    ch = 'B';
+                    break;
+                case 12:
+                    ch = 'C';
+                    break;
+                case 13:
+                    ch = 'D';
+                    break;
+                case 14:
+                    ch = 'E';
+                    break;
+                case 15:
+                    ch = 'F';
+                    break;
+                default:
+                    ch = index.ToString().ToCharArray(0, 1)[0];
+                    break;
+            }
+            return ch;
+        }
+
+        private int GetHexInt(char hex)
+        {
+            int ch = 0;
+            switch (hex)
+            {
+                case 'A':
+                    ch = 10;
+                    break;
+                case 'B':
+                    ch = 11;
+                    break;
+                case 'C':
+                    ch = 12;
+                    break;
+                case 'D':
+                    ch = 13;
+                    break;
+                case 'E':
+                    ch = 14;
+                    break;
+                case 'F':
+                    ch = 15;
+                    break;
+                default:
+                    if (!int.TryParse(hex.ToString(), out ch))
+                    {
+                        ch = -1;
+                    }
+                    break;
+            }
+            return ch;
+        }
+
+        private void textBoxSix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void textBoxTwo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void buttonSixExchange_Click(object sender, EventArgs e)
+        {
+            string input = textBoxSix.Text.Trim();
+            input = input.ToUpper().Replace(" ", "").Replace("0X", "");
+
+            // 12FF
+            StringBuilder sb2 = new StringBuilder();
+            List<int> hexList = new List<int>();
+            List<int> list2 = null;
+            bool isAllZero = true;
+            for (int i = 0; i < input.Length; i++)
+            {
+                int hex = GetHexInt(input[input.Length - i - 1]);
+                if (hex < 0)
+                {
+                    MessageBox.Show("输入有错，重新输入.");
+                    //textBoxSix.Text = string.Empty;
+                    return;
+                }
+                hexList.Add(hex);
+                int index = GetHexInt(input[i]);
+                if (index < 0)
+                {
+                    MessageBox.Show("输入有错，重新输入.");
+                    //textBoxSix.Text = string.Empty;
+                    return;
+                }
+                list2 = Get2thString(index);
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < list2.Count; j++)
+                {
+                    sb.Append(list2[j]);
+                }
+                string str2 = sb.ToString();
+                for (int k = str2.Length; k < 4; k++)
+                {
+                    str2 = string.Format("{0}{1}", 0, str2);
+                }
+                if (isAllZero && str2 == "0000")
+                {
+                    continue;
+                }
+                isAllZero = false;
+                sb2.Append(str2);
+                if (i < input.Length - 1)
+                {
+                    sb2.Append(" ");
+                }
+            }
+
+            int hexInt = 0;
+            for (int i = 0; i < hexList.Count; i++)
+            {
+                int val = hexList[i];
+                hexInt += (int)Math.Pow(16, i) * val;
+            }
+
+            textBoxTenToSix.Text = hexInt.ToString();
+            textBoxTwoToSix.Text = sb2.ToString();
+        }
+
+        private void buttonTwoExchange_Click(object sender, EventArgs e)
+        {
+            string input = textBoxTwo.Text.Trim();
+            List<string> list = new List<string>();
+            input = input.Replace(" ", "");
+            int len = input.Length % 4;
+            if (len != 0)
+            {
+                for (int i = 0; i < 4 - len; i++)
+                {
+                    input = string.Format("{0}{1}", 0, input);
+                }
+            }
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i % 4 == 0)
+                {
+                    string s = input.Substring(i, 4);
+                    list.Add(s);
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            List<int> hexList = new List<int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                string item = list[i];
+                int hex = 0;
+                for (int j = item.Length - 1; j >= 0; j--)
+                {
+                    if (item[item.Length - j - 1] != '0')
+                    {
+                        hex += (int)Math.Pow(2, j);
+                    }
+                }
+                sb.Append(Get16thString(hex));
+                hexList.Add(hex);
+            }
+
+            int hexInt = 0;
+            for (int i = hexList.Count - 1; i >= 0; i--)
+            {
+                int val = (int)Math.Pow(16, i) * hexList[hexList.Count - i - 1];
+                hexInt += val;
+            }
+            string outStr = sb.ToString();
+            len = outStr.Length % 2;
+            if (len != 0)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    outStr = "0" + outStr;
+                }
+            }
+
+            textBoxSixToTwo.Text = "0X" + outStr;
+            textBoxTenToTwo.Text = hexInt.ToString();
+        }
+
+        private void buttonSecondsCount_Click(object sender, EventArgs e)
+        {
+            string input = textBoxInSecondsCount.Text.Trim();
+            int result = 0;
+            if (int.TryParse(input, out result))
+            {
+                int sec = result % 60;
+                int min = result / 60 % 60;
+                int hour = result / 3600 % 24;
+                int day = result / (3600 * 24);
+                textBoxoutSecondsCount.Text = string.Format("{0}天 {1}时{2}分{3}秒", day, hour, min, sec);
+            }
+            else
+            {
+                MessageBox.Show("输入数据有误，重新输入！");
+            }
+        }
+
+        private void buttonColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialogColorPanel.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialogColorPanel.Color;
+                int r = Convert.ToInt32(color.R);
+                int g = Convert.ToInt32(color.G);
+                int b = Convert.ToInt32(color.B);
+                textBoxColorR.Text = r.ToString();
+                textBoxColorG.Text = g.ToString();
+                textBoxColorB.Text = b.ToString();
+
+                List<int> list = new List<int>();
+                List<int> listR = Get16thList(r);
+                for (int i = listR.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listR);
+                List<int> listG = Get16thList(g);
+                for (int i = listG.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listG);
+                List<int> listB = Get16thList(b);
+                for (int i = listB.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listB);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("0x");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int value = list[i];
+                    sb.Append(Get16thString(value));
+                }
+                textBoxColorHex.Text = sb.ToString();
+
+                buttonColor.BackColor = color;
+            }
+        }
+
+        private void buttonColorEx_Click(object sender, EventArgs e)
+        {
+            string hexInput = textBoxColorShowHex.Text.Replace(" ", "");
+            string rInput = textBoxColorRShow.Text.Replace(" ", "");
+            string gInput = textBoxColorGShow.Text.Replace(" ", "");
+            string bInput = textBoxColorBShow.Text.Replace(" ", "");
+            if (!string.IsNullOrEmpty(hexInput))
+            {
+                StringBuilder sb = new StringBuilder();
+                string input = hexInput.ToUpper().Replace("0X", "");
+                for (int i = input.Length; i < 6; i++)
+                {
+                    sb.Append('0');
+                }
+                sb.Append(input);
+                List<string> listStr = new List<string>();
+                for (int i = 0; i < 6; i += 2)
+                {
+                    listStr.Add(sb.ToString().Substring(i, 2));
+                }
+                textBoxColorShowHex.Text = "0x" + sb.ToString().Substring(0, 6);
+                List<int> colorInt = new List<int>();
+                for (int i = 0; i < listStr.Count; i++)
+                {
+                    string value = listStr[i];
+                    int one = GetHexInt(value[0]);
+                    int two = GetHexInt(value[1]);
+                    colorInt.Add(one * 16 + two);
+                }
+                textBoxColorRShow.Text = colorInt[0].ToString();
+                textBoxColorGShow.Text = colorInt[1].ToString();
+                textBoxColorBShow.Text = colorInt[2].ToString();
+
+                buttonColorShow.BackColor = Color.FromArgb(colorInt[0], colorInt[1], colorInt[2]);
+            }
+            else if (!string.IsNullOrEmpty(rInput.Replace(" ", ""))
+                        || !string.IsNullOrEmpty(gInput.Replace(" ", ""))
+                        || !string.IsNullOrEmpty(bInput.Replace(" ", "")))
+            {
+                int r = 0;
+                int g = 0;
+                int b = 0;
+                int.TryParse(rInput.Replace(" ", ""), out r);
+                int.TryParse(gInput.Replace(" ", ""), out g);
+                int.TryParse(bInput.Replace(" ", ""), out b);
+                List<int> list = new List<int>();
+                List<int> listR = Get16thList(r);
+                for (int i = listR.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listR);
+                List<int> listG = Get16thList(g);
+                for (int i = listG.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listG);
+                List<int> listB = Get16thList(b);
+                for (int i = listB.Count; i < 2; i++)
+                {
+                    list.Add(0);
+                }
+                list.AddRange(listB);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("0x");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int value = list[i];
+                    sb.Append(Get16thString(value));
+                }
+                textBoxColorShowHex.Text = sb.ToString();
+                buttonColorShow.BackColor = Color.FromArgb(r, g, b);
+            }
+            else
+            {
+                MessageBox.Show("输入有误，重新输入.");
+            }
+        }
+
+        private void tCPIPTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form tcp = new TCP_IPMenuForm();
+            tcp.Show();
+        }
+
+        private void otherToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form tools = new SoftLiu_VSMainMenuTools.OtherTools.OtherTools();
+            tools.Show();
         }
     }
 }
