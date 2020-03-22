@@ -58,11 +58,6 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             // 
             // buttonUpdate
             // 
-<<<<<<< HEAD
-            this.buttonUpdate.Location = new System.Drawing.Point(160, 191);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(99, 27);
-=======
             this.buttonUpdate.BackColor = System.Drawing.Color.Transparent;
             this.buttonUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonUpdate.BackgroundImage")));
             this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -71,10 +66,9 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             this.buttonUpdate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.buttonUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonUpdate.Location = new System.Drawing.Point(160, 207);
+            this.buttonUpdate.Location = new System.Drawing.Point(161, 187);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(101, 29);
->>>>>>> adf8593ac407dbc4618a978fa6f44fb648609d55
             this.buttonUpdate.TabIndex = 1;
             this.buttonUpdate.Text = "在线升级";
             this.buttonUpdate.UseVisualStyleBackColor = false;
