@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Net;
+using System.IO;
 
 namespace SoftLiu_VSMainMenuTools.HelpMenu
 {
@@ -28,19 +30,19 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         {
             EventManager<Events>.Instance.RegisterEvent(Utils.EventsManager.Events.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
             m_version = VersionUtils.Instance.version;
-            labelVer.Text = m_version.ToString();            
+            labelVer.Text = m_version.ToString();
         }
         private void AboutForm_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            Color FColor = Color.Blue;
-            Color TColor = Color.Yellow;
+            //Graphics g = e.Graphics;
+            //Color FColor = Color.Blue;
+            //Color TColor = Color.Yellow;
 
 
-            Brush b = new LinearGradientBrush(this.ClientRectangle, FColor, TColor, LinearGradientMode.ForwardDiagonal);
+            //Brush b = new LinearGradientBrush(this.ClientRectangle, FColor, TColor, LinearGradientMode.ForwardDiagonal);
 
 
-            g.FillRectangle(b, this.ClientRectangle);
+            //g.FillRectangle(b, this.ClientRectangle);
         }
         private void AboutForm_Resize(object sender, EventArgs e)
         {
@@ -66,14 +68,36 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
             //}
             try
             {
-                string url = "http://localhost:8080/AssetBundles/";
+                string url = "http://localhost:8080/";
                 RequestManager.Instance.DownloadFile(url, progressBarDownload, labelProcess);
             }
             catch (Exception error)
             {
                 Console.WriteLine(error.Message);
             }
-            
+
+        }
+        private void buttonPost_Click(object sender, EventArgs e)
+        {
+            string url = "http://localhost:8080/";
+            HttpWebRequest postRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            postRequest.Method = "POST";
+            postRequest.Timeout = 15;
+            byte[] postData = Encoding.UTF8.GetBytes("Hello World!");
+            postRequest.ContentLength = postData.Length;
+            using (Stream stream = postRequest.GetRequestStream())
+            {
+                stream.Write(postData, 0, postData.Length);
+            }
+            using (var response = postRequest.GetResponse())
+            {
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string data = reader.ReadToEnd();
+
+                    Console.WriteLine("Post Callback: " + data);
+                }
+            }
         }
 
         ~AboutForm()
@@ -83,7 +107,9 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
 
         private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
+
+
     }
 }
