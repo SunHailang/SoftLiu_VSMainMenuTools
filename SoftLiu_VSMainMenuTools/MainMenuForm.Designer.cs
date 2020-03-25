@@ -36,6 +36,7 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToXmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otherToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMySqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tCPIPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,7 +129,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.otherToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -187,16 +187,23 @@
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
+            // 
+            // otherToolsToolStripMenuItem
+            // 
+            this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
+            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.otherToolsToolStripMenuItem.Text = "OtherTools";
+            this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
@@ -1106,13 +1113,6 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(668, 152);
             this.textBox1.TabIndex = 4;
-            // 
-            // otherToolsToolStripMenuItem
-            // 
-            this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
-            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.otherToolsToolStripMenuItem.Text = "OtherTools";
-            this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
             // MainMenuForm
             // 

@@ -9,6 +9,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using System.Security.Cryptography;
+using System.Xml.Serialization;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -92,30 +94,39 @@ namespace SoftLiu_VSMainMenuTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ReadChinaInfo();
-            //string sql = "select * from region where level=1;";
-            //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
-            //DataTable dataTable = dataSet.Tables[0];
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            {
+                RSAParameters parameters = rsa.ExportParameters(false);
 
-            //dataGridView1.DataSource = dataTable;
+                XmlSerializer x = new XmlSerializer(parameters.GetType());
+                x.Serialize(Console.Out, parameters);
+                Console.WriteLine();
+            }
 
-            //PdfDocument doc = new PdfDocument();
-            //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
-            //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
-            //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
-            //JavaScriptSerializer jss = new JavaScriptSerializer();
-            //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
-            //if (dic == null)
-            //{
-            //    textBox1.AppendText(js + "\n");
-            //}
-            //else
-            //{
-            //    textBox1.AppendText(dic["code"] + "\n");
-            //}
-            //调出输出窗口
-            //Console.WriteLine(js);
-        }
+                //ReadChinaInfo();
+                //string sql = "select * from region where level=1;";
+                //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
+                //DataTable dataTable = dataSet.Tables[0];
+
+                //dataGridView1.DataSource = dataTable;
+
+                //PdfDocument doc = new PdfDocument();
+                //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
+                //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
+                //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
+                //JavaScriptSerializer jss = new JavaScriptSerializer();
+                //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
+                //if (dic == null)
+                //{
+                //    textBox1.AppendText(js + "\n");
+                //}
+                //else
+                //{
+                //    textBox1.AppendText(dic["code"] + "\n");
+                //}
+                //调出输出窗口
+                //Console.WriteLine(js);
+            }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
