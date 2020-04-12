@@ -79,24 +79,31 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         }
         private void buttonPost_Click(object sender, EventArgs e)
         {
-            string url = "http://localhost:8080/";
-            HttpWebRequest postRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            postRequest.Method = "POST";
-            postRequest.Timeout = 15;
-            byte[] postData = Encoding.UTF8.GetBytes("Hello World!");
-            postRequest.ContentLength = postData.Length;
-            using (Stream stream = postRequest.GetRequestStream())
+            try
             {
-                stream.Write(postData, 0, postData.Length);
-            }
-            using (var response = postRequest.GetResponse())
-            {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                string url = "http://localhost:8080/";
+                HttpWebRequest postRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+                postRequest.Method = "POST";
+                postRequest.Timeout = 15;
+                byte[] postData = Encoding.UTF8.GetBytes("Hello World!");
+                postRequest.ContentLength = postData.Length;
+                using (Stream stream = postRequest.GetRequestStream())
                 {
-                    string data = reader.ReadToEnd();
-
-                    Console.WriteLine("Post Callback: " + data);
+                    stream.Write(postData, 0, postData.Length);
                 }
+                using (var response = postRequest.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string data = reader.ReadToEnd();
+
+                        Console.WriteLine("Post Callback: " + data);
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("Error: " + error.Message);
             }
         }
 

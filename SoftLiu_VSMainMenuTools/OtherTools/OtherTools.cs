@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SoftLiu_VSMainMenuTools.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.OtherTools
@@ -87,6 +89,75 @@ namespace SoftLiu_VSMainMenuTools.OtherTools
                 }
             }
             return fileList;
+        }
+
+        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All; //重要代码：表明是所有类型的数据，比如文件路径
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void textBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();//获得路径
+            this.textBox1.Text = path;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (StreamReader sr = new StreamReader(File.OpenRead(this.textBox1.Text)))
+            {
+                string readLine = sr.ReadToEnd();
+                string[] data1 = readLine.Split('\n', '\t', '\r');
+                Dictionary<string, object> keyValues = new Dictionary<string, object>();
+                Dictionary<string, object> otherKeyValue = new Dictionary<string, object>();
+                string isValue = "";
+                string isKey = "";
+                for (int i = 0; i < data1.Length; i++)
+                {
+                    string str = data1[i].Trim(' ');
+                    if (str.Contains("{") || str.Contains("}"))
+                    {
+                        continue;
+                    }
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        if (!str.Contains("*") && string.IsNullOrEmpty(isValue))
+                        {
+                            isValue = str.Trim();
+                        }
+                        else if (!string.IsNullOrEmpty(isValue))
+                        {
+                            isKey = str;
+                            string[] keys = str.Split('*');
+                            for (int j = 0; j < keys.Length; j++)
+                            {
+                                if (!string.IsNullOrEmpty(keys[j].Trim()))
+                                {
+                                    if (keyValues.ContainsKey('*' + keys[j].Trim()))
+                                    {
+                                        Console.WriteLine('*' + keys[j].Trim());
+                                    }
+                                    else
+                                        keyValues.Add('*' + keys[j].Trim(), isValue);
+                                }
+                            }
+                            isValue = "";
+                            isKey = "";
+                        }
+                    }
+                }
+                Console.WriteLine(keyValues.Count);
+                string path = Path.GetDirectoryName(this.textBox1.Text);
+                using (FileStream fs = new FileStream(path.TrimEnd('/', '\\') + "/test.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    string json = JsonUtils.Instance.DictionaryToJson(keyValues);
+                    byte[] buffer = Encoding.UTF8.GetBytes(json);
+                    fs.Write(buffer, 0, buffer.Length);
+                }
+            }
         }
     }
 }
