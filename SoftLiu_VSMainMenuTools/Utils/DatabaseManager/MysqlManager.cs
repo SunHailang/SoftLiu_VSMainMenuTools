@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
@@ -191,17 +192,27 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
             return null;
         }
 
-        public int UpdateData(string query)
+        public int UpdateData(string query, bool openAffairs = false)
         {
             if (string.IsNullOrEmpty(query)) return 0;
-
+            StringBuilder sb = new StringBuilder();
+            if (openAffairs)
+            {
+                // 开启一个事务
+                sb.Append("begin;");
+            }
+            sb.Append(query);
+            if (openAffairs)
+            {
+                sb.Append("commit;");
+            }
             int result = 0;
             using (MySqlConnection connection = new MySqlConnection(m_connectString))
             {
                 try
                 {
                     connection.Open();
-                    MySqlCommand mycmd1 = new MySqlCommand(query, connection);
+                    MySqlCommand mycmd1 = new MySqlCommand(sb.ToString(), connection);
                     result = mycmd1.ExecuteNonQuery();
                 }
                 catch (SqlException msg)

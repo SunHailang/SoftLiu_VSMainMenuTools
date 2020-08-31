@@ -20,9 +20,9 @@ namespace SoftLiu_VSMainMenuTools
     {
         private DataTable m_currentDataTable = null;
 
-        private Dictionary<int, Student> m_currentStudentDic = null;
+        private List<Student> m_currentStudentList = null;
 
-        private Dictionary<int, Student> m_currentStudentIsDeleteDic = null;
+        private List<Student> m_currentStudentIsDeleteList = null;
 
         private List<ChinaInfo> m_chinaList = null;
 
@@ -129,7 +129,6 @@ namespace SoftLiu_VSMainMenuTools
             this.m_currentDataTable = data.Tables[0];
             //dataGridView1.DataSource = this.m_currentDataTable.DefaultView;
             List<Student> studentList = new List<Student>();
-            Dictionary<int, Student> studentDic = new Dictionary<int, Student>();
             DataRow[] dataRows = this.m_currentDataTable.Select();
             for (int i = 0; i < dataRows.Length; i++)
             {
@@ -137,14 +136,14 @@ namespace SoftLiu_VSMainMenuTools
 
                 Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
                 studentList.Add(student);
-                studentDic.Add(i, student);
             }
-            this.m_currentStudentDic = studentDic;
+            this.m_currentStudentList = studentList;
             ShowDataSource(studentList);
         }
 
         private void ShowDataSource(List<Student> studentList)
         {
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ClearSelection();
             //dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.AutoGenerateColumns = false;
@@ -187,11 +186,6 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void buttonInsert_Click(object sender, EventArgs e)
         {
             int insert = InsesetDataToBasedata();
@@ -215,37 +209,37 @@ namespace SoftLiu_VSMainMenuTools
 
             string findStr = textBoxFind.Text.Trim();
             List<Student> list = new List<Student>();
-            IEnumerable<KeyValuePair<int, Student>> listPair = null;
+            IEnumerable<Student> listPair = null;
             switch (findCondition)
             {
                 case "序号":
-                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    listPair = this.m_currentStudentList.Where((dic) =>
                     {
-                        return dic.Value.Index.ToString().CompareTo(findStr) == 0;
+                        return dic.Index.ToString().CompareTo(findStr) == 0;
                     });
                     foreach (var item in listPair)
                     {
-                        list.Add(item.Value);
+                        list.Add(item);
                     }
                     break;
                 case "手机号":
-                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    listPair = this.m_currentStudentList.Where((dic) =>
                     {
-                        return dic.Value.PhoneNum.ToString().CompareTo(findStr) == 0;
+                        return dic.PhoneNum.ToString().CompareTo(findStr) == 0;
                     });
                     foreach (var item in listPair)
                     {
-                        list.Add(item.Value);
+                        list.Add(item);
                     }
                     break;
                 case "姓名":
-                    listPair = this.m_currentStudentDic.Where((dic) =>
+                    listPair = this.m_currentStudentList.Where((dic) =>
                     {
-                        return dic.Value.Name.ToString().CompareTo(findStr) == 0;
+                        return dic.Name.ToString().CompareTo(findStr) == 0;
                     });
                     foreach (var item in listPair)
                     {
-                        list.Add(item.Value);
+                        list.Add(item);
                     }
                     break;
             }
@@ -255,16 +249,14 @@ namespace SoftLiu_VSMainMenuTools
         {
             if (this.tabControlBasedata.SelectedTab == this.tabPageIsDelete)
             {
-                if (this.m_currentStudentIsDeleteDic == null)
+                if (this.m_currentStudentIsDeleteList == null)
                 {
                     this.comboBoxIsDelete.SelectedIndex = 0;
                     buttonRushIsDelete_Click(null, new EventArgs());
                 }
                 else
                 {
-                    List<Student> lis = new List<Student>();
-                    lis.AddRange(this.m_currentStudentIsDeleteDic.Values);
-                    ShowIsDeleteDataSource(lis);
+                    ShowIsDeleteDataSource(this.m_currentStudentIsDeleteList);
                 }
             }
             else if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
@@ -312,6 +304,7 @@ namespace SoftLiu_VSMainMenuTools
             int columnIndex = e.ColumnIndex;
             if (rowIndex >= 0)
             {
+                string cardID = dataGridView1[1, rowIndex].Value.ToString();
                 DialogResult result = DialogResult.None;
                 switch (dataGridView1.Columns[columnIndex].Name)
                 {
@@ -320,8 +313,12 @@ namespace SoftLiu_VSMainMenuTools
                         if (result == DialogResult.OK)
                         {
                             //TODO
-                            Student student;
-                            if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
+                            IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
+                            {
+                                return stu.CardID == cardID;
+                            });
+                            Student student = students.FirstOrDefault();
+                            if (student != null)
                             {
                                 ModifyData(student);
                             }
@@ -336,8 +333,12 @@ namespace SoftLiu_VSMainMenuTools
                         if (result == DialogResult.OK)
                         {
                             //TODO
-                            Student student;
-                            if (this.m_currentStudentDic.TryGetValue(rowIndex, out student))
+                            IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
+                            {
+                                return stu.CardID == cardID;
+                            });
+                            Student student = students.FirstOrDefault();
+                            if (student != null)
                             {
                                 DeleteData(student, rowIndex);
                             }
@@ -437,11 +438,13 @@ namespace SoftLiu_VSMainMenuTools
         {
             //TODO
             string sql = string.Format("update student set {0} where cardID=\"{1}\";", "isDelete=1", student.CardID);
-            int resultSql = MysqlManager.Instance.UpdateData(sql);
+            int resultSql = MysqlManager.Instance.UpdateData(sql, true);
             if (resultSql > 0)
             {
                 MessageBox.Show("删除成功.");
                 dataGridView1.Rows.RemoveAt(index);
+                // 更新学生字典
+                this.m_currentStudentList.Remove(student);
             }
             else
             {
@@ -655,7 +658,6 @@ namespace SoftLiu_VSMainMenuTools
             this.m_currentDataTable = data.Tables[0];
             //dataGridView1.DataSource = this.m_currentDataTable.DefaultView;
             List<Student> studentList = new List<Student>();
-            Dictionary<int, Student> studentDic = new Dictionary<int, Student>();
             DataRow[] dataRows = this.m_currentDataTable.Select();
             for (int i = 0; i < dataRows.Length; i++)
             {
@@ -663,9 +665,8 @@ namespace SoftLiu_VSMainMenuTools
 
                 Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
                 studentList.Add(student);
-                studentDic.Add(i, student);
             }
-            this.m_currentStudentIsDeleteDic = studentDic;
+            this.m_currentStudentIsDeleteList = studentList;
             ShowIsDeleteDataSource(studentList);
         }
         private void ShowIsDeleteDataSource(List<Student> studentList)
@@ -694,26 +695,26 @@ namespace SoftLiu_VSMainMenuTools
 
             string findStr = textBoxIsDelete.Text.Trim();
             List<Student> list = new List<Student>();
-            foreach (KeyValuePair<int, Student> item in this.m_currentStudentIsDeleteDic)
+            foreach (Student item in this.m_currentStudentIsDeleteList)
             {
                 switch (findCondition)
                 {
                     case "序号":
-                        if (item.Value.Index.ToString().Equals(findStr))
+                        if (item.Index.ToString().Equals(findStr))
                         {
-                            list.Add(item.Value);
+                            list.Add(item);
                         }
                         break;
                     case "手机号":
-                        if (item.Value.PhoneNum.Equals(findStr))
+                        if (item.PhoneNum.Equals(findStr))
                         {
-                            list.Add(item.Value);
+                            list.Add(item);
                         }
                         break;
                     default:
-                        if (item.Value.Name.Equals(findStr))
+                        if (item.Name.Equals(findStr))
                         {
-                            list.Add(item.Value);
+                            list.Add(item);
                         }
                         break;
                 }
@@ -727,6 +728,7 @@ namespace SoftLiu_VSMainMenuTools
             int columnIndex = e.ColumnIndex;
             if (rowIndex >= 0)
             {
+                string cardID = this.dataGridViewIsDelete[1, rowIndex].Value.ToString();
                 DialogResult result = DialogResult.None;
                 switch (dataGridViewIsDelete.Columns[columnIndex].Name)
                 {
@@ -735,8 +737,12 @@ namespace SoftLiu_VSMainMenuTools
                         if (result == DialogResult.OK)
                         {
                             //TODO
-                            Student student;
-                            if (this.m_currentStudentIsDeleteDic.TryGetValue(rowIndex, out student))
+                            IEnumerable<Student> students = this.m_currentStudentIsDeleteList.Where((stu) =>
+                            {
+                                return stu.CardID == cardID;
+                            });
+                            Student student = students.FirstOrDefault();
+                            if (student != null)
                             {
                                 string sql = string.Format("update student set {0} where cardID=\"{1}\";", "isDelete=0", student.CardID);
                                 int resultSql = MysqlManager.Instance.UpdateData(sql);
@@ -744,6 +750,7 @@ namespace SoftLiu_VSMainMenuTools
                                 {
                                     MessageBox.Show("恢复成功.");
                                     dataGridViewIsDelete.Rows.RemoveAt(rowIndex);
+                                    this.m_currentStudentIsDeleteList.Remove(student);
                                 }
                                 else
                                 {
@@ -900,6 +907,20 @@ namespace SoftLiu_VSMainMenuTools
             return result;
         }
 
+        private void dataGridViewIsDelete_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0 || dataGridViewIsDelete.Rows.Count <= 0) return;
+            dataGridViewIsDelete.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = (dataGridViewIsDelete.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? string.Empty).ToString();
+        }
 
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void tabPageShowData_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

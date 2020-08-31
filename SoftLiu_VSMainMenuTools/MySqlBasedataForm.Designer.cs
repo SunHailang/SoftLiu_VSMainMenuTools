@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectDatabase = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelAge = new System.Windows.Forms.Label();
@@ -109,6 +109,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -140,66 +148,6 @@
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            // 
-            // ColumnIndex
-            // 
-            this.ColumnIndex.DataPropertyName = "Index";
-            this.ColumnIndex.HeaderText = "序号";
-            this.ColumnIndex.Name = "ColumnIndex";
-            this.ColumnIndex.ReadOnly = true;
-            this.ColumnIndex.Width = 60;
-            // 
-            // ColumnCardID
-            // 
-            this.ColumnCardID.DataPropertyName = "CardID";
-            this.ColumnCardID.HeaderText = "身份证号";
-            this.ColumnCardID.Name = "ColumnCardID";
-            this.ColumnCardID.ReadOnly = true;
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.DataPropertyName = "Name";
-            this.ColumnName.HeaderText = "姓名";
-            this.ColumnName.Name = "ColumnName";
-            this.ColumnName.ReadOnly = true;
-            // 
-            // ColumnAge
-            // 
-            this.ColumnAge.DataPropertyName = "Age";
-            this.ColumnAge.HeaderText = "年龄";
-            this.ColumnAge.Name = "ColumnAge";
-            this.ColumnAge.ReadOnly = true;
-            this.ColumnAge.Width = 60;
-            // 
-            // ColumnGender
-            // 
-            this.ColumnGender.DataPropertyName = "Gender";
-            this.ColumnGender.HeaderText = "性别";
-            this.ColumnGender.Name = "ColumnGender";
-            this.ColumnGender.ReadOnly = true;
-            this.ColumnGender.Width = 60;
-            // 
-            // ColumnPhoneNum
-            // 
-            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
-            this.ColumnPhoneNum.HeaderText = "手机号码";
-            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
-            this.ColumnPhoneNum.ReadOnly = true;
-            // 
-            // ColumnEmail
-            // 
-            this.ColumnEmail.DataPropertyName = "Email";
-            this.ColumnEmail.HeaderText = "邮箱";
-            this.ColumnEmail.Name = "ColumnEmail";
-            this.ColumnEmail.ReadOnly = true;
-            // 
-            // ColumnAddress
-            // 
-            this.ColumnAddress.DataPropertyName = "Address";
-            this.ColumnAddress.HeaderText = "联系地址";
-            this.ColumnAddress.Name = "ColumnAddress";
-            this.ColumnAddress.ReadOnly = true;
-            this.ColumnAddress.Width = 80;
             // 
             // selectDatabase
             // 
@@ -347,6 +295,7 @@
             this.tabPageShowData.TabIndex = 0;
             this.tabPageShowData.Text = "查看所有数据";
             this.tabPageShowData.UseVisualStyleBackColor = true;
+            this.tabPageShowData.Click += new System.EventHandler(this.tabPageShowData_Click);
             // 
             // comboBoxFind
             // 
@@ -394,7 +343,6 @@
             // 
             // comboBoxIsDelete
             // 
-            this.comboBoxIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxIsDelete.FormattingEnabled = true;
             this.comboBoxIsDelete.Items.AddRange(new object[] {
             "序号",
@@ -407,7 +355,6 @@
             // 
             // buttonFindIsDelete
             // 
-            this.buttonFindIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFindIsDelete.Location = new System.Drawing.Point(186, 11);
             this.buttonFindIsDelete.Name = "buttonFindIsDelete";
             this.buttonFindIsDelete.Size = new System.Drawing.Size(52, 23);
@@ -418,7 +365,6 @@
             // 
             // textBoxIsDelete
             // 
-            this.textBoxIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxIsDelete.Location = new System.Drawing.Point(75, 13);
             this.textBoxIsDelete.Name = "textBoxIsDelete";
             this.textBoxIsDelete.Size = new System.Drawing.Size(105, 20);
@@ -445,6 +391,7 @@
             this.dataGridViewIsDelete.Size = new System.Drawing.Size(910, 478);
             this.dataGridViewIsDelete.TabIndex = 6;
             this.dataGridViewIsDelete.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellContentClick);
+            this.dataGridViewIsDelete.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellMouseEnter);
             // 
             // ColumnIsDeleteIndex
             // 
@@ -934,6 +881,84 @@
             this.label19.TabIndex = 17;
             this.label19.Text = "性别：";
             // 
+            // ColumnIndex
+            // 
+            this.ColumnIndex.DataPropertyName = "Index";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnIndex.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ColumnIndex.HeaderText = "序号";
+            this.ColumnIndex.Name = "ColumnIndex";
+            this.ColumnIndex.ReadOnly = true;
+            this.ColumnIndex.Width = 60;
+            // 
+            // ColumnCardID
+            // 
+            this.ColumnCardID.DataPropertyName = "CardID";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnCardID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColumnCardID.HeaderText = "身份证号";
+            this.ColumnCardID.Name = "ColumnCardID";
+            this.ColumnCardID.ReadOnly = true;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "Name";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColumnName.HeaderText = "姓名";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            // 
+            // ColumnAge
+            // 
+            this.ColumnAge.DataPropertyName = "Age";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnAge.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ColumnAge.HeaderText = "年龄";
+            this.ColumnAge.Name = "ColumnAge";
+            this.ColumnAge.ReadOnly = true;
+            this.ColumnAge.Width = 60;
+            // 
+            // ColumnGender
+            // 
+            this.ColumnGender.DataPropertyName = "Gender";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle5;
+            this.ColumnGender.HeaderText = "性别";
+            this.ColumnGender.Name = "ColumnGender";
+            this.ColumnGender.ReadOnly = true;
+            this.ColumnGender.Width = 60;
+            // 
+            // ColumnPhoneNum
+            // 
+            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnPhoneNum.DefaultCellStyle = dataGridViewCellStyle6;
+            this.ColumnPhoneNum.HeaderText = "手机号码";
+            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
+            this.ColumnPhoneNum.ReadOnly = true;
+            // 
+            // ColumnEmail
+            // 
+            this.ColumnEmail.DataPropertyName = "Email";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnEmail.DefaultCellStyle = dataGridViewCellStyle7;
+            this.ColumnEmail.HeaderText = "邮箱";
+            this.ColumnEmail.Name = "ColumnEmail";
+            this.ColumnEmail.ReadOnly = true;
+            // 
+            // ColumnAddress
+            // 
+            this.ColumnAddress.DataPropertyName = "Address";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnAddress.DefaultCellStyle = dataGridViewCellStyle8;
+            this.ColumnAddress.HeaderText = "联系地址";
+            this.ColumnAddress.Name = "ColumnAddress";
+            this.ColumnAddress.ReadOnly = true;
+            this.ColumnAddress.Width = 80;
+            // 
             // MySqlBasedataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1023,14 +1048,6 @@
         private System.Windows.Forms.TextBox textBoxIsDelete;
         private System.Windows.Forms.DataGridView dataGridViewIsDelete;
         private System.Windows.Forms.Button buttonRushIsDelete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteCardID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteName;
@@ -1041,5 +1058,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteInfo;
         private System.Windows.Forms.Button buttonAutoAddUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
     }
 }
