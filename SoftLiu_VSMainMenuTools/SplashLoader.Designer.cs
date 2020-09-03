@@ -44,6 +44,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ControlBox = false;
             this.Controls.Add(this.progressBarSplash);
             this.Cursor = System.Windows.Forms.Cursors.PanNE;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
