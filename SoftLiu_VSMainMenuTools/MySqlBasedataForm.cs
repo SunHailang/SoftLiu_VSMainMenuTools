@@ -143,7 +143,7 @@ namespace SoftLiu_VSMainMenuTools
 
         private void ShowDataSource(List<Student> studentList)
         {
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ClearSelection();
             //dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.AutoGenerateColumns = false;

@@ -18,6 +18,7 @@ using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools
 {
+
     public partial class TCP_IPMenuForm : Form
     {
 
@@ -26,8 +27,8 @@ namespace SoftLiu_VSMainMenuTools
 
         //IPAddress ip = IPAddress.Loopback;
 
-        IPAddress m_tcpIP = IPAddress.Parse("192.168.218.128");
-
+        //IPAddress m_tcpIP = IPAddress.Parse("192.168.218.128");
+        IPAddress m_tcpIP = IPAddress.Parse("10.192.91.40");
         //IPAddress m_tcpIP = IPAddress.Parse("202.59.232.58");
         int m_tcpPort = 11060;
 
