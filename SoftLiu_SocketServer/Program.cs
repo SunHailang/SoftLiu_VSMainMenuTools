@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoftLiu_SocketServer.ServerData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,25 +19,26 @@ namespace SoftLiu_SocketServer
         static void Main(string[] args)
         {
             Console.WriteLine("start server.");
-            //try
-            //{
-            //    Server server = new Server();
-            //}
-            //catch (Exception error)
-            //{
-            //    Console.WriteLine($"Error: {error.Message}");
-            //}
+            try
+            {
+                Server server = new Server();
+                server.StartSocket();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine($"Error: {error.Message}");
+            }
 
-            socServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //socServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            socServer.Bind(new IPEndPoint(IPAddress.Any, 11060));
+            //socServer.Bind(new IPEndPoint(IPAddress.Any, 11060));
 
-            socServer.Listen(10);
+            //socServer.Listen(10);
 
 
-            socServer.BeginAccept(new AsyncCallback(AcceptCallback), socServer);
+            //socServer.BeginAccept(new AsyncCallback(AcceptCallback), socServer);
 
-            Console.ReadKey();
+            Console.ReadLine();
 
         }
 

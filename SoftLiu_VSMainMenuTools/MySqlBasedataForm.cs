@@ -125,8 +125,8 @@ namespace SoftLiu_VSMainMenuTools
 
             string sql = "select * from student where isDelete=0";
             DataSet data = MysqlManager.Instance.SelectTables(sql);
-
             this.m_currentDataTable = data.Tables[0];
+
             //dataGridView1.DataSource = this.m_currentDataTable.DefaultView;
             List<Student> studentList = new List<Student>();
             DataRow[] dataRows = this.m_currentDataTable.Select();
@@ -134,10 +134,18 @@ namespace SoftLiu_VSMainMenuTools
             {
                 DataRow dataRow = dataRows[i];
 
-                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
+                Student student = new Student(i + 1, Convert.ToInt32(dataRow[1]), Convert.ToInt32(dataRow[2]), dataRow[3].ToString(),
+                                            dataRow[5].ToString(), Convert.ToInt32((int)dataRow[7]),
+                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[9].ToString(),
+                                            dataRow[10].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
                 studentList.Add(student);
             }
             this.m_currentStudentList = studentList;
+
+
+            string tableJson = JsonUtils.Instance.ObjectToJson(this.m_currentStudentList);
+
+
             ShowDataSource(studentList);
         }
 
@@ -663,7 +671,10 @@ namespace SoftLiu_VSMainMenuTools
             {
                 DataRow dataRow = dataRows[i];
 
-                Student student = new Student(i + 1, dataRow[1].ToString(), (int)dataRow[3], (int)dataRow[2], dataRow[4].ToString(), dataRow[7].ToString(), dataRow[5].ToString(), dataRow[6].ToString(), Convert.ToInt32(dataRow[8]));
+                Student student = new Student(i + 1, Convert.ToInt32(dataRow[1]), Convert.ToInt32(dataRow[2]), dataRow[3].ToString(),
+                                            dataRow[5].ToString(), Convert.ToInt32((int)dataRow[7]),
+                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[9].ToString(),
+                                            dataRow[10].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
                 studentList.Add(student);
             }
             this.m_currentStudentIsDeleteList = studentList;
@@ -919,6 +930,11 @@ namespace SoftLiu_VSMainMenuTools
         }
 
         private void tabPageShowData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
         {
 
         }

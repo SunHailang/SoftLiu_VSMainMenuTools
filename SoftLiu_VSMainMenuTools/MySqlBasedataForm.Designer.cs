@@ -28,25 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectDatabase = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelAge = new System.Windows.Forms.Label();
@@ -70,15 +62,6 @@
             this.buttonFindIsDelete = new System.Windows.Forms.Button();
             this.textBoxIsDelete = new System.Windows.Forms.TextBox();
             this.dataGridViewIsDelete = new System.Windows.Forms.DataGridView();
-            this.ColumnIsDeleteIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeletePhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteEmil = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnIsDeleteInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonRushIsDelete = new System.Windows.Forms.Button();
             this.tabPageAddData = new System.Windows.Forms.TabPage();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -119,6 +102,29 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGradeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnStuNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDeleteGradeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDeleteClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDeleteStuNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteCardID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeletePhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteEmil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnIsDeleteInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControlBasedata.SuspendLayout();
             this.tabPageShowData.SuspendLayout();
@@ -134,110 +140,39 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnIndex,
-            this.ColumnCardID,
+            this.ColumnGradeID,
+            this.ColumnClassID,
+            this.ColumnStuNum,
             this.ColumnName,
             this.ColumnAge,
             this.ColumnGender,
+            this.ColumnCardID,
             this.ColumnPhoneNum,
             this.ColumnEmail,
             this.ColumnAddress});
             this.dataGridView1.Location = new System.Drawing.Point(6, 45);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(910, 478);
+            this.dataGridView1.Size = new System.Drawing.Size(1024, 478);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
-            // ColumnIndex
-            // 
-            this.ColumnIndex.DataPropertyName = "Index";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnIndex.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnIndex.HeaderText = "序号";
-            this.ColumnIndex.Name = "ColumnIndex";
-            this.ColumnIndex.ReadOnly = true;
-            // 
-            // ColumnCardID
-            // 
-            this.ColumnCardID.DataPropertyName = "CardID";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnCardID.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColumnCardID.HeaderText = "身份证号";
-            this.ColumnCardID.Name = "ColumnCardID";
-            this.ColumnCardID.ReadOnly = true;
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.DataPropertyName = "Name";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnName.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ColumnName.HeaderText = "姓名";
-            this.ColumnName.Name = "ColumnName";
-            this.ColumnName.ReadOnly = true;
-            // 
-            // ColumnAge
-            // 
-            this.ColumnAge.DataPropertyName = "Age";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnAge.DefaultCellStyle = dataGridViewCellStyle5;
-            this.ColumnAge.HeaderText = "年龄";
-            this.ColumnAge.Name = "ColumnAge";
-            this.ColumnAge.ReadOnly = true;
-            // 
-            // ColumnGender
-            // 
-            this.ColumnGender.DataPropertyName = "Gender";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle6;
-            this.ColumnGender.HeaderText = "性别";
-            this.ColumnGender.Name = "ColumnGender";
-            this.ColumnGender.ReadOnly = true;
-            // 
-            // ColumnPhoneNum
-            // 
-            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnPhoneNum.DefaultCellStyle = dataGridViewCellStyle7;
-            this.ColumnPhoneNum.HeaderText = "手机号码";
-            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
-            this.ColumnPhoneNum.ReadOnly = true;
-            // 
-            // ColumnEmail
-            // 
-            this.ColumnEmail.DataPropertyName = "Email";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnEmail.DefaultCellStyle = dataGridViewCellStyle8;
-            this.ColumnEmail.HeaderText = "邮箱";
-            this.ColumnEmail.Name = "ColumnEmail";
-            this.ColumnEmail.ReadOnly = true;
-            // 
-            // ColumnAddress
-            // 
-            this.ColumnAddress.DataPropertyName = "Address";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ColumnAddress.DefaultCellStyle = dataGridViewCellStyle9;
-            this.ColumnAddress.HeaderText = "联系地址";
-            this.ColumnAddress.Name = "ColumnAddress";
-            this.ColumnAddress.ReadOnly = true;
-            // 
             // selectDatabase
             // 
             this.selectDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectDatabase.Location = new System.Drawing.Point(828, 6);
+            this.selectDatabase.Location = new System.Drawing.Point(942, 6);
             this.selectDatabase.Name = "selectDatabase";
             this.selectDatabase.Size = new System.Drawing.Size(88, 33);
             this.selectDatabase.TabIndex = 1;
@@ -251,6 +186,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(112, 20);
             this.textBoxName.TabIndex = 3;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
             // labelAge
             // 
@@ -362,7 +298,7 @@
             this.tabControlBasedata.Location = new System.Drawing.Point(12, 12);
             this.tabControlBasedata.Name = "tabControlBasedata";
             this.tabControlBasedata.SelectedIndex = 0;
-            this.tabControlBasedata.Size = new System.Drawing.Size(930, 555);
+            this.tabControlBasedata.Size = new System.Drawing.Size(1044, 555);
             this.tabControlBasedata.TabIndex = 5;
             this.tabControlBasedata.SelectedIndexChanged += new System.EventHandler(this.tabControlBasedata_SelectedIndexChanged);
             // 
@@ -376,7 +312,7 @@
             this.tabPageShowData.Location = new System.Drawing.Point(4, 22);
             this.tabPageShowData.Name = "tabPageShowData";
             this.tabPageShowData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageShowData.Size = new System.Drawing.Size(922, 529);
+            this.tabPageShowData.Size = new System.Drawing.Size(1036, 529);
             this.tabPageShowData.TabIndex = 0;
             this.tabPageShowData.Text = "查看所有数据";
             this.tabPageShowData.UseVisualStyleBackColor = true;
@@ -421,7 +357,7 @@
             this.tabPageIsDelete.Location = new System.Drawing.Point(4, 22);
             this.tabPageIsDelete.Name = "tabPageIsDelete";
             this.tabPageIsDelete.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageIsDelete.Size = new System.Drawing.Size(922, 529);
+            this.tabPageIsDelete.Size = new System.Drawing.Size(1036, 529);
             this.tabPageIsDelete.TabIndex = 3;
             this.tabPageIsDelete.Text = "查看已删除数据";
             this.tabPageIsDelete.UseVisualStyleBackColor = true;
@@ -461,99 +397,39 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewIsDelete.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewIsDelete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewIsDelete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewIsDelete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewIsDelete.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnIsDeleteIndex,
-            this.ColumnIsDeleteCardID,
+            this.ColumnDeleteGradeID,
+            this.ColumnDeleteClassID,
+            this.ColumnDeleteStuNum,
             this.ColumnIsDeleteName,
             this.ColumnIsDeleteAge,
             this.ColumnIsDeleteGender,
+            this.ColumnIsDeleteCardID,
             this.ColumnIsDeletePhoneNum,
             this.ColumnIsDeleteEmil,
             this.ColumnIsDeleteAddress,
             this.ColumnIsDeleteInfo});
             this.dataGridViewIsDelete.Location = new System.Drawing.Point(6, 45);
             this.dataGridViewIsDelete.Name = "dataGridViewIsDelete";
-            this.dataGridViewIsDelete.Size = new System.Drawing.Size(910, 478);
+            this.dataGridViewIsDelete.Size = new System.Drawing.Size(1024, 478);
             this.dataGridViewIsDelete.TabIndex = 6;
             this.dataGridViewIsDelete.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellContentClick);
             this.dataGridViewIsDelete.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellMouseEnter);
             // 
-            // ColumnIsDeleteIndex
-            // 
-            this.ColumnIsDeleteIndex.DataPropertyName = "Index";
-            this.ColumnIsDeleteIndex.HeaderText = "序号";
-            this.ColumnIsDeleteIndex.Name = "ColumnIsDeleteIndex";
-            this.ColumnIsDeleteIndex.ReadOnly = true;
-            // 
-            // ColumnIsDeleteCardID
-            // 
-            this.ColumnIsDeleteCardID.DataPropertyName = "CardID";
-            this.ColumnIsDeleteCardID.HeaderText = "身份证号";
-            this.ColumnIsDeleteCardID.Name = "ColumnIsDeleteCardID";
-            this.ColumnIsDeleteCardID.ReadOnly = true;
-            // 
-            // ColumnIsDeleteName
-            // 
-            this.ColumnIsDeleteName.DataPropertyName = "Name";
-            this.ColumnIsDeleteName.HeaderText = "姓名";
-            this.ColumnIsDeleteName.Name = "ColumnIsDeleteName";
-            this.ColumnIsDeleteName.ReadOnly = true;
-            // 
-            // ColumnIsDeleteAge
-            // 
-            this.ColumnIsDeleteAge.DataPropertyName = "Age";
-            this.ColumnIsDeleteAge.HeaderText = "年龄";
-            this.ColumnIsDeleteAge.Name = "ColumnIsDeleteAge";
-            this.ColumnIsDeleteAge.ReadOnly = true;
-            // 
-            // ColumnIsDeleteGender
-            // 
-            this.ColumnIsDeleteGender.DataPropertyName = "Gender";
-            this.ColumnIsDeleteGender.HeaderText = "性别";
-            this.ColumnIsDeleteGender.Name = "ColumnIsDeleteGender";
-            this.ColumnIsDeleteGender.ReadOnly = true;
-            // 
-            // ColumnIsDeletePhoneNum
-            // 
-            this.ColumnIsDeletePhoneNum.DataPropertyName = "PhoneNum";
-            this.ColumnIsDeletePhoneNum.HeaderText = "手机号码";
-            this.ColumnIsDeletePhoneNum.Name = "ColumnIsDeletePhoneNum";
-            this.ColumnIsDeletePhoneNum.ReadOnly = true;
-            // 
-            // ColumnIsDeleteEmil
-            // 
-            this.ColumnIsDeleteEmil.DataPropertyName = "Email";
-            this.ColumnIsDeleteEmil.HeaderText = "邮箱";
-            this.ColumnIsDeleteEmil.Name = "ColumnIsDeleteEmil";
-            this.ColumnIsDeleteEmil.ReadOnly = true;
-            // 
-            // ColumnIsDeleteAddress
-            // 
-            this.ColumnIsDeleteAddress.DataPropertyName = "Address";
-            this.ColumnIsDeleteAddress.HeaderText = "联系地址";
-            this.ColumnIsDeleteAddress.Name = "ColumnIsDeleteAddress";
-            this.ColumnIsDeleteAddress.ReadOnly = true;
-            // 
-            // ColumnIsDeleteInfo
-            // 
-            this.ColumnIsDeleteInfo.DataPropertyName = "IsDelete";
-            this.ColumnIsDeleteInfo.HeaderText = "逻辑删除";
-            this.ColumnIsDeleteInfo.Name = "ColumnIsDeleteInfo";
-            this.ColumnIsDeleteInfo.ReadOnly = true;
-            // 
             // buttonRushIsDelete
             // 
             this.buttonRushIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRushIsDelete.Location = new System.Drawing.Point(828, 6);
+            this.buttonRushIsDelete.Location = new System.Drawing.Point(942, 6);
             this.buttonRushIsDelete.Name = "buttonRushIsDelete";
             this.buttonRushIsDelete.Size = new System.Drawing.Size(88, 33);
             this.buttonRushIsDelete.TabIndex = 7;
@@ -591,7 +467,7 @@
             this.tabPageAddData.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddData.Name = "tabPageAddData";
             this.tabPageAddData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddData.Size = new System.Drawing.Size(922, 529);
+            this.tabPageAddData.Size = new System.Drawing.Size(1036, 529);
             this.tabPageAddData.TabIndex = 1;
             this.tabPageAddData.Text = "添加用户信息";
             this.tabPageAddData.UseVisualStyleBackColor = true;
@@ -749,7 +625,7 @@
             this.tabPageModifyData.Location = new System.Drawing.Point(4, 22);
             this.tabPageModifyData.Name = "tabPageModifyData";
             this.tabPageModifyData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageModifyData.Size = new System.Drawing.Size(922, 529);
+            this.tabPageModifyData.Size = new System.Drawing.Size(1036, 529);
             this.tabPageModifyData.TabIndex = 2;
             this.tabPageModifyData.Text = "修改用户信息";
             this.tabPageModifyData.UseVisualStyleBackColor = true;
@@ -971,11 +847,178 @@
             this.label19.TabIndex = 17;
             this.label19.Text = "性别：";
             // 
+            // ColumnIndex
+            // 
+            this.ColumnIndex.DataPropertyName = "Index";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnIndex.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ColumnIndex.HeaderText = "序号";
+            this.ColumnIndex.Name = "ColumnIndex";
+            this.ColumnIndex.ReadOnly = true;
+            // 
+            // ColumnGradeID
+            // 
+            this.ColumnGradeID.HeaderText = "年级";
+            this.ColumnGradeID.Name = "ColumnGradeID";
+            // 
+            // ColumnClassID
+            // 
+            this.ColumnClassID.HeaderText = "班级";
+            this.ColumnClassID.Name = "ColumnClassID";
+            // 
+            // ColumnStuNum
+            // 
+            this.ColumnStuNum.HeaderText = "学号";
+            this.ColumnStuNum.Name = "ColumnStuNum";
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "Name";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnName.DefaultCellStyle = dataGridViewCellStyle13;
+            this.ColumnName.HeaderText = "姓名";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            // 
+            // ColumnAge
+            // 
+            this.ColumnAge.DataPropertyName = "Age";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnAge.DefaultCellStyle = dataGridViewCellStyle14;
+            this.ColumnAge.HeaderText = "年龄";
+            this.ColumnAge.Name = "ColumnAge";
+            this.ColumnAge.ReadOnly = true;
+            // 
+            // ColumnGender
+            // 
+            this.ColumnGender.DataPropertyName = "Gender";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle15;
+            this.ColumnGender.HeaderText = "性别";
+            this.ColumnGender.Name = "ColumnGender";
+            this.ColumnGender.ReadOnly = true;
+            // 
+            // ColumnCardID
+            // 
+            this.ColumnCardID.DataPropertyName = "CardID";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnCardID.DefaultCellStyle = dataGridViewCellStyle16;
+            this.ColumnCardID.HeaderText = "身份证号";
+            this.ColumnCardID.Name = "ColumnCardID";
+            this.ColumnCardID.ReadOnly = true;
+            // 
+            // ColumnPhoneNum
+            // 
+            this.ColumnPhoneNum.DataPropertyName = "PhoneNum";
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnPhoneNum.DefaultCellStyle = dataGridViewCellStyle17;
+            this.ColumnPhoneNum.HeaderText = "手机号码";
+            this.ColumnPhoneNum.Name = "ColumnPhoneNum";
+            this.ColumnPhoneNum.ReadOnly = true;
+            // 
+            // ColumnEmail
+            // 
+            this.ColumnEmail.DataPropertyName = "Email";
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnEmail.DefaultCellStyle = dataGridViewCellStyle18;
+            this.ColumnEmail.HeaderText = "邮箱";
+            this.ColumnEmail.Name = "ColumnEmail";
+            this.ColumnEmail.ReadOnly = true;
+            // 
+            // ColumnAddress
+            // 
+            this.ColumnAddress.DataPropertyName = "Address";
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ColumnAddress.DefaultCellStyle = dataGridViewCellStyle19;
+            this.ColumnAddress.HeaderText = "联系地址";
+            this.ColumnAddress.Name = "ColumnAddress";
+            this.ColumnAddress.ReadOnly = true;
+            // 
+            // ColumnIsDeleteIndex
+            // 
+            this.ColumnIsDeleteIndex.DataPropertyName = "Index";
+            this.ColumnIsDeleteIndex.HeaderText = "序号";
+            this.ColumnIsDeleteIndex.Name = "ColumnIsDeleteIndex";
+            this.ColumnIsDeleteIndex.ReadOnly = true;
+            // 
+            // ColumnDeleteGradeID
+            // 
+            this.ColumnDeleteGradeID.HeaderText = "年级";
+            this.ColumnDeleteGradeID.Name = "ColumnDeleteGradeID";
+            // 
+            // ColumnDeleteClassID
+            // 
+            this.ColumnDeleteClassID.HeaderText = "班级";
+            this.ColumnDeleteClassID.Name = "ColumnDeleteClassID";
+            // 
+            // ColumnDeleteStuNum
+            // 
+            this.ColumnDeleteStuNum.HeaderText = "学号";
+            this.ColumnDeleteStuNum.Name = "ColumnDeleteStuNum";
+            // 
+            // ColumnIsDeleteName
+            // 
+            this.ColumnIsDeleteName.DataPropertyName = "Name";
+            this.ColumnIsDeleteName.HeaderText = "姓名";
+            this.ColumnIsDeleteName.Name = "ColumnIsDeleteName";
+            this.ColumnIsDeleteName.ReadOnly = true;
+            // 
+            // ColumnIsDeleteAge
+            // 
+            this.ColumnIsDeleteAge.DataPropertyName = "Age";
+            this.ColumnIsDeleteAge.HeaderText = "年龄";
+            this.ColumnIsDeleteAge.Name = "ColumnIsDeleteAge";
+            this.ColumnIsDeleteAge.ReadOnly = true;
+            // 
+            // ColumnIsDeleteGender
+            // 
+            this.ColumnIsDeleteGender.DataPropertyName = "Gender";
+            this.ColumnIsDeleteGender.HeaderText = "性别";
+            this.ColumnIsDeleteGender.Name = "ColumnIsDeleteGender";
+            this.ColumnIsDeleteGender.ReadOnly = true;
+            // 
+            // ColumnIsDeleteCardID
+            // 
+            this.ColumnIsDeleteCardID.DataPropertyName = "CardID";
+            this.ColumnIsDeleteCardID.HeaderText = "身份证号";
+            this.ColumnIsDeleteCardID.Name = "ColumnIsDeleteCardID";
+            this.ColumnIsDeleteCardID.ReadOnly = true;
+            // 
+            // ColumnIsDeletePhoneNum
+            // 
+            this.ColumnIsDeletePhoneNum.DataPropertyName = "PhoneNum";
+            this.ColumnIsDeletePhoneNum.HeaderText = "手机号码";
+            this.ColumnIsDeletePhoneNum.Name = "ColumnIsDeletePhoneNum";
+            this.ColumnIsDeletePhoneNum.ReadOnly = true;
+            // 
+            // ColumnIsDeleteEmil
+            // 
+            this.ColumnIsDeleteEmil.DataPropertyName = "Email";
+            this.ColumnIsDeleteEmil.HeaderText = "邮箱";
+            this.ColumnIsDeleteEmil.Name = "ColumnIsDeleteEmil";
+            this.ColumnIsDeleteEmil.ReadOnly = true;
+            // 
+            // ColumnIsDeleteAddress
+            // 
+            this.ColumnIsDeleteAddress.DataPropertyName = "Address";
+            this.ColumnIsDeleteAddress.HeaderText = "联系地址";
+            this.ColumnIsDeleteAddress.Name = "ColumnIsDeleteAddress";
+            this.ColumnIsDeleteAddress.ReadOnly = true;
+            // 
+            // ColumnIsDeleteInfo
+            // 
+            this.ColumnIsDeleteInfo.DataPropertyName = "IsDelete";
+            this.ColumnIsDeleteInfo.HeaderText = "逻辑删除";
+            this.ColumnIsDeleteInfo.Name = "ColumnIsDeleteInfo";
+            this.ColumnIsDeleteInfo.ReadOnly = true;
+            // 
             // MySqlBasedataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 579);
+            this.ClientSize = new System.Drawing.Size(1068, 579);
             this.Controls.Add(this.tabControlBasedata);
             this.Name = "MySqlBasedataForm";
             this.Text = "MySqlBasedata";
@@ -1060,23 +1103,29 @@
         private System.Windows.Forms.TextBox textBoxIsDelete;
         private System.Windows.Forms.DataGridView dataGridViewIsDelete;
         private System.Windows.Forms.Button buttonRushIsDelete;
+        private System.Windows.Forms.Button buttonAutoAddUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGradeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnClassID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStuNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteCardID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDeleteGradeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDeleteClassID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDeleteStuNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAge;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteCardID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeletePhoneNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteEmil;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIsDeleteInfo;
-        private System.Windows.Forms.Button buttonAutoAddUser;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCardID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPhoneNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnAddress;
     }
 }

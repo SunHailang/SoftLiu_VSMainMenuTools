@@ -14,11 +14,15 @@ create table student(
     gender int not null default 1, 
     phonenum varchar(20) not null default "unknow",
     email varchar(50) not null default "unknow@emil.com",
-    address varchar(50) not null default "unknow"
+    address varchar(50) not null default "unknow",
+	isdelete bit not null default 0
 );
 
 -- add column 
 alter table student add column isdelete bit not null default 0 after address;
+
+-- insert student data
+insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110001', '342201200201204892', 'zhansan', 18, 0, '1587920110', 'unknow@emil', '', 0);
 
 -- create table class
 create table class(
@@ -27,6 +31,9 @@ create table class(
     gradeid int not null default 0
 ); 
 
+-- insert class data
+insert into class(classid, gradeid) values();
+
 -- create table grade
 create table grade(
     id int auto_increment primary key not null,
@@ -34,3 +41,13 @@ create table grade(
     schoolname varchar(50) not null,
     gradeid int not null unique default 0
 );
+
+-- insert grade data
+insert into grade(schoolid, schoolname, gradeid) values('10010001', 'an hui wang cai yuan', 1);
+
+
+-- 添加外键约束
+alter table class add foreign key (gradeid) references grade(gradeid);
+
+alter table student add foreign key (gradeid) references grade(gradeid);
+alter table student add foreign key (classid) references class(classid);

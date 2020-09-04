@@ -16,6 +16,22 @@ namespace SoftLiu_VSMainMenuTools.Data
             private set;
             get;
         }
+        public int ClassID
+        {
+            private set;
+            get;
+        }
+
+        public int GradeID
+        {
+            private set;
+            get;
+        }
+        public string StuNum
+        {
+            private set;
+            get;
+        }
         public string Name
         {
             private set;
@@ -60,9 +76,12 @@ namespace SoftLiu_VSMainMenuTools.Data
             get;
         }
 
-        public Student(int index, string name, int gender, int age, string phoneNum, string address, string email, string cardID, int isDelete)
+        public Student(int index, int classid, int gradeid, string stunum, string name, int gender, int age, string phoneNum, string address, string email, string cardID, int isDelete)
         {
             this.Index = index;
+            this.ClassID = classid;
+            this.GradeID = gradeid;
+            this.StuNum = stunum;
             this.Name = name;
             this.Age = age;
             this.m_gender = gender;
