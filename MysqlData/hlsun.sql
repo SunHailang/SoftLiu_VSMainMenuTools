@@ -24,15 +24,22 @@ alter table student add column isdelete bit not null default 0 after address;
 -- insert student data
 insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110001', '342201200201204892', 'zhansan', 18, 0, '1587920110', 'unknow@emil', '', 0);
 
+insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110002', '342201200201204890', 'lisi', 18, 0, '15879201101', 'unknow@emil', '', 0);
+insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110003', '342201200201204891', 'wangw', 18, 0, '15879201102', 'unknow@emil', '', 0);
+insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110004', '342201200201204893', 'zhuliu', 18, 0, '15879201103', 'unknow@emil', '', 0);
+insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values(1, 1, '100102020110005', '342201200201204894', 'xingqi', 18, 0, '15879201104', 'unknow@emil', '', 1);
+
 -- create table class
 create table class(
     id int auto_increment primary key not null,
     classid int not null default 0,
-    gradeid int not null default 0
+    gradeid int not null default 0,
+	name varchar(20) not null,
+	stunum int not null default 0,
 ); 
 
 -- insert class data
-insert into class(classid, gradeid) values();
+insert into class(classid, gradeid, name, stunum) values(1, 1, 'xueqianban', 50);
 
 -- create table grade
 create table grade(

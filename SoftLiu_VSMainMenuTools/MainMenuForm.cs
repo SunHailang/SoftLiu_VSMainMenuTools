@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using System.Security.Cryptography;
 using System.Xml.Serialization;
+using SoftLiu_VSMainMenuTools.UGUI;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -26,11 +27,14 @@ namespace SoftLiu_VSMainMenuTools
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
+            //FormManager.Instance.SplashForm.Close();
+
             Console.WriteLine("SoftLiu_VSMainMenuTools Load");
-            this.Hide();
-            SplashLoader splash = new SplashLoader();
-            splash.InitConfiger(this);
-            splash.ShowDialog();
+            //this.Hide();
+            //SplashLoader splash = new SplashLoader();
+            //splash.InitConfiger(this);
+            //splash.ShowDialog();
+            MainMenuForm_Init();
         }
 
         public void MainMenuForm_Init()
@@ -89,7 +93,8 @@ namespace SoftLiu_VSMainMenuTools
         private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form mySql = new MySqlBasedataForm();
-            mySql.Show();
+            FormManager.Instance.OpenForm(mySql);
+            //mySql.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)

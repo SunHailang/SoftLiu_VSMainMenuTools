@@ -1,5 +1,6 @@
 ﻿using SoftLiu_VSMainMenuTools.Data;
 using SoftLiu_VSMainMenuTools.Data.GUI;
+using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.Utils;
 using System;
 using System.Collections.Generic;
@@ -21,20 +22,13 @@ namespace SoftLiu_VSMainMenuTools
 
         private bool close = false;
 
-        private MainMenuForm m_parent = null;
-
         public SplashLoader()
         {
             InitializeComponent();
 
             close = true;
-        }
 
-        public void InitConfiger(MainMenuForm parent)
-        {
-            //Console.WriteLine("InitConfiger");
-            //MessageBox.Show("InitConfiger");
-            m_parent = parent;
+            //this.Visible = false;
         }
 
         //导入dll
@@ -59,7 +53,6 @@ namespace SoftLiu_VSMainMenuTools
 
         private void SplashLoader_Load(object sender, EventArgs e)
         {
-
             CheckForIllegalCrossThreadCalls = false;
             m_progressBarSplash = new ProgressBarExtension(progressBarSplash);
             m_progressBarSplash.Value = 0;
@@ -74,9 +67,15 @@ namespace SoftLiu_VSMainMenuTools
                             try
                             {
                                 Thread.Sleep(800);
-                                m_parent.MainMenuForm_Init();
+                                //m_parent.MainMenuForm_Init();
+
                                 close = false;
                                 this.Close();
+                                this.DialogResult = DialogResult.OK;
+                                Form main = new MainMenuForm();
+                                FormManager.Instance.OpenForm(main);
+                                //Application.Run(new MainMenuForm());
+                               
                                 break;
                             }
                             catch (Exception msg)
@@ -127,6 +126,7 @@ namespace SoftLiu_VSMainMenuTools
         private void SplashLoader_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = close;
+            //Application.Exit();
         }
 
         private void progressBarSplash_BindingContextChanged(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using SoftLiu_VSMainMenuTools.Data;
+using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
 using System;
@@ -77,12 +78,12 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     comboBox1.Items.Add(item);
                 }
-                if (!comboBox1Modify.Items.Contains(item))
+                if (!comboBoxModiftAddress1.Items.Contains(item))
                 {
-                    comboBox1Modify.Items.Add(item);
+                    comboBoxModiftAddress1.Items.Add(item);
                 }
             }
-            comboBox1Modify.SelectedIndex = 0;
+            comboBoxModiftAddress1.SelectedIndex = 0;
             comboBox1.SelectedIndex = 0;
             comboBoxFind.SelectedItem = "姓名";
         }
@@ -136,8 +137,8 @@ namespace SoftLiu_VSMainMenuTools
 
                 Student student = new Student(i + 1, Convert.ToInt32(dataRow[1]), Convert.ToInt32(dataRow[2]), dataRow[3].ToString(),
                                             dataRow[5].ToString(), Convert.ToInt32((int)dataRow[7]),
-                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[9].ToString(),
-                                            dataRow[10].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
+                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[10].ToString(),
+                                            dataRow[9].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
                 studentList.Add(student);
             }
             this.m_currentStudentList = studentList;
@@ -253,6 +254,24 @@ namespace SoftLiu_VSMainMenuTools
             }
             ShowDataSource(list);
         }
+
+        private List<int> GetComboBoxItems(string sql)
+        {
+            string gradesql = sql;// "select gradeid from grade;";
+            DataSet gradeDataset = MysqlManager.Instance.SelectTables(gradesql);
+            DataTable gradeTable = gradeDataset.Tables[0];
+            DataRow[] gradeRows = gradeTable.Select();
+            List<int> list = new List<int>();
+            for (int i = 0; i < gradeRows.Length; i++)
+            {
+                DataRow row = gradeRows[i];
+                list.Add(Convert.ToInt32(row[0]));
+            }
+            list.Sort((x, y) => { return x - y; });
+
+            return list;
+        }
+
         private void tabControlBasedata_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.tabControlBasedata.SelectedTab == this.tabPageIsDelete)
@@ -270,6 +289,24 @@ namespace SoftLiu_VSMainMenuTools
             else if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
             {
                 Student student = this.m_currentDatabaseStudent;
+                List<int> gradeIDlist = GetComboBoxItems("select gradeid from grade;");
+                this.comboBoxModifyGrade.Items.Clear();
+                for (int i = 0; i < gradeIDlist.Count; i++)
+                {
+                    this.comboBoxModifyGrade.Items.Add(gradeIDlist[i]);
+                }
+                this.comboBoxModifyGrade.SelectedItem = student.GradeID;
+
+                List<int> classIDlist = GetComboBoxItems("select classid from class;");
+                this.comboBoxModifyClass.Items.Clear();
+                for (int i = 0; i < classIDlist.Count; i++)
+                {
+                    this.comboBoxModifyClass.Items.Add(classIDlist[i]);
+                }
+                this.comboBoxModifyClass.SelectedItem = student.ClassID;
+
+                this.textBoxModifyStuNum.Text = student.StuNum;
+
                 this.textBoxModifyName.Text = student.Name;
                 this.textBoxModifyAge.Text = string.Format("{0}", student.Age);
                 string[] address = student.GetAddressFromDatabase().Split('$');
@@ -279,9 +316,9 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 else
                 {
-                    this.comboBox1Modify.SelectedItem = address[0];
-                    this.comboBox2Modify.SelectedItem = address[1];
-                    this.comboBox3Modify.SelectedItem = address[2];
+                    this.comboBoxModiftAddress1.SelectedItem = address[0];
+                    this.comboBoxModiftAddress2.SelectedItem = address[1];
+                    this.comboBoxModiftAddress3.SelectedItem = address[2];
                     this.textBoxModifyAddress.Text = address[3];
                 }
                 this.textBoxModifyEmai.Text = student.Email;
@@ -296,14 +333,34 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     return;
                 }
-                this.textBoxName.Text = string.Empty;
-                this.textBoxAge.Text = string.Format("{0}", 18);
+                List<int> gradeIDlist = GetComboBoxItems("select gradeid from grade;");
+                this.comboBoxAddGrade.Items.Clear();
+                for (int i = 0; i < gradeIDlist.Count; i++)
+                {
+                    this.comboBoxAddGrade.Items.Add(gradeIDlist[i]);
+                }
+                this.comboBoxAddGrade.SelectedIndex = 0;
+
+                List<int> classIDlist = GetComboBoxItems("select classid from class;");
+                this.comboBoxAddClass.Items.Clear();
+                for (int i = 0; i < classIDlist.Count; i++)
+                {
+                    this.comboBoxAddClass.Items.Add(classIDlist[i]);
+                }
+                this.comboBoxAddClass.SelectedIndex = 0;
+                // 100102020110004
+                string addStunum = $"100102020{this.comboBoxAddGrade.SelectedItem}{this.comboBoxAddClass.SelectedItem}0001";
+                this.textBoxAddStuNum.Text = addStunum;
+                this.textBoxAddName.Text = string.Empty;
+                this.textBoxAddAge.Text = string.Format("{0}", 18);
                 this.textBoxAddress.Text = string.Empty;
                 this.textBoxEmai.Text = string.Empty;
                 this.textBoxPhone.Text = string.Empty;
                 this.comboBoxGender.SelectedItem = "男";
                 this.textBoxCardID.ReadOnly = false;
-                this.textBoxCardID.Text = "10010190001";
+                // 342201200201204892
+                this.textBoxCardID.Text = "342201200201200001";
+                
             }
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -312,18 +369,17 @@ namespace SoftLiu_VSMainMenuTools
             int columnIndex = e.ColumnIndex;
             if (rowIndex >= 0)
             {
-                string cardID = dataGridView1[1, rowIndex].Value.ToString();
-                DialogResult result = DialogResult.None;
+                string stuNum = dataGridView1[3, rowIndex].Value.ToString();
                 switch (dataGridView1.Columns[columnIndex].Name)
                 {
                     case "btnModify":
-                        result = MessageBox.Show("确认修改选择的信息！", "修改", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if (result == DialogResult.OK)
+                        DialogResult modifyResult = MessageBox.Show("确认修改选择的信息！", "修改", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if (modifyResult == DialogResult.OK)
                         {
                             //TODO
                             IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
                             {
-                                return stu.CardID == cardID;
+                                return stu.StuNum == stuNum;
                             });
                             Student student = students.FirstOrDefault();
                             if (student != null)
@@ -337,13 +393,13 @@ namespace SoftLiu_VSMainMenuTools
                         }
                         break;
                     case "btnDelete":
-                        result = MessageBox.Show("确认删除选择的信息！", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if (result == DialogResult.OK)
+                        DialogResult deleteResult = MessageBox.Show("确认删除选择的信息！", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if (deleteResult == DialogResult.OK)
                         {
                             //TODO
                             IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
                             {
-                                return stu.CardID == cardID;
+                                return stu.StuNum == stuNum;
                             });
                             Student student = students.FirstOrDefault();
                             if (student != null)
@@ -410,7 +466,7 @@ namespace SoftLiu_VSMainMenuTools
             {
                 sb.Append(string.Format("Email=\"{0}\", ", email));
             }
-            string address = string.Format("{0}${1}${2}${3}", comboBox1Modify.SelectedItem, comboBox2Modify.SelectedItem, comboBox3Modify.SelectedItem, textBoxModifyAddress.Text.Trim());
+            string address = string.Format("{0}${1}${2}${3}", comboBoxModiftAddress1.SelectedItem, comboBoxModiftAddress2.SelectedItem, comboBoxModiftAddress3.SelectedItem, textBoxModifyAddress.Text.Trim());
             if (!address.Equals(student.GetAddressFromDatabase()))
             {
                 sb.Append(string.Format("address=\"{0}\", ", address));
@@ -445,7 +501,7 @@ namespace SoftLiu_VSMainMenuTools
         private void DeleteData(Student student, int index)
         {
             //TODO
-            string sql = string.Format("update student set {0} where cardID=\"{1}\";", "isDelete=1", student.CardID);
+            string sql = string.Format("update student set {0} where stunum=\"{1}\";", "isDelete=1", student.StuNum);
             int resultSql = MysqlManager.Instance.UpdateData(sql, true);
             if (resultSql > 0)
             {
@@ -568,14 +624,14 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private void comboBox1Modify_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxModiftAddress1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string text = (string)comboBox1Modify.SelectedItem;
+            string text = (string)this.comboBoxModiftAddress1.SelectedItem;
             try
             {
                 if (string.IsNullOrEmpty(text))
                 {
-                    text = comboBox1Modify.Text.ToString();
+                    text = comboBoxModiftAddress1.Text.ToString();
                 }
             }
             catch (Exception exc)
@@ -584,55 +640,55 @@ namespace SoftLiu_VSMainMenuTools
             }
             finally
             {
-                comboBox2Modify.Items.Clear();
+                comboBoxModiftAddress2.Items.Clear();
                 foreach (var item in cityDic[text].Keys)
                 {
-                    if (!comboBox2Modify.Items.Contains(item))
+                    if (!comboBoxModiftAddress2.Items.Contains(item))
                     {
-                        comboBox2Modify.Items.Add(item);
+                        comboBoxModiftAddress2.Items.Add(item);
                     }
                 }
-                if (comboBox2Modify.Items.Count <= 0)
+                if (comboBoxModiftAddress2.Items.Count <= 0)
                 {
-                    comboBox2Modify.Items.Add(comboBox1Modify.SelectedItem);
+                    comboBoxModiftAddress2.Items.Add(comboBoxModiftAddress1.SelectedItem);
                 }
-                comboBox2Modify.SelectedIndex = 0;
+                comboBoxModiftAddress2.SelectedIndex = 0;
             }
         }
 
-        private void comboBox2Modify_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxModiftAddress2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox3Modify.Items.Clear();
+            comboBoxModiftAddress3.Items.Clear();
             try
             {
-                if (cityDic[comboBox1Modify.SelectedItem.ToString()].ContainsKey(comboBox2Modify.SelectedItem.ToString()))
+                if (cityDic[comboBoxModiftAddress1.SelectedItem.ToString()].ContainsKey(comboBoxModiftAddress2.SelectedItem.ToString()))
                 {
-                    foreach (var item in cityDic[comboBox1Modify.SelectedItem.ToString()][comboBox2Modify.SelectedItem.ToString()])
+                    foreach (var item in cityDic[comboBoxModiftAddress1.SelectedItem.ToString()][comboBoxModiftAddress2.SelectedItem.ToString()])
                     {
-                        if (!comboBox3Modify.Items.Contains(item))
+                        if (!comboBoxModiftAddress3.Items.Contains(item))
                         {
-                            comboBox3Modify.Items.Add(item);
+                            comboBoxModiftAddress3.Items.Add(item);
                         }
                     }
                 }
                 else
                 {
-                    if (comboBox3Modify.Items.Count <= 0)
+                    if (comboBoxModiftAddress3.Items.Count <= 0)
                     {
-                        comboBox3Modify.Items.Add(comboBox2Modify.SelectedItem);
+                        comboBoxModiftAddress3.Items.Add(comboBoxModiftAddress2.SelectedItem);
                     }
                 }
             }
             catch (Exception exc)
             {
                 Console.WriteLine("comboBox2Modify_SelectedIndexChanged : " + exc.Message);
-                comboBox3Modify.Items.Clear();
-                if (comboBox3Modify.Items.Count <= 0)
+                comboBoxModiftAddress3.Items.Clear();
+                if (comboBoxModiftAddress3.Items.Count <= 0)
                 {
-                    comboBox3Modify.Items.Add(comboBox2Modify.SelectedItem);
+                    comboBoxModiftAddress3.Items.Add(comboBoxModiftAddress2.SelectedItem);
                 }
             }
-            comboBox3Modify.SelectedIndex = 0;
+            comboBoxModiftAddress3.SelectedIndex = 0;
         }
 
         private void comboBox3Modify_SelectedIndexChanged(object sender, EventArgs e)
@@ -673,8 +729,8 @@ namespace SoftLiu_VSMainMenuTools
 
                 Student student = new Student(i + 1, Convert.ToInt32(dataRow[1]), Convert.ToInt32(dataRow[2]), dataRow[3].ToString(),
                                             dataRow[5].ToString(), Convert.ToInt32((int)dataRow[7]),
-                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[9].ToString(),
-                                            dataRow[10].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
+                                            Convert.ToInt32(dataRow[6]), dataRow[8].ToString(), dataRow[10].ToString(),
+                                            dataRow[9].ToString(), dataRow[4].ToString(), Convert.ToInt32(dataRow[11]));
                 studentList.Add(student);
             }
             this.m_currentStudentIsDeleteList = studentList;
@@ -739,7 +795,7 @@ namespace SoftLiu_VSMainMenuTools
             int columnIndex = e.ColumnIndex;
             if (rowIndex >= 0)
             {
-                string cardID = this.dataGridViewIsDelete[1, rowIndex].Value.ToString();
+                string stuNum = this.dataGridViewIsDelete[3, rowIndex].Value.ToString();
                 DialogResult result = DialogResult.None;
                 switch (dataGridViewIsDelete.Columns[columnIndex].Name)
                 {
@@ -750,7 +806,7 @@ namespace SoftLiu_VSMainMenuTools
                             //TODO
                             IEnumerable<Student> students = this.m_currentStudentIsDeleteList.Where((stu) =>
                             {
-                                return stu.CardID == cardID;
+                                return stu.StuNum == stuNum;
                             });
                             Student student = students.FirstOrDefault();
                             if (student != null)
@@ -777,20 +833,6 @@ namespace SoftLiu_VSMainMenuTools
         private void buttonAutoAddUser_Click(object sender, EventArgs e)
         {
             StartStep();
-
-            //int insert = InsesetDataToBasedata();
-            //if (insert > 0)
-            //{
-            //    MessageBox.Show("insert success.");
-            //}
-            //else if (insert == -2)
-            //{
-            //    MessageBox.Show("insert data has exists.");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("insert Failed.");
-            //}
         }
 
         private void StartStep()
@@ -803,10 +845,14 @@ namespace SoftLiu_VSMainMenuTools
             Thread th = new Thread(() =>
             {
                 m_autoInsertData = true;
-                long cardId = 10010190028;
-                object obj = MysqlManager.Instance.GetMaxData(tableName, "cardID");
-                long.TryParse(obj.ToString(), out cardId);
-                if (cardId <= 0)
+                int sutunum = 1;
+                //insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) 
+                //       values(1, 1, '100102020110001', '342201200201204892', 'zhansan', 18, 0, '1587920110', 'unknow@emil', '', 0);
+                object obj = MysqlManager.Instance.GetMaxData(tableName, "stunum");
+                string maxStuNum = obj.ToString();
+                string stunumSub = maxStuNum.Substring(11, 4);
+                int.TryParse(stunumSub.ToString(), out sutunum);
+                if (sutunum <= 0)
                 {
                     back = true;
                 }
@@ -820,8 +866,8 @@ namespace SoftLiu_VSMainMenuTools
                     {
                         break;
                     }
-                    cardId += 1;
-                    textBoxCardID.Text = string.Format("{0}", cardId);
+                    sutunum += 1;
+                    textBoxCardID.Text = string.Format("{0}", sutunum);
                     StringBuilder sb = new StringBuilder();
                     Random ra = new Random();
                     int key = ra.Next(97, 123);
@@ -829,9 +875,9 @@ namespace SoftLiu_VSMainMenuTools
                     {
                         sb.Append((char)key);
                     }
-                    textBoxName.Text = string.Format("{0}", sb.ToString());
+                    textBoxAddName.Text = string.Format("{0}", sb.ToString());
 
-                    textBoxAge.Text = ra.Next(0, 100).ToString();
+                    textBoxAddAge.Text = ra.Next(0, 100).ToString();
                     comboBoxGender.SelectedIndex = ra.Next(0, 3);
                     //@"^1(3[0-9]|5[0-9]|7[6-8]|8[0-9])[0-9]{8}$"
                     char[] charS = { '3', '5', '7', '8' };
@@ -850,10 +896,10 @@ namespace SoftLiu_VSMainMenuTools
                     // 对应 sql 语句 如果是字符串类型 需要加双引号
 
                     string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
-                    string name = textBoxName.Text.Trim();
+                    string name = textBoxAddName.Text.Trim();
                     string cardID = textBoxCardID.Text.Trim();
                     int age = 0;
-                    int.TryParse(textBoxAge.Text.Trim(), out age);
+                    int.TryParse(textBoxAddAge.Text.Trim(), out age);
                     int gender = comboBoxGender.SelectedIndex;
                     string phone = textBoxPhone.Text.Trim();
                     string email = textBoxEmai.Text.Trim();
@@ -889,10 +935,10 @@ namespace SoftLiu_VSMainMenuTools
             // 对应 sql 语句 如果是字符串类型 需要加双引号
             string tableName = "student";
             string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
-            string name = textBoxName.Text.Trim();
+            string name = textBoxAddName.Text.Trim();
             string cardID = textBoxCardID.Text.Trim();
             int age = 0;
-            int.TryParse(textBoxAge.Text.Trim(), out age);
+            int.TryParse(textBoxAddAge.Text.Trim(), out age);
             int gender = comboBoxGender.SelectedIndex;
             string phone = textBoxPhone.Text.Trim();
             if (!RegexUtils.IsPhoneNumber(phone))
@@ -935,6 +981,16 @@ namespace SoftLiu_VSMainMenuTools
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MySqlBasedataForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormManager.Instance.BackClose();
+        }
+
+        private void comboBoxModifyGrade_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

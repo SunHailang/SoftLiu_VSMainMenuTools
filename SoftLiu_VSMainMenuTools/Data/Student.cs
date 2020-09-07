@@ -8,7 +8,7 @@ namespace SoftLiu_VSMainMenuTools.Data
 {
     public class Student
     {
-        private string[] m_Gender = { "女", "男", "保密" };
+        private string[] m_Gender = { "男", "女", "保密" };
         private string[] m_IsDelete = { "No", "Yes" };
 
         public int Index

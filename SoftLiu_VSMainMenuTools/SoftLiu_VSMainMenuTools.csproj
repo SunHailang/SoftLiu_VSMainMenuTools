@@ -122,12 +122,13 @@
     <Compile Include="SplashLoader.Designer.cs">
       <DependentUpon>SplashLoader.cs</DependentUpon>
     </Compile>
-    <Compile Include="TCP_IPMenuForm.cs">
+    <Compile Include="SocketClient\TCP_IPMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TCP_IPMenuForm.Designer.cs">
+    <Compile Include="SocketClient\TCP_IPMenuForm.Designer.cs">
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UGUI\FormManager.cs" />
     <Compile Include="Utils\ConfigurationUtils.cs" />
     <Compile Include="Utils\DatabaseManager\MysqlManager.cs" />
     <Compile Include="Utils\EventsManager\EventManager.cs" />
@@ -171,7 +172,7 @@
     <EmbeddedResource Include="SplashLoader.resx">
       <DependentUpon>SplashLoader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TCP_IPMenuForm.resx">
+    <EmbeddedResource Include="SocketClient\TCP_IPMenuForm.resx">
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

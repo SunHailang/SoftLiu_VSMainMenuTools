@@ -16,7 +16,11 @@ namespace SoftLiu_VSMainMenuTools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenuForm());
+            //Application.Run(new MainMenuForm());
+            //Application.Run(new SplashLoader());
+
+            SplashLoader splash = new SplashLoader();
+            splash.ShowDialog();
         }
     }
 }
