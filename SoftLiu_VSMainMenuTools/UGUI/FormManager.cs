@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SoftLiu_VSMainMenuTools.Singleton;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace SoftLiu_VSMainMenuTools.UGUI
 {
@@ -23,6 +24,7 @@ namespace SoftLiu_VSMainMenuTools.UGUI
             if (form is MainMenuForm)
             {
                 m_FormStackList.Push(form);
+                
                 Application.Run(form);
             }
             else

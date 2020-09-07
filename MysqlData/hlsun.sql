@@ -38,6 +38,9 @@ create table class(
 	stunum int not null default 0,
 ); 
 
+alter table class add column name varchar(20) not null default 0 after gradeid;
+alter table class add column stunum varchar(20) not null default 0 after name;
+
 -- insert class data
 insert into class(classid, gradeid, name, stunum) values(1, 1, 'xueqianban', 50);
 

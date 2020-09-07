@@ -257,17 +257,26 @@ namespace SoftLiu_VSMainMenuTools
 
         private List<int> GetComboBoxItems(string sql)
         {
-            string gradesql = sql;// "select gradeid from grade;";
-            DataSet gradeDataset = MysqlManager.Instance.SelectTables(gradesql);
-            DataTable gradeTable = gradeDataset.Tables[0];
-            DataRow[] gradeRows = gradeTable.Select();
             List<int> list = new List<int>();
-            for (int i = 0; i < gradeRows.Length; i++)
+            try
             {
-                DataRow row = gradeRows[i];
-                list.Add(Convert.ToInt32(row[0]));
+                string gradesql = sql;// "select gradeid from grade;";
+                DataSet gradeDataset = MysqlManager.Instance.SelectTables(gradesql);
+                DataTable gradeTable = gradeDataset.Tables[0];
+                DataRow[] gradeRows = gradeTable.Select();
+               
+                for (int i = 0; i < gradeRows.Length; i++)
+                {
+                    DataRow row = gradeRows[i];
+                    list.Add(Convert.ToInt32(row[0]));
+                }
+                list.Sort((x, y) => { return x - y; });
             }
-            list.Sort((x, y) => { return x - y; });
+            catch (Exception error)
+            {
+                Console.WriteLine($"GetComboBoxItems Error: {error.Message}");
+            }
+            
 
             return list;
         }
@@ -289,7 +298,7 @@ namespace SoftLiu_VSMainMenuTools
             else if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
             {
                 Student student = this.m_currentDatabaseStudent;
-                List<int> gradeIDlist = GetComboBoxItems("select gradeid from grade;");
+                List<int> gradeIDlist = GetComboBoxItems("select gradeid from class;");
                 this.comboBoxModifyGrade.Items.Clear();
                 for (int i = 0; i < gradeIDlist.Count; i++)
                 {
@@ -297,7 +306,7 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 this.comboBoxModifyGrade.SelectedItem = student.GradeID;
 
-                List<int> classIDlist = GetComboBoxItems("select classid from class;");
+                List<int> classIDlist = GetComboBoxItems($"select classid from class where gradeid={student.GradeID};");
                 this.comboBoxModifyClass.Items.Clear();
                 for (int i = 0; i < classIDlist.Count; i++)
                 {
@@ -333,7 +342,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     return;
                 }
-                List<int> gradeIDlist = GetComboBoxItems("select gradeid from grade;");
+                List<int> gradeIDlist = GetComboBoxItems("select gradeid from class;");
                 this.comboBoxAddGrade.Items.Clear();
                 for (int i = 0; i < gradeIDlist.Count; i++)
                 {
@@ -341,7 +350,9 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 this.comboBoxAddGrade.SelectedIndex = 0;
 
-                List<int> classIDlist = GetComboBoxItems("select classid from class;");
+                string gradeID = this.comboBoxAddGrade.SelectedItem.ToString();
+
+                List<int> classIDlist = GetComboBoxItems($"select classid from class where gradeid={gradeID};");
                 this.comboBoxAddClass.Items.Clear();
                 for (int i = 0; i < classIDlist.Count; i++)
                 {
@@ -993,6 +1004,19 @@ namespace SoftLiu_VSMainMenuTools
         private void comboBoxModifyGrade_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxAddGrade_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string gradeid = this.comboBoxAddGrade.SelectedItem.ToString();
+            string sql = $"select classid from class where gradeid={gradeid}";
+            List<int> list = GetComboBoxItems(sql);
+            this.comboBoxAddClass.Items.Clear();
+            for (int i = 0; i < list.Count; i++)
+            {
+                this.comboBoxAddClass.Items.Add(list[i]);
+            }
+            this.comboBoxAddClass.SelectedIndex = 0;
         }
     }
 }

@@ -275,6 +275,7 @@ namespace SoftLiu_VSMainMenuTools
         private Thread m_MD5ExchargeThread = null;
         private void buttonMD5Sure_Click(object sender, EventArgs e)
         {
+            /*
             this.textBoxMD5Str.Text = string.Empty;
             bool fsChecked = false;
             bool strChecked = false;
@@ -327,6 +328,7 @@ namespace SoftLiu_VSMainMenuTools
                                 }
                             }
                         });
+                        m_MD5ExchargeThread.SetApartmentState(ApartmentState.STA);
                         m_MD5ExchargeThread.Start();
                     }
                 }
@@ -339,10 +341,12 @@ namespace SoftLiu_VSMainMenuTools
             {
                 MessageBox.Show("Exchange Check Box don't select.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            */
         }
 
         private void buttonSelectFile_Click(object sender, EventArgs e)
         {
+            /*
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;//该值确定是否可以选择多个文件
             dialog.Title = "请选择文件夹";
@@ -355,6 +359,7 @@ namespace SoftLiu_VSMainMenuTools
                     this.textBoxMD5Str.Text = string.Empty;
                 }
             }
+            */
         }
 
         private void textBoxTenExchange_KeyPress(object sender, KeyPressEventArgs e)

@@ -245,9 +245,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 27);
+            this.button1.Location = new System.Drawing.Point(12, 25);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 21);
             this.button1.TabIndex = 1;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -261,10 +261,10 @@
             this.tabControlMainTools.Controls.Add(this.tabPageMD5Tools);
             this.tabControlMainTools.Controls.Add(this.tabPageHex);
             this.tabControlMainTools.Controls.Add(this.tabPageColor);
-            this.tabControlMainTools.Location = new System.Drawing.Point(686, 28);
+            this.tabControlMainTools.Location = new System.Drawing.Point(686, 26);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
-            this.tabControlMainTools.Size = new System.Drawing.Size(288, 556);
+            this.tabControlMainTools.Size = new System.Drawing.Size(288, 513);
             this.tabControlMainTools.TabIndex = 2;
             // 
             // tabPageTimeTools
@@ -297,16 +297,16 @@
             this.tabPageTimeTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimeTools.Name = "tabPageTimeTools";
             this.tabPageTimeTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 530);
+            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 487);
             this.tabPageTimeTools.TabIndex = 0;
             this.tabPageTimeTools.Text = "时间转换";
             this.tabPageTimeTools.UseVisualStyleBackColor = true;
             // 
             // buttonSecondsCount
             // 
-            this.buttonSecondsCount.Location = new System.Drawing.Point(195, 501);
+            this.buttonSecondsCount.Location = new System.Drawing.Point(195, 462);
             this.buttonSecondsCount.Name = "buttonSecondsCount";
-            this.buttonSecondsCount.Size = new System.Drawing.Size(75, 32);
+            this.buttonSecondsCount.Size = new System.Drawing.Size(75, 30);
             this.buttonSecondsCount.TabIndex = 7;
             this.buttonSecondsCount.Text = "确定";
             this.buttonSecondsCount.UseVisualStyleBackColor = true;
@@ -314,9 +314,9 @@
             // 
             // buttonCountdown
             // 
-            this.buttonCountdown.Location = new System.Drawing.Point(195, 354);
+            this.buttonCountdown.Location = new System.Drawing.Point(195, 327);
             this.buttonCountdown.Name = "buttonCountdown";
-            this.buttonCountdown.Size = new System.Drawing.Size(75, 32);
+            this.buttonCountdown.Size = new System.Drawing.Size(75, 30);
             this.buttonCountdown.TabIndex = 7;
             this.buttonCountdown.Text = "确定";
             this.buttonCountdown.UseVisualStyleBackColor = true;
@@ -324,9 +324,9 @@
             // 
             // buttonTimeSpan
             // 
-            this.buttonTimeSpan.Location = new System.Drawing.Point(195, 205);
+            this.buttonTimeSpan.Location = new System.Drawing.Point(195, 189);
             this.buttonTimeSpan.Name = "buttonTimeSpan";
-            this.buttonTimeSpan.Size = new System.Drawing.Size(75, 32);
+            this.buttonTimeSpan.Size = new System.Drawing.Size(75, 30);
             this.buttonTimeSpan.TabIndex = 7;
             this.buttonTimeSpan.Text = "转换";
             this.buttonTimeSpan.UseVisualStyleBackColor = true;
@@ -335,9 +335,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 127);
+            this.label3.Location = new System.Drawing.Point(11, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 6;
             this.label3.Text = "转换类型：";
             // 
@@ -347,130 +347,130 @@
             this.comboBoxTime.Items.AddRange(new object[] {
             "时间转成时间戳",
             "时间戳转成时间"});
-            this.comboBoxTime.Location = new System.Drawing.Point(141, 124);
+            this.comboBoxTime.Location = new System.Drawing.Point(141, 114);
             this.comboBoxTime.Name = "comboBoxTime";
-            this.comboBoxTime.Size = new System.Drawing.Size(129, 21);
+            this.comboBoxTime.Size = new System.Drawing.Size(129, 20);
             this.comboBoxTime.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 182);
+            this.label2.Location = new System.Drawing.Point(20, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "转换后：";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(11, 478);
+            this.label17.Location = new System.Drawing.Point(11, 441);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(61, 13);
+            this.label17.Size = new System.Drawing.Size(65, 12);
             this.label17.TabIndex = 4;
             this.label17.Text = "剩余时间：";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 331);
+            this.label5.Location = new System.Drawing.Point(11, 306);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 13);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 4;
             this.label5.Text = "剩余时间：";
             // 
             // labelSecondsCount
             // 
             this.labelSecondsCount.AutoSize = true;
-            this.labelSecondsCount.Location = new System.Drawing.Point(20, 452);
+            this.labelSecondsCount.Location = new System.Drawing.Point(20, 417);
             this.labelSecondsCount.Name = "labelSecondsCount";
-            this.labelSecondsCount.Size = new System.Drawing.Size(37, 13);
+            this.labelSecondsCount.Size = new System.Drawing.Size(41, 12);
             this.labelSecondsCount.TabIndex = 4;
             this.labelSecondsCount.Text = "秒数：";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 305);
+            this.label4.Location = new System.Drawing.Point(20, 282);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 4;
             this.label4.Text = "时间：";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 154);
+            this.label1.Location = new System.Drawing.Point(20, 142);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "转换前：";
             // 
             // textBoxTimeAfter
             // 
-            this.textBoxTimeAfter.Location = new System.Drawing.Point(75, 179);
+            this.textBoxTimeAfter.Location = new System.Drawing.Point(75, 165);
             this.textBoxTimeAfter.Name = "textBoxTimeAfter";
             this.textBoxTimeAfter.ReadOnly = true;
-            this.textBoxTimeAfter.Size = new System.Drawing.Size(195, 20);
+            this.textBoxTimeAfter.Size = new System.Drawing.Size(195, 21);
             this.textBoxTimeAfter.TabIndex = 3;
             // 
             // textBoxoutSecondsCount
             // 
-            this.textBoxoutSecondsCount.Location = new System.Drawing.Point(75, 475);
+            this.textBoxoutSecondsCount.Location = new System.Drawing.Point(75, 438);
             this.textBoxoutSecondsCount.Name = "textBoxoutSecondsCount";
             this.textBoxoutSecondsCount.ReadOnly = true;
-            this.textBoxoutSecondsCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxoutSecondsCount.Size = new System.Drawing.Size(195, 21);
             this.textBoxoutSecondsCount.TabIndex = 3;
             // 
             // textBoxInSecondsCount
             // 
-            this.textBoxInSecondsCount.Location = new System.Drawing.Point(75, 449);
+            this.textBoxInSecondsCount.Location = new System.Drawing.Point(75, 414);
             this.textBoxInSecondsCount.Name = "textBoxInSecondsCount";
-            this.textBoxInSecondsCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxInSecondsCount.Size = new System.Drawing.Size(195, 21);
             this.textBoxInSecondsCount.TabIndex = 3;
             // 
             // textBoxTimeShowCount
             // 
-            this.textBoxTimeShowCount.Location = new System.Drawing.Point(75, 328);
+            this.textBoxTimeShowCount.Location = new System.Drawing.Point(75, 303);
             this.textBoxTimeShowCount.Name = "textBoxTimeShowCount";
             this.textBoxTimeShowCount.ReadOnly = true;
-            this.textBoxTimeShowCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxTimeShowCount.Size = new System.Drawing.Size(195, 21);
             this.textBoxTimeShowCount.TabIndex = 3;
             // 
             // textBoxTimeCount
             // 
-            this.textBoxTimeCount.Location = new System.Drawing.Point(75, 302);
+            this.textBoxTimeCount.Location = new System.Drawing.Point(75, 279);
             this.textBoxTimeCount.Name = "textBoxTimeCount";
-            this.textBoxTimeCount.Size = new System.Drawing.Size(195, 20);
+            this.textBoxTimeCount.Size = new System.Drawing.Size(195, 21);
             this.textBoxTimeCount.TabIndex = 3;
             // 
             // textBox2
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(11, 403);
+            this.textBox2.Location = new System.Drawing.Point(11, 372);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(259, 30);
+            this.textBox2.Size = new System.Drawing.Size(259, 28);
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "总秒数转化\r\n时间格式：dd HH:mm:ss";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxTimeBefor
             // 
-            this.textBoxTimeBefor.Location = new System.Drawing.Point(75, 151);
+            this.textBoxTimeBefor.Location = new System.Drawing.Point(75, 139);
             this.textBoxTimeBefor.Name = "textBoxTimeBefor";
-            this.textBoxTimeBefor.Size = new System.Drawing.Size(195, 20);
+            this.textBoxTimeBefor.Size = new System.Drawing.Size(195, 21);
             this.textBoxTimeBefor.TabIndex = 3;
             // 
             // textBoxTimeCountdown
             // 
             this.textBoxTimeCountdown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTimeCountdown.Location = new System.Drawing.Point(11, 256);
+            this.textBoxTimeCountdown.Location = new System.Drawing.Point(11, 236);
             this.textBoxTimeCountdown.Multiline = true;
             this.textBoxTimeCountdown.Name = "textBoxTimeCountdown";
             this.textBoxTimeCountdown.ReadOnly = true;
-            this.textBoxTimeCountdown.Size = new System.Drawing.Size(259, 30);
+            this.textBoxTimeCountdown.Size = new System.Drawing.Size(259, 28);
             this.textBoxTimeCountdown.TabIndex = 2;
             this.textBoxTimeCountdown.Text = "倒计时\r\n时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxTimeCountdown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -478,11 +478,11 @@
             // textBoxDesc
             // 
             this.textBoxDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxDesc.Location = new System.Drawing.Point(11, 82);
+            this.textBoxDesc.Location = new System.Drawing.Point(11, 76);
             this.textBoxDesc.Multiline = true;
             this.textBoxDesc.Name = "textBoxDesc";
             this.textBoxDesc.ReadOnly = true;
-            this.textBoxDesc.Size = new System.Drawing.Size(259, 30);
+            this.textBoxDesc.Size = new System.Drawing.Size(259, 28);
             this.textBoxDesc.TabIndex = 2;
             this.textBoxDesc.Text = "时间和时间戳互相转换\r\n时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -491,18 +491,18 @@
             // 
             this.richTextBoxTimeSpan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxTimeSpan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxTimeSpan.Location = new System.Drawing.Point(75, 46);
+            this.richTextBoxTimeSpan.Location = new System.Drawing.Point(75, 42);
             this.richTextBoxTimeSpan.Name = "richTextBoxTimeSpan";
-            this.richTextBoxTimeSpan.Size = new System.Drawing.Size(195, 23);
+            this.richTextBoxTimeSpan.Size = new System.Drawing.Size(195, 22);
             this.richTextBoxTimeSpan.TabIndex = 1;
             this.richTextBoxTimeSpan.Text = "";
             // 
             // labelTimeSpan
             // 
             this.labelTimeSpan.AutoSize = true;
-            this.labelTimeSpan.Location = new System.Drawing.Point(20, 50);
+            this.labelTimeSpan.Location = new System.Drawing.Point(20, 46);
             this.labelTimeSpan.Name = "labelTimeSpan";
-            this.labelTimeSpan.Size = new System.Drawing.Size(49, 13);
+            this.labelTimeSpan.Size = new System.Drawing.Size(53, 12);
             this.labelTimeSpan.TabIndex = 0;
             this.labelTimeSpan.Text = "时间戳：";
             // 
@@ -511,18 +511,18 @@
             this.richTextBoxLocalTime.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBoxLocalTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxLocalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxLocalTime.Location = new System.Drawing.Point(75, 12);
+            this.richTextBoxLocalTime.Location = new System.Drawing.Point(75, 11);
             this.richTextBoxLocalTime.Name = "richTextBoxLocalTime";
-            this.richTextBoxLocalTime.Size = new System.Drawing.Size(195, 23);
+            this.richTextBoxLocalTime.Size = new System.Drawing.Size(195, 22);
             this.richTextBoxLocalTime.TabIndex = 1;
             this.richTextBoxLocalTime.Text = "";
             // 
             // labelLocalTime
             // 
             this.labelLocalTime.AutoSize = true;
-            this.labelLocalTime.Location = new System.Drawing.Point(11, 16);
+            this.labelLocalTime.Location = new System.Drawing.Point(11, 15);
             this.labelLocalTime.Name = "labelLocalTime";
-            this.labelLocalTime.Size = new System.Drawing.Size(61, 13);
+            this.labelLocalTime.Size = new System.Drawing.Size(65, 12);
             this.labelLocalTime.TabIndex = 0;
             this.labelLocalTime.Text = "本地时间：";
             // 
@@ -541,16 +541,16 @@
             this.tabPageMD5Tools.Location = new System.Drawing.Point(4, 22);
             this.tabPageMD5Tools.Name = "tabPageMD5Tools";
             this.tabPageMD5Tools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 530);
+            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 487);
             this.tabPageMD5Tools.TabIndex = 1;
             this.tabPageMD5Tools.Text = "MD5转换";
             this.tabPageMD5Tools.UseVisualStyleBackColor = true;
             // 
             // buttonSelectFile
             // 
-            this.buttonSelectFile.Location = new System.Drawing.Point(194, 164);
+            this.buttonSelectFile.Location = new System.Drawing.Point(194, 151);
             this.buttonSelectFile.Name = "buttonSelectFile";
-            this.buttonSelectFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectFile.Size = new System.Drawing.Size(75, 21);
             this.buttonSelectFile.TabIndex = 4;
             this.buttonSelectFile.Text = "选择文件";
             this.buttonSelectFile.UseVisualStyleBackColor = true;
@@ -562,16 +562,16 @@
             this.comboBoxMD5.Items.AddRange(new object[] {
             "字符串",
             "文件"});
-            this.comboBoxMD5.Location = new System.Drawing.Point(149, 194);
+            this.comboBoxMD5.Location = new System.Drawing.Point(149, 179);
             this.comboBoxMD5.Name = "comboBoxMD5";
-            this.comboBoxMD5.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMD5.Size = new System.Drawing.Size(121, 20);
             this.comboBoxMD5.TabIndex = 3;
             // 
             // buttonMD5Sure
             // 
-            this.buttonMD5Sure.Location = new System.Drawing.Point(194, 249);
+            this.buttonMD5Sure.Location = new System.Drawing.Point(194, 230);
             this.buttonMD5Sure.Name = "buttonMD5Sure";
-            this.buttonMD5Sure.Size = new System.Drawing.Size(75, 32);
+            this.buttonMD5Sure.Size = new System.Drawing.Size(75, 30);
             this.buttonMD5Sure.TabIndex = 2;
             this.buttonMD5Sure.Text = "确定";
             this.buttonMD5Sure.UseVisualStyleBackColor = true;
@@ -579,10 +579,10 @@
             // 
             // textBoxMD5Str
             // 
-            this.textBoxMD5Str.Location = new System.Drawing.Point(9, 223);
+            this.textBoxMD5Str.Location = new System.Drawing.Point(9, 206);
             this.textBoxMD5Str.Name = "textBoxMD5Str";
             this.textBoxMD5Str.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxMD5Str.Size = new System.Drawing.Size(261, 20);
+            this.textBoxMD5Str.Size = new System.Drawing.Size(261, 21);
             this.textBoxMD5Str.TabIndex = 1;
             this.textBoxMD5Str.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxFilePath_DragDrop);
             this.textBoxMD5Str.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxFilePath_DragEnter);
@@ -590,49 +590,49 @@
             // textBoxFilePath
             // 
             this.textBoxFilePath.AllowDrop = true;
-            this.textBoxFilePath.Location = new System.Drawing.Point(60, 103);
+            this.textBoxFilePath.Location = new System.Drawing.Point(60, 95);
             this.textBoxFilePath.Multiline = true;
             this.textBoxFilePath.Name = "textBoxFilePath";
             this.textBoxFilePath.ReadOnly = true;
             this.textBoxFilePath.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxFilePath.Size = new System.Drawing.Size(210, 54);
+            this.textBoxFilePath.Size = new System.Drawing.Size(210, 50);
             this.textBoxFilePath.TabIndex = 1;
             this.textBoxFilePath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxFilePath_DragDrop);
             this.textBoxFilePath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxFilePath_DragEnter);
             // 
             // textBoxFileStr
             // 
-            this.textBoxFileStr.Location = new System.Drawing.Point(60, 7);
+            this.textBoxFileStr.Location = new System.Drawing.Point(60, 6);
             this.textBoxFileStr.Multiline = true;
             this.textBoxFileStr.Name = "textBoxFileStr";
             this.textBoxFileStr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxFileStr.Size = new System.Drawing.Size(210, 90);
+            this.textBoxFileStr.Size = new System.Drawing.Size(210, 83);
             this.textBoxFileStr.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 197);
+            this.label6.Location = new System.Drawing.Point(6, 182);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.Size = new System.Drawing.Size(71, 12);
             this.label6.TabIndex = 0;
             this.label6.Text = "MD5字符串：";
             // 
             // labelFile
             // 
             this.labelFile.AutoSize = true;
-            this.labelFile.Location = new System.Drawing.Point(17, 124);
+            this.labelFile.Location = new System.Drawing.Point(17, 114);
             this.labelFile.Name = "labelFile";
-            this.labelFile.Size = new System.Drawing.Size(37, 13);
+            this.labelFile.Size = new System.Drawing.Size(41, 12);
             this.labelFile.TabIndex = 0;
             this.labelFile.Text = "文件：";
             // 
             // labelStr
             // 
             this.labelStr.AutoSize = true;
-            this.labelStr.Location = new System.Drawing.Point(6, 45);
+            this.labelStr.Location = new System.Drawing.Point(6, 42);
             this.labelStr.Name = "labelStr";
-            this.labelStr.Size = new System.Drawing.Size(49, 13);
+            this.labelStr.Size = new System.Drawing.Size(53, 12);
             this.labelStr.TabIndex = 0;
             this.labelStr.Text = "字符串：";
             // 
@@ -645,7 +645,7 @@
             this.tabPageHex.Location = new System.Drawing.Point(4, 22);
             this.tabPageHex.Name = "tabPageHex";
             this.tabPageHex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHex.Size = new System.Drawing.Size(280, 530);
+            this.tabPageHex.Size = new System.Drawing.Size(280, 487);
             this.tabPageHex.TabIndex = 2;
             this.tabPageHex.Text = "进制转换";
             this.tabPageHex.UseVisualStyleBackColor = true;
@@ -661,18 +661,18 @@
             this.groupBoxTwo.Controls.Add(this.label14);
             this.groupBoxTwo.Controls.Add(this.textBoxTwo);
             this.groupBoxTwo.Controls.Add(this.label15);
-            this.groupBoxTwo.Location = new System.Drawing.Point(6, 300);
+            this.groupBoxTwo.Location = new System.Drawing.Point(6, 277);
             this.groupBoxTwo.Name = "groupBoxTwo";
-            this.groupBoxTwo.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxTwo.Size = new System.Drawing.Size(264, 130);
             this.groupBoxTwo.TabIndex = 0;
             this.groupBoxTwo.TabStop = false;
             this.groupBoxTwo.Text = "二进制转其他";
             // 
             // buttonTwoExchange
             // 
-            this.buttonTwoExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonTwoExchange.Location = new System.Drawing.Point(170, 96);
             this.buttonTwoExchange.Name = "buttonTwoExchange";
-            this.buttonTwoExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonTwoExchange.Size = new System.Drawing.Size(75, 25);
             this.buttonTwoExchange.TabIndex = 2;
             this.buttonTwoExchange.Text = "转换";
             this.buttonTwoExchange.UseVisualStyleBackColor = true;
@@ -680,52 +680,52 @@
             // 
             // textBoxSixToTwo
             // 
-            this.textBoxSixToTwo.Location = new System.Drawing.Point(70, 73);
+            this.textBoxSixToTwo.Location = new System.Drawing.Point(70, 67);
             this.textBoxSixToTwo.Name = "textBoxSixToTwo";
             this.textBoxSixToTwo.ReadOnly = true;
-            this.textBoxSixToTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSixToTwo.Size = new System.Drawing.Size(175, 21);
             this.textBoxSixToTwo.TabIndex = 1;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 76);
+            this.label13.Location = new System.Drawing.Point(6, 70);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(49, 13);
+            this.label13.Size = new System.Drawing.Size(53, 12);
             this.label13.TabIndex = 0;
             this.label13.Text = "16进制：";
             // 
             // textBoxTenToTwo
             // 
-            this.textBoxTenToTwo.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTenToTwo.Location = new System.Drawing.Point(70, 43);
             this.textBoxTenToTwo.Name = "textBoxTenToTwo";
             this.textBoxTenToTwo.ReadOnly = true;
-            this.textBoxTenToTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenToTwo.Size = new System.Drawing.Size(175, 21);
             this.textBoxTenToTwo.TabIndex = 1;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 50);
+            this.label14.Location = new System.Drawing.Point(6, 46);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.Size = new System.Drawing.Size(53, 12);
             this.label14.TabIndex = 0;
             this.label14.Text = "10进制：";
             // 
             // textBoxTwo
             // 
-            this.textBoxTwo.Location = new System.Drawing.Point(70, 21);
+            this.textBoxTwo.Location = new System.Drawing.Point(70, 19);
             this.textBoxTwo.Name = "textBoxTwo";
-            this.textBoxTwo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwo.Size = new System.Drawing.Size(175, 21);
             this.textBoxTwo.TabIndex = 1;
             this.textBoxTwo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTwo_KeyPress);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 24);
+            this.label15.Location = new System.Drawing.Point(6, 22);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(49, 13);
+            this.label15.Size = new System.Drawing.Size(53, 12);
             this.label15.TabIndex = 0;
             this.label15.Text = "二进制：";
             // 
@@ -740,18 +740,18 @@
             this.groupBoxSix.Controls.Add(this.label11);
             this.groupBoxSix.Controls.Add(this.textBoxSix);
             this.groupBoxSix.Controls.Add(this.label12);
-            this.groupBoxSix.Location = new System.Drawing.Point(6, 153);
+            this.groupBoxSix.Location = new System.Drawing.Point(6, 141);
             this.groupBoxSix.Name = "groupBoxSix";
-            this.groupBoxSix.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxSix.Size = new System.Drawing.Size(264, 130);
             this.groupBoxSix.TabIndex = 0;
             this.groupBoxSix.TabStop = false;
             this.groupBoxSix.Text = "16进制转其他";
             // 
             // buttonSixExchange
             // 
-            this.buttonSixExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonSixExchange.Location = new System.Drawing.Point(170, 96);
             this.buttonSixExchange.Name = "buttonSixExchange";
-            this.buttonSixExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonSixExchange.Size = new System.Drawing.Size(75, 25);
             this.buttonSixExchange.TabIndex = 2;
             this.buttonSixExchange.Text = "转换";
             this.buttonSixExchange.UseVisualStyleBackColor = true;
@@ -759,52 +759,52 @@
             // 
             // textBoxTenToSix
             // 
-            this.textBoxTenToSix.Location = new System.Drawing.Point(70, 73);
+            this.textBoxTenToSix.Location = new System.Drawing.Point(70, 67);
             this.textBoxTenToSix.Name = "textBoxTenToSix";
             this.textBoxTenToSix.ReadOnly = true;
-            this.textBoxTenToSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenToSix.Size = new System.Drawing.Size(175, 21);
             this.textBoxTenToSix.TabIndex = 1;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 76);
+            this.label10.Location = new System.Drawing.Point(6, 70);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 0;
             this.label10.Text = "10进制：";
             // 
             // textBoxTwoToSix
             // 
-            this.textBoxTwoToSix.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTwoToSix.Location = new System.Drawing.Point(70, 43);
             this.textBoxTwoToSix.Name = "textBoxTwoToSix";
             this.textBoxTwoToSix.ReadOnly = true;
-            this.textBoxTwoToSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwoToSix.Size = new System.Drawing.Size(175, 21);
             this.textBoxTwoToSix.TabIndex = 1;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 50);
+            this.label11.Location = new System.Drawing.Point(6, 46);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 0;
             this.label11.Text = "二进制：";
             // 
             // textBoxSix
             // 
-            this.textBoxSix.Location = new System.Drawing.Point(70, 21);
+            this.textBoxSix.Location = new System.Drawing.Point(70, 19);
             this.textBoxSix.Name = "textBoxSix";
-            this.textBoxSix.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSix.Size = new System.Drawing.Size(175, 21);
             this.textBoxSix.TabIndex = 1;
             this.textBoxSix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSix_KeyPress);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 24);
+            this.label12.Location = new System.Drawing.Point(6, 22);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 0;
             this.label12.Text = "16进制：";
             // 
@@ -821,16 +821,16 @@
             this.groupBoxTen.Controls.Add(this.label7);
             this.groupBoxTen.Location = new System.Drawing.Point(6, 6);
             this.groupBoxTen.Name = "groupBoxTen";
-            this.groupBoxTen.Size = new System.Drawing.Size(264, 141);
+            this.groupBoxTen.Size = new System.Drawing.Size(264, 130);
             this.groupBoxTen.TabIndex = 0;
             this.groupBoxTen.TabStop = false;
             this.groupBoxTen.Text = "10进制转其他";
             // 
             // buttonTenExchange
             // 
-            this.buttonTenExchange.Location = new System.Drawing.Point(170, 104);
+            this.buttonTenExchange.Location = new System.Drawing.Point(170, 96);
             this.buttonTenExchange.Name = "buttonTenExchange";
-            this.buttonTenExchange.Size = new System.Drawing.Size(75, 27);
+            this.buttonTenExchange.Size = new System.Drawing.Size(75, 25);
             this.buttonTenExchange.TabIndex = 2;
             this.buttonTenExchange.Text = "转换";
             this.buttonTenExchange.UseVisualStyleBackColor = true;
@@ -838,52 +838,52 @@
             // 
             // textBoxSixExchange
             // 
-            this.textBoxSixExchange.Location = new System.Drawing.Point(70, 73);
+            this.textBoxSixExchange.Location = new System.Drawing.Point(70, 67);
             this.textBoxSixExchange.Name = "textBoxSixExchange";
             this.textBoxSixExchange.ReadOnly = true;
-            this.textBoxSixExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxSixExchange.Size = new System.Drawing.Size(175, 21);
             this.textBoxSixExchange.TabIndex = 1;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 76);
+            this.label9.Location = new System.Drawing.Point(6, 70);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 13);
+            this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 0;
             this.label9.Text = "16进制：";
             // 
             // textBoxTwoExchange
             // 
-            this.textBoxTwoExchange.Location = new System.Drawing.Point(70, 47);
+            this.textBoxTwoExchange.Location = new System.Drawing.Point(70, 43);
             this.textBoxTwoExchange.Name = "textBoxTwoExchange";
             this.textBoxTwoExchange.ReadOnly = true;
-            this.textBoxTwoExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTwoExchange.Size = new System.Drawing.Size(175, 21);
             this.textBoxTwoExchange.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 50);
+            this.label8.Location = new System.Drawing.Point(6, 46);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 0;
             this.label8.Text = "二进制：";
             // 
             // textBoxTenExchange
             // 
-            this.textBoxTenExchange.Location = new System.Drawing.Point(70, 21);
+            this.textBoxTenExchange.Location = new System.Drawing.Point(70, 19);
             this.textBoxTenExchange.Name = "textBoxTenExchange";
-            this.textBoxTenExchange.Size = new System.Drawing.Size(175, 20);
+            this.textBoxTenExchange.Size = new System.Drawing.Size(175, 21);
             this.textBoxTenExchange.TabIndex = 1;
             this.textBoxTenExchange.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTenExchange_KeyPress);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 24);
+            this.label7.Location = new System.Drawing.Point(6, 22);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 13);
+            this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 0;
             this.label7.Text = "10进制：";
             // 
@@ -912,18 +912,18 @@
             this.tabPageColor.Location = new System.Drawing.Point(4, 22);
             this.tabPageColor.Name = "tabPageColor";
             this.tabPageColor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageColor.Size = new System.Drawing.Size(280, 530);
+            this.tabPageColor.Size = new System.Drawing.Size(280, 487);
             this.tabPageColor.TabIndex = 3;
             this.tabPageColor.Text = "调色板";
             this.tabPageColor.UseVisualStyleBackColor = true;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 111);
+            this.textBox3.Location = new System.Drawing.Point(12, 102);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(256, 33);
+            this.textBox3.Size = new System.Drawing.Size(256, 31);
             this.textBox3.TabIndex = 6;
             this.textBox3.Text = "在 Hex Color(不包含Alpha)  或者 RGB 中任选一个\r\n输入颜色的值";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -931,108 +931,108 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(28, 157);
+            this.label16.Location = new System.Drawing.Point(28, 145);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 13);
+            this.label16.Size = new System.Drawing.Size(59, 12);
             this.label16.TabIndex = 5;
             this.label16.Text = "Hex Color";
             // 
             // labelColorHex
             // 
             this.labelColorHex.AutoSize = true;
-            this.labelColorHex.Location = new System.Drawing.Point(190, 24);
+            this.labelColorHex.Location = new System.Drawing.Point(190, 22);
             this.labelColorHex.Name = "labelColorHex";
-            this.labelColorHex.Size = new System.Drawing.Size(53, 13);
+            this.labelColorHex.Size = new System.Drawing.Size(59, 12);
             this.labelColorHex.TabIndex = 5;
             this.labelColorHex.Text = "Hex Color";
             // 
             // textBoxColorShowHex
             // 
-            this.textBoxColorShowHex.Location = new System.Drawing.Point(12, 176);
+            this.textBoxColorShowHex.Location = new System.Drawing.Point(12, 162);
             this.textBoxColorShowHex.Name = "textBoxColorShowHex";
-            this.textBoxColorShowHex.Size = new System.Drawing.Size(89, 20);
+            this.textBoxColorShowHex.Size = new System.Drawing.Size(89, 21);
             this.textBoxColorShowHex.TabIndex = 4;
             this.textBoxColorShowHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxColorHex
             // 
-            this.textBoxColorHex.Location = new System.Drawing.Point(179, 47);
+            this.textBoxColorHex.Location = new System.Drawing.Point(179, 43);
             this.textBoxColorHex.Name = "textBoxColorHex";
             this.textBoxColorHex.ReadOnly = true;
-            this.textBoxColorHex.Size = new System.Drawing.Size(89, 20);
+            this.textBoxColorHex.Size = new System.Drawing.Size(89, 21);
             this.textBoxColorHex.TabIndex = 4;
             this.textBoxColorHex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxColorBShow
             // 
-            this.textBoxColorBShow.Location = new System.Drawing.Point(146, 203);
+            this.textBoxColorBShow.Location = new System.Drawing.Point(146, 187);
             this.textBoxColorBShow.Name = "textBoxColorBShow";
-            this.textBoxColorBShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorBShow.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorBShow.TabIndex = 3;
             // 
             // textBoxColorGShow
             // 
-            this.textBoxColorGShow.Location = new System.Drawing.Point(146, 176);
+            this.textBoxColorGShow.Location = new System.Drawing.Point(146, 162);
             this.textBoxColorGShow.Name = "textBoxColorGShow";
-            this.textBoxColorGShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorGShow.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorGShow.TabIndex = 3;
             // 
             // textBoxColorB
             // 
-            this.textBoxColorB.Location = new System.Drawing.Point(107, 74);
+            this.textBoxColorB.Location = new System.Drawing.Point(107, 68);
             this.textBoxColorB.Name = "textBoxColorB";
             this.textBoxColorB.ReadOnly = true;
-            this.textBoxColorB.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorB.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorB.TabIndex = 3;
             // 
             // textBoxColorRShow
             // 
-            this.textBoxColorRShow.Location = new System.Drawing.Point(146, 150);
+            this.textBoxColorRShow.Location = new System.Drawing.Point(146, 138);
             this.textBoxColorRShow.Name = "textBoxColorRShow";
-            this.textBoxColorRShow.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorRShow.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorRShow.TabIndex = 3;
             // 
             // textBoxColorG
             // 
-            this.textBoxColorG.Location = new System.Drawing.Point(107, 47);
+            this.textBoxColorG.Location = new System.Drawing.Point(107, 43);
             this.textBoxColorG.Name = "textBoxColorG";
             this.textBoxColorG.ReadOnly = true;
-            this.textBoxColorG.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorG.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorG.TabIndex = 3;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(122, 206);
+            this.label20.Location = new System.Drawing.Point(122, 190);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(17, 13);
+            this.label20.Size = new System.Drawing.Size(17, 12);
             this.label20.TabIndex = 2;
             this.label20.Tag = "";
             this.label20.Text = "B:";
             // 
             // textBoxColorR
             // 
-            this.textBoxColorR.Location = new System.Drawing.Point(107, 21);
+            this.textBoxColorR.Location = new System.Drawing.Point(107, 19);
             this.textBoxColorR.Name = "textBoxColorR";
             this.textBoxColorR.ReadOnly = true;
-            this.textBoxColorR.Size = new System.Drawing.Size(37, 20);
+            this.textBoxColorR.Size = new System.Drawing.Size(37, 21);
             this.textBoxColorR.TabIndex = 3;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(122, 179);
+            this.label19.Location = new System.Drawing.Point(122, 165);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(18, 13);
+            this.label19.Size = new System.Drawing.Size(17, 12);
             this.label19.TabIndex = 2;
             this.label19.Text = "G:";
             // 
             // labelColorB
             // 
             this.labelColorB.AutoSize = true;
-            this.labelColorB.Location = new System.Drawing.Point(83, 77);
+            this.labelColorB.Location = new System.Drawing.Point(83, 71);
             this.labelColorB.Name = "labelColorB";
-            this.labelColorB.Size = new System.Drawing.Size(17, 13);
+            this.labelColorB.Size = new System.Drawing.Size(17, 12);
             this.labelColorB.TabIndex = 2;
             this.labelColorB.Tag = "";
             this.labelColorB.Text = "B:";
@@ -1040,35 +1040,35 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(122, 153);
+            this.label18.Location = new System.Drawing.Point(122, 141);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(18, 13);
+            this.label18.Size = new System.Drawing.Size(17, 12);
             this.label18.TabIndex = 2;
             this.label18.Text = "R:";
             // 
             // labelColorG
             // 
             this.labelColorG.AutoSize = true;
-            this.labelColorG.Location = new System.Drawing.Point(83, 50);
+            this.labelColorG.Location = new System.Drawing.Point(83, 46);
             this.labelColorG.Name = "labelColorG";
-            this.labelColorG.Size = new System.Drawing.Size(18, 13);
+            this.labelColorG.Size = new System.Drawing.Size(17, 12);
             this.labelColorG.TabIndex = 2;
             this.labelColorG.Text = "G:";
             // 
             // labelColorR
             // 
             this.labelColorR.AutoSize = true;
-            this.labelColorR.Location = new System.Drawing.Point(83, 24);
+            this.labelColorR.Location = new System.Drawing.Point(83, 22);
             this.labelColorR.Name = "labelColorR";
-            this.labelColorR.Size = new System.Drawing.Size(18, 13);
+            this.labelColorR.Size = new System.Drawing.Size(17, 12);
             this.labelColorR.TabIndex = 2;
             this.labelColorR.Text = "R:";
             // 
             // buttonColorEx
             // 
-            this.buttonColorEx.Location = new System.Drawing.Point(179, 229);
+            this.buttonColorEx.Location = new System.Drawing.Point(179, 211);
             this.buttonColorEx.Name = "buttonColorEx";
-            this.buttonColorEx.Size = new System.Drawing.Size(89, 32);
+            this.buttonColorEx.Size = new System.Drawing.Size(89, 30);
             this.buttonColorEx.TabIndex = 0;
             this.buttonColorEx.Text = "转换";
             this.buttonColorEx.UseVisualStyleBackColor = true;
@@ -1076,17 +1076,17 @@
             // 
             // buttonColorShow
             // 
-            this.buttonColorShow.Location = new System.Drawing.Point(207, 158);
+            this.buttonColorShow.Location = new System.Drawing.Point(207, 146);
             this.buttonColorShow.Name = "buttonColorShow";
-            this.buttonColorShow.Size = new System.Drawing.Size(61, 54);
+            this.buttonColorShow.Size = new System.Drawing.Size(61, 50);
             this.buttonColorShow.TabIndex = 0;
             this.buttonColorShow.UseVisualStyleBackColor = true;
             // 
             // buttonColor
             // 
-            this.buttonColor.Location = new System.Drawing.Point(11, 29);
+            this.buttonColor.Location = new System.Drawing.Point(11, 27);
             this.buttonColor.Name = "buttonColor";
-            this.buttonColor.Size = new System.Drawing.Size(61, 54);
+            this.buttonColor.Size = new System.Drawing.Size(61, 50);
             this.buttonColor.TabIndex = 0;
             this.buttonColor.UseVisualStyleBackColor = true;
             this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
@@ -1097,28 +1097,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 58);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 54);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(667, 368);
+            this.dataGridView1.Size = new System.Drawing.Size(667, 340);
             this.dataGridView1.TabIndex = 3;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 432);
+            this.textBox1.Location = new System.Drawing.Point(12, 399);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(668, 152);
+            this.textBox1.Size = new System.Drawing.Size(668, 141);
             this.textBox1.TabIndex = 4;
             // 
             // MainMenuForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 596);
+            this.ClientSize = new System.Drawing.Size(986, 550);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);
