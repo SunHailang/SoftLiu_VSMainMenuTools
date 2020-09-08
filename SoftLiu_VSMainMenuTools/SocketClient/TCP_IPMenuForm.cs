@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SoftLiu_VSMainMenuTools.Data;
+using SoftLiu_VSMainMenuTools.SocketClient.SocketData;
 using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
@@ -22,21 +23,12 @@ namespace SoftLiu_VSMainMenuTools
     public partial class TCP_IPMenuForm : Form
     {
 
-        Socket clientTcp;
+        SocketTCPClient clientTcp;
         Socket clientUdp;
 
-        //IPAddress ip = IPAddress.Loopback;
-
-        //IPAddress m_tcpIP = IPAddress.Parse("192.168.218.128");
         IPAddress m_tcpIP = IPAddress.Parse("10.192.91.40");
-        //IPAddress m_tcpIP = IPAddress.Parse("202.59.232.58");
         int m_tcpPort = 11060;
 
-        //Socket serverTcp;
-
-        //创建一个数据缓冲区
-        private static byte[] m_clientDataBuffer = new byte[1024];
-        private static byte[] m_serverDataBuffer = new byte[1024];
 
         public TCP_IPMenuForm()
         {
@@ -54,7 +46,7 @@ namespace SoftLiu_VSMainMenuTools
 
         ~TCP_IPMenuForm()
         {
-            
+
         }
 
         private void OnTrainCheckCodeType(TCPEvents arg1, object[] arg2)
@@ -98,7 +90,7 @@ namespace SoftLiu_VSMainMenuTools
                     dic.Add("from_station", "上海");
                     dic.Add("to_station", "徐州东");
                     string sendMessage = string.Format("{0}", JsonConvert.SerializeObject(dic));
-                    clientTcp.Send(Encoding.UTF8.GetBytes(sendMessage));
+                    clientTcp.SendData(Encoding.UTF8.GetBytes(sendMessage));
                     textBoxTCPSend.Text = JsonConvert.SerializeObject(dic);
                 }
                 else
@@ -125,7 +117,20 @@ namespace SoftLiu_VSMainMenuTools
                     try
                     {
                         textBoxTCPRecv.AppendText("had client connect...\n");
-                        clientTcp.Connect(new IPEndPoint(m_tcpIP, m_tcpPort));
+                        clientTcp.ConnectServer((error) =>
+                        {
+                            if (error.ErrorCode != -1)
+                            {
+                                textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                            }
+                        }, (recvData) =>
+                        {
+                            if (recvData.Length > 0)
+                            {
+                                string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
+                                textBoxTCPRecv.AppendText($"RecvData: {data}\n");
+                            }
+                        });
                         this.radioConnectStatus.Checked = true;
                     }
                     catch (Exception ex)
@@ -134,16 +139,29 @@ namespace SoftLiu_VSMainMenuTools
                         return;
                     }
                     //通过clientSocket接收数据
-                    RecvThread(clientTcp);
+                    //RecvThread(clientTcp);
                 }
             }
             else
             {
-                clientTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                clientTcp = new SocketTCPClient(new IPEndPoint(m_tcpIP, m_tcpPort));
                 try
                 {
                     textBoxTCPRecv.AppendText("new client connect...\n");
-                    clientTcp.Connect(new IPEndPoint(m_tcpIP, m_tcpPort));
+                    clientTcp.ConnectServer((error) =>
+                    {
+                        if (error.ErrorCode != -1)
+                        {
+                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                        }
+                    }, (recvData) =>
+                    {
+                        if (recvData.Length > 0)
+                        {
+                            string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
+                            textBoxTCPRecv.AppendText($"RecvData: {data}\n");
+                        }
+                    });
                     this.radioConnectStatus.Checked = true;
                 }
                 catch (Exception ex)
@@ -152,7 +170,7 @@ namespace SoftLiu_VSMainMenuTools
                     return;
                 }
                 //通过clientSocket接收数据
-                RecvThread(clientTcp);
+                //RecvThread(clientTcp);
             }
         }
 
@@ -254,7 +272,13 @@ namespace SoftLiu_VSMainMenuTools
             {
                 if (clientTcp.Connected)
                 {
-                    clientTcp.Close();
+                    clientTcp.DisconnectServer((error) =>
+                    {
+                        if (error.ErrorCode != -1)
+                        {
+                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                        }
+                    });
                 }
                 clientTcp = null;
             }
@@ -271,7 +295,13 @@ namespace SoftLiu_VSMainMenuTools
 
             if (clientTcp != null)
             {
-                clientTcp.Close();
+                clientTcp.DisconnectServer((error) =>
+                {
+                    if (error.ErrorCode != -1)
+                    {
+                        textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                    }
+                });
             }
             if (clientUdp != null)
             {
@@ -298,9 +328,9 @@ namespace SoftLiu_VSMainMenuTools
                     string sendMessage = string.Format("{0}", JsonConvert.SerializeObject(dic));
                     byte[] sendData = Encoding.UTF8.GetBytes(sendMessage);
                     byte[] sendDataLen = BitConverter.GetBytes(sendData.Length);
-                    clientTcp.Send(sendDataLen);
+                    clientTcp.SendData(sendDataLen);
                     //Console.WriteLine(sendData.Length);
-                    clientTcp.Send(sendData);
+                    clientTcp.SendData(sendData);
                     textBoxTCPSend.Text = JsonConvert.SerializeObject(dic);
                 }
                 else

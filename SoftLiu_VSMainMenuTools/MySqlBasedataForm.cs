@@ -298,7 +298,7 @@ namespace SoftLiu_VSMainMenuTools
             else if (this.tabControlBasedata.SelectedTab == this.tabPageModifyData && this.m_currentDatabaseStudent != null)
             {
                 Student student = this.m_currentDatabaseStudent;
-                List<int> gradeIDlist = GetComboBoxItems("select gradeid from class;");
+                List<int> gradeIDlist = GetComboBoxItems("select distinct gradeid from class;");
                 this.comboBoxModifyGrade.Items.Clear();
                 for (int i = 0; i < gradeIDlist.Count; i++)
                 {
@@ -342,7 +342,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     return;
                 }
-                List<int> gradeIDlist = GetComboBoxItems("select gradeid from class;");
+                List<int> gradeIDlist = GetComboBoxItems("select distinct gradeid from class;");
                 this.comboBoxAddGrade.Items.Clear();
                 for (int i = 0; i < gradeIDlist.Count; i++)
                 {

@@ -55,9 +55,19 @@ create table grade(
 -- insert grade data
 insert into grade(schoolid, schoolname, gradeid) values('10010001', 'an hui wang cai yuan', 1);
 
+-- 查询去重
+select distinct gradeid from grade;
+
 
 -- 添加外键约束
 alter table class add foreign key (gradeid) references grade(gradeid);
 
 alter table student add foreign key (gradeid) references grade(gradeid);
 alter table student add foreign key (classid) references class(classid);
+
+-- 删除外键约束
+alter table class drop foreign key class_ibfk_1
+-- 查看某一张表所有的字段唯一性
+show keys from class;
+-- 删除字段的唯一性
+drop index gradeid on class;
