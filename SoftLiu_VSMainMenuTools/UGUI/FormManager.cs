@@ -24,8 +24,12 @@ namespace SoftLiu_VSMainMenuTools.UGUI
             if (form is MainMenuForm)
             {
                 m_FormStackList.Push(form);
-                
-                Application.Run(form);
+                Thread th = new Thread(() => {
+                    Application.Run(form);
+                });
+                th.SetApartmentState(ApartmentState.STA);
+                th.Start();
+                //form.Show();
             }
             else
             {

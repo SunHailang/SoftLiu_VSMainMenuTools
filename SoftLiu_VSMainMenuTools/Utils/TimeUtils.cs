@@ -25,10 +25,10 @@ namespace SoftLiu_VSMainMenuTools.Utils
         /// </summary>
         /// <param name="time"> DateTime时间格式</param>
         /// <returns>Unix时间戳格式</returns>
-        public static int ConvertDateTimeInt(System.DateTime time)
+        public static long ConvertDateTimeInt(System.DateTime time)
         {
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
-            return (int)(time - startTime).TotalSeconds;
+            return (long)(time - startTime).TotalSeconds;
         }
 
         /// <summary>

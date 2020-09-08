@@ -22,6 +22,8 @@ namespace SoftLiu_VSMainMenuTools
 
         public MainMenuForm()
         {
+            //Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
+
             InitializeComponent();
         }
 
@@ -108,30 +110,30 @@ namespace SoftLiu_VSMainMenuTools
                 Console.WriteLine();
             }
 
-                //ReadChinaInfo();
-                //string sql = "select * from region where level=1;";
-                //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
-                //DataTable dataTable = dataSet.Tables[0];
+            //ReadChinaInfo();
+            //string sql = "select * from region where level=1;";
+            //DataSet dataSet = MysqlManager.Instance.SelectTables(sql);
+            //DataTable dataTable = dataSet.Tables[0];
 
-                //dataGridView1.DataSource = dataTable;
+            //dataGridView1.DataSource = dataTable;
 
-                //PdfDocument doc = new PdfDocument();
-                //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
-                //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
-                //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
-                //JavaScriptSerializer jss = new JavaScriptSerializer();
-                //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
-                //if (dic == null)
-                //{
-                //    textBox1.AppendText(js + "\n");
-                //}
-                //else
-                //{
-                //    textBox1.AppendText(dic["code"] + "\n");
-                //}
-                //调出输出窗口
-                //Console.WriteLine(js);
-            }
+            //PdfDocument doc = new PdfDocument();
+            //doc.LoadFromFile("禁止应用读取Device ID适配文档.pdf");
+            //doc.SaveToFile("禁止应用读取Device ID适配文档.doc", FileFormat.DOC);
+            //string js = "{\"code\": \"TrainCheckCode\", \"status\": -1}";
+            //JavaScriptSerializer jss = new JavaScriptSerializer();
+            //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
+            //if (dic == null)
+            //{
+            //    textBox1.AppendText(js + "\n");
+            //}
+            //else
+            //{
+            //    textBox1.AppendText(dic["code"] + "\n");
+            //}
+            //调出输出窗口
+            //Console.WriteLine(js);
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -149,7 +151,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     case "时间转成时间戳":
                         DateTime dt1 = Convert.ToDateTime(info);
-                        int ts = TimeUtils.ConvertDateTimeInt(dt1);
+                        long ts = TimeUtils.ConvertDateTimeInt(dt1);
                         textBoxTimeAfter.Text = string.Format("{0}", ts);
                         break;
                     case "时间戳转成时间":
@@ -220,15 +222,7 @@ namespace SoftLiu_VSMainMenuTools
                             catch (Exception msg)
                             {
                                 Console.WriteLine("buttonCountdown_Click m_CountTimeTh : " + msg.Message);
-                                //if (m_formClosing || m_startDealLineTime)
-                                //{
-                                //    break;
-                                //}
-                                //else
-                                //{
-                                //    MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
-                                //}
                             }
                         }
                         textBoxTimeShowCount.Text = string.Empty;
@@ -239,7 +233,13 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception msg)
             {
-                MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    this.textBoxTimeCount.ReadOnly = false;
+                    this.m_cancelCountTime = true;
+                    buttonCountdown.Text = "确定";
+                }
             }
         }
 
@@ -275,7 +275,6 @@ namespace SoftLiu_VSMainMenuTools
         private Thread m_MD5ExchargeThread = null;
         private void buttonMD5Sure_Click(object sender, EventArgs e)
         {
-            /*
             this.textBoxMD5Str.Text = string.Empty;
             bool fsChecked = false;
             bool strChecked = false;
@@ -341,12 +340,10 @@ namespace SoftLiu_VSMainMenuTools
             {
                 MessageBox.Show("Exchange Check Box don't select.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            */
         }
 
         private void buttonSelectFile_Click(object sender, EventArgs e)
         {
-            /*
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;//该值确定是否可以选择多个文件
             dialog.Title = "请选择文件夹";
@@ -359,7 +356,6 @@ namespace SoftLiu_VSMainMenuTools
                     this.textBoxMD5Str.Text = string.Empty;
                 }
             }
-            */
         }
 
         private void textBoxTenExchange_KeyPress(object sender, KeyPressEventArgs e)
