@@ -56,16 +56,6 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            //TODU
-            //DialogResult result = MessageBox.Show("在线更新", "更新", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //if(result == DialogResult.Yes)
-            //{
-            //    if(ConfigurationUtils.Instance.existItem("versionName"))
-            //    {
-            //        ConfigurationUtils.Instance.modifyItem("versionName", "1.0.182356");//string.Format("{0}", m_version.MinorRevision + 1));
-            //        EventManager<Events>.Instance.TriggerEvent(Utils.EventsManager.Events.UpdateAppConfigEvent, null);
-            //    }
-            //}
             try
             {
                 string url = "http://localhost:8080/";
@@ -76,35 +66,6 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
                 Console.WriteLine(error.Message);
             }
 
-        }
-        private void buttonPost_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string url = "http://localhost:8080/";
-                HttpWebRequest postRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-                postRequest.Method = "POST";
-                postRequest.Timeout = 15;
-                byte[] postData = Encoding.UTF8.GetBytes("Hello World!");
-                postRequest.ContentLength = postData.Length;
-                using (Stream stream = postRequest.GetRequestStream())
-                {
-                    stream.Write(postData, 0, postData.Length);
-                }
-                using (var response = postRequest.GetResponse())
-                {
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        string data = reader.ReadToEnd();
-
-                        Console.WriteLine("Post Callback: " + data);
-                    }
-                }
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine("Error: " + error.Message);
-            }
         }
 
         ~AboutForm()

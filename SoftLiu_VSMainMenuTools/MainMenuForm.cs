@@ -138,7 +138,7 @@ namespace SoftLiu_VSMainMenuTools
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form about = new AboutForm();
-            about.Show();
+            about.ShowDialog();
         }
 
         private void buttonTimeSpan_Click(object sender, EventArgs e)
@@ -773,7 +773,8 @@ namespace SoftLiu_VSMainMenuTools
         private void tCPIPTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form tcp = new TCP_IPMenuForm();
-            tcp.Show();
+            //tcp.Show();
+            FormManager.Instance.OpenForm(tcp);
         }
 
         private void otherToolsToolStripMenuItem_Click(object sender, EventArgs e)

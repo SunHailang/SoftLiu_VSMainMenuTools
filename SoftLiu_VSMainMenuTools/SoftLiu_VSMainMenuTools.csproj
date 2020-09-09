@@ -119,6 +119,7 @@
     <Compile Include="SocketClient\SocketData\SocketErrorData.cs" />
     <Compile Include="SocketClient\SocketData\SocketReceiveData.cs" />
     <Compile Include="SocketClient\SocketData\SocketTCPClient.cs" />
+    <Compile Include="SocketClient\SocketData\SocketUDPClient.cs" />
     <Compile Include="SplashLoader.cs">
       <SubType>Form</SubType>
     </Compile>

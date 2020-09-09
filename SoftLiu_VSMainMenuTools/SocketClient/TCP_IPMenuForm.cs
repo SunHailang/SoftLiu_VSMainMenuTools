@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SoftLiu_VSMainMenuTools.Data;
 using SoftLiu_VSMainMenuTools.SocketClient.SocketData;
+using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
@@ -24,7 +25,7 @@ namespace SoftLiu_VSMainMenuTools
     {
 
         SocketTCPClient clientTcp;
-        Socket clientUdp;
+        SocketUDPClient clientUdp;
 
         IPAddress m_tcpIP = IPAddress.Parse("10.192.91.40");
         int m_tcpPort = 11060;
@@ -41,7 +42,9 @@ namespace SoftLiu_VSMainMenuTools
             toolStripProgressBar1.Value = 0;
 
             EventManager<TCPEvents>.Instance.RegisterEvent(TCPEvents.TrainCheckCodeType, OnTrainCheckCodeType);
-
+            // init udp ip and port
+            this.textBoxUDPIPAddress.Text = "10.192.91.40";
+            this.textBoxUDPPort.Text = "11080";
         }
 
         ~TCP_IPMenuForm()
@@ -303,12 +306,10 @@ namespace SoftLiu_VSMainMenuTools
                     }
                 });
             }
-            if (clientUdp != null)
-            {
-                clientUdp.Close();
-            }
             clientTcp = null;
             clientUdp = null;
+
+            FormManager.Instance.BackClose();
         }
 
         private void buttonCheckCode_Click(object sender, EventArgs e)
@@ -354,5 +355,44 @@ namespace SoftLiu_VSMainMenuTools
             b[3] = (byte)((0xff000000 & i) >> 24);
             return b;
         }
+
+        private void buttonUDPSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clientUdp == null)
+                {
+                    string ip = this.textBoxUDPIPAddress.Text.Trim();
+                    int port = 0;
+                    IPAddress address = IPAddress.Parse(ip);
+                    string portStr = this.textBoxUDPPort.Text.Trim();
+                    int.TryParse(portStr, out port);
+                    IPEndPoint server = new IPEndPoint(address, port);
+                    clientUdp = new SocketUDPClient(server, (recvData) =>
+                    {
+                        if (recvData.Length <= 0)
+                        {
+                            Console.WriteLine("receive data is null.");
+                            return;
+                        }
+                        string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
+                        this.textBoxUDPReceive.AppendText($"{data}\n");
+                    });
+                }
+                string sendMsg = this.textBoxUDPSendMessage.Text.Trim();
+                if (string.IsNullOrEmpty(sendMsg))
+                {
+                    Console.WriteLine("send data is null.");
+                    return;
+                }
+                byte[] sendBuffer = Encoding.UTF8.GetBytes(sendMsg);
+                clientUdp.SendTo(sendBuffer);
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine($"UDPSend_Click Error: {error.Message}");
+            }
+        }
+
     }
 }

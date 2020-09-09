@@ -22,11 +22,12 @@ namespace SoftLiu_VSMainMenuTools.Utils.ServerManager
 
         public void DownloadFile(string url, ProgressBar progbar, Label label)
         {
-            string m_url = url;
+            string m_url = url + "AssetBundles/";
             string m_platform = "Android";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(m_url);
             request.Method = "GET";
             request.Headers.Add("Content-Function", "AssetBundles");
+            request.Headers.Add("Content-GameID", "SoftLiu");
             request.Headers.Add("Content-Platform", m_platform);
             request.Timeout = 30;
 
