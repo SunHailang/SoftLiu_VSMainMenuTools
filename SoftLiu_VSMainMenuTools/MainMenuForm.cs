@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 using System.Security.Cryptography;
 using System.Xml.Serialization;
 using SoftLiu_VSMainMenuTools.UGUI;
+using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -781,6 +782,13 @@ namespace SoftLiu_VSMainMenuTools
         {
             Form tools = new SoftLiu_VSMainMenuTools.OtherTools.OtherTools();
             tools.Show();
+        }
+
+        private void webSocketClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form webSocket = new WebSocketClient();
+            //tcp.Show();
+            FormManager.Instance.OpenForm(webSocket);
         }
     }
 }

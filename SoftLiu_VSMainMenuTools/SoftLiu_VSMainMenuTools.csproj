@@ -120,6 +120,12 @@
     <Compile Include="SocketClient\SocketData\SocketReceiveData.cs" />
     <Compile Include="SocketClient\SocketData\SocketTCPClient.cs" />
     <Compile Include="SocketClient\SocketData\SocketUDPClient.cs" />
+    <Compile Include="SocketClient\WebSocketData\WebSocketClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SocketClient\WebSocketData\WebSocketClient.Designer.cs">
+      <DependentUpon>WebSocketClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +179,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SocketClient\WebSocketData\WebSocketClient.resx">
+      <DependentUpon>WebSocketClient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SplashLoader.resx">
       <DependentUpon>SplashLoader.cs</DependentUpon>
     </EmbeddedResource>

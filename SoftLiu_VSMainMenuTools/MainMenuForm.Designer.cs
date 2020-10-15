@@ -129,6 +129,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.webSocketClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -187,21 +188,21 @@
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
             // 
             // otherToolsToolStripMenuItem
             // 
             this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
-            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.otherToolsToolStripMenuItem.Text = "OtherTools";
             this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
@@ -209,7 +210,8 @@
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openMySqlToolStripMenuItem,
-            this.tCPIPTestToolStripMenuItem});
+            this.tCPIPTestToolStripMenuItem,
+            this.webSocketClientToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
@@ -217,14 +219,14 @@
             // openMySqlToolStripMenuItem
             // 
             this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.openMySqlToolStripMenuItem.Text = "Open mySql";
             this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
             // 
             // tCPIPTestToolStripMenuItem
             // 
             this.tCPIPTestToolStripMenuItem.Name = "tCPIPTestToolStripMenuItem";
-            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
             this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
             // 
@@ -1112,6 +1114,13 @@
             this.textBox1.Size = new System.Drawing.Size(668, 152);
             this.textBox1.TabIndex = 4;
             // 
+            // webSocketClientToolStripMenuItem
+            // 
+            this.webSocketClientToolStripMenuItem.Name = "webSocketClientToolStripMenuItem";
+            this.webSocketClientToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.webSocketClientToolStripMenuItem.Text = "WebSocketClient";
+            this.webSocketClientToolStripMenuItem.Click += new System.EventHandler(this.webSocketClientToolStripMenuItem_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1252,6 +1261,7 @@
         private System.Windows.Forms.Button buttonColorEx;
         private System.Windows.Forms.ToolStripMenuItem tCPIPTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem otherToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem webSocketClientToolStripMenuItem;
     }
 }
 
