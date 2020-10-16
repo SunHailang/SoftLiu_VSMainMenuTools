@@ -198,6 +198,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Resources\Localization_Chinese.csv" />
+    <None Include="Resources\WebSocket\WebSocketServers.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

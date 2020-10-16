@@ -381,8 +381,8 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     int index = list[i];
-                    sb16.Append(Get16thString(list[i]));
-                    List<int> list2 = Get2thString(index);
+                    sb16.Append(Get16thChar(list[i]));
+                    List<int> list2 = Get2thList(index);
                     StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < list2.Count; j++)
                     {
@@ -425,18 +425,17 @@ namespace SoftLiu_VSMainMenuTools
 
             return list;
         }
-        private List<int> Get2thString(int index)
+        private List<int> Get2thList(int index)
         {
             List<int> list = new List<int>();
             if (index / 2 > 0)
             {
-                list.AddRange(Get2thString(index / 2));
+                list.AddRange(Get2thList(index / 2));
             }
             list.Add(index % 2);
             return list;
         }
-
-        private char Get16thString(int index)
+        private char Get16thChar(int index)
         {
             char ch = '0';
             switch (index)
@@ -465,7 +464,23 @@ namespace SoftLiu_VSMainMenuTools
             }
             return ch;
         }
-
+        private string Get16String(int value)
+        {
+            StringBuilder sb16 = new StringBuilder();
+            List<int> list = Get16thList(value);
+            for (int i = 0; i < list.Count; i++)
+            {
+                int index = list[i];
+                sb16.Append(Get16thChar(list[i]));
+            }
+            int len = sb16.ToString().Length % 2;
+            string head = "";
+            if (len != 0)
+            {
+                head = "0";
+            }
+            return (head + sb16.ToString());
+        }
         private int GetHexInt(char hex)
         {
             int ch = 0;
@@ -536,7 +551,7 @@ namespace SoftLiu_VSMainMenuTools
                     //textBoxSix.Text = string.Empty;
                     return;
                 }
-                list2 = Get2thString(index);
+                list2 = Get2thList(index);
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < list2.Count; j++)
                 {
@@ -605,7 +620,7 @@ namespace SoftLiu_VSMainMenuTools
                         hex += (int)Math.Pow(2, j);
                     }
                 }
-                sb.Append(Get16thString(hex));
+                sb.Append(Get16thChar(hex));
                 hexList.Add(hex);
             }
 
@@ -683,7 +698,7 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     int value = list[i];
-                    sb.Append(Get16thString(value));
+                    sb.Append(Get16thChar(value));
                 }
                 textBoxColorHex.Text = sb.ToString();
 
@@ -711,15 +726,22 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     listStr.Add(sb.ToString().Substring(i, 2));
                 }
-                textBoxColorShowHex.Text = "0x" + sb.ToString().Substring(0, 6);
                 List<int> colorInt = new List<int>();
+                StringBuilder colorSB = new StringBuilder();
                 for (int i = 0; i < listStr.Count; i++)
                 {
                     string value = listStr[i];
                     int one = GetHexInt(value[0]);
                     int two = GetHexInt(value[1]);
-                    colorInt.Add(one * 16 + two);
+                    int result = one * 16 + two;
+                    if (result > 255 || result < 0)
+                        result = 0;
+                    colorSB.Append(Get16String(result));
+                    colorInt.Add(result);
                 }
+
+                textBoxColorShowHex.Text = "0x" + colorSB.ToString().Substring(0, 6);
+
                 textBoxColorRShow.Text = colorInt[0].ToString();
                 textBoxColorGShow.Text = colorInt[1].ToString();
                 textBoxColorBShow.Text = colorInt[2].ToString();
@@ -760,7 +782,7 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     int value = list[i];
-                    sb.Append(Get16thString(value));
+                    sb.Append(Get16thChar(value));
                 }
                 textBoxColorShowHex.Text = sb.ToString();
                 buttonColorShow.BackColor = Color.FromArgb(r, g, b);
