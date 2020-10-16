@@ -126,6 +126,8 @@
     <Compile Include="SocketClient\WebSocketData\WebSocketClient.Designer.cs">
       <DependentUpon>WebSocketClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="SocketClient\WebSocketData\WebSocketManager.cs" />
+    <Compile Include="SocketClient\WebSocketData\WebSocketServerData.cs" />
     <Compile Include="SplashLoader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +146,7 @@
     <Compile Include="Utils\EventsManager\EventManager.cs" />
     <Compile Include="Utils\EventsManager\Events.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\GameDataUtils.cs" />
     <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Utils\Localization.cs" />
     <Compile Include="Utils\MD5Utils.cs" />

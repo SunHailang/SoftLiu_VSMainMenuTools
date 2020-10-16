@@ -34,15 +34,23 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void WebSocketClient_Load(object sender, EventArgs e)
         {
+            WebSocketManager.Instance.Init();
             // 初始化状态
             m_closeForm = false;
             radioWebSocketState.Checked = false;
 
             // 配置可连接的WebSocket服务器
-
-            // 默认服务器是第一个
-            comboBoxServer.SelectedIndex = 0;
-            comboBoxServer.DropDownStyle = ComboBoxStyle.DropDown;
+            comboBoxServer.Items.Clear();
+            if (WebSocketManager.Instance.ServerDatas != null)
+            {
+                foreach (WebSocketServerData item in WebSocketManager.Instance.ServerDatas)
+                {
+                    comboBoxServer.Items.Add(item.Name);
+                }
+                // 默认服务器是第一个
+                comboBoxServer.SelectedIndex = 0;
+                comboBoxServer.DropDownStyle = ComboBoxStyle.DropDown;
+            }
         }
 
         private async void WebSocketConnectAysnc(string url, Action callback = null)
@@ -237,7 +245,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void buttonConnServer_Click(object sender, EventArgs e)
         {
-            string url = comboBoxServer.SelectedItem.ToString();
+            string name = comboBoxServer.SelectedItem.ToString();
+            string url = WebSocketManager.Instance.GetServerUrlByName(name);
             if (string.IsNullOrEmpty(url))
             {
                 MessageBox.Show("服务器URL不能为空!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

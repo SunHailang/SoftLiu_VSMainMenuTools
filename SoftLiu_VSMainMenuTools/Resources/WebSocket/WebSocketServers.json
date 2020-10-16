@@ -1,7 +1,23 @@
 ﻿{
   "ServerData": [
     {
+      "m_name": "WebSocketTest1",
       "m_url": "wss://cs-s-1000106500.gamebean.net/echo"
+    },
+    {
+      "m_name": "WebSocketTest2",
+      "m_url": "wss://cs-s-1000106500.gamebean.net/echo"
+    }
+  ],
+
+  "ClientData": [
+    {
+      "m_name": "ClientTest1",
+      "m_type": 0
+    },
+    {
+      "m_name": "ClientTest2",
+      "m_type": 1
     }
   ]
 }
