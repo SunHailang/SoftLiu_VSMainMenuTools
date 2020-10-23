@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -34,6 +35,11 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void WebSocketClient_Load(object sender, EventArgs e)
         {
+            m_cancellation.Register(() =>
+            {
+                Console.WriteLine("CancellationToken Register Callback.");
+            }, true);
+
             WebSocketManager.Instance.Init();
             // 初始化状态
             m_closeForm = false;
@@ -98,7 +104,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             }
         }
 
-        private async void WebSocketSendAysnc(byte[] buffer)
+        private async void WebSocketSendAysnc(byte[] buffer, WebSocketMessageType msgType = WebSocketMessageType.Binary)
         {
             try
             {
@@ -107,7 +113,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     MessageBox.Show("WebSocket不可用，请重新连接。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                await m_webSocketClent.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, true, m_cancellation);
+                await m_webSocketClent.SendAsync(new ArraySegment<byte>(buffer), msgType, true, m_cancellation);
             }
             catch (Exception error)
             {
@@ -135,11 +141,12 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     await m_webSocketClent.ReceiveAsync(new ArraySegment<byte>(m_recvBuffer), m_cancellation);
                     if (callback != null)
                     {
-                        byte[] head = null;
-                        int length = 0;
-                        byte[] result = null;
-                        GetReceiveData(m_recvBuffer, out head, out length, out result);
-                        callback(result);
+                        //byte[] head = null;
+                        //int length = 0;
+                        //byte[] result = null;
+                        //GetReceiveData(m_recvBuffer, out head, out length, out result);
+                        //callback(result);
+                        callback(m_recvBuffer);
                     }
                 }
             }
@@ -197,17 +204,36 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         }
         private void webSocketBtnSend_Click(object sender, EventArgs e)
         {
+            //f07f47cc-59a2-46ce-a37e-69540c60aadc
+            Dictionary<string, object> login = new Dictionary<string, object>();
+            login.Add("action", "login");
+            login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+            string jsonLogin = JsonUtils.Instance.ObjectToJson(login);
+
+            //queue { "action":"queue", "queueInfo":{ "mode":1, "class":1, "shark":"shark-name", "currency":1 } }
+            Dictionary<string, object> queue = new Dictionary<string, object>();
+            queue.Add("action", "queue");
+            Dictionary<string, object> queueInfo = new Dictionary<string, object>();
+            queueInfo.Add("mode", 1);
+            queueInfo.Add("class", 1);
+            queueInfo.Add("shark", "BlueShark");
+            queueInfo.Add("currency", 1);
+            queue.Add("queueInfo", queueInfo);
+            string jsonQueue = JsonUtils.Instance.ObjectToJson(queue);
+
+            webSocketTextBoxSend.Text = jsonQueue;
             string sendData = webSocketTextBoxSend.Text.Trim();
             if (string.IsNullOrEmpty(sendData))
             {
                 MessageBox.Show("发送的数据不能为空!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             byte[] bsend = Encoding.UTF8.GetBytes(sendData);
 
-            bsend = GetSendData(bsend);
+            //bsend = GetSendData(bsend);
 
-            WebSocketSendAysnc(bsend);
+            WebSocketSendAysnc(bsend, WebSocketMessageType.Text);
         }
 
         private void buttonClean_Click(object sender, EventArgs e)
@@ -252,6 +278,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 MessageBox.Show("服务器URL不能为空!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             m_webSocketClent = new ClientWebSocket();
             WebSocketConnectAysnc(url, () =>
              {
@@ -268,6 +296,17 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                           if (string.IsNullOrEmpty(recvStr)) return;
                           textBoxReceive.AppendText($"{recvStr}\n");
                       });
+
+                     Dictionary<string, object> login = new Dictionary<string, object>();
+                     login.Add("action", "login");
+                     login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+                     string sendData = JsonUtils.Instance.ObjectToJson(login);
+
+                     byte[] bsend = Encoding.UTF8.GetBytes(sendData);
+
+                     //bsend = GetSendData(bsend);
+
+                     WebSocketSendAysnc(bsend, WebSocketMessageType.Text);
                  }
              });
         }
