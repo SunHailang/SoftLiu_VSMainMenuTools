@@ -1,4 +1,6 @@
-﻿namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
+﻿using SoftLiu_VSMainMenuTools.Utils;
+
+namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 {
     partial class WebSocketClient
     {
