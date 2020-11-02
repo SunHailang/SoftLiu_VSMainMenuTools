@@ -94,6 +94,8 @@ namespace SoftLiu_VSMainMenuTools
             // read csv file
             Localization.Instance.Init();
 
+            GameDBManager.Instance.Init();
+
             //m_progressBarSplash.Value = 100;
             init();
         }

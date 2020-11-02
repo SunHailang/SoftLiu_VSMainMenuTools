@@ -90,6 +90,7 @@
     <Compile Include="ExcelToXml\ExcelToXmlForm.Designer.cs">
       <DependentUpon>ExcelToXmlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameDBManager.cs" />
     <Compile Include="HelpMenu\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,10 +103,16 @@
     <Compile Include="MainMenuForm.Designer.cs">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MySqlBasedataForm.cs">
+    <Compile Include="Popup\MysqlPopup\MysqlAddUserInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MySqlBasedataForm.Designer.cs">
+    <Compile Include="Popup\MysqlPopup\MysqlAddUserInfoForm.Designer.cs">
+      <DependentUpon>MysqlAddUserInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\MysqlPopup\MySqlBasedataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\MysqlPopup\MySqlBasedataForm.Designer.cs">
       <DependentUpon>MySqlBasedataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OtherTools\OtherTools.cs">
@@ -113,6 +120,12 @@
     </Compile>
     <Compile Include="OtherTools\OtherTools.Designer.cs">
       <DependentUpon>OtherTools.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\MysqlPopup\MysqlModifyUserInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\MysqlPopup\MysqlModifyUserInfoForm.Designer.cs">
+      <DependentUpon>MysqlModifyUserInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,11 +180,17 @@
     <EmbeddedResource Include="MainMenuForm.resx">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MySqlBasedataForm.resx">
+    <EmbeddedResource Include="Popup\MysqlPopup\MysqlAddUserInfoForm.resx">
+      <DependentUpon>MysqlAddUserInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\MysqlPopup\MySqlBasedataForm.resx">
       <DependentUpon>MySqlBasedataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OtherTools\OtherTools.resx">
       <DependentUpon>OtherTools.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\MysqlPopup\MysqlModifyUserInfoForm.resx">
+      <DependentUpon>MysqlModifyUserInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
