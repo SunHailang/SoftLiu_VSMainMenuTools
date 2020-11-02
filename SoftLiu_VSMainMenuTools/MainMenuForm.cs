@@ -250,9 +250,17 @@ namespace SoftLiu_VSMainMenuTools
         }
         private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Environment.Exit(Environment.ExitCode);
-            this.Dispose();
-            this.Close();
+            try
+            {
+                Environment.Exit(Environment.ExitCode);
+                this.Dispose();
+                this.Close();
+            }
+            catch (Exception error)
+            {
+
+                throw;
+            }
         }
 
         private void textBoxFilePath_DragDrop(object sender, DragEventArgs e)

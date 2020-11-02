@@ -20,30 +20,6 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             InitializeComponent();
         }
 
-        private Dictionary<string, string> m_language = new Dictionary<string, string>()
-        {
-            {"English","en"},
-            {"Italian","it"},
-            {"Spanish","es" },
-            {"Chinese","zh" },
-            {"Portuguese","pt" },
-            {"Russian","ru"},
-            {"French","fr"},
-            {"Polish","pl" },
-            {"Arabic","ar" },
-            {"Japanese","ja" },
-            {"Indonesian","id"},
-            {"Dutch","nl"},
-            {"Vietnamese","vi" },
-            {"Swedish","sv" },
-            {"Thai","th" },
-            {"Hungarian","hu"},
-            {"Turkish","tr"},
-            {"Greek","el" },
-            {"German","de" },
-            {"Czech","cs" },
-        };
-
         private void ExcelToXml_Load(object sender, EventArgs e)
         {
             //string excelPath = "D:\\VS2015Program\\SF45.xlsx";
@@ -52,10 +28,6 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             ////ExcelOrXmlManager.WriteXml(dt, sheetName, "D:\\VS2015Program\\SF2.xml");
             //ExcelOrXmlManager.WriteJson(dt, sheetName, "D:\\VS2015Program\\SF2.json");
 
-            foreach (KeyValuePair<string, string> item in m_language)
-            {
-                comboBoxLanguage.Items.Add(item.Key);
-            }
             comboBoxLanguage.SelectedIndex = 0;
         }
 
@@ -113,17 +85,10 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
 
             foreach (KeyValuePair<string, Dictionary<string, object>> item in dic)
             {
-                if (!m_language.ContainsKey(item.Key))
-                {
-                    Console.WriteLine(string.Format("not {0} language.", item.Key));
-                    continue;
-                }
-                string path = string.Format("language_{0}.ts", m_language[item.Key]);
-
                 string json = JsonUtils.Instance.DictionaryToJson(item.Value);
 
                 StringBuilder sb = new StringBuilder();
-                sb.Append(string.Format("export const language_{0} = \n", m_language[item.Key]));
+                //sb.Append(string.Format("export const language_{0} = \n", m_language[item.Key]));
                 string[] data = json.Split(',');
                 for (int i = 0; i < data.Length; i++)
                 {
@@ -140,10 +105,10 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
 
                 byte[] bt = Encoding.UTF8.GetBytes(sb.ToString());
 
-                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
-                {
-                    fs.Write(bt, 0, bt.Length);
-                }
+                //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+                //{
+                //    fs.Write(bt, 0, bt.Length);
+                //}
             }
         }
 
@@ -218,10 +183,10 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             dt.Clear();
             dt.Columns.Add("Type");
             dt.Columns.Add("KEY");
-            foreach (KeyValuePair<string, string> item in m_language)
-            {
-                dt.Columns.Add(item.Key);
-            }
+            //foreach (KeyValuePair<string, string> item in m_language)
+            //{
+            //    dt.Columns.Add(item.Key);
+            //}
             DataRow dr_column = dt.NewRow();
             for (int i = 0; i < dt.Columns.Count; i++)
             {

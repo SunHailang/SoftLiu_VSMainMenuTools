@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace SoftLiu_VSMainMenuTools.Utils
 {
-    public static class GameDataUtils
+    public static class DataUtils
     {
         public static List<T> CreateInstances<T>(List<object> objects)
         {

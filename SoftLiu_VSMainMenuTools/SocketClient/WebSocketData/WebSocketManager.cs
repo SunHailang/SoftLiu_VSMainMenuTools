@@ -35,7 +35,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                             if (jsonData.ContainsKey("ServerData"))
                             {
                                 List<object> serverData = jsonData["ServerData"];
-                                m_ServerDatas = GameDataUtils.CreateInstances<WebSocketServerData>(serverData);
+                                m_ServerDatas = DataUtils.CreateInstances<WebSocketServerData>(serverData);
                             }
                         }
                     }
