@@ -63,6 +63,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         {
             try
             {
+                m_webSocketClent = new ClientWebSocket();
                 Uri uri = new Uri(url);
                 await m_webSocketClent.ConnectAsync(uri, m_cancellation);
                 if (callback != null)
@@ -104,16 +105,22 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             }
         }
 
-        private async void WebSocketSendAysnc(byte[] buffer, WebSocketMessageType msgType = WebSocketMessageType.Binary)
+        private string m_url = "";//WebSocketManager.Instance.GetServerUrlByName(name);
+
+        private async void WebSocketSendAysnc(byte[] buffer, Action<string> callback, WebSocketMessageType msgType = WebSocketMessageType.Binary)
         {
             try
             {
                 if (m_webSocketClent == null || m_webSocketClent.State != WebSocketState.Open)
                 {
-                    MessageBox.Show("WebSocket不可用，请重新连接。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string errorMsg = "WebSocketSendAysnc 不可用，请重新连接。";
+                    Console.WriteLine(errorMsg);
+                    textBoxError.AppendText($"{errorMsg}\n");
+                    callback(errorMsg);
                     return;
                 }
                 await m_webSocketClent.SendAsync(new ArraySegment<byte>(buffer), msgType, true, m_cancellation);
+                callback(null);
             }
             catch (Exception error)
             {
@@ -124,6 +131,30 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 string errorMsg = $"WebSocketSendAysnc Error: {error.Message}";
                 textBoxError.AppendText($"{errorMsg}\n");
                 Console.WriteLine(errorMsg);
+                callback(errorMsg);
+            }
+        }
+
+        private void ReConnectCallback(string error)
+        {
+            if (!string.IsNullOrEmpty(error))
+            {
+                if (!gameOver && gameing)
+                {
+                    WebSocketConnectAysnc(m_url, () =>
+                    {
+                        // 开始登陆
+                        Dictionary<string, object> rejoinDic = new Dictionary<string, object>();
+                        rejoinDic.Add("action", "rejoin");
+                        rejoinDic.Add("match_id", m_matchID);
+                        string sendData = JsonUtils.Instance.ObjectToJson(rejoinDic);
+                        byte[] bsend = Encoding.UTF8.GetBytes(sendData);
+                        WebSocketSendAysnc(bsend, (errorSend) =>
+                        {
+
+                        }, WebSocketMessageType.Text);
+                    });
+                }
             }
         }
 
@@ -233,7 +264,29 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
             //bsend = GetSendData(bsend);
 
-            WebSocketSendAysnc(bsend, WebSocketMessageType.Text);
+            WebSocketSendAysnc(bsend, (error) =>
+            {
+                if (string.IsNullOrEmpty(error))
+                {
+                    MatchTimeCallback(bsend);
+                }
+            }, WebSocketMessageType.Text);
+        }
+
+        private void MatchTimeCallback(byte[] bsend)
+        {
+            ThreadPool.QueueUserWorkItem((state) =>
+            {
+                while (!gameing && !m_closeWebsocket)
+                {
+                    Thread.Sleep(10000);
+                    if (!gameing && !m_closeWebsocket)
+                    {
+                        break;
+                    }
+                    WebSocketSendAysnc(bsend, ReConnectCallback, WebSocketMessageType.Text);
+                }
+            });
         }
 
         private void buttonClean_Click(object sender, EventArgs e)
@@ -255,13 +308,14 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 FormManager.Instance.BackClose();
             });
         }
-
+        private bool m_closeWebsocket = false;
         private void buttonCloseWebSocket_Click(object sender, EventArgs e)
         {
             if (m_webSocketClent != null && m_webSocketClent.State != WebSocketState.Closed)
             {
                 WebSocketCloseAysnc(() =>
                 {
+                    m_closeWebsocket = true;
                     radioWebSocketState.Checked = false;
                     comboBoxServer.DropDownStyle = ComboBoxStyle.DropDown;
                     MessageBox.Show("断开连接完成。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -272,16 +326,16 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private void buttonConnServer_Click(object sender, EventArgs e)
         {
             string name = comboBoxServer.SelectedItem.ToString();
-            string url = WebSocketManager.Instance.GetServerUrlByName(name);
-            if (string.IsNullOrEmpty(url))
+            m_url = WebSocketManager.Instance.GetServerUrlByName(name);
+            if (string.IsNullOrEmpty(m_url))
             {
                 MessageBox.Show("服务器URL不能为空!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            m_closeWebsocket = false;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            m_webSocketClent = new ClientWebSocket();
-            WebSocketConnectAysnc(url, () =>
+
+            WebSocketConnectAysnc(m_url, () =>
              {
                  if (m_webSocketClent.State == WebSocketState.Open)
                  {
@@ -300,10 +354,15 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
                      //bsend = GetSendData(bsend);
 
-                     WebSocketSendAysnc(bsend, WebSocketMessageType.Text);
+                     WebSocketSendAysnc(bsend, (error) =>
+                     {
+
+                     }, WebSocketMessageType.Text);
                  }
              });
         }
+
+        private int m_matchID = 0;
 
         private void RecvData(byte[] receiveData)
         {
@@ -338,7 +397,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                             }
                             break;
                         case "queue": // 返回匹配队列的状态
-                            int match_id = -1;
                             if (dataRecvDic.ContainsKey("errcode"))
                             {
                                 // 报错
@@ -348,8 +406,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                             else if (dataRecvDic.ContainsKey("match_id"))
                             {
                                 // 匹配成功直接进入游戏
-                                match_id = Convert.ToInt32(dataRecvDic["match_id"]);
-                                MatchSuccess(match_id);
+                                m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
+                                MatchSuccess(m_matchID);
                             }
                             else
                             {
@@ -377,13 +435,25 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                             int eventID = Convert.ToInt32(dataRecvDic["event_id"]);
                             switch (eventID)
                             {
-                                case 1: // 状态变更
-                                        // 匹配成功： {"action":"push","event_id":1,"match_id":16,"status":3,"uuid":"test-User-0"}
+                                case 1:
+                                    // 状态变更
+                                    // 匹配成功： {"action":"push","event_id":1,"match_id":16,"status":3,"uuid":"test-User-0"}
+                                    //{ "action":"push","event_id":1,"match_id":55,
+                                    //"matchconf":{ "users":[
+                                    //{ "equip":"","icon":0,"name":"name t0","shark":"shark-name","uuid":"test-User-0"},
+                                    //{ "equip":"","icon":9,"name":"未知鲨鱼4515","shark":"BlueShark","uuid":"f07f47cc-59a2-46ce-a37e-69540c60aadc"}]},
+                                    //"pvpvariation":{"pvpconf":[
+                                    //{ "key":"healthMax","showAsRand":false},
+                                    //{ "key":"boostSpeed","showAsRand":true},
+                                    //{ "key":"healthDrain","showAsRand":false},
+                                    //{ "key":"pollution","showAsRand":false},
+                                    //{ "key":"pollution","showAsRand":false}]},
+                                    //"status":3,"uuid":"test-User-0"}
                                     if (dataRecvDic.ContainsKey("match_id"))
                                     {
                                         // 匹配成功直接进入游戏
-                                        int pushmatch_id = Convert.ToInt32(dataRecvDic["match_id"]);
-                                        MatchSuccess(pushmatch_id);
+                                        m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
+                                        MatchSuccess(m_matchID);
                                     }
                                     else
                                     {
@@ -391,15 +461,15 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                                     }
                                     break;
                                 case 2: // 比赛结束
-                                    int endmatch_id = Convert.ToInt32(dataRecvDic["match_id"]);
-                                    MatchGameEnd(endmatch_id);
+                                    m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
+                                    MatchGameEnd(m_matchID);
                                     break;
                                 case 3:
                                     // 比赛状态
                                     try
                                     {
                                         //{"action":"push","event_id":3,"match_id":28,"time_remains":2,"user_status":{"test-User-0":{"score":0,"hp":100,"finished":false},"test-User-1":{"score":0,"hp":100,"finished":false}}}
-                                        int gamestatematch_id = Convert.ToInt32(dataRecvDic["match_id"]);
+                                        m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
                                         int time_remains = Convert.ToInt32(dataRecvDic["time_remains"]);
                                         Dictionary<string, object> user_status = dataRecvDic["user_status"] as Dictionary<string, object>;
                                     }
@@ -421,18 +491,20 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             }
         }
         private bool gameOver = false;
+        private bool gameing = false;
         private void MatchSuccess(int matchID)
         {
             float time = 180;
             gameOver = false;
             int hp = 100;
             int score = 0;
+            gameing = true;
             ThreadPool.QueueUserWorkItem((state) =>
             {
-                while (!gameOver)
+                while (!gameOver && !m_closeWebsocket)
                 {
                     Thread.Sleep(500);
-                    if (gameOver)
+                    if (gameOver && !m_closeWebsocket)
                     {
                         break;
                     }
@@ -451,11 +523,11 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     uploadData.Add("upload", upload);
                     string sendData = JsonUtils.Instance.ObjectToJson(uploadData);
                     byte[] bsend = Encoding.UTF8.GetBytes(sendData);
-                    WebSocketSendAysnc(bsend, WebSocketMessageType.Text);
+                    WebSocketSendAysnc(bsend, ReConnectCallback, WebSocketMessageType.Text);
                     time -= 0.5f;
                     if (time <= 0)
                     {
-                        gameOver = true;
+                        MatchGameEnd(m_matchID);
                     }
                 }
             });
@@ -463,6 +535,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private void MatchGameEnd(int matchID)
         {
             gameOver = true;
+            gameing = false;
             if (m_webSocketClent != null && m_webSocketClent.State != WebSocketState.Closed)
             {
                 WebSocketCloseAysnc(() =>
