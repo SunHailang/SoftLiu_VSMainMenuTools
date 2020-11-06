@@ -114,7 +114,7 @@ namespace SoftLiu_VSMainMenuTools
             {
                 Console.WriteLine("Yes");
                 ActionData data = obj as ActionData;
-                data.Init();
+                data.Init("");
             }
             Console.WriteLine();
             //using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())

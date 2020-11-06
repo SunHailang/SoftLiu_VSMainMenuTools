@@ -8,7 +8,7 @@
 
 namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
 {
-    public enum Events
+    public enum NomalEvents
     {
         UpdateAppConfigEvent,
         UpdateVersionEvent,
@@ -21,5 +21,12 @@ namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
         TrainCheckCodeType,
         TrainLoginType,
         TrainQueryType
+    }
+
+    public enum MatchEvents
+    {
+        None,
+        MatchCallbackType,
+        GameEndType,
     }
 }

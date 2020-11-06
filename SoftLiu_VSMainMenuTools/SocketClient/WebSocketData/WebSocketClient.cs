@@ -1,16 +1,16 @@
-﻿using SoftLiu_VSMainMenuTools.UGUI;
+﻿using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data;
+using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.Utils;
+using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.WebSockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
@@ -22,11 +22,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         readonly CancellationToken m_cancellation = new CancellationToken();
 
-        //private const string m_url = "wss://cs-s-1000106500.gamebean.net/echo";
-
         private bool m_closeForm = false;
-
-        //private byte[] m_recvBuffer = new byte[1024];
 
         public WebSocketClient()
         {
@@ -35,6 +31,10 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void WebSocketClient_Load(object sender, EventArgs e)
         {
+            // register event
+            EventManager<MatchEvents>.Instance.RegisterEvent(MatchEvents.MatchCallbackType, OnMatchCallbackType);
+            EventManager<MatchEvents>.Instance.RegisterEvent(MatchEvents.GameEndType, OnGameEndType);
+
             m_cancellation.Register(() =>
             {
                 Console.WriteLine("CancellationToken Register Callback.");
@@ -143,6 +143,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 {
                     WebSocketConnectAysnc(m_url, () =>
                     {
+                        // start recveive
+                        WebSocketReceiveAysnc(RecvData);
                         // 开始登陆
                         Dictionary<string, object> rejoinDic = new Dictionary<string, object>();
                         rejoinDic.Add("action", "rejoin");
@@ -377,115 +379,28 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 if (dataRecvDic != null && dataRecvDic.ContainsKey("action"))
                 {
                     string action = dataRecvDic["action"].ToString();
-                    int errcode = -1;
-                    string err = string.Empty;
-                    switch (action)
+
+                    IEnumerable<WebSocketProtocolData> protocols = WebSocketManager.Instance.ProtocolDatas.Where(data => { return data.Protocol == action; });
+                    WebSocketProtocolData protocol = protocols.FirstOrDefault();
+                    if (protocols != null)
                     {
-                        case "conn": // {"action":"conn","err":"server is busy","errcode":1}
-                            errcode = Convert.ToInt32(dataRecvDic["errcode"]);
-                            err = dataRecvDic["err"].ToString();
-                            break;
-                        case "login": // 返回登录的状态
-                            if (dataRecvDic.ContainsKey("errcode"))
-                            {
-                                errcode = Convert.ToInt32(dataRecvDic["errcode"]);
-                                err = dataRecvDic["err"].ToString();
-                            }
-                            else if (dataRecvDic.ContainsKey("uuid"))
-                            {
-                                // 登录success
-                            }
-                            break;
-                        case "queue": // 返回匹配队列的状态
-                            if (dataRecvDic.ContainsKey("errcode"))
-                            {
-                                // 报错
-                                errcode = Convert.ToInt32(dataRecvDic["errcode"]);
-                                err = dataRecvDic["err"].ToString();
-                            }
-                            else if (dataRecvDic.ContainsKey("match_id"))
-                            {
-                                // 匹配成功直接进入游戏
-                                m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
-                                MatchSuccess(m_matchID);
-                            }
-                            else
-                            {
-                                // 进入排队
-                            }
-                            break;
-                        case "matchconf": // 获取比赛配置
-                            List<Dictionary<string, object>> userList = null;
-                            if (dataRecvDic.ContainsKey("errcode"))
-                            {
-                                // 报错
-                                errcode = Convert.ToInt32(dataRecvDic["errcode"]);
-                                err = dataRecvDic["err"].ToString();
-                            }
-                            else if (dataRecvDic.ContainsKey("users"))
-                            {
-                                userList = dataRecvDic["users"] as List<Dictionary<string, object>>;
-                            }
-                            break;
-                        case "upload":
-                            // {"action":"upload","err":"you are not in a match","errcode":8}
-                            Console.WriteLine($"player upload game state error: {recvStr}");
-                            break;
-                        case "push": // 服务器端推送消息
-                            int eventID = Convert.ToInt32(dataRecvDic["event_id"]);
-                            switch (eventID)
-                            {
-                                case 1:
-                                    // 状态变更
-                                    // 匹配成功： {"action":"push","event_id":1,"match_id":16,"status":3,"uuid":"test-User-0"}
-                                    //{ "action":"push","event_id":1,"match_id":55,
-                                    //"matchconf":{ "users":[
-                                    //{ "equip":"","icon":0,"name":"name t0","shark":"shark-name","uuid":"test-User-0"},
-                                    //{ "equip":"","icon":9,"name":"未知鲨鱼4515","shark":"BlueShark","uuid":"f07f47cc-59a2-46ce-a37e-69540c60aadc"}]},
-                                    //"pvpvariation":{"pvpconf":[
-                                    //{ "key":"healthMax","showAsRand":false},
-                                    //{ "key":"boostSpeed","showAsRand":true},
-                                    //{ "key":"healthDrain","showAsRand":false},
-                                    //{ "key":"pollution","showAsRand":false},
-                                    //{ "key":"pollution","showAsRand":false}]},
-                                    //"status":3,"uuid":"test-User-0"}
-                                    if (dataRecvDic.ContainsKey("match_id"))
-                                    {
-                                        // 匹配成功直接进入游戏
-                                        m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
-                                        MatchSuccess(m_matchID);
-                                    }
-                                    else
-                                    {
-                                        // NOT TODO
-                                    }
-                                    break;
-                                case 2: // 比赛结束
-                                    m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
-                                    MatchGameEnd(m_matchID);
-                                    break;
-                                case 3:
-                                    // 比赛状态
-                                    try
-                                    {
-                                        //{"action":"push","event_id":3,"match_id":28,"time_remains":2,"user_status":{"test-User-0":{"score":0,"hp":100,"finished":false},"test-User-1":{"score":0,"hp":100,"finished":false}}}
-                                        m_matchID = Convert.ToInt32(dataRecvDic["match_id"]);
-                                        int time_remains = Convert.ToInt32(dataRecvDic["time_remains"]);
-                                        Dictionary<string, object> user_status = dataRecvDic["user_status"] as Dictionary<string, object>;
-                                    }
-                                    catch (Exception errorEXstate)
-                                    {
-                                        Console.WriteLine($"WebSocketReceiveCallback eventID: {eventID}, error: {errorEXstate.Message}");
-                                    }
-                                    break;
-                                default:
-                                    Console.WriteLine($"WebSocketReceiveCallback eventID: {eventID}");
-                                    break;
-                            }
-                            break;
-                        default:
-                            Console.WriteLine($"WebSocketReceiveCallback action: {action}");
-                            break;
+                        // 获取当前程序集 
+                        Assembly assembly = Assembly.GetExecutingAssembly();
+                        //dynamic obj = assembly.CreateInstance("类的完全限定名（即包括命名空间）");
+                        dynamic obj = assembly.CreateInstance($"SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data.{protocol.Type}");
+                        if (obj is ActionData)
+                        {
+                            ActionData data = obj as ActionData;
+                            data.Init(recvStr);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"WebSocketProtocolData CreateInstance is null, action: {action}, type: {protocol.Type}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"WebSocketProtocolData is null, action: {action}");
                     }
                 }
             }
@@ -545,6 +460,33 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     MessageBox.Show("比赛结束，断开连接完成。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
             }
+        }
+
+        private void OnGameEndType(MatchEvents arg1, object[] arg2)
+        {
+            if (arg2 != null && arg2.Length > 0)
+            {
+                int matchID = Convert.ToInt32(arg2[0]);
+                MatchGameEnd(matchID);
+            }
+
+        }
+
+        private void OnMatchCallbackType(MatchEvents arg1, object[] arg2)
+        {
+            if (arg2 != null || arg2.Length > 0)
+            {
+                int matchID = Convert.ToInt32(arg2[0]);
+                MatchSuccess(matchID);
+            }
+
+        }
+
+        private void WebSocketClient_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // deregister Event
+            EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.MatchCallbackType, OnMatchCallbackType);
+            EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.GameEndType, OnGameEndType);
         }
     }
 }

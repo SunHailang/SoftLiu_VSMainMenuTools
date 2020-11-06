@@ -56,7 +56,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
         public VersionUtils()
         {
             Update();
-            EventManager<Events>.Instance.RegisterEvent(Events.UpdateVersionEvent, OnUpdateVersionEvent);
+            EventManager<NomalEvents>.Instance.RegisterEvent(NomalEvents.UpdateVersionEvent, OnUpdateVersionEvent);
 
         }
 
@@ -71,10 +71,10 @@ namespace SoftLiu_VSMainMenuTools.Utils
             company = ReadAssemblyCompany();
         }
 
-        private void OnUpdateVersionEvent(Events eventType, object[] arg2)
+        private void OnUpdateVersionEvent(NomalEvents eventType, object[] arg2)
         {
             Update();
-            EventManager<Events>.Instance.TriggerEvent(Events.UpdateVersionCompleteEvent, null);
+            EventManager<NomalEvents>.Instance.TriggerEvent(NomalEvents.UpdateVersionCompleteEvent, null);
         }
 
         ~VersionUtils()
@@ -82,7 +82,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
             if (version != null)
                 version = null;
 
-            EventManager<Events>.Instance.DeregisterEvent(Events.UpdateVersionEvent, OnUpdateVersionEvent);
+            EventManager<NomalEvents>.Instance.DeregisterEvent(NomalEvents.UpdateVersionEvent, OnUpdateVersionEvent);
         }
 
         public string ReadAssemblyProduct()

@@ -28,7 +28,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            EventManager<Events>.Instance.RegisterEvent(Utils.EventsManager.Events.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
+            EventManager<NomalEvents>.Instance.RegisterEvent(NomalEvents.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
             m_version = VersionUtils.Instance.version;
             labelVer.Text = m_version.ToString();
         }
@@ -48,7 +48,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
         {
             this.Invalidate();//重绘窗体
         }
-        private void OnUpdaVersiononCompleteEvent(Events eventType, object[] arg2)
+        private void OnUpdaVersiononCompleteEvent(NomalEvents eventType, object[] arg2)
         {
             m_version = VersionUtils.Instance.version;
             labelVer.Text = m_version.ToString();
@@ -70,7 +70,7 @@ namespace SoftLiu_VSMainMenuTools.HelpMenu
 
         ~AboutForm()
         {
-            EventManager<Events>.Instance.DeregisterEvent(Utils.EventsManager.Events.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
+            EventManager<NomalEvents>.Instance.DeregisterEvent(NomalEvents.UpdateVersionCompleteEvent, OnUpdaVersiononCompleteEvent);
         }
 
         private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)

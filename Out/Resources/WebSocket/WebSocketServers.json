@@ -19,5 +19,40 @@
       "m_name": "ClientTest2",
       "m_type": 1
     }
+  ],
+
+  "ReceiveProtocolData": [
+    {
+      "m_protocol": "login",
+      "m_type": "ActionLoginData"
+    },
+    {
+      "m_protocol": "conn",
+      "m_type": "ActionConnData"
+    },
+    {
+      "m_protocol": "queue",
+      "m_type": "ActionQueueData"
+    },
+    {
+      "m_protocol": "matchconf",
+      "m_type": "ActionMatchconfData"
+    },
+    {
+      "m_protocol": "pvpvariation",
+      "m_type": "ActionPvpVariationData"
+    },
+    {
+      "m_protocol": "upload",
+      "m_type": "ActionUploadData"
+    },
+    {
+      "m_protocol": "rejoin",
+      "m_type": "ActionRejoinData"
+    },
+    {
+      "m_protocol": "push",
+      "m_type": "ActionPushData"
+    }
   ]
 }

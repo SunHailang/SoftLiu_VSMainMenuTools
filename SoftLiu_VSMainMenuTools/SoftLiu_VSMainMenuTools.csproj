@@ -134,8 +134,15 @@
     <Compile Include="SocketClient\SocketData\SocketReceiveData.cs" />
     <Compile Include="SocketClient\SocketData\SocketTCPClient.cs" />
     <Compile Include="SocketClient\SocketData\SocketUDPClient.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionConnData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionLoginData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionMatchconfData.cs" />
     <Compile Include="SocketClient\WebSocketData\Data\ActionPushData.cs" />
     <Compile Include="SocketClient\WebSocketData\Data\ActionData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionPvpVariationData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionQueueData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionRejoinData.cs" />
+    <Compile Include="SocketClient\WebSocketData\Data\ActionUploadData.cs" />
     <Compile Include="SocketClient\WebSocketData\WebSocketClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +150,7 @@
       <DependentUpon>WebSocketClient.cs</DependentUpon>
     </Compile>
     <Compile Include="SocketClient\WebSocketData\WebSocketManager.cs" />
+    <Compile Include="SocketClient\WebSocketData\WebSocketProtocolData.cs" />
     <Compile Include="SocketClient\WebSocketData\WebSocketServerData.cs" />
     <Compile Include="SplashLoader.cs">
       <SubType>Form</SubType>

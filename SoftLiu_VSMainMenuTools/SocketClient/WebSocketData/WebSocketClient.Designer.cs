@@ -218,6 +218,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.Name = "WebSocketClient";
             this.Text = "WebSocketClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebSocketClient_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WebSocketClient_FormClosed);
             this.Load += new System.EventHandler(this.WebSocketClient_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

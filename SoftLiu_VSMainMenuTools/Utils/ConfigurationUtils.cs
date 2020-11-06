@@ -33,14 +33,14 @@ namespace SoftLiu_VSMainMenuTools.Utils
 
         public ConfigurationUtils()
         {
-            EventManager<Events>.Instance.RegisterEvent(Events.UpdateAppConfigEvent, OnUpdateAppConfigEvent);
+            EventManager<NomalEvents>.Instance.RegisterEvent(NomalEvents.UpdateAppConfigEvent, OnUpdateAppConfigEvent);
             Update();
         }
 
-        private void OnUpdateAppConfigEvent(Events eventType, object[] arg2)
+        private void OnUpdateAppConfigEvent(NomalEvents eventType, object[] arg2)
         {
             Update();
-            EventManager<Events>.Instance.TriggerEvent(Events.UpdateVersionEvent, null);
+            EventManager<NomalEvents>.Instance.TriggerEvent(NomalEvents.UpdateVersionEvent, null);
         }
 
         private void Update()
@@ -225,7 +225,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 m_connectionSetting = null;
             }
 
-            EventManager<Events>.Instance.DeregisterEvent(Events.UpdateAppConfigEvent, OnUpdateAppConfigEvent);
+            EventManager<NomalEvents>.Instance.DeregisterEvent(NomalEvents.UpdateAppConfigEvent, OnUpdateAppConfigEvent);
         }
 
 

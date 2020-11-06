@@ -19,6 +19,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private List<WebSocketServerData> m_ServerDatas = null;
         public List<WebSocketServerData> ServerDatas { get { return m_ServerDatas; } }
 
+        public List<WebSocketProtocolData> ProtocolDatas { get; private set; }
+
         public WebSocketManager()
         {
             string jsonPath = Application.StartupPath + m_path;
@@ -36,6 +38,11 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                             {
                                 List<object> serverData = jsonData["ServerData"];
                                 m_ServerDatas = DataUtils.CreateInstances<WebSocketServerData>(serverData);
+                            }
+                            if(jsonData.ContainsKey("ReceiveProtocolData"))
+                            {
+                                List<object> protocolData = jsonData["ReceiveProtocolData"];
+                                ProtocolDatas = DataUtils.CreateInstances<WebSocketProtocolData>(protocolData);
                             }
                         }
                     }
