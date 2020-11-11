@@ -105,18 +105,6 @@ namespace SoftLiu_VSMainMenuTools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Type type = Type.GetType("SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data.ActionPushData");
-            Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-            //dynamic obj = assembly.CreateInstance("类的完全限定名（即包括命名空间）");
-            dynamic obj = assembly.CreateInstance("SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data.ActionPushData");
-
-            if (obj is ActionData)
-            {
-                Console.WriteLine("Yes");
-                ActionData data = obj as ActionData;
-                data.Init("");
-            }
-            Console.WriteLine();
             //using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
             //{
             //    RSAParameters parameters = rsa.ExportParameters(false);

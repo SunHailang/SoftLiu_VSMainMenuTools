@@ -19,13 +19,13 @@ namespace SoftLiu_VSMainMenuTools.UGUI
             m_FormStackList = new Stack<Form>();
         }
 
-        public void OpenForm(Form form)
+        public void OpenForm(Form curForm)
         {
-            if (form is MainMenuForm)
+            if (curForm is MainMenuForm)
             {
-                m_FormStackList.Push(form);
+                m_FormStackList.Push(curForm);
                 Thread th = new Thread(() => {
-                    Application.Run(form);
+                    Application.Run(curForm);
                 });
                 th.SetApartmentState(ApartmentState.STA);
                 th.Start();
@@ -35,8 +35,8 @@ namespace SoftLiu_VSMainMenuTools.UGUI
             {
                 Form perForm = m_FormStackList.Peek();
                 perForm.Hide();
-                m_FormStackList.Push(form);
-                form.Show();
+                m_FormStackList.Push(curForm);
+                curForm.Show();
             }
         }
 
@@ -47,6 +47,7 @@ namespace SoftLiu_VSMainMenuTools.UGUI
                 Form perForm = m_FormStackList.Pop();
                 perForm.Close();
                 perForm.DialogResult = DialogResult.OK;
+                perForm.Dispose();
             }
             if (m_FormStackList.Count == 1)
             {

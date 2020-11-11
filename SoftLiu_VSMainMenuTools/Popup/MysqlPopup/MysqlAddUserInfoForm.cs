@@ -35,7 +35,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
 
         public void Init()
         {
-            m_chinaList = GameDBManager.Instance.chinaList;
+            m_chinaList = DatabaseManager.Instance.chinaList;
             for (int i = 0; i < m_chinaList.Count; i++)
             {
                 string merName = m_chinaList[i].mername;

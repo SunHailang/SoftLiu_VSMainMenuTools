@@ -1,26 +1,14 @@
 ﻿{
   "ServerData": [
     {
-      "m_name": "WebSocketTest1",
-      "m_url": "wss://cs-s-1000106500.gamebean.net/echo"
+      "m_name": "PVPwebSocketDevelopment",
+      "m_url": "wss://sha-hda1.ubisoft.org/hswpvp/ws"
     },
     {
-      "m_name": "WebSocketTest2",
+      "m_name": "PVPwebSocketProduction",
       "m_url": "wss://sha-hda1.ubisoft.org/hswpvp/ws"
     }
   ],
-
-  "ClientData": [
-    {
-      "m_name": "ClientTest1",
-      "m_type": 0
-    },
-    {
-      "m_name": "ClientTest2",
-      "m_type": 1
-    }
-  ],
-
   "ReceiveProtocolData": [
     {
       "m_protocol": "login",
@@ -53,6 +41,45 @@
     {
       "m_protocol": "push",
       "m_type": "ActionPushData"
+    }
+  ],
+
+  "MatchData": [
+    {
+      "m_tier": 1,
+      "m_sharkNameList": [ "BlackTip", "WhiteTip", "Porbeagle", "BlueShark", "Stethacanthus" ],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
+    },
+    {
+      "m_tier": 2,
+      "m_sharkNameList": [ "SandShark", "Thresher", "Hammerhead", "CarpetShark" ],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
+    },
+    {
+      "m_tier": 3,
+      "m_sharkNameList": [ "BullShark", "GoblinShark", "Mako", "Ichthyosaur" ],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
+    },
+    {
+      "m_tier": 4,
+      "m_sharkNameList": [ "MegaMouth", "GreatHammerhead", "Tiger", "Pliosaur" ],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
+    },
+    {
+      "m_tier": 5,
+      "m_sharkNameList": [ "BaskingShark", "WhaleShark", "GreatWhite", "" ],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
+    },
+    {
+      "m_tier": 6,
+      "m_sharkNameList": [ "Megalodon", "BigDaddy", "KillerWhaleShark", "AtomicShark" ,"ZombieShark","Helicoprion","MrSnappy","RoboShark","Frenzy","DarkMagicShark","AncientMeg","AlphaZombie","MeltdownAtomic"],
+      "m_matchModeList": [ 1 ],
+      "m_matchCurrencyList": [ 1, 2 ]
     }
   ]
 }

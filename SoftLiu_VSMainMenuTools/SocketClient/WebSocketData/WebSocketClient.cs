@@ -40,7 +40,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 Console.WriteLine("CancellationToken Register Callback.");
             }, true);
 
-            WebSocketManager.Instance.Init();
             // 初始化状态
             m_closeForm = false;
             radioWebSocketState.Checked = false;
@@ -56,6 +55,16 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 // 默认服务器是第一个
                 comboBoxServer.SelectedIndex = 0;
                 comboBoxServer.DropDownStyle = ComboBoxStyle.DropDown;
+            }
+            // 配置匹配数据
+            this.comboBoxTier.Items.Clear();
+            if (WebSocketManager.Instance.MatchDatas != null)
+            {
+                foreach (WebSocketMatchData item in WebSocketManager.Instance.MatchDatas)
+                {
+                    this.comboBoxTier.Items.Add(item.tier);
+                }
+                this.comboBoxTier.SelectedIndex = 0;
             }
         }
 
@@ -247,10 +256,14 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             Dictionary<string, object> queue = new Dictionary<string, object>();
             queue.Add("action", "queue");
             Dictionary<string, object> queueInfo = new Dictionary<string, object>();
-            queueInfo.Add("mode", 1);
-            queueInfo.Add("class", 1);
-            queueInfo.Add("shark", "BlueShark");
-            queueInfo.Add("currency", 1);
+            int mode = Convert.ToInt32(this.comboBoxMatchMode.SelectedItem);
+            queueInfo.Add("mode", mode);
+            int classInfo = Convert.ToInt32(this.comboBoxTier.SelectedItem);
+            queueInfo.Add("class", classInfo);
+            string shark = this.comboBoxSharkName.SelectedItem.ToString();
+            queueInfo.Add("shark", shark);
+            int currency = Convert.ToInt32(this.comboBoxMatchCurrency.SelectedItem);
+            queueInfo.Add("currency", currency);
             queue.Add("queueInfo", queueInfo);
             string jsonQueue = JsonUtils.Instance.ObjectToJson(queue);
 
@@ -487,6 +500,47 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             // deregister Event
             EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.MatchCallbackType, OnMatchCallbackType);
             EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.GameEndType, OnGameEndType);
+        }
+
+        private void comboBoxTier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int tier = Convert.ToInt32(this.comboBoxTier.SelectedItem);
+            IEnumerable<WebSocketMatchData> matchDatas = WebSocketManager.Instance.MatchDatas.Where(data => { return data.tier == tier; });
+            WebSocketMatchData matchData = matchDatas.FirstOrDefault();
+            if (matchData != null)
+            {
+                // init match type list
+                this.comboBoxMatchMode.Items.Clear();
+                for (int i = 0; i < matchData.matchModeList.Length; i++)
+                {
+                    this.comboBoxMatchMode.Items.Add(matchData.matchModeList[i]);
+                }
+                this.comboBoxMatchMode.SelectedIndex = 0;
+                // init match Currency list
+                this.comboBoxMatchCurrency.Items.Clear();
+                for (int i = 0; i < matchData.matchCurrencyList.Length; i++)
+                {
+                    this.comboBoxMatchCurrency.Items.Add(matchData.matchCurrencyList[i]);
+                }
+                this.comboBoxMatchCurrency.SelectedIndex = 0;
+                // init shark name list
+                this.comboBoxSharkName.Items.Clear();
+                for (int i = 0; i < matchData.sharkNameList.Length; i++)
+                {
+                    this.comboBoxSharkName.Items.Add(matchData.sharkNameList[i]);
+                }
+                this.comboBoxSharkName.SelectedIndex = 0;
+            }
+        }
+
+        private void comboBoxMatchCurrency_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxMatchMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

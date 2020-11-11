@@ -44,6 +44,14 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.comboBoxServer = new System.Windows.Forms.ComboBox();
             this.labelServer = new System.Windows.Forms.Label();
             this.buttonConnServer = new System.Windows.Forms.Button();
+            this.comboBoxTier = new System.Windows.Forms.ComboBox();
+            this.labelTier = new System.Windows.Forms.Label();
+            this.comboBoxMatchMode = new System.Windows.Forms.ComboBox();
+            this.labelMatchType = new System.Windows.Forms.Label();
+            this.comboBoxMatchCurrency = new System.Windows.Forms.ComboBox();
+            this.labelMatchMode = new System.Windows.Forms.Label();
+            this.comboBoxSharkName = new System.Windows.Forms.ComboBox();
+            this.labelSharkName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // webSocketBtnSend
@@ -61,11 +69,11 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             // 
             this.webSocketTextBoxSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.webSocketTextBoxSend.Location = new System.Drawing.Point(12, 63);
+            this.webSocketTextBoxSend.Location = new System.Drawing.Point(12, 193);
             this.webSocketTextBoxSend.Multiline = true;
             this.webSocketTextBoxSend.Name = "webSocketTextBoxSend";
             this.webSocketTextBoxSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.webSocketTextBoxSend.Size = new System.Drawing.Size(380, 171);
+            this.webSocketTextBoxSend.Size = new System.Drawing.Size(380, 41);
             this.webSocketTextBoxSend.TabIndex = 1;
             // 
             // textBoxError
@@ -94,7 +102,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             // labelSend
             // 
             this.labelSend.AutoSize = true;
-            this.labelSend.Location = new System.Drawing.Point(12, 44);
+            this.labelSend.Location = new System.Drawing.Point(12, 168);
             this.labelSend.Name = "labelSend";
             this.labelSend.Size = new System.Drawing.Size(49, 13);
             this.labelSend.TabIndex = 3;
@@ -172,7 +180,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             "wss://cs-s-1000106500.gamebean.net/echo"});
             this.comboBoxServer.Location = new System.Drawing.Point(73, 9);
             this.comboBoxServer.Name = "comboBoxServer";
-            this.comboBoxServer.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxServer.Size = new System.Drawing.Size(180, 21);
             this.comboBoxServer.TabIndex = 7;
             // 
             // labelServer
@@ -186,7 +194,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             // 
             // buttonConnServer
             // 
-            this.buttonConnServer.Location = new System.Drawing.Point(236, 7);
+            this.buttonConnServer.Location = new System.Drawing.Point(259, 7);
             this.buttonConnServer.Name = "buttonConnServer";
             this.buttonConnServer.Size = new System.Drawing.Size(75, 23);
             this.buttonConnServer.TabIndex = 9;
@@ -194,11 +202,90 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.buttonConnServer.UseVisualStyleBackColor = true;
             this.buttonConnServer.Click += new System.EventHandler(this.buttonConnServer_Click);
             // 
+            // comboBoxTier
+            // 
+            this.comboBoxTier.FormattingEnabled = true;
+            this.comboBoxTier.Location = new System.Drawing.Point(86, 45);
+            this.comboBoxTier.Name = "comboBoxTier";
+            this.comboBoxTier.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxTier.TabIndex = 10;
+            this.comboBoxTier.SelectedIndexChanged += new System.EventHandler(this.comboBoxTier_SelectedIndexChanged);
+            // 
+            // labelTier
+            // 
+            this.labelTier.AutoSize = true;
+            this.labelTier.Location = new System.Drawing.Point(12, 48);
+            this.labelTier.Name = "labelTier";
+            this.labelTier.Size = new System.Drawing.Size(37, 13);
+            this.labelTier.TabIndex = 11;
+            this.labelTier.Text = "大小：";
+            // 
+            // comboBoxMatchMode
+            // 
+            this.comboBoxMatchMode.FormattingEnabled = true;
+            this.comboBoxMatchMode.Location = new System.Drawing.Point(86, 72);
+            this.comboBoxMatchMode.Name = "comboBoxMatchMode";
+            this.comboBoxMatchMode.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxMatchMode.TabIndex = 10;
+            this.comboBoxMatchMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxMatchMode_SelectedIndexChanged);
+            // 
+            // labelMatchType
+            // 
+            this.labelMatchType.AutoSize = true;
+            this.labelMatchType.Location = new System.Drawing.Point(9, 75);
+            this.labelMatchType.Name = "labelMatchType";
+            this.labelMatchType.Size = new System.Drawing.Size(58, 13);
+            this.labelMatchType.TabIndex = 11;
+            this.labelMatchType.Text = "匹配类型：";
+            // 
+            // comboBoxMatchCurrency
+            // 
+            this.comboBoxMatchCurrency.FormattingEnabled = true;
+            this.comboBoxMatchCurrency.Location = new System.Drawing.Point(86, 99);
+            this.comboBoxMatchCurrency.Name = "comboBoxMatchCurrency";
+            this.comboBoxMatchCurrency.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxMatchCurrency.TabIndex = 10;
+            this.comboBoxMatchCurrency.SelectedIndexChanged += new System.EventHandler(this.comboBoxMatchCurrency_SelectedIndexChanged);
+            // 
+            // labelMatchMode
+            // 
+            this.labelMatchMode.AutoSize = true;
+            this.labelMatchMode.Location = new System.Drawing.Point(12, 102);
+            this.labelMatchMode.Name = "labelMatchMode";
+            this.labelMatchMode.Size = new System.Drawing.Size(61, 13);
+            this.labelMatchMode.TabIndex = 11;
+            this.labelMatchMode.Text = "匹配模式：";
+            // 
+            // comboBoxSharkName
+            // 
+            this.comboBoxSharkName.FormattingEnabled = true;
+            this.comboBoxSharkName.Location = new System.Drawing.Point(86, 126);
+            this.comboBoxSharkName.Name = "comboBoxSharkName";
+            this.comboBoxSharkName.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxSharkName.TabIndex = 10;
+            // 
+            // labelSharkName
+            // 
+            this.labelSharkName.AutoSize = true;
+            this.labelSharkName.Location = new System.Drawing.Point(12, 129);
+            this.labelSharkName.Name = "labelSharkName";
+            this.labelSharkName.Size = new System.Drawing.Size(61, 13);
+            this.labelSharkName.TabIndex = 11;
+            this.labelSharkName.Text = "鲨鱼名称：";
+            // 
             // WebSocketClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(821, 464);
+            this.Controls.Add(this.labelSharkName);
+            this.Controls.Add(this.labelMatchMode);
+            this.Controls.Add(this.labelMatchType);
+            this.Controls.Add(this.labelTier);
+            this.Controls.Add(this.comboBoxSharkName);
+            this.Controls.Add(this.comboBoxMatchCurrency);
+            this.Controls.Add(this.comboBoxMatchMode);
+            this.Controls.Add(this.comboBoxTier);
             this.Controls.Add(this.buttonConnServer);
             this.Controls.Add(this.labelServer);
             this.Controls.Add(this.comboBoxServer);
@@ -241,5 +328,13 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private System.Windows.Forms.ComboBox comboBoxServer;
         private System.Windows.Forms.Label labelServer;
         private System.Windows.Forms.Button buttonConnServer;
+        private System.Windows.Forms.ComboBox comboBoxTier;
+        private System.Windows.Forms.Label labelTier;
+        private System.Windows.Forms.ComboBox comboBoxMatchMode;
+        private System.Windows.Forms.Label labelMatchType;
+        private System.Windows.Forms.ComboBox comboBoxMatchCurrency;
+        private System.Windows.Forms.Label labelMatchMode;
+        private System.Windows.Forms.ComboBox comboBoxSharkName;
+        private System.Windows.Forms.Label labelSharkName;
     }
 }

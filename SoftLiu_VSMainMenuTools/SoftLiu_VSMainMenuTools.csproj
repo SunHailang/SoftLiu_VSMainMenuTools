@@ -90,7 +90,7 @@
     <Compile Include="ExcelToXml\ExcelToXmlForm.Designer.cs">
       <DependentUpon>ExcelToXmlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameDBManager.cs" />
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="HelpMenu\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +150,7 @@
       <DependentUpon>WebSocketClient.cs</DependentUpon>
     </Compile>
     <Compile Include="SocketClient\WebSocketData\WebSocketManager.cs" />
+    <Compile Include="SocketClient\WebSocketData\WebSocketMatchData.cs" />
     <Compile Include="SocketClient\WebSocketData\WebSocketProtocolData.cs" />
     <Compile Include="SocketClient\WebSocketData\WebSocketServerData.cs" />
     <Compile Include="SplashLoader.cs">

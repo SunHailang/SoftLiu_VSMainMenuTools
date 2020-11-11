@@ -1,5 +1,6 @@
 ﻿using SoftLiu_VSMainMenuTools.Data;
 using SoftLiu_VSMainMenuTools.Data.GUI;
+using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData;
 using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.Utils;
 using System;
@@ -75,7 +76,7 @@ namespace SoftLiu_VSMainMenuTools
                                 Form main = new MainMenuForm();
                                 FormManager.Instance.OpenForm(main);
                                 //Application.Run(new MainMenuForm());
-                               
+
                                 break;
                             }
                             catch (Exception msg)
@@ -89,14 +90,16 @@ namespace SoftLiu_VSMainMenuTools
             };
             //获取UI线程同步上下文
             App.Instance.InitSyncContext(SynchronizationContext.Current);
-            m_progressBarSplash.Value = 30;
-
+            m_progressBarSplash.Value = 10;
             // read csv file
             Localization.Instance.Init();
-
-            GameDBManager.Instance.Init();
-
-            //m_progressBarSplash.Value = 100;
+            m_progressBarSplash.Value += 10;
+            // init product data
+            DatabaseManager.Instance.Init();
+            m_progressBarSplash.Value += 10;
+            // init websocket data
+            WebSocketManager.Instance.Init();
+            m_progressBarSplash.Value += 10;
             init();
         }
 
