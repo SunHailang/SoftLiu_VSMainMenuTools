@@ -52,12 +52,13 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.labelMatchMode = new System.Windows.Forms.Label();
             this.comboBoxSharkName = new System.Windows.Forms.ComboBox();
             this.labelSharkName = new System.Windows.Forms.Label();
+            this.buttonReconnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // webSocketBtnSend
             // 
             this.webSocketBtnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.webSocketBtnSend.Location = new System.Drawing.Point(160, 243);
+            this.webSocketBtnSend.Location = new System.Drawing.Point(33, 240);
             this.webSocketBtnSend.Name = "webSocketBtnSend";
             this.webSocketBtnSend.Size = new System.Drawing.Size(79, 26);
             this.webSocketBtnSend.TabIndex = 0;
@@ -273,6 +274,17 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.labelSharkName.TabIndex = 11;
             this.labelSharkName.Text = "鲨鱼名称：";
             // 
+            // buttonReconnect
+            // 
+            this.buttonReconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonReconnect.Location = new System.Drawing.Point(129, 240);
+            this.buttonReconnect.Name = "buttonReconnect";
+            this.buttonReconnect.Size = new System.Drawing.Size(79, 26);
+            this.buttonReconnect.TabIndex = 0;
+            this.buttonReconnect.Text = "重连";
+            this.buttonReconnect.UseVisualStyleBackColor = true;
+            this.buttonReconnect.Click += new System.EventHandler(this.buttonReconnect_Click);
+            // 
             // WebSocketClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,6 +311,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             this.Controls.Add(this.webSocketTextBoxSend);
             this.Controls.Add(this.btnCleanRecv);
             this.Controls.Add(this.buttonClean);
+            this.Controls.Add(this.buttonReconnect);
             this.Controls.Add(this.webSocketBtnSend);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -336,5 +349,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private System.Windows.Forms.Label labelMatchMode;
         private System.Windows.Forms.ComboBox comboBoxSharkName;
         private System.Windows.Forms.Label labelSharkName;
+        private System.Windows.Forms.Button buttonReconnect;
     }
 }

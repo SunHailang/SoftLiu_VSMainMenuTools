@@ -20,9 +20,14 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private ClientWebSocket m_webSocketClent = null;
 
-        readonly CancellationToken m_cancellation = new CancellationToken();
+        private CancellationToken m_cancellation = new CancellationToken();
 
         private bool m_closeForm = false;
+
+        private string m_url = "";//WebSocketManager.Instance.GetServerUrlByName(name);
+        private int m_matchID = 0;
+        private bool gameOver = false;
+        private bool gameing = false;
 
         public WebSocketClient()
         {
@@ -73,6 +78,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             try
             {
                 m_webSocketClent = new ClientWebSocket();
+                m_cancellation = new CancellationToken();
                 Uri uri = new Uri(url);
                 await m_webSocketClent.ConnectAsync(uri, m_cancellation);
                 if (callback != null)
@@ -105,6 +111,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 {
                     callback();
                 }
+                m_webSocketClent = null;
+                m_cancellation = default(CancellationToken);
             }
             catch (Exception error)
             {
@@ -113,8 +121,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 Console.WriteLine(errorMsg);
             }
         }
-
-        private string m_url = "";//WebSocketManager.Instance.GetServerUrlByName(name);
 
         private async void WebSocketSendAysnc(byte[] buffer, Action<string> callback, WebSocketMessageType msgType = WebSocketMessageType.Binary)
         {
@@ -152,6 +158,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 {
                     WebSocketConnectAysnc(m_url, () =>
                     {
+                        textBoxError.AppendText($"WebSocket Connected!\n");
                         // start recveive
                         WebSocketReceiveAysnc(RecvData);
                         // 开始登陆
@@ -288,6 +295,23 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             }, WebSocketMessageType.Text);
         }
 
+        private void buttonReconnect_Click(object sender, EventArgs e)
+        {
+            gameOver = false;
+            gameing = true;
+            ReConnectCallback("disconnect");
+
+            //Dictionary<string, object> rejoinDic = new Dictionary<string, object>();
+            //rejoinDic.Add("action", "rejoin");
+            //rejoinDic.Add("match_id", m_matchID);
+            //string sendData = JsonUtils.Instance.ObjectToJson(rejoinDic);
+            //byte[] bsend = Encoding.UTF8.GetBytes(sendData);
+            //WebSocketSendAysnc(bsend, (errorSend) =>
+            //{
+
+            //}, WebSocketMessageType.Text);
+        }
+
         private void MatchTimeCallback(byte[] bsend)
         {
             ThreadPool.QueueUserWorkItem((state) =>
@@ -322,6 +346,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 m_webSocketClent = null;
                 FormManager.Instance.BackClose();
             });
+            m_webSocketClent = null;
         }
         private bool m_closeWebsocket = false;
         private void buttonCloseWebSocket_Click(object sender, EventArgs e)
@@ -336,6 +361,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     MessageBox.Show("断开连接完成。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
             }
+            m_webSocketClent = null;
         }
 
         private void buttonConnServer_Click(object sender, EventArgs e)
@@ -377,8 +403,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
              });
         }
 
-        private int m_matchID = 0;
-
         private void RecvData(byte[] receiveData)
         {
             string recvStr = Encoding.UTF8.GetString(receiveData);
@@ -418,8 +442,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 }
             }
         }
-        private bool gameOver = false;
-        private bool gameing = false;
+        
         private void MatchSuccess(int matchID)
         {
             float time = 180;
@@ -473,6 +496,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     MessageBox.Show("比赛结束，断开连接完成。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
             }
+            m_webSocketClent = null;
         }
 
         private void OnGameEndType(MatchEvents arg1, object[] arg2)
@@ -542,5 +566,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         {
 
         }
+
+
     }
 }
