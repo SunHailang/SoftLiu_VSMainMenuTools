@@ -1,4 +1,5 @@
 ﻿using SoftLiu_VSMainMenuTools.Utils;
+using SoftLiu_VSMainMenuTools.Utils.EventsManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data
             {
                 // 登录success
                 Console.WriteLine($"ActionLoginData Login Success.");
+                string uuid = dataRecvDic["uuid"].ToString();
+                EventManager<MatchEvents>.Instance.TriggerEvent(MatchEvents.LoginStateType, uuid);
             }
         }
     }

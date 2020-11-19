@@ -26,6 +26,7 @@ namespace SoftLiu_VSMainMenuTools.Utils.EventsManager
     public enum MatchEvents
     {
         None,
+        LoginStateType,
         MatchCallbackType,
         GameEndType,
     }

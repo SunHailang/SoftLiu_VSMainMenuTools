@@ -37,6 +37,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private void WebSocketClient_Load(object sender, EventArgs e)
         {
             // register event
+            EventManager<MatchEvents>.Instance.RegisterEvent(MatchEvents.LoginStateType, OnLoginStateType);
             EventManager<MatchEvents>.Instance.RegisterEvent(MatchEvents.MatchCallbackType, OnMatchCallbackType);
             EventManager<MatchEvents>.Instance.RegisterEvent(MatchEvents.GameEndType, OnGameEndType);
 
@@ -70,6 +71,26 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     this.comboBoxTier.Items.Add(item.tier);
                 }
                 this.comboBoxTier.SelectedIndex = 0;
+            }
+        }
+
+        private void OnLoginStateType(MatchEvents arg1, object[] arg2)
+        {
+            if (arg2 != null && arg2.Length > 0)
+            {
+                string uuid = arg2[0].ToString();
+                if (!gameOver && gameing)
+                {
+                    Dictionary<string, object> rejoinDic = new Dictionary<string, object>();
+                    rejoinDic.Add("action", "rejoin");
+                    rejoinDic.Add("match_id", m_matchID);
+                    string sendData = JsonUtils.Instance.ObjectToJson(rejoinDic);
+                    byte[] bsend = Encoding.UTF8.GetBytes(sendData);
+                    WebSocketSendAysnc(bsend, (errorSend) =>
+                    {
+
+                    }, WebSocketMessageType.Text);
+                }
             }
         }
 
@@ -149,28 +170,45 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 callback(errorMsg);
             }
         }
+        bool disconnected = false;
 
         private void ReConnectCallback(string error)
         {
             if (!string.IsNullOrEmpty(error))
             {
-                if (!gameOver && gameing)
+                
+
+                if (!gameOver && gameing && !disconnected)
                 {
+
+                    disconnected = true;
+
                     WebSocketConnectAysnc(m_url, () =>
                     {
-                        textBoxError.AppendText($"WebSocket Connected!\n");
+                        textBoxError.AppendText($"WebSocket ReConnected!\n");
+
+                        // connected
+                        radioWebSocketState.Checked = true;
+                        comboBoxServer.DropDownStyle = ComboBoxStyle.DropDownList;
+
                         // start recveive
                         WebSocketReceiveAysnc(RecvData);
                         // 开始登陆
-                        Dictionary<string, object> rejoinDic = new Dictionary<string, object>();
-                        rejoinDic.Add("action", "rejoin");
-                        rejoinDic.Add("match_id", m_matchID);
-                        string sendData = JsonUtils.Instance.ObjectToJson(rejoinDic);
+                        Dictionary<string, object> login = new Dictionary<string, object>();
+                        login.Add("action", "login");
+                        login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+                        string sendData = JsonUtils.Instance.ObjectToJson(login);
+
                         byte[] bsend = Encoding.UTF8.GetBytes(sendData);
-                        WebSocketSendAysnc(bsend, (errorSend) =>
+
+                        //bsend = GetSendData(bsend);
+
+                        WebSocketSendAysnc(bsend, (errorLogin) =>
                         {
 
                         }, WebSocketMessageType.Text);
+
+                        
                     });
                 }
             }
@@ -405,6 +443,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void RecvData(byte[] receiveData)
         {
+            disconnected = false;
+
             string recvStr = Encoding.UTF8.GetString(receiveData);
             recvStr = recvStr.TrimEnd('\0');
             if (string.IsNullOrEmpty(recvStr)) return;
@@ -503,8 +543,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         {
             if (arg2 != null && arg2.Length > 0)
             {
-                int matchID = Convert.ToInt32(arg2[0]);
-                MatchGameEnd(matchID);
+                m_matchID = Convert.ToInt32(arg2[0]);
+                MatchGameEnd(m_matchID);
             }
 
         }
@@ -513,8 +553,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         {
             if (arg2 != null || arg2.Length > 0)
             {
-                int matchID = Convert.ToInt32(arg2[0]);
-                MatchSuccess(matchID);
+                m_matchID = Convert.ToInt32(arg2[0]);
+                MatchSuccess(m_matchID);
             }
 
         }
@@ -522,6 +562,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         private void WebSocketClient_FormClosed(object sender, FormClosedEventArgs e)
         {
             // deregister Event
+            EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.LoginStateType, OnLoginStateType);
             EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.MatchCallbackType, OnMatchCallbackType);
             EventManager<MatchEvents>.Instance.DeregisterEvent(MatchEvents.GameEndType, OnGameEndType);
         }
