@@ -52,8 +52,8 @@ namespace SoftLiu_VSMainMenuTools
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
 
-            textBox1.AppendText(Localization.Instance.Get("STRING_BUTTON_SEND") + "\n");
-            textBox1.AppendText(Localization.Instance.Format("STRING_STATE_SCORE", 100) + "\n");
+            textBoxLog.AppendText(Localization.Instance.Get("STRING_BUTTON_SEND") + "\n");
+            textBoxLog.AppendText(Localization.Instance.Format("STRING_STATE_SCORE", 100) + "\n");
         }
 
         private void ShowTimeAndTimeSpan()
@@ -261,8 +261,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception error)
             {
-
-                throw;
+                Console.WriteLine($"MainMenu_FormClosed Error:{error.Message}");
             }
         }
 
@@ -822,6 +821,35 @@ namespace SoftLiu_VSMainMenuTools
             Form webSocket = new WebSocketClient();
             //tcp.Show();
             FormManager.Instance.OpenForm(webSocket);
+        }
+
+        private void buttonCheckCardID_Click(object sender, EventArgs e)
+        {
+            textBoxCheckCardIDArea.Text = "";
+            textBoxCheckCardIDGender.Text = "";
+            textBoxCheckCardIDAge.Text = "";
+
+            string cardID = textBoxCheckCardID.Text.Trim();
+            textBoxLog.AppendText($"身份证号码：{cardID}\n");
+
+            int gender = -1;
+            int age = 0;
+            string area = "";
+            string errMsg = "";
+
+            bool result = RegexUtils.CheckCardID(cardID.ToUpper(), out gender, out age, out area, out errMsg);
+            if (result)
+            {
+                string genderStr = gender == 1 ? "男" : "女";
+                textBoxLog.AppendText($"身份证号：{cardID}, 性别：{genderStr}, 年龄：{age}, 地区：{area}\n");
+                textBoxCheckCardIDArea.Text = area;
+                textBoxCheckCardIDGender.Text = genderStr;
+                textBoxCheckCardIDAge.Text = age.ToString();
+            }
+            else
+            {
+                textBoxLog.AppendText($"{errMsg}\n");
+            }
         }
     }
 }

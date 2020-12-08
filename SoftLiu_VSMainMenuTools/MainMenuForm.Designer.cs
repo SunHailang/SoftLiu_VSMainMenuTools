@@ -40,6 +40,7 @@
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMySqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tCPIPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.webSocketClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
@@ -125,11 +126,20 @@
             this.buttonColorEx = new System.Windows.Forms.Button();
             this.buttonColorShow = new System.Windows.Forms.Button();
             this.buttonColor = new System.Windows.Forms.Button();
+            this.tabPageCheckCoardID = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.webSocketClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxCheckCardID = new System.Windows.Forms.TextBox();
+            this.labelCheckCardID = new System.Windows.Forms.Label();
+            this.buttonCheckCardID = new System.Windows.Forms.Button();
+            this.labelCheckCardIDArea = new System.Windows.Forms.Label();
+            this.textBoxCheckCardIDArea = new System.Windows.Forms.TextBox();
+            this.textBoxCheckCardIDGender = new System.Windows.Forms.TextBox();
+            this.labelCheckCardIDGender = new System.Windows.Forms.Label();
+            this.textBoxCheckCardIDAge = new System.Windows.Forms.TextBox();
+            this.labelCheckCardIDAge = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -139,6 +149,7 @@
             this.groupBoxSix.SuspendLayout();
             this.groupBoxTen.SuspendLayout();
             this.tabPageColor.SuspendLayout();
+            this.tabPageCheckCoardID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -188,21 +199,21 @@
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
             // 
             // otherToolsToolStripMenuItem
             // 
             this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
-            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.otherToolsToolStripMenuItem.Text = "OtherTools";
             this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
@@ -229,6 +240,13 @@
             this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
             this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
+            // 
+            // webSocketClientToolStripMenuItem
+            // 
+            this.webSocketClientToolStripMenuItem.Name = "webSocketClientToolStripMenuItem";
+            this.webSocketClientToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.webSocketClientToolStripMenuItem.Text = "WebSocketClient";
+            this.webSocketClientToolStripMenuItem.Click += new System.EventHandler(this.webSocketClientToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -263,6 +281,7 @@
             this.tabControlMainTools.Controls.Add(this.tabPageMD5Tools);
             this.tabControlMainTools.Controls.Add(this.tabPageHex);
             this.tabControlMainTools.Controls.Add(this.tabPageColor);
+            this.tabControlMainTools.Controls.Add(this.tabPageCheckCoardID);
             this.tabControlMainTools.Location = new System.Drawing.Point(686, 28);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
@@ -1091,6 +1110,25 @@
             this.buttonColor.UseVisualStyleBackColor = true;
             this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
             // 
+            // tabPageCheckCoardID
+            // 
+            this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDAge);
+            this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDGender);
+            this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDArea);
+            this.tabPageCheckCoardID.Controls.Add(this.buttonCheckCardID);
+            this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardID);
+            this.tabPageCheckCoardID.Controls.Add(this.textBoxCheckCardIDAge);
+            this.tabPageCheckCoardID.Controls.Add(this.textBoxCheckCardIDGender);
+            this.tabPageCheckCoardID.Controls.Add(this.textBoxCheckCardIDArea);
+            this.tabPageCheckCoardID.Controls.Add(this.textBoxCheckCardID);
+            this.tabPageCheckCoardID.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCheckCoardID.Name = "tabPageCheckCoardID";
+            this.tabPageCheckCoardID.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCheckCoardID.Size = new System.Drawing.Size(280, 530);
+            this.tabPageCheckCoardID.TabIndex = 4;
+            this.tabPageCheckCoardID.Text = "身份证号码校验";
+            this.tabPageCheckCoardID.UseVisualStyleBackColor = true;
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1102,31 +1140,101 @@
             this.dataGridView1.Size = new System.Drawing.Size(667, 368);
             this.dataGridView1.TabIndex = 3;
             // 
-            // textBox1
+            // textBoxLog
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 432);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(668, 152);
-            this.textBox1.TabIndex = 4;
+            this.textBoxLog.Location = new System.Drawing.Point(12, 432);
+            this.textBoxLog.Multiline = true;
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ReadOnly = true;
+            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLog.Size = new System.Drawing.Size(668, 152);
+            this.textBoxLog.TabIndex = 4;
             // 
-            // webSocketClientToolStripMenuItem
+            // textBoxCheckCardID
             // 
-            this.webSocketClientToolStripMenuItem.Name = "webSocketClientToolStripMenuItem";
-            this.webSocketClientToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.webSocketClientToolStripMenuItem.Text = "WebSocketClient";
-            this.webSocketClientToolStripMenuItem.Click += new System.EventHandler(this.webSocketClientToolStripMenuItem_Click);
+            this.textBoxCheckCardID.Location = new System.Drawing.Point(28, 52);
+            this.textBoxCheckCardID.Name = "textBoxCheckCardID";
+            this.textBoxCheckCardID.Size = new System.Drawing.Size(225, 20);
+            this.textBoxCheckCardID.TabIndex = 0;
+            // 
+            // labelCheckCardID
+            // 
+            this.labelCheckCardID.AutoSize = true;
+            this.labelCheckCardID.Location = new System.Drawing.Point(6, 24);
+            this.labelCheckCardID.Name = "labelCheckCardID";
+            this.labelCheckCardID.Size = new System.Drawing.Size(73, 13);
+            this.labelCheckCardID.TabIndex = 1;
+            this.labelCheckCardID.Text = "身份证号码：";
+            // 
+            // buttonCheckCardID
+            // 
+            this.buttonCheckCardID.Location = new System.Drawing.Point(178, 93);
+            this.buttonCheckCardID.Name = "buttonCheckCardID";
+            this.buttonCheckCardID.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckCardID.TabIndex = 2;
+            this.buttonCheckCardID.Text = "校验";
+            this.buttonCheckCardID.UseVisualStyleBackColor = true;
+            this.buttonCheckCardID.Click += new System.EventHandler(this.buttonCheckCardID_Click);
+            // 
+            // labelCheckCardIDArea
+            // 
+            this.labelCheckCardIDArea.AutoSize = true;
+            this.labelCheckCardIDArea.Location = new System.Drawing.Point(9, 132);
+            this.labelCheckCardIDArea.Name = "labelCheckCardIDArea";
+            this.labelCheckCardIDArea.Size = new System.Drawing.Size(37, 13);
+            this.labelCheckCardIDArea.TabIndex = 3;
+            this.labelCheckCardIDArea.Text = "地区：";
+            // 
+            // textBoxCheckCardIDArea
+            // 
+            this.textBoxCheckCardIDArea.Location = new System.Drawing.Point(52, 129);
+            this.textBoxCheckCardIDArea.Name = "textBoxCheckCardIDArea";
+            this.textBoxCheckCardIDArea.ReadOnly = true;
+            this.textBoxCheckCardIDArea.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDArea.TabIndex = 0;
+            // 
+            // textBoxCheckCardIDGender
+            // 
+            this.textBoxCheckCardIDGender.Location = new System.Drawing.Point(52, 170);
+            this.textBoxCheckCardIDGender.Name = "textBoxCheckCardIDGender";
+            this.textBoxCheckCardIDGender.ReadOnly = true;
+            this.textBoxCheckCardIDGender.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDGender.TabIndex = 0;
+            // 
+            // labelCheckCardIDGender
+            // 
+            this.labelCheckCardIDGender.AutoSize = true;
+            this.labelCheckCardIDGender.Location = new System.Drawing.Point(9, 173);
+            this.labelCheckCardIDGender.Name = "labelCheckCardIDGender";
+            this.labelCheckCardIDGender.Size = new System.Drawing.Size(34, 13);
+            this.labelCheckCardIDGender.TabIndex = 3;
+            this.labelCheckCardIDGender.Text = "性别：";
+            // 
+            // textBoxCheckCardIDAge
+            // 
+            this.textBoxCheckCardIDAge.Location = new System.Drawing.Point(52, 212);
+            this.textBoxCheckCardIDAge.Name = "textBoxCheckCardIDAge";
+            this.textBoxCheckCardIDAge.ReadOnly = true;
+            this.textBoxCheckCardIDAge.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDAge.TabIndex = 0;
+            // 
+            // labelCheckCardIDAge
+            // 
+            this.labelCheckCardIDAge.AutoSize = true;
+            this.labelCheckCardIDAge.Location = new System.Drawing.Point(9, 215);
+            this.labelCheckCardIDAge.Name = "labelCheckCardIDAge";
+            this.labelCheckCardIDAge.Size = new System.Drawing.Size(37, 13);
+            this.labelCheckCardIDAge.TabIndex = 3;
+            this.labelCheckCardIDAge.Text = "年龄：";
             // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(986, 596);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);
             this.Controls.Add(this.button1);
@@ -1153,6 +1261,8 @@
             this.groupBoxTen.PerformLayout();
             this.tabPageColor.ResumeLayout(false);
             this.tabPageColor.PerformLayout();
+            this.tabPageCheckCoardID.ResumeLayout(false);
+            this.tabPageCheckCoardID.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1205,7 +1315,7 @@
         private System.Windows.Forms.ComboBox comboBoxMD5;
         private System.Windows.Forms.Button buttonSelectFile;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.GroupBox groupBoxTen;
         private System.Windows.Forms.Button buttonTenExchange;
         private System.Windows.Forms.TextBox textBoxSixExchange;
@@ -1262,6 +1372,16 @@
         private System.Windows.Forms.ToolStripMenuItem tCPIPTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem otherToolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem webSocketClientToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageCheckCoardID;
+        private System.Windows.Forms.Button buttonCheckCardID;
+        private System.Windows.Forms.Label labelCheckCardID;
+        private System.Windows.Forms.TextBox textBoxCheckCardID;
+        private System.Windows.Forms.Label labelCheckCardIDAge;
+        private System.Windows.Forms.Label labelCheckCardIDGender;
+        private System.Windows.Forms.Label labelCheckCardIDArea;
+        private System.Windows.Forms.TextBox textBoxCheckCardIDAge;
+        private System.Windows.Forms.TextBox textBoxCheckCardIDGender;
+        private System.Windows.Forms.TextBox textBoxCheckCardIDArea;
     }
 }
 
