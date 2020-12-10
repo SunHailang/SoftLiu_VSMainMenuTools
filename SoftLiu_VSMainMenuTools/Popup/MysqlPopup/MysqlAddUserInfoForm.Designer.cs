@@ -31,7 +31,7 @@
             this.labelClassID = new System.Windows.Forms.Label();
             this.labelGradeID = new System.Windows.Forms.Label();
             this.comboBoxClass = new System.Windows.Forms.ComboBox();
-            this.comboBoxGrade = new System.Windows.Forms.ComboBox();
+            this.comboBoxGrader = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -60,6 +60,10 @@
             this.labelAge = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.buttonAutoAdd = new System.Windows.Forms.Button();
+            this.labelBrithday = new System.Windows.Forms.Label();
+            this.comboBoxDay = new System.Windows.Forms.ComboBox();
+            this.comboBoxMonth = new System.Windows.Forms.ComboBox();
+            this.comboBoxYear = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelClassID
@@ -88,14 +92,14 @@
             this.comboBoxClass.Size = new System.Drawing.Size(75, 21);
             this.comboBoxClass.TabIndex = 37;
             // 
-            // comboBoxGrade
+            // comboBoxGrader
             // 
-            this.comboBoxGrade.FormattingEnabled = true;
-            this.comboBoxGrade.Location = new System.Drawing.Point(148, 170);
-            this.comboBoxGrade.Name = "comboBoxGrade";
-            this.comboBoxGrade.Size = new System.Drawing.Size(75, 21);
-            this.comboBoxGrade.TabIndex = 36;
-            this.comboBoxGrade.SelectedIndexChanged += new System.EventHandler(this.comboBoxGrade_SelectedIndexChanged);
+            this.comboBoxGrader.FormattingEnabled = true;
+            this.comboBoxGrader.Location = new System.Drawing.Point(148, 170);
+            this.comboBoxGrader.Name = "comboBoxGrader";
+            this.comboBoxGrader.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxGrader.TabIndex = 36;
+            this.comboBoxGrader.SelectedIndexChanged += new System.EventHandler(this.comboBoxGrade_SelectedIndexChanged);
             // 
             // comboBox3
             // 
@@ -244,7 +248,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(340, 116);
+            this.label2.Location = new System.Drawing.Point(228, 116);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(11, 13);
             this.label2.TabIndex = 15;
@@ -304,7 +308,7 @@
             // 
             this.textBoxAge.Location = new System.Drawing.Point(148, 108);
             this.textBoxAge.Name = "textBoxAge";
-            this.textBoxAge.Size = new System.Drawing.Size(186, 20);
+            this.textBoxAge.Size = new System.Drawing.Size(75, 20);
             this.textBoxAge.TabIndex = 25;
             this.textBoxAge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAge_KeyPress);
             // 
@@ -352,15 +356,56 @@
             this.buttonAutoAdd.UseVisualStyleBackColor = true;
             this.buttonAutoAdd.Click += new System.EventHandler(this.buttonAutoAdd_Click);
             // 
+            // labelBrithday
+            // 
+            this.labelBrithday.AutoSize = true;
+            this.labelBrithday.Location = new System.Drawing.Point(352, 111);
+            this.labelBrithday.Name = "labelBrithday";
+            this.labelBrithday.Size = new System.Drawing.Size(61, 13);
+            this.labelBrithday.TabIndex = 77;
+            this.labelBrithday.Text = "出生日期：";
+            // 
+            // comboBoxDay
+            // 
+            this.comboBoxDay.FormattingEnabled = true;
+            this.comboBoxDay.Location = new System.Drawing.Point(583, 108);
+            this.comboBoxDay.Name = "comboBoxDay";
+            this.comboBoxDay.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxDay.TabIndex = 74;
+            // 
+            // comboBoxMonth
+            // 
+            this.comboBoxMonth.DropDownWidth = 85;
+            this.comboBoxMonth.FormattingEnabled = true;
+            this.comboBoxMonth.Location = new System.Drawing.Point(500, 108);
+            this.comboBoxMonth.Name = "comboBoxMonth";
+            this.comboBoxMonth.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxMonth.TabIndex = 75;
+            this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
+            // 
+            // comboBoxYear
+            // 
+            this.comboBoxYear.DropDownWidth = 85;
+            this.comboBoxYear.FormattingEnabled = true;
+            this.comboBoxYear.Location = new System.Drawing.Point(419, 108);
+            this.comboBoxYear.Name = "comboBoxYear";
+            this.comboBoxYear.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxYear.TabIndex = 76;
+            this.comboBoxYear.SelectedIndexChanged += new System.EventHandler(this.comboBoxYear_SelectedIndexChanged);
+            // 
             // MysqlAddUserInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 419);
+            this.Controls.Add(this.labelBrithday);
+            this.Controls.Add(this.comboBoxDay);
+            this.Controls.Add(this.comboBoxMonth);
+            this.Controls.Add(this.comboBoxYear);
             this.Controls.Add(this.labelClassID);
             this.Controls.Add(this.labelGradeID);
             this.Controls.Add(this.comboBoxClass);
-            this.Controls.Add(this.comboBoxGrade);
+            this.Controls.Add(this.comboBoxGrader);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
@@ -405,7 +450,7 @@
         private System.Windows.Forms.Label labelClassID;
         private System.Windows.Forms.Label labelGradeID;
         private System.Windows.Forms.ComboBox comboBoxClass;
-        private System.Windows.Forms.ComboBox comboBoxGrade;
+        private System.Windows.Forms.ComboBox comboBoxGrader;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -434,5 +479,9 @@
         private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.Label labelGender;
         private System.Windows.Forms.Button buttonAutoAdd;
+        private System.Windows.Forms.Label labelBrithday;
+        private System.Windows.Forms.ComboBox comboBoxDay;
+        private System.Windows.Forms.ComboBox comboBoxMonth;
+        private System.Windows.Forms.ComboBox comboBoxYear;
     }
 }

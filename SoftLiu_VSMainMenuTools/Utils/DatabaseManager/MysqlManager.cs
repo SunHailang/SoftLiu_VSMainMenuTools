@@ -92,7 +92,7 @@ namespace SoftLiu_VSMainMenuTools.Utils.DatabaseManager
         public int InsesetData(string tableName, string sqlData)
         {
             if (string.IsNullOrEmpty(sqlData)) return 0;
-            string query = string.Format("insert into {0} values({1});", tableName, sqlData);
+            string query = string.Format("insert into {0} {1};", tableName, sqlData);
             int result = 0;
             using (MySqlConnection connection = new MySqlConnection(m_connectString))
             {

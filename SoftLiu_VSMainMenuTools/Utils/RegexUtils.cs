@@ -47,12 +47,12 @@ namespace SoftLiu_VSMainMenuTools.Utils
             return Regex.IsMatch(msgString, @"^[a-zA-Z]+$");
         }
 
-        public static bool CheckCardID(string cardID, out int gender, out int age, out string area, out string errorMsg)
+        public static bool CheckCardID(string cardID, out int gender, out DateTime brithday, out string area, out string errorMsg)
         {
             cardID = cardID.ToUpper();
             errorMsg = "";
             gender = -1;
-            age = 0;
+            brithday = DateTime.Now;
             area = "";
             if (cardID.Length != 18)
             {
@@ -84,15 +84,15 @@ namespace SoftLiu_VSMainMenuTools.Utils
 
             Dictionary<string, string> m_ProvinceID = new Dictionary<string, string>()
                 {
-                    { "11", "北京市" },
-                    { "12", "天津市" },
+                    { "11", "北京" },
+                    { "12", "天津" },
                     { "13", "河北省" },
                     { "14", "山西省" },
                     { "15", "内蒙古自治区" },
                     { "21", "辽宁省" },
                     { "22", "吉林省" },
                     { "23", "黑龙江省" },
-                    { "31", "上海市" },
+                    { "31", "上海" },
                     { "32", "江苏省" },
                     { "33", "浙江省" },
                     { "34", "安徽省" },
@@ -105,7 +105,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
                     { "44", "广东省" },
                     { "45", "广西壮族自治区" },
                     { "46", "海南省" },
-                    { "50", "重庆市" },
+                    { "50", "重庆" },
                     { "51", "四川省" },
                     { "52", "贵州省" },
                     { "53", "云南省" },
@@ -117,7 +117,7 @@ namespace SoftLiu_VSMainMenuTools.Utils
                     { "65", "新疆维吾尔自治区" },
                     { "81", "香港特别行政区" },
                     { "82", "澳门特别行政区" },
-                    { "83", "台湾省" },
+                    { "83", "台湾" },
                 };
             if (!m_ProvinceID.ContainsKey(startTwo))
             {
@@ -127,23 +127,29 @@ namespace SoftLiu_VSMainMenuTools.Utils
             area = m_ProvinceID[startTwo];
 
             int[] letterInt = new int[17];
-            int.TryParse(cardID.Substring(0, 1), out letterInt[0]);
-            int.TryParse(cardID.Substring(1, 1), out letterInt[1]);
-            int.TryParse(cardID.Substring(2, 1), out letterInt[2]);
-            int.TryParse(cardID.Substring(3, 1), out letterInt[3]);
-            int.TryParse(cardID.Substring(4, 1), out letterInt[4]);
-            int.TryParse(cardID.Substring(5, 1), out letterInt[5]);
-            int.TryParse(cardID.Substring(6, 1), out letterInt[6]);
-            int.TryParse(cardID.Substring(7, 1), out letterInt[7]);
-            int.TryParse(cardID.Substring(8, 1), out letterInt[8]);
-            int.TryParse(cardID.Substring(9, 1), out letterInt[9]);
-            int.TryParse(cardID.Substring(10, 1), out letterInt[10]);
-            int.TryParse(cardID.Substring(11, 1), out letterInt[11]);
-            int.TryParse(cardID.Substring(12, 1), out letterInt[12]);
-            int.TryParse(cardID.Substring(13, 1), out letterInt[13]);
-            int.TryParse(cardID.Substring(14, 1), out letterInt[14]);
-            int.TryParse(cardID.Substring(15, 1), out letterInt[15]);
-            int.TryParse(cardID.Substring(16, 1), out letterInt[16]);
+
+            for (int i = 0; i < cardID.Length - 1; i++)
+            {
+                int.TryParse(cardID.Substring(i, 1), out letterInt[i]);
+            }
+
+            //int.TryParse(cardID.Substring(0, 1), out letterInt[0]);
+            //int.TryParse(cardID.Substring(1, 1), out letterInt[1]);
+            //int.TryParse(cardID.Substring(2, 1), out letterInt[2]);
+            //int.TryParse(cardID.Substring(3, 1), out letterInt[3]);
+            //int.TryParse(cardID.Substring(4, 1), out letterInt[4]);
+            //int.TryParse(cardID.Substring(5, 1), out letterInt[5]);
+            //int.TryParse(cardID.Substring(6, 1), out letterInt[6]);
+            //int.TryParse(cardID.Substring(7, 1), out letterInt[7]);
+            //int.TryParse(cardID.Substring(8, 1), out letterInt[8]);
+            //int.TryParse(cardID.Substring(9, 1), out letterInt[9]);
+            //int.TryParse(cardID.Substring(10, 1), out letterInt[10]);
+            //int.TryParse(cardID.Substring(11, 1), out letterInt[11]);
+            //int.TryParse(cardID.Substring(12, 1), out letterInt[12]);
+            //int.TryParse(cardID.Substring(13, 1), out letterInt[13]);
+            //int.TryParse(cardID.Substring(14, 1), out letterInt[14]);
+            //int.TryParse(cardID.Substring(15, 1), out letterInt[15]);
+            //int.TryParse(cardID.Substring(16, 1), out letterInt[16]);
 
             /*
                 中国居民身份证校验码算法
@@ -203,8 +209,14 @@ namespace SoftLiu_VSMainMenuTools.Utils
                 errorMsg = $"无效的出生日期, 年：{year}, 月：{month}, 日：{day}";
                 return false;
             }
-            DateTime birthdayDate = new DateTime(yearInt, monthInt, dayInt);
-            age = CalculateAgeCorrect(birthdayDate, DateTime.Now);
+            brithday = new DateTime(yearInt, monthInt, dayInt);
+            //age = CalculateAgeCorrect(birthdayDate, DateTime.Now);
+
+            return true;
+        }
+
+        public static bool CreateCardID(string address, DateTime brithday)
+        {
 
             return true;
         }

@@ -1,4 +1,5 @@
 ﻿using SoftLiu_VSMainMenuTools.Data;
+using SoftLiu_VSMainMenuTools.Utils;
 using SoftLiu_VSMainMenuTools.Utils.DatabaseManager;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
         private List<ChinaInfo> m_chinaList = null;
         private Dictionary<string, Dictionary<string, List<string>>> cityDic = new Dictionary<string, Dictionary<string, List<string>>>();
 
+        private DateTime m_curBrithday = default(DateTime);
 
         public MysqlModifyUserInfoForm()
         {
@@ -28,7 +30,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
 
         private void MysqlModifyUserInfoForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public void MysqlModifyUserInfoFormInit(Student student)
@@ -100,6 +102,25 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             this.comboBoxGender.SelectedItem = student.Gender;
             this.textBoxCardID.Text = student.CardID;
             this.textBoxCardID.ReadOnly = true;
+
+            int gender = 0;
+            m_curBrithday = default(DateTime);
+            string area = "";
+            string errMsg = "";
+            RegexUtils.CheckCardID(student.CardID, out gender, out m_curBrithday, out area, out errMsg);
+            Console.WriteLine($"{errMsg}");
+            DateTime now = DateTime.Now;
+            for (int i = 0; i < 100; i++)
+            {
+                int offsetYear = i * -1;
+                int curYear = now.AddYears(offsetYear).Year;
+                if (curYear < 1974)
+                {
+                    break;
+                }
+                this.comboBoxYear.Items.Add(curYear);
+            }
+            this.comboBoxYear.SelectedItem = m_curBrithday.Year;
         }
 
         private List<int> GetComboBoxItems(string sql)
@@ -178,9 +199,9 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             }
             string after = string.Format("{0}", sb.ToString().Trim().Trim(','));
 
-            if (befor.CompareTo(after) == 0)
+            if (befor.CompareTo(after) == 0 || string.IsNullOrEmpty(after))
             {
-                MessageBox.Show("没有改变任何数据.");
+                MessageBox.Show("没有改变任何数据.", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -188,13 +209,13 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
                 int result = MysqlManager.Instance.UpdateData(sql);
                 if (result > 0)
                 {
-                    MessageBox.Show("修改成功.");
+                    MessageBox.Show("修改成功.", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("修改失败.");
+                    MessageBox.Show("修改失败.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             this.m_currentDatabaseStudent = null;
@@ -289,5 +310,36 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             this.textBoxAddress.Text = string.Empty;
         }
 
+        private void comboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.comboBoxMonth.Items.Clear();
+            for (int i = 1; i <= 12; i++)
+            {
+                this.comboBoxMonth.Items.Add(i);
+            }
+            this.comboBoxMonth.SelectedItem = m_curBrithday.Month;
+        }
+
+        private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string yearItem = this.comboBoxYear.SelectedItem.ToString();
+            int year = 0;
+            int.TryParse(yearItem, out year);
+
+            string monthItem = this.comboBoxMonth.SelectedItem.ToString();
+            int month = 0;
+            int.TryParse(monthItem, out month);
+
+            int[] a = { 31, (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            int days = a[month - 1];
+
+            this.comboBoxDay.Items.Clear();
+            for (int i = 1; i <= days; i++)
+            {
+                this.comboBoxDay.Items.Add(i);
+            }
+            this.comboBoxDay.SelectedItem = m_curBrithday.Day;
+
+        }
     }
 }

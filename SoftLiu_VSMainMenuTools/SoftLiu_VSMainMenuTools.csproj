@@ -168,6 +168,7 @@
     <Compile Include="UGUI\FormManager.cs" />
     <Compile Include="Utils\ConfigurationUtils.cs" />
     <Compile Include="Utils\DatabaseManager\MysqlManager.cs" />
+    <Compile Include="Singleton\DataStruct.cs" />
     <Compile Include="Utils\EventsManager\EventManager.cs" />
     <Compile Include="Utils\EventsManager\Events.cs" />
     <Compile Include="Utils\FileUtils.cs" />

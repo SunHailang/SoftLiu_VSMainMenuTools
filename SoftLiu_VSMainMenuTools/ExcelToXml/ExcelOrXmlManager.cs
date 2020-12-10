@@ -196,7 +196,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                 string dc0 = dr[0] as string;
                 if (dc0 == null)
                 {
-                    MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, 1), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 XmlElement firstLevelElement1 = myXmlDoc.CreateElement(dc0);
                 for (int j = 1; j < dt.Columns.Count; j++)
@@ -204,12 +204,12 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                     string dc2 = dr[j] as string;
                     if (dc2 == null)
                     {
-                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     string dc1 = drArrayFirst[j] as string;
                     if (dc1 == null)
                     {
-                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     //填充第一层的第一个子节点的属性值（SetAttribute）
                     firstLevelElement1.SetAttribute(dc1 == null ? "Not Fond" : dc1, dc2 == null ? "Not Fond" : dc2);
@@ -240,12 +240,12 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
                     string dc2 = dr[j] as string;
                     if (dc2 == null)
                     {
-                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     string dc1 = drArrayFirst[j] as string;
                     if (dc1 == null)
                     {
-                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(string.Format("{0}行  {1}列  出错！", i + 1, j + 1), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     sb.Append(string.Format("\"{0}\": {1}", dc1, dc2));

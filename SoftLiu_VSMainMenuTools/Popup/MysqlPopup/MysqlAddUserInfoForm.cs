@@ -30,7 +30,18 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
 
         private void MysqlAddUserInfoForm_Load(object sender, EventArgs e)
         {
-            
+            DateTime now = DateTime.Now;
+            for (int i = 0; i < 100; i++)
+            {
+                int offsetYear = i * -1;
+                int curYear = now.AddYears(offsetYear).Year;
+                if (curYear < 1974)
+                {
+                    break;
+                }
+                this.comboBoxYear.Items.Add(curYear);
+            }
+            this.comboBoxYear.SelectedIndex = 0;
         }
 
         public void Init()
@@ -65,14 +76,14 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             }
 
             List<int> gradeIDlist = GetComboBoxItems("select distinct gradeid from class;");
-            this.comboBoxGrade.Items.Clear();
+            this.comboBoxGrader.Items.Clear();
             for (int i = 0; i < gradeIDlist.Count; i++)
             {
-                this.comboBoxGrade.Items.Add(gradeIDlist[i]);
+                this.comboBoxGrader.Items.Add(gradeIDlist[i]);
             }
-            this.comboBoxGrade.SelectedIndex = 0;
+            this.comboBoxGrader.SelectedIndex = 0;
 
-            string gradeID = this.comboBoxGrade.SelectedItem.ToString();
+            string gradeID = this.comboBoxGrader.SelectedItem.ToString();
 
             List<int> classIDlist = GetComboBoxItems($"select classid from class where gradeid={gradeID};");
             this.comboBoxClass.Items.Clear();
@@ -82,7 +93,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             }
             this.comboBoxClass.SelectedIndex = 0;
             // 100102020110004
-            string addStunum = $"100102020{this.comboBoxGrade.SelectedItem}{this.comboBoxClass.SelectedItem}0001";
+            string addStunum = $"100102020{this.comboBoxGrader.SelectedItem}{this.comboBoxClass.SelectedItem}0001";
             this.textBoxStuNum.Text = addStunum;
             this.textBoxName.Text = string.Empty;
             this.textBoxAge.Text = string.Format("{0}", 18);
@@ -144,12 +155,19 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             int result = -1;
             // 对应 sql 语句 如果是字符串类型 需要加双引号
             string tableName = "student";
-            string sql = "{0}, \"{1}\", {2}, {3}, \"{4}\", \"{5}\", \"{6}\", \"{7}\", {8}";
-            string name = textBoxName.Text.Trim();
-            string cardID = textBoxCardID.Text.Trim();
+            //  
+            // 
+            string sql = "(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) values({0}, {1}, '{2}', '{3}', '{4}', {5}, {6}, '{7}', '{8}', '{9}', 0)";
+            int classID = 0;
+            int.TryParse(comboBoxClass.SelectedItem.ToString(), out classID);
+            int gradeID = 0;
+            int.TryParse(this.comboBoxGrader.SelectedItem.ToString(), out gradeID);
+            string studentNum = this.textBoxStuNum.Text.Trim();
+            string name = this.textBoxName.Text.Trim();
+            string cardID = this.textBoxCardID.Text.Trim();
             int age = 0;
-            int.TryParse(textBoxAge.Text.Trim(), out age);
-            int gender = comboBoxGender.SelectedIndex;
+            int.TryParse(this.textBoxAge.Text.Trim(), out age);
+            int gender = this.comboBoxGender.SelectedIndex;
             string phone = textBoxPhone.Text.Trim();
             if (!RegexUtils.IsPhoneNumber(phone))
             {
@@ -159,7 +177,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             }
             string email = textBoxEmai.Text.Trim();
             string address = string.Format("{0}${1}${2}${3}", comboBox1.SelectedItem, comboBox2.SelectedItem, comboBox3.SelectedItem, textBoxAddress.Text.Trim());
-            sql = string.Format(sql, 0, name, age, gender, phone, email, cardID, address, 0);
+            sql = string.Format(sql, classID, gradeID, studentNum, cardID, name, age, gender, phone, email, address);
 
             bool exists = MysqlManager.Instance.ExistsData(tableName, string.Format("CardID=\"{0}\"", cardID));
             if (exists)
@@ -358,12 +376,12 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
 
         private void comboBoxGender_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBoxGrade_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string gradeid = this.comboBoxGrade.SelectedItem.ToString();
+            string gradeid = this.comboBoxGrader.SelectedItem.ToString();
             string sql = $"select classid from class where gradeid={gradeid}";
             List<int> list = GetComboBoxItems(sql);
             this.comboBoxClass.Items.Clear();
@@ -372,6 +390,37 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
                 this.comboBoxClass.Items.Add(list[i]);
             }
             this.comboBoxClass.SelectedIndex = 0;
+        }
+
+        private void comboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.comboBoxMonth.Items.Clear();
+            for (int i = 1; i <= 12; i++)
+            {
+                this.comboBoxMonth.Items.Add(i);
+            }
+            this.comboBoxMonth.SelectedIndex = 0;
+        }
+
+        private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string yearItem = this.comboBoxYear.SelectedItem.ToString();
+            int year = 0;
+            int.TryParse(yearItem, out year);
+
+            string monthItem = this.comboBoxMonth.SelectedItem.ToString();
+            int month = 0;
+            int.TryParse(monthItem, out month);
+
+            int[] a = { 31, (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            int days = a[month - 1];
+
+            this.comboBoxDay.Items.Clear();
+            for (int i = 1; i <= days; i++)
+            {
+                this.comboBoxDay.Items.Add(i);
+            }
+            this.comboBoxDay.SelectedIndex = 0;
         }
     }
 }

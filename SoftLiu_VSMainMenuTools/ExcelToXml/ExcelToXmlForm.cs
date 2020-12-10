@@ -331,7 +331,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             string sheetName = "FB_Stack";
 
             bool result = ExcelOrXmlManager.WriteDataTableToExcel(dt, excelPath, sheetName);
-            MessageBox.Show(string.Format("Write Finish , Result : {0}", result), "Noted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format("Write Finish , Result : {0}", result), "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)

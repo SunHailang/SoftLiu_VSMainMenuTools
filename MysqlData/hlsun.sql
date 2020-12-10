@@ -71,3 +71,13 @@ alter table class drop foreign key class_ibfk_1
 show keys from class;
 -- 删除字段的唯一性
 drop index gradeid on class;
+
+-- 创建人口信息表
+create table person(
+	name varchar(20) not null,
+	cardid varchar(18) not null unique,
+	address varchar(200) not null
+);
+
+-- insert person data
+insert into person(name, cardid, address) values('孙海浪', '342201199211063633', '安徽省宿州市埇桥区褚兰镇桂山村王菜园组64号');

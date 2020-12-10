@@ -52,8 +52,8 @@ namespace SoftLiu_VSMainMenuTools
             comboBoxTime.SelectedIndex = 0;
             comboBoxMD5.SelectedIndex = 0;
 
-            textBoxLog.AppendText(Localization.Instance.Get("STRING_BUTTON_SEND") + "\n");
-            textBoxLog.AppendText(Localization.Instance.Format("STRING_STATE_SCORE", 100) + "\n");
+            textBoxLog.AppendText(Localization.Instance.Get("STRING_BUTTON_SEND") + "\r\n");
+            textBoxLog.AppendText(Localization.Instance.Format("STRING_STATE_SCORE", 100) + "\r\n");
         }
 
         private void ShowTimeAndTimeSpan()
@@ -76,7 +76,7 @@ namespace SoftLiu_VSMainMenuTools
                         if (m_formClosing) break;
                         else
                         {
-                            MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(msg.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                     }
@@ -129,11 +129,11 @@ namespace SoftLiu_VSMainMenuTools
             //Dictionary<string, object> dic = jss.Deserialize<Dictionary<string, object>>(js);
             //if (dic == null)
             //{
-            //    textBox1.AppendText(js + "\n");
+            //    textBox1.AppendText(js + "\r\n");
             //}
             //else
             //{
-            //    textBox1.AppendText(dic["code"] + "\n");
+            //    textBox1.AppendText(dic["code"] + "\r\n");
             //}
             //调出输出窗口
             //Console.WriteLine(js);
@@ -166,7 +166,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception msg)
             {
-                MessageBox.Show(string.Format("{0}\n{1}", type, msg.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("{0}\r\n{1}", type, msg.Message), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private Thread m_CountTimeTh = null;
@@ -237,7 +237,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             catch (Exception msg)
             {
-                DialogResult result = MessageBox.Show(msg.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(msg.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (result == DialogResult.OK)
                 {
                     this.textBoxTimeCount.ReadOnly = false;
@@ -309,7 +309,7 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 else
                 {
-                    MessageBox.Show("Exchange Text can't null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Exchange Text can't null or empty.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (fsChecked)
@@ -334,7 +334,7 @@ namespace SoftLiu_VSMainMenuTools
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Exchange File String is null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Exchange File String is null.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         });
@@ -344,12 +344,12 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 else
                 {
-                    MessageBox.Show("Exchange MD5 Select File not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Exchange MD5 Select File not exist.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Exchange Check Box don't select.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Exchange Check Box don't select.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -420,7 +420,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             else
             {
-                MessageBox.Show("输入有误.");
+                MessageBox.Show("输入有误.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -799,7 +799,7 @@ namespace SoftLiu_VSMainMenuTools
             }
             else
             {
-                MessageBox.Show("输入有误，重新输入.");
+                MessageBox.Show("输入有误，重新输入.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -830,25 +830,27 @@ namespace SoftLiu_VSMainMenuTools
             textBoxCheckCardIDAge.Text = "";
 
             string cardID = textBoxCheckCardID.Text.Trim();
-            textBoxLog.AppendText($"身份证号码：{cardID}\n");
+            textBoxLog.AppendText($"身份证号码：{cardID}\r\n");
 
             int gender = -1;
-            int age = 0;
+            DateTime brithday = default(DateTime);
             string area = "";
             string errMsg = "";
 
-            bool result = RegexUtils.CheckCardID(cardID.ToUpper(), out gender, out age, out area, out errMsg);
+            bool result = RegexUtils.CheckCardID(cardID.ToUpper(), out gender, out brithday, out area, out errMsg);
             if (result)
             {
                 string genderStr = gender == 1 ? "男" : "女";
-                textBoxLog.AppendText($"身份证号：{cardID}, 性别：{genderStr}, 年龄：{age}, 地区：{area}\n");
+                int age = RegexUtils.CalculateAgeCorrect(brithday, DateTime.Now);
+                textBoxLog.AppendText($"身份证号：{cardID}, 性别：{genderStr}, 年龄：{age}, 地区：{area}\r\n");
                 textBoxCheckCardIDArea.Text = area;
                 textBoxCheckCardIDGender.Text = genderStr;
                 textBoxCheckCardIDAge.Text = age.ToString();
             }
             else
             {
-                textBoxLog.AppendText($"{errMsg}\n");
+                MessageBox.Show($"{errMsg}\r\n", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxLog.AppendText($"");
             }
         }
     }
