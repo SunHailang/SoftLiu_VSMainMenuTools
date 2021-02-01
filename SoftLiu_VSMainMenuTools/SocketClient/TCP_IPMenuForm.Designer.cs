@@ -58,6 +58,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxUDPPort = new System.Windows.Forms.TextBox();
             this.textBoxUDPIPAddress = new System.Windows.Forms.TextBox();
+            this.tabPageTools = new System.Windows.Forms.TabPage();
+            this.richTextBoxToolsLog = new System.Windows.Forms.RichTextBox();
+            this.buttonToolsGetIP = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -66,6 +69,7 @@
             this.tabPageTCP_Client.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).BeginInit();
             this.tabPageUDPClient.SuspendLayout();
+            this.tabPageTools.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlClient.Controls.Add(this.tabPageTCP_Client);
             this.tabControlClient.Controls.Add(this.tabPageUDPClient);
+            this.tabControlClient.Controls.Add(this.tabPageTools);
             this.tabControlClient.ItemSize = new System.Drawing.Size(67, 18);
             this.tabControlClient.Location = new System.Drawing.Point(13, 28);
             this.tabControlClient.Name = "tabControlClient";
@@ -166,7 +171,7 @@
             // 
             // buttonCheckCode
             // 
-            this.buttonCheckCode.Location = new System.Drawing.Point(662, 158);
+            this.buttonCheckCode.Location = new System.Drawing.Point(591, 280);
             this.buttonCheckCode.Name = "buttonCheckCode";
             this.buttonCheckCode.Size = new System.Drawing.Size(75, 23);
             this.buttonCheckCode.TabIndex = 8;
@@ -248,7 +253,7 @@
             // 
             // buttonDisconnectTCP
             // 
-            this.buttonDisconnectTCP.Location = new System.Drawing.Point(722, 90);
+            this.buttonDisconnectTCP.Location = new System.Drawing.Point(856, 90);
             this.buttonDisconnectTCP.Name = "buttonDisconnectTCP";
             this.buttonDisconnectTCP.Size = new System.Drawing.Size(75, 23);
             this.buttonDisconnectTCP.TabIndex = 2;
@@ -258,7 +263,7 @@
             // 
             // buttonConnectTcp
             // 
-            this.buttonConnectTcp.Location = new System.Drawing.Point(722, 45);
+            this.buttonConnectTcp.Location = new System.Drawing.Point(856, 45);
             this.buttonConnectTcp.Name = "buttonConnectTcp";
             this.buttonConnectTcp.Size = new System.Drawing.Size(75, 23);
             this.buttonConnectTcp.TabIndex = 2;
@@ -280,7 +285,7 @@
             // 
             this.radioConnectStatus.AutoSize = true;
             this.radioConnectStatus.BackColor = System.Drawing.Color.Transparent;
-            this.radioConnectStatus.Location = new System.Drawing.Point(783, 11);
+            this.radioConnectStatus.Location = new System.Drawing.Point(917, 11);
             this.radioConnectStatus.Name = "radioConnectStatus";
             this.radioConnectStatus.Size = new System.Drawing.Size(14, 13);
             this.radioConnectStatus.TabIndex = 0;
@@ -371,6 +376,39 @@
             this.textBoxUDPIPAddress.Size = new System.Drawing.Size(132, 20);
             this.textBoxUDPIPAddress.TabIndex = 0;
             // 
+            // tabPageTools
+            // 
+            this.tabPageTools.Controls.Add(this.richTextBoxToolsLog);
+            this.tabPageTools.Controls.Add(this.buttonToolsGetIP);
+            this.tabPageTools.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTools.Name = "tabPageTools";
+            this.tabPageTools.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTools.Size = new System.Drawing.Size(937, 449);
+            this.tabPageTools.TabIndex = 2;
+            this.tabPageTools.Text = "Tools";
+            this.tabPageTools.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxToolsLog
+            // 
+            this.richTextBoxToolsLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxToolsLog.Location = new System.Drawing.Point(7, 245);
+            this.richTextBoxToolsLog.Name = "richTextBoxToolsLog";
+            this.richTextBoxToolsLog.Size = new System.Drawing.Size(924, 198);
+            this.richTextBoxToolsLog.TabIndex = 1;
+            this.richTextBoxToolsLog.Text = "";
+            // 
+            // buttonToolsGetIP
+            // 
+            this.buttonToolsGetIP.Location = new System.Drawing.Point(6, 19);
+            this.buttonToolsGetIP.Name = "buttonToolsGetIP";
+            this.buttonToolsGetIP.Size = new System.Drawing.Size(75, 23);
+            this.buttonToolsGetIP.TabIndex = 0;
+            this.buttonToolsGetIP.Text = "获取IP";
+            this.buttonToolsGetIP.UseVisualStyleBackColor = true;
+            this.buttonToolsGetIP.Click += new System.EventHandler(this.buttonToolsGetIP_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(16, 10);
@@ -421,6 +459,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).EndInit();
             this.tabPageUDPClient.ResumeLayout(false);
             this.tabPageUDPClient.PerformLayout();
+            this.tabPageTools.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -463,5 +502,8 @@
         private System.Windows.Forms.TextBox textBoxUDPPort;
         private System.Windows.Forms.TextBox textBoxUDPIPAddress;
         private System.Windows.Forms.TextBox textBoxUDPReceive;
+        private System.Windows.Forms.TabPage tabPageTools;
+        private System.Windows.Forms.RichTextBox richTextBoxToolsLog;
+        private System.Windows.Forms.Button buttonToolsGetIP;
     }
 }

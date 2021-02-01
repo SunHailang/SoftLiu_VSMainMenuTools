@@ -14,17 +14,17 @@ namespace SoctLiu_Client
             
             try
             {
-                //UDPClient client = new UDPClient();
+                UDPClient client = new UDPClient();
                 //获取文本框中的IP地址
-                IPAddress address = IPAddress.Parse("10.192.91.40");
-                //将获取的IP地址和端口号绑定在网络节点上
-                IPEndPoint point = new IPEndPoint(address, 11060);
-                Client client = new Client(point);
-                while (true)
-                {
-                    string send = Console.ReadLine();
-                    client.ClientSendMsg(send);
-                }
+                //IPAddress address = IPAddress.Parse("10.192.91.40");
+                ////将获取的IP地址和端口号绑定在网络节点上
+                //IPEndPoint point = new IPEndPoint(address, 11060);
+                //Client client = new Client(point);
+                //while (true)
+                //{
+                //    string send = Console.ReadLine();
+                //    client.ClientSendMsg(send);
+                //}
 
                 ////string localHostName = Dns.GetHostName();
                 ////Console.WriteLine($"Local Host Name: {localHostName}");

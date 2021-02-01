@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Web;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -43,18 +44,21 @@ namespace SoftLiu_VSMainMenuTools
 
             EventManager<TCPEvents>.Instance.RegisterEvent(TCPEvents.TrainCheckCodeType, OnTrainCheckCodeType);
             // init udp ip and port
-            this.textBoxUDPIPAddress.Text = "10.192.91.40";
-            this.textBoxUDPPort.Text = "11080";
+            //this.textBoxUDPIPAddress.Text = "10.192.91.40";
+            //this.textBoxUDPPort.Text = "11080";
+            this.textBoxUDPIPAddress.Text = "192.168.218.129";
+            this.textBoxUDPPort.Text = "30010";
         }
 
         ~TCP_IPMenuForm()
         {
-
+            if (clientUdp != null)
+                clientUdp.Close();
         }
 
         private void OnTrainCheckCodeType(TCPEvents arg1, object[] arg2)
         {
-            textBoxTCPRecv.AppendText(arg2.ToString() + "\n");
+            textBoxTCPRecv.AppendText(arg2.ToString() + "\r\n");
             if (arg2 != null && arg2.Length > 0)
             {
                 Dictionary<string, object> jsonData = arg2[0] as Dictionary<string, object>;
@@ -71,12 +75,12 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 else
                 {
-                    textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: jsonData is null." + "\n");
+                    textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: jsonData is null." + "\r\n");
                 }
             }
             else
             {
-                textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: arg2" + "\n");
+                textBoxTCPRecv.AppendText("Error OnTrainCheckCodeType: arg2" + "\r\n");
             }
         }
 
@@ -119,19 +123,19 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     try
                     {
-                        textBoxTCPRecv.AppendText("had client connect...\n");
+                        textBoxTCPRecv.AppendText("had client connect...\r\n");
                         clientTcp.ConnectServer((error) =>
                         {
                             if (error.ErrorCode != -1)
                             {
-                                textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                                textBoxTCPRecv.AppendText($"{error.ErrorStr}\r\n");
                             }
                         }, (recvData) =>
                         {
                             if (recvData.Length > 0)
                             {
                                 string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                                textBoxTCPRecv.AppendText($"RecvData: {data}\n");
+                                textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
                             }
                         });
                         this.radioConnectStatus.Checked = true;
@@ -150,19 +154,19 @@ namespace SoftLiu_VSMainMenuTools
                 clientTcp = new SocketTCPClient(new IPEndPoint(m_tcpIP, m_tcpPort));
                 try
                 {
-                    textBoxTCPRecv.AppendText("new client connect...\n");
+                    textBoxTCPRecv.AppendText("new client connect...\r\n");
                     clientTcp.ConnectServer((error) =>
                     {
                         if (error.ErrorCode != -1)
                         {
-                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\r\n");
                         }
                     }, (recvData) =>
                     {
                         if (recvData.Length > 0)
                         {
                             string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                            textBoxTCPRecv.AppendText($"RecvData: {data}\n");
+                            textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
                         }
                     });
                     this.radioConnectStatus.Checked = true;
@@ -232,12 +236,12 @@ namespace SoftLiu_VSMainMenuTools
                                         }
                                         else
                                         {
-                                            textBoxTCPRecv.AppendText("Error Code Parse: " + jsonObject["code"].ToString() + "\n");
+                                            textBoxTCPRecv.AppendText("Error Code Parse: " + jsonObject["code"].ToString() + "\r\n");
                                         }
                                     }
                                     else
                                     {
-                                        textBoxTCPRecv.AppendText("Error Json Message: " + jsonMsg + "\n");
+                                        textBoxTCPRecv.AppendText("Error Json Message: " + jsonMsg + "\r\n");
                                     }
 
                                     if (msgl + 4 == cacheBuf.Length)
@@ -255,7 +259,7 @@ namespace SoftLiu_VSMainMenuTools
                         }
                         catch (Exception msg)
                         {
-                            Console.WriteLine("Recv Data Thread End.\n" + msg.Message, "Error");
+                            Console.WriteLine("Recv Data Thread End.\r\n" + msg.Message, "Error");
                             break;
                         }
                     }
@@ -279,7 +283,7 @@ namespace SoftLiu_VSMainMenuTools
                     {
                         if (error.ErrorCode != -1)
                         {
-                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                            textBoxTCPRecv.AppendText($"{error.ErrorStr}\r\n");
                         }
                     });
                 }
@@ -302,7 +306,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     if (error.ErrorCode != -1)
                     {
-                        textBoxTCPRecv.AppendText($"{error.ErrorStr}\n");
+                        textBoxTCPRecv.AppendText($"{error.ErrorStr}\r\n");
                     }
                 });
             }
@@ -362,6 +366,7 @@ namespace SoftLiu_VSMainMenuTools
             {
                 if (clientUdp == null)
                 {
+                    //Server : 192.168.218.129 : 30010
                     string ip = this.textBoxUDPIPAddress.Text.Trim();
                     int port = 0;
                     IPAddress address = IPAddress.Parse(ip);
@@ -376,7 +381,7 @@ namespace SoftLiu_VSMainMenuTools
                             return;
                         }
                         string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                        this.textBoxUDPReceive.AppendText($"{data}\n");
+                        this.textBoxUDPReceive.AppendText($"{data}\r\n");
                     });
                 }
                 string sendMsg = this.textBoxUDPSendMessage.Text.Trim();
@@ -392,6 +397,12 @@ namespace SoftLiu_VSMainMenuTools
             {
                 Console.WriteLine($"UDPSend_Click Error: {error.Message}");
             }
+        }
+
+        private void buttonToolsGetIP_Click(object sender, EventArgs e)
+        {
+            // get ip
+            
         }
 
     }

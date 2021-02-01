@@ -8,70 +8,82 @@ using System.Threading.Tasks;
 
 namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
 {
+
+
+
     public class SocketUDPClient : IDisposable
     {
+        private const int bufSize = 1024;
+        private State state = new State();
 
         private Socket m_client = null;
 
         private IPEndPoint m_serverPoint = null;
 
-        private EndPoint m_clientEndPoint = null;
+        private EndPoint m_clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
-        private byte[] m_recvBuffer = null;
 
         private Action<SocketReceiveData> m_receiveCallback = null;
+
+        public class State
+        {
+            public byte[] buffer = new byte[bufSize];
+        }
 
         public SocketUDPClient(IPEndPoint serverPoint, Action<SocketReceiveData> callback)
         {
             Console.WriteLine("udp client start.");
 
-            //IPAddress address = IPAddress.Parse("10.192.91.40");
-            //m_targetPoint = new IPEndPoint(address, 11080);
-
-            m_serverPoint = serverPoint;
             m_receiveCallback = callback;
 
             m_client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            m_client.Bind(new IPEndPoint(IPAddress.Parse("10.192.91.40"), 11088));
+            //m_client.Bind(new IPEndPoint(IPAddress.Parse("10.192.91.40"), 11088));
+            m_client.Connect(serverPoint);
 
-            m_clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
             // 开始接收
-            m_recvBuffer = new byte[1024 * 1024];
-            m_client.BeginReceiveFrom(m_recvBuffer, 0, m_recvBuffer.Length, SocketFlags.None, ref m_clientEndPoint, new AsyncCallback(AcceptCallback), m_client);
+            m_client.BeginReceiveFrom(state.buffer, 0, bufSize, SocketFlags.None, ref m_clientEndPoint, AcceptCallback, state);
         }
 
         private void AcceptCallback(IAsyncResult ar)
         {
-            int len = 0;
             try
             {
-                len = m_client.EndReceiveFrom(ar, ref m_clientEndPoint);
-                //string recv = Encoding.UTF8.GetString(m_recvBuffer, 0, len);
-                //Console.WriteLine($"recv callback:{recv} , ip:{m_clientEndPoint.ToString()}");
+                State so = (State)ar.AsyncState;
+                // 接收的数据长度
+                int bytesLen = m_client.EndReceiveFrom(ar, ref m_clientEndPoint);
+                m_client.BeginReceiveFrom(so.buffer, 0, bufSize, SocketFlags.None, ref m_clientEndPoint, AcceptCallback, so);
+
+                // callback
                 if (m_receiveCallback != null)
-                    m_receiveCallback(new SocketReceiveData(m_recvBuffer, len));
+                {
+                    SocketReceiveData data = new SocketReceiveData(so.buffer, bytesLen);
+                    m_receiveCallback(data);
+                }
             }
             catch (Exception error)
             {
-                Console.WriteLine($"SocketTCPServer AcceptCallback Error: {error.Message}");
-            }
-            finally
-            {
-                if (m_client != null)
-                    m_client.BeginReceiveFrom(m_recvBuffer, 0, m_recvBuffer.Length, SocketFlags.None,
-                ref m_clientEndPoint, new AsyncCallback(AcceptCallback), m_client);
+                Console.WriteLine($"BeginReceiveFrom Callback Error:: {error.Message}");
             }
         }
+
 
         public void SendTo(byte[] buffer)
         {
-            m_client.BeginSendTo(buffer, 0, buffer.Length, SocketFlags.None, m_serverPoint,
-                new AsyncCallback(SendToCallback), m_client);
+            m_client.BeginSend(buffer, 0, buffer.Length, SocketFlags.None,
+                (ar) =>
+                {
+                    State so = (State)ar.AsyncState;
+                    // 发送数据长度
+                    int bytesLen = m_client.EndSend(ar);
+
+                }, state);
         }
 
-        private void SendToCallback(IAsyncResult ar)
+        public void Close()
         {
-            //
+            if (m_client != null)
+                m_client.Close();
+            m_client = null;
         }
 
         public void Dispose()

@@ -27,7 +27,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data
                     //{ "action":"push","event_id":1,"match_id":55,
                     //"matchconf":{ "users":[
                     //{ "equip":"","icon":0,"name":"name t0","shark":"shark-name","uuid":"test-User-0"},
-                    //{ "equip":"","icon":9,"name":"未知鲨鱼4515","shark":"BlueShark","uuid":"f07f47cc-59a2-46ce-a37e-69540c60aadc"}]},
+                    //{ "equip":"","icon":9,"name":"未知鲨鱼4515","shark":"BlueShark","uuid":"3a8f3838-baba-40c1-b63c-d0ec2b21b42d"}]},
                     //"pvpvariation":{"pvpconf":[
                     //{ "key":"healthMax","showAsRand":false},
                     //{ "key":"boostSpeed","showAsRand":true},

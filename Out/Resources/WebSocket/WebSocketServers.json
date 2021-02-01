@@ -2,11 +2,11 @@
   "ServerData": [
     {
       "m_name": "PVPwebSocketDevelopment",
-      "m_url": "wss://sha-hda1.ubisoft.org/hswpvp/ws"
+      "m_url": "wss://cs-s-1000106500.gamebean.net/ws"
     },
     {
       "m_name": "PVPwebSocketProduction",
-      "m_url": "wss://sha-hda1.ubisoft.org/hswpvp/ws"
+      "m_url": "wss://s1-1000106500.gamebean.net/ws"
     }
   ],
   "ReceiveProtocolData": [

@@ -21,12 +21,13 @@ namespace SoctLiu_Client
         public UDPClient()
         {
             Console.WriteLine("udp client start.");
-
+            // 192.168.218.129  30010
             IPAddress address = IPAddress.Parse("10.192.91.40");
-            m_targetPoint = new IPEndPoint(address, 11080);
+            m_targetPoint = new IPEndPoint(address, 30010);
 
             m_client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            m_client.Bind(new IPEndPoint(IPAddress.Parse("10.192.91.40"), 11088));
+            //m_client.Bind(new IPEndPoint(IPAddress.Parse("10.192.91.40"), 40010));
+            m_client.Connect(m_targetPoint);
 
             m_clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
             // 开始接收
@@ -48,7 +49,7 @@ namespace SoctLiu_Client
             }
             catch (Exception error)
             {
-                Console.WriteLine($"SocketTCPServer AcceptCallback Error: {error.Message}");
+                Console.WriteLine($"UDPClient AcceptCallback Error: {error.Message}");
             }
             finally
             {

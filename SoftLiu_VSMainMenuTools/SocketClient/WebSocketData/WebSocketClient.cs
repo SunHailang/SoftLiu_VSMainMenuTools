@@ -110,7 +110,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             catch (Exception error)
             {
                 string errorMsg = $"WebSocketConnectAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\n");
+                textBoxError.AppendText($"{errorMsg}\r\n");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -138,7 +138,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             catch (Exception error)
             {
                 string errorMsg = $"WebSocketCloseAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\n");
+                textBoxError.AppendText($"{errorMsg}\r\n");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -151,7 +151,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 {
                     string errorMsg = "WebSocketSendAysnc 不可用，请重新连接。";
                     Console.WriteLine(errorMsg);
-                    textBoxError.AppendText($"{errorMsg}\n");
                     callback(errorMsg);
                     return;
                 }
@@ -165,7 +164,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     return;
                 }
                 string errorMsg = $"WebSocketSendAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\n");
                 Console.WriteLine(errorMsg);
                 callback(errorMsg);
             }
@@ -185,7 +183,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
                     WebSocketConnectAysnc(m_url, () =>
                     {
-                        textBoxError.AppendText($"WebSocket ReConnected!\n");
+                        textBoxError.AppendText($"WebSocket ReConnected!\r\n");
 
                         // connected
                         radioWebSocketState.Checked = true;
@@ -196,7 +194,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                         // 开始登陆
                         Dictionary<string, object> login = new Dictionary<string, object>();
                         login.Add("action", "login");
-                        login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+                        login.Add("uuid", "3a8f3838-baba-40c1-b63c-d0ec2b21b42d");
                         string sendData = JsonUtils.Instance.ObjectToJson(login);
 
                         byte[] bsend = Encoding.UTF8.GetBytes(sendData);
@@ -225,6 +223,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                         break;
                     }
                     byte[] m_recvBuffer = new byte[1024];
+                    m_cancellation = new CancellationToken();
                     await m_webSocketClent.ReceiveAsync(new ArraySegment<byte>(m_recvBuffer), m_cancellation);
                     if (callback != null)
                     {
@@ -244,7 +243,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     return;
                 }
                 string errorMsg = $"WebSocketReceiveAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\n");
+                textBoxError.AppendText($"{errorMsg}\r\n");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -291,10 +290,10 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
         }
         private void webSocketBtnSend_Click(object sender, EventArgs e)
         {
-            //f07f47cc-59a2-46ce-a37e-69540c60aadc
+            //3a8f3838-baba-40c1-b63c-d0ec2b21b42d
             Dictionary<string, object> login = new Dictionary<string, object>();
             login.Add("action", "login");
-            login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+            login.Add("uuid", "3a8f3838-baba-40c1-b63c-d0ec2b21b42d");
             string jsonLogin = JsonUtils.Instance.ObjectToJson(login);
 
             //queue { "action":"queue", "queueInfo":{ "mode":1, "class":1, "shark":"shark-name", "currency":1 } }
@@ -412,7 +411,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                 return;
             }
             m_closeWebsocket = false;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
             WebSocketConnectAysnc(m_url, () =>
              {
@@ -426,7 +425,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
                      Dictionary<string, object> login = new Dictionary<string, object>();
                      login.Add("action", "login");
-                     login.Add("uuid", "f07f47cc-59a2-46ce-a37e-69540c60aadc");
+                     login.Add("uuid", "3a8f3838-baba-40c1-b63c-d0ec2b21b42d");
                      string sendData = JsonUtils.Instance.ObjectToJson(login);
 
                      byte[] bsend = Encoding.UTF8.GetBytes(sendData);
@@ -435,7 +434,10 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
                      WebSocketSendAysnc(bsend, (error) =>
                      {
-
+                         if (!string.IsNullOrEmpty(error))
+                         {
+                             textBoxError.AppendText($"{error}\r\n");
+                         }
                      }, WebSocketMessageType.Text);
                  }
              });
@@ -448,7 +450,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             string recvStr = Encoding.UTF8.GetString(receiveData);
             recvStr = recvStr.TrimEnd('\0');
             if (string.IsNullOrEmpty(recvStr)) return;
-            textBoxReceive.AppendText($"{recvStr}\n");
+            textBoxReceive.AppendText($"{recvStr}\r\n");
 
             Dictionary<string, object> dataRecvDic = JsonUtils.Instance.JsonToDictionary(recvStr) as Dictionary<string, object>;
             if (dataRecvDic != null && dataRecvDic.ContainsKey("action"))
