@@ -21,17 +21,17 @@ namespace SoftLiu_SocketServer
             Console.WriteLine("start server.");
             try
             {
-                //Server server = new Server();
-                //server.StartAsyncSocket();
+                Server server = new Server();
+                server.StartAsyncSocket();
 
-                ServerUDP udp = new ServerUDP();
-                //udp.Server("10.192.91.40", 30010);
-                udp.Client("192.168.218.129", 30010);
-                while (true)
-                {
-                    string text = Console.ReadLine();
-                    udp.Send(text);
-                }
+                //ServerUDP udp = new ServerUDP();
+                ////udp.Server("10.192.91.40", 30010);
+                //udp.Client("192.168.218.129", 30010);
+                //while (true)
+                //{
+                //    string text = Console.ReadLine();
+                //    udp.Send(text);
+                //}
             }
             catch (Exception error)
             {

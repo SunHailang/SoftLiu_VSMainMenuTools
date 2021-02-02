@@ -30,7 +30,7 @@ namespace SoftLiu_SocketServer.ServerData
             // 开启监听  监听长度
             m_socServer.Listen(10);
 
-            Console.WriteLine("Socket Create Success.");
+            Console.WriteLine("Socket Create Success.\n");
         }
 
         public void StartAsyncSocket()
@@ -46,9 +46,9 @@ namespace SoftLiu_SocketServer.ServerData
                 Socket server = ar.AsyncState as Socket;
                 Socket client = server.EndAccept(ar);
                 // 有客户端连接进来
-                Console.WriteLine($"Client Connect Success, Client:{client.RemoteEndPoint.ToString()}");
+                Console.WriteLine($"Client Connect Success, Client:{client.RemoteEndPoint.ToString()}\n");
                 AddClientList(client);
-                client.Send(Encoding.UTF8.GetBytes("Connected"));
+                client.Send(Encoding.UTF8.GetBytes("Connected::Hello, I am Windows."));
                 StartReceive(client);
             }
             catch (Exception error)
@@ -69,10 +69,10 @@ namespace SoftLiu_SocketServer.ServerData
             }
             catch (Exception error)
             {
-                Console.WriteLine($"StartReceive Error: {error.Message}");
+                Console.WriteLine($"StartReceive Error: {error.Message}\n");
                 if (client != null)
                 {
-                    Console.WriteLine($"StartReceive Close: {client.RemoteEndPoint.ToString()}");
+                    Console.WriteLine($"StartReceive Close: {client.RemoteEndPoint.ToString()}\n");
                     RemoveClientList(client);
                     client.Close();
                 }
@@ -91,17 +91,17 @@ namespace SoftLiu_SocketServer.ServerData
                     return;
                 }
                 string str = Encoding.UTF8.GetString(m_recvBuffer, 0, len);
-                Console.WriteLine($"{str}");
-
+                Console.WriteLine($"Recv::{str}\n");
+                client.Send(Encoding.UTF8.GetBytes("Hello, I have receive data."));
                 StartReceive(client);
             }
             catch (Exception error)
             {
-                Console.WriteLine($"ReceiveCallback Error: {error.Message}");
+                Console.WriteLine($"ReceiveCallback Error: {error.Message}\n");
                 if (iar != null && (iar.AsyncState as Socket) != null)
                 {
                     Socket client = iar.AsyncState as Socket;
-                    Console.WriteLine($"ReceiveCallback Close Client: {client.RemoteEndPoint.ToString()}");
+                    Console.WriteLine($"ReceiveCallback Close Client: {client.RemoteEndPoint.ToString()}\n");
                     RemoveClientList(client);
                     client.Close();
                 }

@@ -27,9 +27,9 @@ namespace SoftLiu_VSMainMenuTools
 
         SocketTCPClient clientTcp;
         SocketUDPClient clientUdp;
-
-        IPAddress m_tcpIP = IPAddress.Parse("10.192.91.40");
-        int m_tcpPort = 11060;
+        // Server : 192.168.218.129 : 30010
+        IPAddress m_tcpIP = IPAddress.Parse("192.168.218.129");
+        int m_tcpPort = 30010;
 
 
         public TCP_IPMenuForm()

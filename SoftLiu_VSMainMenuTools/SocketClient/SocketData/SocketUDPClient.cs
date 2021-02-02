@@ -18,8 +18,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
 
         private Socket m_client = null;
 
-        private IPEndPoint m_serverPoint = null;
-
         private EndPoint m_clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
 
