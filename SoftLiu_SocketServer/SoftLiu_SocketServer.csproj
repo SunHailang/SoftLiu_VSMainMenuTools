@@ -47,6 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerData\Server.cs" />
     <Compile Include="ServerData\ServerUDP.cs" />
+    <Compile Include="ServerData\ServerRAW.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -21,8 +21,10 @@ namespace SoftLiu_SocketServer
             Console.WriteLine("start server.");
             try
             {
-                Server server = new Server();
-                server.StartAsyncSocket();
+                //Server server = new Server();
+                //server.StartAsyncSocket();
+                ServerRAW raw = new ServerRAW();
+                raw.Server("10.192.91.40", 8080);
 
                 //ServerUDP udp = new ServerUDP();
                 ////udp.Server("10.192.91.40", 30010);
@@ -56,7 +58,7 @@ namespace SoftLiu_SocketServer
             Socket client = iar.AsyncState as Socket;
 
             int len = client.EndReceive(iar);
-            if (len==0)
+            if (len == 0)
             {
                 return;
             }

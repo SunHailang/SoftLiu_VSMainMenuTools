@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SoftLiu_SocketServer.ServerData
 {
-    public class Server : IDisposable
+    public class ServerTCP : IDisposable
     {
         private Socket m_socServer = null;
 
@@ -17,7 +17,7 @@ namespace SoftLiu_SocketServer.ServerData
 
         private byte[] m_recvBuffer = new byte[1024 * 1024];
 
-        public Server()
+        public ServerTCP()
         {
             // 创建一个Socket对象
             m_socServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
