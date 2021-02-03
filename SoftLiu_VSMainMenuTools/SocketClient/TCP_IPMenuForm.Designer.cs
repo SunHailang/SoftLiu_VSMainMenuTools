@@ -35,18 +35,13 @@
             this.uDPClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlClient = new System.Windows.Forms.TabControl();
             this.tabPageTCP_Client = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonCheckCode = new System.Windows.Forms.Button();
-            this.pictureBoxCheckCode = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.textBoxUserName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxTCPSend = new System.Windows.Forms.TextBox();
+            this.labelTCPPort = new System.Windows.Forms.Label();
+            this.labelTCPAddress = new System.Windows.Forms.Label();
+            this.textBoxTCPPort = new System.Windows.Forms.TextBox();
+            this.textBoxTCPAddress = new System.Windows.Forms.TextBox();
             this.textBoxTCPRecv = new System.Windows.Forms.TextBox();
-            this.buttonDisconnectTCP = new System.Windows.Forms.Button();
+            this.textBoxTCPSend = new System.Windows.Forms.TextBox();
+            this.textBoxTCPTips = new System.Windows.Forms.TextBox();
             this.buttonConnectTcp = new System.Windows.Forms.Button();
             this.buttonSend = new System.Windows.Forms.Button();
             this.radioConnectStatus = new System.Windows.Forms.RadioButton();
@@ -67,7 +62,6 @@
             this.menuStrip1.SuspendLayout();
             this.tabControlClient.SuspendLayout();
             this.tabPageTCP_Client.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).BeginInit();
             this.tabPageUDPClient.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -128,18 +122,13 @@
             // 
             // tabPageTCP_Client
             // 
-            this.tabPageTCP_Client.Controls.Add(this.textBox2);
-            this.tabPageTCP_Client.Controls.Add(this.label3);
-            this.tabPageTCP_Client.Controls.Add(this.buttonCheckCode);
-            this.tabPageTCP_Client.Controls.Add(this.pictureBoxCheckCode);
-            this.tabPageTCP_Client.Controls.Add(this.textBox1);
-            this.tabPageTCP_Client.Controls.Add(this.textBoxPassword);
-            this.tabPageTCP_Client.Controls.Add(this.textBoxUserName);
-            this.tabPageTCP_Client.Controls.Add(this.label2);
-            this.tabPageTCP_Client.Controls.Add(this.label1);
-            this.tabPageTCP_Client.Controls.Add(this.textBoxTCPSend);
+            this.tabPageTCP_Client.Controls.Add(this.labelTCPPort);
+            this.tabPageTCP_Client.Controls.Add(this.labelTCPAddress);
+            this.tabPageTCP_Client.Controls.Add(this.textBoxTCPPort);
+            this.tabPageTCP_Client.Controls.Add(this.textBoxTCPAddress);
             this.tabPageTCP_Client.Controls.Add(this.textBoxTCPRecv);
-            this.tabPageTCP_Client.Controls.Add(this.buttonDisconnectTCP);
+            this.tabPageTCP_Client.Controls.Add(this.textBoxTCPSend);
+            this.tabPageTCP_Client.Controls.Add(this.textBoxTCPTips);
             this.tabPageTCP_Client.Controls.Add(this.buttonConnectTcp);
             this.tabPageTCP_Client.Controls.Add(this.buttonSend);
             this.tabPageTCP_Client.Controls.Add(this.radioConnectStatus);
@@ -151,119 +140,72 @@
             this.tabPageTCP_Client.Text = "TCP Client";
             this.tabPageTCP_Client.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // labelTCPPort
             // 
-            this.textBox2.Location = new System.Drawing.Point(7, 230);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(217, 66);
-            this.textBox2.TabIndex = 10;
+            this.labelTCPPort.AutoSize = true;
+            this.labelTCPPort.Location = new System.Drawing.Point(29, 50);
+            this.labelTCPPort.Name = "labelTCPPort";
+            this.labelTCPPort.Size = new System.Drawing.Size(49, 13);
+            this.labelTCPPort.TabIndex = 6;
+            this.labelTCPPort.Text = "端口号：";
             // 
-            // label3
+            // labelTCPAddress
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(275, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Check Code:";
+            this.labelTCPAddress.AutoSize = true;
+            this.labelTCPAddress.Location = new System.Drawing.Point(17, 14);
+            this.labelTCPAddress.Name = "labelTCPAddress";
+            this.labelTCPAddress.Size = new System.Drawing.Size(61, 13);
+            this.labelTCPAddress.TabIndex = 6;
+            this.labelTCPAddress.Text = "主机地址：";
             // 
-            // buttonCheckCode
+            // textBoxTCPPort
             // 
-            this.buttonCheckCode.Location = new System.Drawing.Point(591, 280);
-            this.buttonCheckCode.Name = "buttonCheckCode";
-            this.buttonCheckCode.Size = new System.Drawing.Size(75, 23);
-            this.buttonCheckCode.TabIndex = 8;
-            this.buttonCheckCode.Text = "Check Code";
-            this.buttonCheckCode.UseVisualStyleBackColor = true;
-            this.buttonCheckCode.Click += new System.EventHandler(this.buttonCheckCode_Click);
+            this.textBoxTCPPort.Location = new System.Drawing.Point(84, 45);
+            this.textBoxTCPPort.Name = "textBoxTCPPort";
+            this.textBoxTCPPort.Size = new System.Drawing.Size(173, 20);
+            this.textBoxTCPPort.TabIndex = 5;
             // 
-            // pictureBoxCheckCode
+            // textBoxTCPAddress
             // 
-            this.pictureBoxCheckCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBoxCheckCode.Location = new System.Drawing.Point(278, 113);
-            this.pictureBoxCheckCode.Name = "pictureBoxCheckCode";
-            this.pictureBoxCheckCode.Size = new System.Drawing.Size(293, 190);
-            this.pictureBoxCheckCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxCheckCode.TabIndex = 7;
-            this.pictureBoxCheckCode.TabStop = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(344, 83);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 20);
-            this.textBox1.TabIndex = 6;
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Location = new System.Drawing.Point(344, 52);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(132, 20);
-            this.textBoxPassword.TabIndex = 6;
-            // 
-            // textBoxUserName
-            // 
-            this.textBoxUserName.Location = new System.Drawing.Point(344, 21);
-            this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(132, 20);
-            this.textBoxUserName.TabIndex = 6;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(275, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Password:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(275, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "User Name:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxTCPSend
-            // 
-            this.textBoxTCPSend.Location = new System.Drawing.Point(7, 24);
-            this.textBoxTCPSend.Multiline = true;
-            this.textBoxTCPSend.Name = "textBoxTCPSend";
-            this.textBoxTCPSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPSend.Size = new System.Drawing.Size(244, 171);
-            this.textBoxTCPSend.TabIndex = 4;
+            this.textBoxTCPAddress.Location = new System.Drawing.Point(84, 11);
+            this.textBoxTCPAddress.Name = "textBoxTCPAddress";
+            this.textBoxTCPAddress.Size = new System.Drawing.Size(173, 20);
+            this.textBoxTCPAddress.TabIndex = 5;
             // 
             // textBoxTCPRecv
             // 
-            this.textBoxTCPRecv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTCPRecv.Location = new System.Drawing.Point(6, 314);
+            this.textBoxTCPRecv.Location = new System.Drawing.Point(383, 74);
             this.textBoxTCPRecv.Multiline = true;
             this.textBoxTCPRecv.Name = "textBoxTCPRecv";
             this.textBoxTCPRecv.ReadOnly = true;
             this.textBoxTCPRecv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPRecv.Size = new System.Drawing.Size(925, 129);
-            this.textBoxTCPRecv.TabIndex = 3;
+            this.textBoxTCPRecv.Size = new System.Drawing.Size(548, 237);
+            this.textBoxTCPRecv.TabIndex = 4;
             // 
-            // buttonDisconnectTCP
+            // textBoxTCPSend
             // 
-            this.buttonDisconnectTCP.Location = new System.Drawing.Point(856, 90);
-            this.buttonDisconnectTCP.Name = "buttonDisconnectTCP";
-            this.buttonDisconnectTCP.Size = new System.Drawing.Size(75, 23);
-            this.buttonDisconnectTCP.TabIndex = 2;
-            this.buttonDisconnectTCP.Text = "Disconnect";
-            this.buttonDisconnectTCP.UseVisualStyleBackColor = true;
-            this.buttonDisconnectTCP.Click += new System.EventHandler(this.buttonDisconnectTCP_Click);
+            this.textBoxTCPSend.Location = new System.Drawing.Point(20, 76);
+            this.textBoxTCPSend.Multiline = true;
+            this.textBoxTCPSend.Name = "textBoxTCPSend";
+            this.textBoxTCPSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxTCPSend.Size = new System.Drawing.Size(254, 237);
+            this.textBoxTCPSend.TabIndex = 4;
+            // 
+            // textBoxTCPTips
+            // 
+            this.textBoxTCPTips.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTCPTips.Location = new System.Drawing.Point(6, 332);
+            this.textBoxTCPTips.Multiline = true;
+            this.textBoxTCPTips.Name = "textBoxTCPTips";
+            this.textBoxTCPTips.ReadOnly = true;
+            this.textBoxTCPTips.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxTCPTips.Size = new System.Drawing.Size(925, 111);
+            this.textBoxTCPTips.TabIndex = 3;
             // 
             // buttonConnectTcp
             // 
-            this.buttonConnectTcp.Location = new System.Drawing.Point(856, 45);
+            this.buttonConnectTcp.Location = new System.Drawing.Point(280, 43);
             this.buttonConnectTcp.Name = "buttonConnectTcp";
             this.buttonConnectTcp.Size = new System.Drawing.Size(75, 23);
             this.buttonConnectTcp.TabIndex = 2;
@@ -273,7 +215,7 @@
             // 
             // buttonSend
             // 
-            this.buttonSend.Location = new System.Drawing.Point(78, 201);
+            this.buttonSend.Location = new System.Drawing.Point(280, 290);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(75, 23);
             this.buttonSend.TabIndex = 1;
@@ -285,13 +227,12 @@
             // 
             this.radioConnectStatus.AutoSize = true;
             this.radioConnectStatus.BackColor = System.Drawing.Color.Transparent;
-            this.radioConnectStatus.Location = new System.Drawing.Point(917, 11);
+            this.radioConnectStatus.Location = new System.Drawing.Point(280, 14);
             this.radioConnectStatus.Name = "radioConnectStatus";
             this.radioConnectStatus.Size = new System.Drawing.Size(14, 13);
             this.radioConnectStatus.TabIndex = 0;
             this.radioConnectStatus.TabStop = true;
             this.radioConnectStatus.UseVisualStyleBackColor = false;
-            this.radioConnectStatus.CheckedChanged += new System.EventHandler(this.radioConnectStatus_CheckedChanged);
             // 
             // tabPageUDPClient
             // 
@@ -446,6 +387,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControlClient);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TCP_IPMenuForm";
             this.Text = "TCP_IPMenuForm";
@@ -456,7 +398,6 @@
             this.tabControlClient.ResumeLayout(false);
             this.tabPageTCP_Client.ResumeLayout(false);
             this.tabPageTCP_Client.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckCode)).EndInit();
             this.tabPageUDPClient.ResumeLayout(false);
             this.tabPageUDPClient.PerformLayout();
             this.tabPageTools.ResumeLayout(false);
@@ -483,18 +424,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button buttonConnectTcp;
-        private System.Windows.Forms.TextBox textBoxTCPRecv;
+        private System.Windows.Forms.TextBox textBoxTCPTips;
         private System.Windows.Forms.TextBox textBoxTCPSend;
-        private System.Windows.Forms.Button buttonDisconnectTCP;
-        private System.Windows.Forms.Button buttonCheckCode;
-        private System.Windows.Forms.PictureBox pictureBoxCheckCode;
-        private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.TextBox textBoxUserName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button buttonUDPSend;
         private System.Windows.Forms.TextBox textBoxUDPSendMessage;
         private System.Windows.Forms.Label labelPort;
@@ -505,5 +436,10 @@
         private System.Windows.Forms.TabPage tabPageTools;
         private System.Windows.Forms.RichTextBox richTextBoxToolsLog;
         private System.Windows.Forms.Button buttonToolsGetIP;
+        private System.Windows.Forms.Label labelTCPPort;
+        private System.Windows.Forms.Label labelTCPAddress;
+        private System.Windows.Forms.TextBox textBoxTCPPort;
+        private System.Windows.Forms.TextBox textBoxTCPAddress;
+        private System.Windows.Forms.TextBox textBoxTCPRecv;
     }
 }

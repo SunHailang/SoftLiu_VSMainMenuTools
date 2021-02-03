@@ -22,18 +22,15 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
         private bool m_connected = false;
         public bool Connected { get { return m_connected; } }
 
-        private Action<SocketErrorData> m_errorCallback = null;
-
-        private Action<SocketReceiveData> m_receiveDataCallback = null;
+        private Action<SocketErrorData, SocketReceiveData> m_receiveDataCallback = null;
 
         public SocketTCPClient(IPEndPoint serverPoint)
         {
             m_serverEndPoint = serverPoint;
         }
 
-        public void ConnectServer(Action<SocketErrorData> callback, Action<SocketReceiveData> receiveDataCallback)
+        public void ConnectServer(Action<SocketErrorData, SocketReceiveData> receiveDataCallback)
         {
-            m_errorCallback = callback;
             m_receiveDataCallback = receiveDataCallback;
             if (m_serverEndPoint != null)
             {
@@ -49,7 +46,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                 try
                 {
                     //客户端套接字连接到网络节点上，用的是Connect
-                    m_tcpClient.BeginConnect(m_serverEndPoint, new AsyncCallback(ConnectCallback), m_tcpClient);
+                    m_tcpClient.BeginConnect(m_serverEndPoint, ConnectCallback, m_tcpClient);
                 }
                 catch (Exception error)
                 {
@@ -59,16 +56,15 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             else
             {
                 Console.WriteLine("Server EndPoint is null.");
-                if (m_errorCallback != null)
+                if (m_receiveDataCallback != null)
                 {
-                    m_errorCallback(new SocketErrorData(10000, "Server EndPoint is null."));
+                    m_receiveDataCallback(new SocketErrorData(10000, "Server EndPoint is null."), null);
                 }
             }
         }
 
         public void DisconnectServer(Action<SocketErrorData> callback)
         {
-            m_errorCallback = callback;
             try
             {
                 if (m_tcpClient != null)
@@ -76,29 +72,25 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                     if (m_tcpClient.Connected)
                     {
                         m_tcpClient.Close();
-                        if (m_errorCallback != null)
-                            m_errorCallback(new SocketErrorData(0, "Disconnected."));
+                        if (callback != null) callback(new SocketErrorData(0, "Disconnected."));
                         //m_tcpClient.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), m_tcpClient);
                     }
                     else
                     {
                         Console.WriteLine("TCP Client disconnected.");
-                        if (m_errorCallback != null)
-                            m_errorCallback(new SocketErrorData(10000, "TCP Client disconnected."));
+                        if (callback != null) callback(new SocketErrorData(10000, "TCP Client disconnected."));
                     }
                 }
                 else
                 {
                     Console.WriteLine("Client is null, Please Re-Connect.");
-                    if (m_errorCallback != null)
-                        m_errorCallback(new SocketErrorData(10000, "Client is null, Please Re-Connect."));
+                    if (callback != null) callback(new SocketErrorData(10000, "Client is null, Please Re-Connect."));
                 }
             }
             catch (Exception error)
             {
                 Console.WriteLine($"DisconnectServer Error: {error.Message}");
-                if (m_errorCallback != null)
-                    m_errorCallback(new SocketErrorData(10000, $"DisconnectServer Error: {error.Message}"));
+                if (callback != null) callback(new SocketErrorData(10000, $"DisconnectServer Error: {error.Message}"));
             }
 
         }
@@ -106,8 +98,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
         private void DisconnectCallback(IAsyncResult iar)
         {
             Console.WriteLine("DisconnectCallback.");
-            if (m_errorCallback != null)
-                m_errorCallback(new SocketErrorData(0, "Callback Disconnected."));
+            if (m_receiveDataCallback != null)
+                m_receiveDataCallback(new SocketErrorData(0, "Callback Disconnected."), null);
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -122,8 +114,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                 }
 
                 m_connected = true;
-                if (m_errorCallback != null)
-                    m_errorCallback(new SocketErrorData(0, $"Server:[{server.RemoteEndPoint.ToString()}]Connected."));
+                byte[] connBytes = Encoding.UTF8.GetBytes($"Server:[{server.RemoteEndPoint.ToString()}]Connected.");
+                if (m_receiveDataCallback != null) m_receiveDataCallback(null, new SocketReceiveData(connBytes, connBytes.Length));
 
                 Console.WriteLine($"Connect Success, Server: {server.RemoteEndPoint.ToString()}");
                 StartReceive();
@@ -147,13 +139,9 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             try
             {
                 if (m_tcpClient.Connected)
-                {
                     m_tcpClient.BeginReceive(m_recvBuffer, 0, m_recvBuffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), m_tcpClient);
-                }
                 else
-                {
                     Console.WriteLine("Disconnected. Please Re-Connect!");
-                }
             }
             catch (Exception error)
             {
@@ -168,15 +156,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             {
                 Socket server = iar.AsyncState as Socket;
                 int len = server.EndReceive(iar);
-                if (len > 0)
-                {
-                    if (m_receiveDataCallback != null)
-                    {
-                        m_receiveDataCallback(new SocketReceiveData(m_recvBuffer, len));
-                    }
-                    //string str = Encoding.UTF8.GetString(m_recvBuffer, 0, len);
-                    //Console.WriteLine($"Server-[{server.RemoteEndPoint.ToString()}]:\n{str}");
-                }
+                if (m_receiveDataCallback != null) m_receiveDataCallback(null, new SocketReceiveData(m_recvBuffer, len));
             }
             catch (Exception error)
             {
@@ -198,7 +178,6 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             m_connected = false;
             m_recvBuffer = null;
             m_serverEndPoint = null;
-            m_errorCallback = null;
             m_tcpClient = null;
         }
     }

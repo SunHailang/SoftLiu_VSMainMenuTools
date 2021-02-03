@@ -19,8 +19,8 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             this.m_recvBuffer = buffer;
             this.m_length = length;
 
-            string str = Encoding.UTF8.GetString(buffer, 0, length);
-            Console.WriteLine($"Server:\n{str}");
+            //string str = Encoding.UTF8.GetString(buffer, 0, length);
+            //Console.WriteLine($"Server:\n{str}");
         }
     }
 }
