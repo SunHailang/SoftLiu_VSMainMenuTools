@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
 {
+    public enum ClientErrorCode
+    {
+        None = 0,
+        ConnectErrorType = 10001,
+    }
+
     public class SocketTCPClient : IDisposable
     {
         private Socket m_tcpClient = null;
@@ -51,15 +57,13 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                 catch (Exception error)
                 {
                     Console.WriteLine($"Connection Error: {error.Message}");
+                    m_receiveDataCallback(new SocketErrorData(ClientErrorCode.ConnectErrorType, $"Connection Error: {error.Message}"), null);
                 }
             }
             else
             {
                 Console.WriteLine("Server EndPoint is null.");
-                if (m_receiveDataCallback != null)
-                {
-                    m_receiveDataCallback(new SocketErrorData(10000, "Server EndPoint is null."), null);
-                }
+                m_receiveDataCallback(new SocketErrorData(ClientErrorCode.ConnectErrorType, $"Server EndPoint is null."), null);
             }
         }
 
@@ -78,21 +82,21 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                     else
                     {
                         Console.WriteLine("TCP Client disconnected.");
-                        if (callback != null) callback(new SocketErrorData(10000, "TCP Client disconnected."));
+                        if (callback != null) callback(new SocketErrorData(ClientErrorCode.ConnectErrorType, "TCP Client disconnected."));
                     }
                 }
                 else
                 {
                     Console.WriteLine("Client is null, Please Re-Connect.");
-                    if (callback != null) callback(new SocketErrorData(10000, "Client is null, Please Re-Connect."));
+                    if (callback != null) callback(new SocketErrorData(ClientErrorCode.ConnectErrorType, "Client is null, Please Re-Connect."));
                 }
             }
             catch (Exception error)
             {
                 Console.WriteLine($"DisconnectServer Error: {error.Message}");
-                if (callback != null) callback(new SocketErrorData(10000, $"DisconnectServer Error: {error.Message}"));
+                if (callback != null) callback(new SocketErrorData(ClientErrorCode.ConnectErrorType, $"DisconnectServer Error: {error.Message}"));
             }
-
+            m_connected = false;
         }
 
         private void DisconnectCallback(IAsyncResult iar)
@@ -110,6 +114,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
                 if (server == null)
                 {
                     Console.WriteLine("Connect error: server is null.");
+                    m_receiveDataCallback(new SocketErrorData(ClientErrorCode.ConnectErrorType, $"Connect error: server is null."), null);
                     return;
                 }
 
@@ -123,6 +128,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             else
             {
                 Console.WriteLine("Connect Failed. Please Re-Connect!");
+                m_receiveDataCallback(new SocketErrorData(ClientErrorCode.ConnectErrorType, $"Connect Failed. Please Re-Connect!"), null);
             }
         }
 
@@ -161,6 +167,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             catch (Exception error)
             {
                 Console.WriteLine($"ReceiveCallback Error: {error.Message}");
+                if (m_receiveDataCallback != null) m_receiveDataCallback(new SocketErrorData(ClientErrorCode.ConnectErrorType, "Remote host was closed."), null);
             }
             finally
             {

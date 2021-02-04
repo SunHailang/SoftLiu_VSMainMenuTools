@@ -27,10 +27,12 @@ namespace SoftLiu_VSMainMenuTools
 
         SocketTCPClient clientTcp;
         SocketUDPClient clientUdp;
-        // Server : 192.168.218.129 : 30010
-        //IPAddress m_tcpIP = IPAddress.Parse("192.168.218.129");
-        //int m_tcpPort = 30010;
 
+        private List<ServerSocketData> m_tcpList = null;
+        private List<ServerSocketData> m_udpList = null;
+
+        private ServerSocketData m_curTcpServer = null;
+        private ServerSocketData m_curUdpServer = null;
 
         public TCP_IPMenuForm()
         {
@@ -41,11 +43,35 @@ namespace SoftLiu_VSMainMenuTools
             toolStripStatusLabel1.Text = "Hello World !";
 
             toolStripProgressBar1.Value = 0;
-            // init udp ip and port
-            //this.textBoxUDPIPAddress.Text = "10.192.91.40";
-            //this.textBoxUDPPort.Text = "11080";
-            this.textBoxUDPIPAddress.Text = "192.168.218.129";
-            this.textBoxUDPPort.Text = "30010";
+
+            // init tcp ip and port
+            if (DatabaseManager.Instance.serverSocketList != null)
+            {
+                m_tcpList = DatabaseManager.Instance.serverSocketList.Where((socket) => { return socket.Key == "TCP"; }).ToList();
+                if (m_tcpList != null)
+                {
+                    this.comboBoxTcpAddress.Items.Clear();
+                    foreach (ServerSocketData server in m_tcpList)
+                    {
+                        this.comboBoxTcpAddress.Items.Add(server.Name);
+                    }
+                    this.comboBoxTcpAddress.SelectedIndex = 0;
+                }
+
+                m_udpList = DatabaseManager.Instance.serverSocketList.Where((socket) => { return socket.Key == "UDP"; }).ToList();
+                if (m_udpList != null)
+                {
+                    this.comboBoxUdpAddress.Items.Clear();
+                    foreach (ServerSocketData server in m_udpList)
+                    {
+                        this.comboBoxUdpAddress.Items.Add(server.Name);
+                    }
+                    this.comboBoxUdpAddress.SelectedIndex = 0;
+                }
+            }
+            // init connect state and name
+            this.buttonConnectTcp.Name = "Connect";
+            this.radioConnectStatus.Checked = false;
         }
 
         ~TCP_IPMenuForm()
@@ -93,15 +119,7 @@ namespace SoftLiu_VSMainMenuTools
                 string sendMessage = this.textBoxTCPSend.Text.Trim();
                 if (clientTcp.Connected)
                 {
-                    //Dictionary<string, object> dic = new Dictionary<string, object>();
-                    //dic.Add("code", "TrainQueryType");
-                    //dic.Add("status", 0);
-                    //dic.Add("date", DateTime.Now.ToString("yyy-MM-dd"));
-                    //dic.Add("from_station", "上海");
-                    //dic.Add("to_station", "徐州东");
-                    //string sendMessage = string.Format("{0}", JsonConvert.SerializeObject(dic));
                     clientTcp.SendData(Encoding.UTF8.GetBytes(sendMessage));
-                    //textBoxTCPSend.Text = JsonConvert.SerializeObject(dic);
                 }
                 else
                 {
@@ -117,65 +135,57 @@ namespace SoftLiu_VSMainMenuTools
         private void ConnectStatus(bool state)
         {
             this.radioConnectStatus.Checked = state;
-            this.buttonConnectTcp.Text = state ? "Connect" : "Disconnect";
+            this.buttonConnectTcp.Text = state ? "Disconnect" : "Connect";
         }
 
         private void buttonConnectTcp_Click(object sender, EventArgs e)
         {
-            if (clientTcp != null)
+            if (this.clientTcp != null)
             {
-                if (clientTcp.Connected)
+                if (this.clientTcp.Connected)
                 {
-                    // 断开连接
-                    clientTcp.DisconnectServer((error) =>
-                    {
-                        if (error.ErrorCode != -1)
-                            textBoxTCPTips.AppendText($"{error.ErrorStr}\r\n");
-                    });
-                    clientTcp = null;
-                    ConnectStatus(false);
-                }
-                else
-                {
-                    try
-                    {
-                        textBoxTCPTips.AppendText("had client connect...\r\n");
-                        clientTcp.ConnectServer(ReceiveDataCallback);
-                        ConnectStatus(true);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Connect Filed!");
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                string ip = this.textBoxTCPAddress.Text.Trim();
-                string port = this.textBoxTCPPort.Text.Trim();
-                int tcpPort = 0;
-                bool ipCheck = RegexUtils.IPCheck(ip);
-                if (!ipCheck || !int.TryParse(port, out tcpPort))
-                {
-                    MessageBox.Show("Please enter right IP address or port id.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CloseTcpClient(ref this.clientTcp);
                     return;
                 }
-                IPAddress tcpIP = IPAddress.Parse(ip);
-                clientTcp = new SocketTCPClient(new IPEndPoint(tcpIP, tcpPort));
-                try
-                {
-                    textBoxTCPTips.AppendText("new client connect...\r\n");
-                    clientTcp.ConnectServer(ReceiveDataCallback);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Connect Filed!");
-                    return;
-                }
-                //通过clientSocket接收数据
-                //RecvThread(clientTcp);
+
+                this.clientTcp.Dispose();
+                this.clientTcp = null;
             }
+            if (this.m_curTcpServer == null)
+            {
+                MessageBox.Show("Please select right host.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            IPAddress tcpIP = IPAddress.Parse(this.m_curTcpServer.ServerIP);
+            this.clientTcp = new SocketTCPClient(new IPEndPoint(tcpIP, this.m_curTcpServer.ServerPort));
+            try
+            {
+                textBoxTCPTips.AppendText("new client connect...\r\n");
+                clientTcp.ConnectServer(ReceiveDataCallback);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connect Filed!");
+                this.clientTcp.Dispose();
+                this.clientTcp = null;
+                return;
+            }
+
+        }
+
+        private void CloseTcpClient(ref SocketTCPClient client)
+        {
+            if (client != null)
+            {
+                // 断开连接
+                client.DisconnectServer((error) =>
+                {
+                    if (error.ErrorCode != ClientErrorCode.None)
+                        this.textBoxTCPTips.AppendText($"{error.ErrorStr}\r\n");
+                });
+            }
+            client = null;
+            ConnectStatus(false);
         }
 
         private void ReceiveDataCallback(SocketErrorData errData, SocketReceiveData recvData)
@@ -183,9 +193,14 @@ namespace SoftLiu_VSMainMenuTools
             // error
             if (errData != null)
             {
-                if (errData.ErrorCode != -1)
+                if (errData.ErrorCode != ClientErrorCode.None)
                 {
                     this.textBoxTCPTips.AppendText($"{errData.ErrorStr}\r\n");
+                }
+                if (errData.ErrorCode == ClientErrorCode.ConnectErrorType)
+                {
+                    // remote host was closed
+                    CloseTcpClient(ref this.clientTcp);
                 }
                 return;
             }
@@ -290,7 +305,7 @@ namespace SoftLiu_VSMainMenuTools
             {
                 clientTcp.DisconnectServer((error) =>
                 {
-                    if (error.ErrorCode != -1)
+                    if (error.ErrorCode != ClientErrorCode.None)
                     {
                         textBoxTCPTips.AppendText($"{error.ErrorStr}\r\n");
                     }
@@ -319,13 +334,13 @@ namespace SoftLiu_VSMainMenuTools
             {
                 if (clientUdp == null)
                 {
-                    //Server : 192.168.218.129 : 30010
-                    string ip = this.textBoxUDPIPAddress.Text.Trim();
-                    int port = 0;
-                    IPAddress address = IPAddress.Parse(ip);
-                    string portStr = this.textBoxUDPPort.Text.Trim();
-                    int.TryParse(portStr, out port);
-                    IPEndPoint server = new IPEndPoint(address, port);
+                    if (this.m_curUdpServer == null)
+                    {
+                        MessageBox.Show("Please select right host.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    IPAddress address = IPAddress.Parse(this.m_curUdpServer.ServerIP);
+                    IPEndPoint server = new IPEndPoint(address, this.m_curUdpServer.ServerPort);
                     clientUdp = new SocketUDPClient(server, (recvData) =>
                     {
                         if (recvData.Length <= 0)
@@ -358,5 +373,24 @@ namespace SoftLiu_VSMainMenuTools
 
         }
 
+        private void comboBoxTcpAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.m_tcpList != null)
+            {
+                string select = this.comboBoxTcpAddress.SelectedItem.ToString();
+                IEnumerable<ServerSocketData> tcpServerIE = this.m_tcpList.Where((server) => { return server.Name == select; });
+                this.m_curTcpServer = tcpServerIE.FirstOrDefault();
+            }
+        }
+
+        private void comboBoxUdpAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.m_udpList != null)
+            {
+                string select = this.comboBoxUdpAddress.SelectedItem.ToString();
+                IEnumerable<ServerSocketData> udpServerIE = this.m_udpList.Where((server) => { return server.Name == select; });
+                this.m_curUdpServer = udpServerIE.FirstOrDefault();
+            }
+        }
     }
 }

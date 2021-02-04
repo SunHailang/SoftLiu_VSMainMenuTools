@@ -1,0 +1,34 @@
+﻿{
+  "ServerSocketData": [
+    {
+      "m_key": "TCP",
+      "m_name": "育碧",
+      "m_serverIP": "10.192.91.40",
+      "m_serverPort": 11060
+    },
+    {
+      "m_key": "TCP",
+      "m_name": "育碧Ubuntu",
+      "m_serverIP": "192.168.218.129",
+      "m_serverPort": 30010
+    },
+    {
+      "m_key": "TCP",
+      "m_name": "海浪",
+      "m_serverIP": "10.192.91.40",
+      "m_serverPort": 11060
+    },
+    {
+      "m_key": "UDP",
+      "m_name": "育碧",
+      "m_serverIP": "10.192.91.40",
+      "m_serverPort": 11080
+    },
+    {
+      "m_key": "UDP",
+      "m_name": "海浪",
+      "m_serverIP": "10.192.91.40",
+      "m_serverPort": 11080
+    }
+  ]
+}

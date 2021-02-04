@@ -57,50 +57,58 @@ namespace SoftLiu_VSMainMenuTools
             CheckForIllegalCrossThreadCalls = false;
             m_progressBarSplash = new ProgressBarExtension(progressBarSplash);
             m_progressBarSplash.Value = 0;
-            m_progressBarSplash.onChanged += (value) =>
-            {
-                if (value >= 100)
-                {
-                    Thread th = new Thread(() =>
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                Thread.Sleep(800);
-                                //m_parent.MainMenuForm_Init();
-
-                                close = false;
-                                this.Close();
-                                this.DialogResult = DialogResult.OK;
-                                Form main = new MainMenuForm();
-                                FormManager.Instance.OpenForm(main);
-                                //Application.Run(new MainMenuForm());
-
-                                break;
-                            }
-                            catch (Exception msg)
-                            {
-                                Console.WriteLine("onChanged : " + msg.Message);
-                            }
-                        }
-                    });
-                    th.Start();
-                }
-            };
+            m_progressBarSplash.onChanged += ProgressBar_OnChanged;
             //获取UI线程同步上下文
             App.Instance.InitSyncContext(SynchronizationContext.Current);
-            m_progressBarSplash.Value = 10;
-            // read csv file
-            Localization.Instance.Init();
-            m_progressBarSplash.Value += 10;
-            // init product data
-            DatabaseManager.Instance.Init();
-            m_progressBarSplash.Value += 10;
-            // init websocket data
-            WebSocketManager.Instance.Init();
-            m_progressBarSplash.Value += 10;
+
+            List<Action> actionList = new List<Action>()
+            {
+                // read csv file
+                Localization.Instance.Init,
+                // init product data
+                DatabaseManager.Instance.Init,
+                // init websocket data
+                WebSocketManager.Instance.Init,
+            };
+            for (int i = 0; i < actionList.Count; i++)
+            {
+                Action action = actionList[i];
+                if (action != null) action();
+                m_progressBarSplash.Value += 90 / actionList.Count;
+            }
             init();
+        }
+
+        private void ProgressBar_OnChanged(int value)
+        {
+            if (value >= 100)
+            {
+                Thread th = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            Thread.Sleep(800);
+                            //m_parent.MainMenuForm_Init();
+
+                            close = false;
+                            this.Close();
+                            this.DialogResult = DialogResult.OK;
+                            Form main = new MainMenuForm();
+                            FormManager.Instance.OpenForm(main);
+                            //Application.Run(new MainMenuForm());
+
+                            break;
+                        }
+                        catch (Exception msg)
+                        {
+                            Console.WriteLine("ProgressBar_OnChanged Error :: " + msg.Message);
+                        }
+                    }
+                });
+                th.Start();
+            }
         }
 
         private void init()
