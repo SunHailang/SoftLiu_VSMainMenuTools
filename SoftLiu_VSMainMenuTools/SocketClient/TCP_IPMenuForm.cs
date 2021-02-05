@@ -190,26 +190,33 @@ namespace SoftLiu_VSMainMenuTools
 
         private void ReceiveDataCallback(SocketErrorData errData, SocketReceiveData recvData)
         {
-            // error
-            if (errData != null)
+            try
             {
-                if (errData.ErrorCode != ClientErrorCode.None)
+                // error
+                if (errData != null)
                 {
-                    this.textBoxTCPTips.AppendText($"{errData.ErrorStr}\r\n");
+                    if (errData.ErrorCode != ClientErrorCode.None)
+                    {
+                        this.textBoxTCPTips.AppendText($"{errData.ErrorStr}\r\n");
+                    }
+                    if (errData.ErrorCode == ClientErrorCode.ConnectErrorType)
+                    {
+                        // remote host was closed
+                        CloseTcpClient(ref this.clientTcp);
+                    }
+                    return;
                 }
-                if (errData.ErrorCode == ClientErrorCode.ConnectErrorType)
+                ConnectStatus(true);
+                // 解析接收数据
+                if (recvData.Length > 0)
                 {
-                    // remote host was closed
-                    CloseTcpClient(ref this.clientTcp);
+                    string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
+                    this.textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
                 }
-                return;
             }
-            ConnectStatus(true);
-            // 解析接收数据
-            if (recvData.Length > 0)
+            catch (Exception error)
             {
-                string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                this.textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
+                Console.WriteLine($"ReceiveDataCallback Error::{error.Message}");
             }
         }
 
