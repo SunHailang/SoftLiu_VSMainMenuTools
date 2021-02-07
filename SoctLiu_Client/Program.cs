@@ -11,10 +11,25 @@ namespace SoctLiu_Client
     {
         static void Main(string[] args)
         {
-            
+
             try
             {
-                UDPClient client = new UDPClient();
+                int total = 1150000;
+                double month = 5.88f / 100 / 12;
+                double monthPow = Math.Pow((1 + month), 360);
+
+                //double monthDay = (total * (5.88f / 100 / 12) * Math.Pow((1 + (5.88f / 100 / 12)), 360)) / (Math.Pow((1 + (5.88f / 100 / 12)), 360) - 1);
+                double monthDay = (total * month * monthPow) / (monthPow - 1);
+
+                Console.WriteLine($"monthday: {monthDay}");
+
+                Console.WriteLine("提前还款：");
+                int tTotal = 200000;
+
+                double tMonthDay = tTotal * (5.88f / 100 / 12) * 2;
+                Console.WriteLine($"tMonthDay: {tMonthDay}");
+
+                //UDPClient client = new UDPClient();
                 //获取文本框中的IP地址
                 //IPAddress address = IPAddress.Parse("10.192.91.40");
                 ////将获取的IP地址和端口号绑定在网络节点上
@@ -50,7 +65,7 @@ namespace SoctLiu_Client
                 Console.WriteLine(error.Message);
             }
 
-           
+
         }
     }
 }

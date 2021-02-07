@@ -28,7 +28,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             ////ExcelOrXmlManager.WriteXml(dt, sheetName, "D:\\VS2015Program\\SF2.xml");
             //ExcelOrXmlManager.WriteJson(dt, sheetName, "D:\\VS2015Program\\SF2.json");
 
-            comboBoxLanguage.SelectedIndex = 0;
+            //comboBoxLanguage.SelectedIndex = 0;
         }
 
         private void textBoxPath_DragDrop(object sender, DragEventArgs e)
