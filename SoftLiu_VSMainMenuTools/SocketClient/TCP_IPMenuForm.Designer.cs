@@ -35,6 +35,7 @@
             this.uDPClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlClient = new System.Windows.Forms.TabControl();
             this.tabPageTCP_Client = new System.Windows.Forms.TabPage();
+            this.comboBoxTcpAddress = new System.Windows.Forms.ComboBox();
             this.labelTCPAddress = new System.Windows.Forms.Label();
             this.textBoxTCPRecv = new System.Windows.Forms.TextBox();
             this.textBoxTCPSend = new System.Windows.Forms.TextBox();
@@ -42,25 +43,26 @@
             this.buttonConnectTcp = new System.Windows.Forms.Button();
             this.buttonSend = new System.Windows.Forms.Button();
             this.radioConnectStatus = new System.Windows.Forms.RadioButton();
+            this.tabPageUDPClient = new System.Windows.Forms.TabPage();
+            this.comboBoxUdpAddress = new System.Windows.Forms.ComboBox();
+            this.labelUdpAddress = new System.Windows.Forms.Label();
+            this.buttonUDPSend = new System.Windows.Forms.Button();
+            this.textBoxUDPReceive = new System.Windows.Forms.TextBox();
+            this.textBoxUDPSendMessage = new System.Windows.Forms.TextBox();
             this.tabPageTools = new System.Windows.Forms.TabPage();
             this.richTextBoxToolsLog = new System.Windows.Forms.RichTextBox();
             this.buttonToolsGetIP = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.comboBoxTcpAddress = new System.Windows.Forms.ComboBox();
-            this.textBoxUDPSendMessage = new System.Windows.Forms.TextBox();
-            this.textBoxUDPReceive = new System.Windows.Forms.TextBox();
-            this.buttonUDPSend = new System.Windows.Forms.Button();
-            this.tabPageUDPClient = new System.Windows.Forms.TabPage();
-            this.comboBoxUdpAddress = new System.Windows.Forms.ComboBox();
-            this.labelUdpAddress = new System.Windows.Forms.Label();
+            this.labelRecv = new System.Windows.Forms.Label();
+            this.labelSend = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlClient.SuspendLayout();
             this.tabPageTCP_Client.SuspendLayout();
+            this.tabPageUDPClient.SuspendLayout();
             this.tabPageTools.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.tabPageUDPClient.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -118,6 +120,8 @@
             // 
             // tabPageTCP_Client
             // 
+            this.tabPageTCP_Client.Controls.Add(this.labelSend);
+            this.tabPageTCP_Client.Controls.Add(this.labelRecv);
             this.tabPageTCP_Client.Controls.Add(this.comboBoxTcpAddress);
             this.tabPageTCP_Client.Controls.Add(this.labelTCPAddress);
             this.tabPageTCP_Client.Controls.Add(this.textBoxTCPRecv);
@@ -134,6 +138,15 @@
             this.tabPageTCP_Client.Text = "TCP Client";
             this.tabPageTCP_Client.UseVisualStyleBackColor = true;
             // 
+            // comboBoxTcpAddress
+            // 
+            this.comboBoxTcpAddress.FormattingEnabled = true;
+            this.comboBoxTcpAddress.Location = new System.Drawing.Point(84, 11);
+            this.comboBoxTcpAddress.Name = "comboBoxTcpAddress";
+            this.comboBoxTcpAddress.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxTcpAddress.TabIndex = 7;
+            this.comboBoxTcpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxTcpAddress_SelectedIndexChanged);
+            // 
             // labelTCPAddress
             // 
             this.labelTCPAddress.AutoSize = true;
@@ -145,21 +158,21 @@
             // 
             // textBoxTCPRecv
             // 
-            this.textBoxTCPRecv.Location = new System.Drawing.Point(383, 54);
+            this.textBoxTCPRecv.Location = new System.Drawing.Point(383, 73);
             this.textBoxTCPRecv.Multiline = true;
             this.textBoxTCPRecv.Name = "textBoxTCPRecv";
             this.textBoxTCPRecv.ReadOnly = true;
             this.textBoxTCPRecv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPRecv.Size = new System.Drawing.Size(548, 257);
+            this.textBoxTCPRecv.Size = new System.Drawing.Size(548, 238);
             this.textBoxTCPRecv.TabIndex = 4;
             // 
             // textBoxTCPSend
             // 
-            this.textBoxTCPSend.Location = new System.Drawing.Point(20, 54);
+            this.textBoxTCPSend.Location = new System.Drawing.Point(20, 73);
             this.textBoxTCPSend.Multiline = true;
             this.textBoxTCPSend.Name = "textBoxTCPSend";
             this.textBoxTCPSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPSend.Size = new System.Drawing.Size(254, 259);
+            this.textBoxTCPSend.Size = new System.Drawing.Size(254, 240);
             this.textBoxTCPSend.TabIndex = 4;
             // 
             // textBoxTCPTips
@@ -198,13 +211,79 @@
             // 
             this.radioConnectStatus.AutoSize = true;
             this.radioConnectStatus.BackColor = System.Drawing.Color.Transparent;
-            this.radioConnectStatus.Checked = false;
             this.radioConnectStatus.Location = new System.Drawing.Point(447, 14);
             this.radioConnectStatus.Name = "radioConnectStatus";
             this.radioConnectStatus.Size = new System.Drawing.Size(14, 13);
             this.radioConnectStatus.TabIndex = 0;
             this.radioConnectStatus.TabStop = true;
             this.radioConnectStatus.UseVisualStyleBackColor = false;
+            // 
+            // tabPageUDPClient
+            // 
+            this.tabPageUDPClient.Controls.Add(this.comboBoxUdpAddress);
+            this.tabPageUDPClient.Controls.Add(this.labelUdpAddress);
+            this.tabPageUDPClient.Controls.Add(this.buttonUDPSend);
+            this.tabPageUDPClient.Controls.Add(this.textBoxUDPReceive);
+            this.tabPageUDPClient.Controls.Add(this.textBoxUDPSendMessage);
+            this.tabPageUDPClient.Location = new System.Drawing.Point(4, 22);
+            this.tabPageUDPClient.Name = "tabPageUDPClient";
+            this.tabPageUDPClient.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUDPClient.Size = new System.Drawing.Size(937, 449);
+            this.tabPageUDPClient.TabIndex = 1;
+            this.tabPageUDPClient.Text = "UDP Client";
+            this.tabPageUDPClient.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxUdpAddress
+            // 
+            this.comboBoxUdpAddress.FormattingEnabled = true;
+            this.comboBoxUdpAddress.Location = new System.Drawing.Point(85, 18);
+            this.comboBoxUdpAddress.Name = "comboBoxUdpAddress";
+            this.comboBoxUdpAddress.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxUdpAddress.TabIndex = 9;
+            this.comboBoxUdpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxUdpAddress_SelectedIndexChanged);
+            // 
+            // labelUdpAddress
+            // 
+            this.labelUdpAddress.AutoSize = true;
+            this.labelUdpAddress.Location = new System.Drawing.Point(18, 21);
+            this.labelUdpAddress.Name = "labelUdpAddress";
+            this.labelUdpAddress.Size = new System.Drawing.Size(61, 13);
+            this.labelUdpAddress.TabIndex = 8;
+            this.labelUdpAddress.Text = "主机地址：";
+            // 
+            // buttonUDPSend
+            // 
+            this.buttonUDPSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUDPSend.Location = new System.Drawing.Point(852, 239);
+            this.buttonUDPSend.Name = "buttonUDPSend";
+            this.buttonUDPSend.Size = new System.Drawing.Size(78, 28);
+            this.buttonUDPSend.TabIndex = 3;
+            this.buttonUDPSend.Text = "发送";
+            this.buttonUDPSend.UseVisualStyleBackColor = true;
+            this.buttonUDPSend.Click += new System.EventHandler(this.buttonUDPSend_Click);
+            // 
+            // textBoxUDPReceive
+            // 
+            this.textBoxUDPReceive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUDPReceive.Location = new System.Drawing.Point(6, 287);
+            this.textBoxUDPReceive.Multiline = true;
+            this.textBoxUDPReceive.Name = "textBoxUDPReceive";
+            this.textBoxUDPReceive.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxUDPReceive.Size = new System.Drawing.Size(925, 156);
+            this.textBoxUDPReceive.TabIndex = 2;
+            // 
+            // textBoxUDPSendMessage
+            // 
+            this.textBoxUDPSendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUDPSendMessage.Location = new System.Drawing.Point(6, 104);
+            this.textBoxUDPSendMessage.Multiline = true;
+            this.textBoxUDPSendMessage.Name = "textBoxUDPSendMessage";
+            this.textBoxUDPSendMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxUDPSendMessage.Size = new System.Drawing.Size(925, 128);
+            this.textBoxUDPSendMessage.TabIndex = 2;
             // 
             // tabPageTools
             // 
@@ -268,81 +347,23 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(120, 18);
             this.toolStripProgressBar1.Value = 50;
             // 
-            // comboBoxTcpAddress
+            // labelRecv
             // 
-            this.comboBoxTcpAddress.FormattingEnabled = true;
-            this.comboBoxTcpAddress.Location = new System.Drawing.Point(84, 11);
-            this.comboBoxTcpAddress.Name = "comboBoxTcpAddress";
-            this.comboBoxTcpAddress.Size = new System.Drawing.Size(109, 21);
-            this.comboBoxTcpAddress.TabIndex = 7;
-            this.comboBoxTcpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxTcpAddress_SelectedIndexChanged);
+            this.labelRecv.AutoSize = true;
+            this.labelRecv.Location = new System.Drawing.Point(380, 57);
+            this.labelRecv.Name = "labelRecv";
+            this.labelRecv.Size = new System.Drawing.Size(79, 13);
+            this.labelRecv.TabIndex = 8;
+            this.labelRecv.Text = "Receive Data：";
             // 
-            // textBoxUDPSendMessage
+            // labelSend
             // 
-            this.textBoxUDPSendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUDPSendMessage.Location = new System.Drawing.Point(6, 104);
-            this.textBoxUDPSendMessage.Multiline = true;
-            this.textBoxUDPSendMessage.Name = "textBoxUDPSendMessage";
-            this.textBoxUDPSendMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxUDPSendMessage.Size = new System.Drawing.Size(925, 128);
-            this.textBoxUDPSendMessage.TabIndex = 2;
-            // 
-            // textBoxUDPReceive
-            // 
-            this.textBoxUDPReceive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUDPReceive.Location = new System.Drawing.Point(6, 287);
-            this.textBoxUDPReceive.Multiline = true;
-            this.textBoxUDPReceive.Name = "textBoxUDPReceive";
-            this.textBoxUDPReceive.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxUDPReceive.Size = new System.Drawing.Size(925, 156);
-            this.textBoxUDPReceive.TabIndex = 2;
-            // 
-            // buttonUDPSend
-            // 
-            this.buttonUDPSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUDPSend.Location = new System.Drawing.Point(852, 239);
-            this.buttonUDPSend.Name = "buttonUDPSend";
-            this.buttonUDPSend.Size = new System.Drawing.Size(78, 28);
-            this.buttonUDPSend.TabIndex = 3;
-            this.buttonUDPSend.Text = "发送";
-            this.buttonUDPSend.UseVisualStyleBackColor = true;
-            this.buttonUDPSend.Click += new System.EventHandler(this.buttonUDPSend_Click);
-            // 
-            // tabPageUDPClient
-            // 
-            this.tabPageUDPClient.Controls.Add(this.comboBoxUdpAddress);
-            this.tabPageUDPClient.Controls.Add(this.labelUdpAddress);
-            this.tabPageUDPClient.Controls.Add(this.buttonUDPSend);
-            this.tabPageUDPClient.Controls.Add(this.textBoxUDPReceive);
-            this.tabPageUDPClient.Controls.Add(this.textBoxUDPSendMessage);
-            this.tabPageUDPClient.Location = new System.Drawing.Point(4, 22);
-            this.tabPageUDPClient.Name = "tabPageUDPClient";
-            this.tabPageUDPClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUDPClient.Size = new System.Drawing.Size(937, 449);
-            this.tabPageUDPClient.TabIndex = 1;
-            this.tabPageUDPClient.Text = "UDP Client";
-            this.tabPageUDPClient.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxUdpAddress
-            // 
-            this.comboBoxUdpAddress.FormattingEnabled = true;
-            this.comboBoxUdpAddress.Location = new System.Drawing.Point(85, 18);
-            this.comboBoxUdpAddress.Name = "comboBoxUdpAddress";
-            this.comboBoxUdpAddress.Size = new System.Drawing.Size(109, 21);
-            this.comboBoxUdpAddress.TabIndex = 9;
-            this.comboBoxUdpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxUdpAddress_SelectedIndexChanged);
-            // 
-            // labelUdpAddress
-            // 
-            this.labelUdpAddress.AutoSize = true;
-            this.labelUdpAddress.Location = new System.Drawing.Point(18, 21);
-            this.labelUdpAddress.Name = "labelUdpAddress";
-            this.labelUdpAddress.Size = new System.Drawing.Size(61, 13);
-            this.labelUdpAddress.TabIndex = 8;
-            this.labelUdpAddress.Text = "主机地址：";
+            this.labelSend.AutoSize = true;
+            this.labelSend.Location = new System.Drawing.Point(17, 57);
+            this.labelSend.Name = "labelSend";
+            this.labelSend.Size = new System.Drawing.Size(64, 13);
+            this.labelSend.TabIndex = 8;
+            this.labelSend.Text = "Send Data：";
             // 
             // TCP_IPMenuForm
             // 
@@ -363,11 +384,11 @@
             this.tabControlClient.ResumeLayout(false);
             this.tabPageTCP_Client.ResumeLayout(false);
             this.tabPageTCP_Client.PerformLayout();
+            this.tabPageUDPClient.ResumeLayout(false);
+            this.tabPageUDPClient.PerformLayout();
             this.tabPageTools.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.tabPageUDPClient.ResumeLayout(false);
-            this.tabPageUDPClient.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -402,5 +423,7 @@
         private System.Windows.Forms.Button buttonUDPSend;
         private System.Windows.Forms.TextBox textBoxUDPReceive;
         private System.Windows.Forms.TextBox textBoxUDPSendMessage;
+        private System.Windows.Forms.Label labelRecv;
+        private System.Windows.Forms.Label labelSend;
     }
 }

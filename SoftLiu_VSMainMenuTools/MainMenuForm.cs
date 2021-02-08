@@ -41,6 +41,8 @@ namespace SoftLiu_VSMainMenuTools
             //splash.InitConfiger(this);
             //splash.ShowDialog();
             MainMenuForm_Init();
+
+            this.TopMost = true;
         }
 
         public void MainMenuForm_Init()
@@ -852,6 +854,11 @@ namespace SoftLiu_VSMainMenuTools
                 MessageBox.Show($"{errMsg}\r\n", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxLog.AppendText($"");
             }
+        }
+
+        private void MainMenuForm_Activated(object sender, EventArgs e)
+        {
+            this.TopMost = false;
         }
     }
 }

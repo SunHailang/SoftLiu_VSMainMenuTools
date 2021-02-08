@@ -127,19 +127,19 @@
             this.buttonColorShow = new System.Windows.Forms.Button();
             this.buttonColor = new System.Windows.Forms.Button();
             this.tabPageCheckCoardID = new System.Windows.Forms.TabPage();
+            this.labelCheckCardIDAge = new System.Windows.Forms.Label();
+            this.labelCheckCardIDGender = new System.Windows.Forms.Label();
+            this.labelCheckCardIDArea = new System.Windows.Forms.Label();
+            this.buttonCheckCardID = new System.Windows.Forms.Button();
+            this.labelCheckCardID = new System.Windows.Forms.Label();
+            this.textBoxCheckCardIDAge = new System.Windows.Forms.TextBox();
+            this.textBoxCheckCardIDGender = new System.Windows.Forms.TextBox();
+            this.textBoxCheckCardIDArea = new System.Windows.Forms.TextBox();
+            this.textBoxCheckCardID = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.textBoxCheckCardID = new System.Windows.Forms.TextBox();
-            this.labelCheckCardID = new System.Windows.Forms.Label();
-            this.buttonCheckCardID = new System.Windows.Forms.Button();
-            this.labelCheckCardIDArea = new System.Windows.Forms.Label();
-            this.textBoxCheckCardIDArea = new System.Windows.Forms.TextBox();
-            this.textBoxCheckCardIDGender = new System.Windows.Forms.TextBox();
-            this.labelCheckCardIDGender = new System.Windows.Forms.Label();
-            this.textBoxCheckCardIDAge = new System.Windows.Forms.TextBox();
-            this.labelCheckCardIDAge = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -193,7 +193,7 @@
             this.excelToCSVToolStripMenuItem,
             this.otherToolsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // excelToXmlToolStripMenuItem
@@ -1129,6 +1129,83 @@
             this.tabPageCheckCoardID.Text = "身份证号码校验";
             this.tabPageCheckCoardID.UseVisualStyleBackColor = true;
             // 
+            // labelCheckCardIDAge
+            // 
+            this.labelCheckCardIDAge.AutoSize = true;
+            this.labelCheckCardIDAge.Location = new System.Drawing.Point(9, 215);
+            this.labelCheckCardIDAge.Name = "labelCheckCardIDAge";
+            this.labelCheckCardIDAge.Size = new System.Drawing.Size(37, 13);
+            this.labelCheckCardIDAge.TabIndex = 3;
+            this.labelCheckCardIDAge.Text = "年龄：";
+            // 
+            // labelCheckCardIDGender
+            // 
+            this.labelCheckCardIDGender.AutoSize = true;
+            this.labelCheckCardIDGender.Location = new System.Drawing.Point(9, 173);
+            this.labelCheckCardIDGender.Name = "labelCheckCardIDGender";
+            this.labelCheckCardIDGender.Size = new System.Drawing.Size(34, 13);
+            this.labelCheckCardIDGender.TabIndex = 3;
+            this.labelCheckCardIDGender.Text = "性别：";
+            // 
+            // labelCheckCardIDArea
+            // 
+            this.labelCheckCardIDArea.AutoSize = true;
+            this.labelCheckCardIDArea.Location = new System.Drawing.Point(9, 132);
+            this.labelCheckCardIDArea.Name = "labelCheckCardIDArea";
+            this.labelCheckCardIDArea.Size = new System.Drawing.Size(37, 13);
+            this.labelCheckCardIDArea.TabIndex = 3;
+            this.labelCheckCardIDArea.Text = "地区：";
+            // 
+            // buttonCheckCardID
+            // 
+            this.buttonCheckCardID.Location = new System.Drawing.Point(178, 93);
+            this.buttonCheckCardID.Name = "buttonCheckCardID";
+            this.buttonCheckCardID.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckCardID.TabIndex = 2;
+            this.buttonCheckCardID.Text = "校验";
+            this.buttonCheckCardID.UseVisualStyleBackColor = true;
+            this.buttonCheckCardID.Click += new System.EventHandler(this.buttonCheckCardID_Click);
+            // 
+            // labelCheckCardID
+            // 
+            this.labelCheckCardID.AutoSize = true;
+            this.labelCheckCardID.Location = new System.Drawing.Point(6, 24);
+            this.labelCheckCardID.Name = "labelCheckCardID";
+            this.labelCheckCardID.Size = new System.Drawing.Size(73, 13);
+            this.labelCheckCardID.TabIndex = 1;
+            this.labelCheckCardID.Text = "身份证号码：";
+            // 
+            // textBoxCheckCardIDAge
+            // 
+            this.textBoxCheckCardIDAge.Location = new System.Drawing.Point(52, 212);
+            this.textBoxCheckCardIDAge.Name = "textBoxCheckCardIDAge";
+            this.textBoxCheckCardIDAge.ReadOnly = true;
+            this.textBoxCheckCardIDAge.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDAge.TabIndex = 0;
+            // 
+            // textBoxCheckCardIDGender
+            // 
+            this.textBoxCheckCardIDGender.Location = new System.Drawing.Point(52, 170);
+            this.textBoxCheckCardIDGender.Name = "textBoxCheckCardIDGender";
+            this.textBoxCheckCardIDGender.ReadOnly = true;
+            this.textBoxCheckCardIDGender.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDGender.TabIndex = 0;
+            // 
+            // textBoxCheckCardIDArea
+            // 
+            this.textBoxCheckCardIDArea.Location = new System.Drawing.Point(52, 129);
+            this.textBoxCheckCardIDArea.Name = "textBoxCheckCardIDArea";
+            this.textBoxCheckCardIDArea.ReadOnly = true;
+            this.textBoxCheckCardIDArea.Size = new System.Drawing.Size(201, 20);
+            this.textBoxCheckCardIDArea.TabIndex = 0;
+            // 
+            // textBoxCheckCardID
+            // 
+            this.textBoxCheckCardID.Location = new System.Drawing.Point(28, 52);
+            this.textBoxCheckCardID.Name = "textBoxCheckCardID";
+            this.textBoxCheckCardID.Size = new System.Drawing.Size(225, 20);
+            this.textBoxCheckCardID.TabIndex = 0;
+            // 
             // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1152,83 +1229,6 @@
             this.textBoxLog.Size = new System.Drawing.Size(668, 152);
             this.textBoxLog.TabIndex = 4;
             // 
-            // textBoxCheckCardID
-            // 
-            this.textBoxCheckCardID.Location = new System.Drawing.Point(28, 52);
-            this.textBoxCheckCardID.Name = "textBoxCheckCardID";
-            this.textBoxCheckCardID.Size = new System.Drawing.Size(225, 20);
-            this.textBoxCheckCardID.TabIndex = 0;
-            // 
-            // labelCheckCardID
-            // 
-            this.labelCheckCardID.AutoSize = true;
-            this.labelCheckCardID.Location = new System.Drawing.Point(6, 24);
-            this.labelCheckCardID.Name = "labelCheckCardID";
-            this.labelCheckCardID.Size = new System.Drawing.Size(73, 13);
-            this.labelCheckCardID.TabIndex = 1;
-            this.labelCheckCardID.Text = "身份证号码：";
-            // 
-            // buttonCheckCardID
-            // 
-            this.buttonCheckCardID.Location = new System.Drawing.Point(178, 93);
-            this.buttonCheckCardID.Name = "buttonCheckCardID";
-            this.buttonCheckCardID.Size = new System.Drawing.Size(75, 23);
-            this.buttonCheckCardID.TabIndex = 2;
-            this.buttonCheckCardID.Text = "校验";
-            this.buttonCheckCardID.UseVisualStyleBackColor = true;
-            this.buttonCheckCardID.Click += new System.EventHandler(this.buttonCheckCardID_Click);
-            // 
-            // labelCheckCardIDArea
-            // 
-            this.labelCheckCardIDArea.AutoSize = true;
-            this.labelCheckCardIDArea.Location = new System.Drawing.Point(9, 132);
-            this.labelCheckCardIDArea.Name = "labelCheckCardIDArea";
-            this.labelCheckCardIDArea.Size = new System.Drawing.Size(37, 13);
-            this.labelCheckCardIDArea.TabIndex = 3;
-            this.labelCheckCardIDArea.Text = "地区：";
-            // 
-            // textBoxCheckCardIDArea
-            // 
-            this.textBoxCheckCardIDArea.Location = new System.Drawing.Point(52, 129);
-            this.textBoxCheckCardIDArea.Name = "textBoxCheckCardIDArea";
-            this.textBoxCheckCardIDArea.ReadOnly = true;
-            this.textBoxCheckCardIDArea.Size = new System.Drawing.Size(201, 20);
-            this.textBoxCheckCardIDArea.TabIndex = 0;
-            // 
-            // textBoxCheckCardIDGender
-            // 
-            this.textBoxCheckCardIDGender.Location = new System.Drawing.Point(52, 170);
-            this.textBoxCheckCardIDGender.Name = "textBoxCheckCardIDGender";
-            this.textBoxCheckCardIDGender.ReadOnly = true;
-            this.textBoxCheckCardIDGender.Size = new System.Drawing.Size(201, 20);
-            this.textBoxCheckCardIDGender.TabIndex = 0;
-            // 
-            // labelCheckCardIDGender
-            // 
-            this.labelCheckCardIDGender.AutoSize = true;
-            this.labelCheckCardIDGender.Location = new System.Drawing.Point(9, 173);
-            this.labelCheckCardIDGender.Name = "labelCheckCardIDGender";
-            this.labelCheckCardIDGender.Size = new System.Drawing.Size(34, 13);
-            this.labelCheckCardIDGender.TabIndex = 3;
-            this.labelCheckCardIDGender.Text = "性别：";
-            // 
-            // textBoxCheckCardIDAge
-            // 
-            this.textBoxCheckCardIDAge.Location = new System.Drawing.Point(52, 212);
-            this.textBoxCheckCardIDAge.Name = "textBoxCheckCardIDAge";
-            this.textBoxCheckCardIDAge.ReadOnly = true;
-            this.textBoxCheckCardIDAge.Size = new System.Drawing.Size(201, 20);
-            this.textBoxCheckCardIDAge.TabIndex = 0;
-            // 
-            // labelCheckCardIDAge
-            // 
-            this.labelCheckCardIDAge.AutoSize = true;
-            this.labelCheckCardIDAge.Location = new System.Drawing.Point(9, 215);
-            this.labelCheckCardIDAge.Name = "labelCheckCardIDAge";
-            this.labelCheckCardIDAge.Size = new System.Drawing.Size(37, 13);
-            this.labelCheckCardIDAge.TabIndex = 3;
-            this.labelCheckCardIDAge.Text = "年龄：";
-            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1242,6 +1242,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainMenuForm";
             this.Text = "MainMenu";
+            this.Activated += new System.EventHandler(this.MainMenuForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenuForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_FormClosed);
             this.Load += new System.EventHandler(this.MainMenuForm_Load);
