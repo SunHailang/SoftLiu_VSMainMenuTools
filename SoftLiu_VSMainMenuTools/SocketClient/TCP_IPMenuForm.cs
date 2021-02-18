@@ -18,6 +18,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Web;
+using SoftLiu_VSMainMenuTools.SocketClient.SocketData.ProtocolData;
+using System.Reflection;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -212,6 +214,23 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
                     this.textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
+
+                    Assembly m_ass = Assembly.GetExecutingAssembly();
+
+                    Object o = m_ass.CreateInstance("SoftLiu_VSMainMenuTools.SocketClient.SocketData.ProtocolData.ActionData", 
+                        false, System.Reflection.BindingFlags.Default,
+                        null, new object[] { recvData }, null, null);
+                    if (o != null && o is ActionData)
+                    {
+                        Console.WriteLine("Activator Create Instance success.");
+                        ActionData actionData = o as ActionData;
+                        actionData.Init();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Activator Create Instance failed.");
+                    }
+
                 }
             }
             catch (Exception error)

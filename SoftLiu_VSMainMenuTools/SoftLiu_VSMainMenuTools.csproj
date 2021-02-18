@@ -134,6 +134,7 @@
     <Compile Include="SocketClient\SocketData\Data\ServerSocketData.cs" />
     <Compile Include="SocketClient\SocketData\Data\SocketErrorData.cs" />
     <Compile Include="SocketClient\SocketData\Data\SocketReceiveData.cs" />
+    <Compile Include="SocketClient\SocketData\ProtocolData\ActionData.cs" />
     <Compile Include="SocketClient\SocketData\SocketTCPClient.cs" />
     <Compile Include="SocketClient\SocketData\SocketUDPClient.cs" />
     <Compile Include="SocketClient\WebSocketData\Data\ActionConnData.cs" />

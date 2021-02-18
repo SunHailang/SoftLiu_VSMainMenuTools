@@ -25,6 +25,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
         /// </summary>
         private byte[] m_recvBuffer = new byte[1024 * 1024];
 
+
         private bool m_connected = false;
         public bool Connected { get { return m_connected; } }
 
@@ -136,7 +137,15 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
         {
             if (m_tcpClient.Connected)
             {
-                m_tcpClient.Send(buffer);
+
+                m_tcpClient.BeginSend(buffer, 0, buffer.Length, SocketFlags.None,
+                       (ar) =>
+                       {
+                           Socket client = (Socket)ar.AsyncState;
+                           // 发送数据长度
+                           int bytesLen = client.EndSend(ar);
+
+                       }, m_tcpClient);
             }
         }
 
@@ -145,7 +154,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.SocketData
             try
             {
                 if (m_tcpClient.Connected)
-                    m_tcpClient.BeginReceive(m_recvBuffer, 0, m_recvBuffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), m_tcpClient);
+                    m_tcpClient.BeginReceive(m_recvBuffer, 0, m_recvBuffer.Length, SocketFlags.None, ReceiveCallback, m_tcpClient);
                 else
                     Console.WriteLine("Disconnected. Please Re-Connect!");
             }
