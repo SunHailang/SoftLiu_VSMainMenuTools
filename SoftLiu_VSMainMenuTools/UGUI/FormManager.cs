@@ -24,43 +24,42 @@ namespace SoftLiu_VSMainMenuTools.UGUI
             if (curForm is MainMenuForm)
             {
                 m_FormStackList.Push(curForm);
-                Thread th = new Thread(() => {
+                Thread th = new Thread(() =>
+                {
                     Application.Run(curForm);
                 });
+                curForm.StartPosition = FormStartPosition.CenterScreen;
                 th.SetApartmentState(ApartmentState.STA);
-                th.Start();
-                //form.Show();
+                th.Start();                
+                return;
             }
-            else
-            {
-                Form perForm = m_FormStackList.Peek();
-                perForm.Hide();
-                m_FormStackList.Push(curForm);
-                curForm.Show();
-            }
+            Form perForm = m_FormStackList.Peek();
+            perForm.Hide();
+            m_FormStackList.Push(curForm);
+            curForm.StartPosition = FormStartPosition.Manual;
+            curForm.Location = perForm.Location;
+            curForm.Show();
         }
 
         public void BackClose()
         {
+            Form perForm = null;
             if (m_FormStackList.Count > 1)
             {
-                Form perForm = m_FormStackList.Pop();
+                perForm = m_FormStackList.Pop();
+                perForm.Hide();
+            }
+            // set pervious form
+            Form curForm = m_FormStackList.Peek();
+            if (perForm != null)
+            {
+                curForm.Location = perForm.Location;
+                // close current form
                 perForm.Close();
                 perForm.DialogResult = DialogResult.OK;
                 perForm.Dispose();
             }
-            if (m_FormStackList.Count == 1)
-            {
-                // main
-                Form main = m_FormStackList.Peek();
-                main.Show();
-            }
-            else
-            {
-                Form curForm = m_FormStackList.Peek();
-                curForm.Show();
-            }
+            curForm.Show();
         }
-
     }
 }

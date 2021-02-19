@@ -7,15 +7,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.Web.Script.Serialization;
-using System.Security.Cryptography;
-using System.Xml.Serialization;
 using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData;
-using System.Collections;
-using System.Reflection;
-using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData.Data;
+using SoftLiu_VSMainMenuTools.UGUI.Tools;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -24,30 +18,20 @@ namespace SoftLiu_VSMainMenuTools
         private bool m_timeSpanPuse = false;
         private bool m_formClosing = false;
 
+        private Thread m_CountTimeTh = null;
+        private DateTime m_CountTimeDt;
+        private bool m_cancelCountTime = false;
+
+        #region Form Event
         public MainMenuForm()
         {
-            //Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
-
             InitializeComponent();
         }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
-            //FormManager.Instance.SplashForm.Close();
-
-            Console.WriteLine("SoftLiu_VSMainMenuTools Load");
-            //this.Hide();
-            //SplashLoader splash = new SplashLoader();
-            //splash.InitConfiger(this);
-            //splash.ShowDialog();
-            MainMenuForm_Init();
-
             this.TopMost = true;
-        }
 
-        public void MainMenuForm_Init()
-        {
-            //this.Show();
             ShowTimeAndTimeSpan();
             this.textBoxTimeCount.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
             this.textBoxTimeBefor.Text = string.Format("{0}-01-01 00:00:00", DateTime.Now.Year + 1);
@@ -58,9 +42,35 @@ namespace SoftLiu_VSMainMenuTools
             textBoxLog.AppendText(Localization.Instance.Format("STRING_STATE_SCORE", 100) + "\r\n");
         }
 
+        private void MainMenuForm_Activated(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+        }
+
+        private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.m_formClosing = true;
+        }
+
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                Environment.Exit(Environment.ExitCode);
+                this.Dispose();
+                this.Close();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine($"MainMenu_FormClosed Error:{error.Message}");
+            }
+        }
+
+        #endregion
+
         private void ShowTimeAndTimeSpan()
         {
-            Thread th = new Thread(() =>
+            ThreadPoolManager.Instance.QueueUserWorkItem((state) =>
             {
                 while (!m_formClosing)
                 {
@@ -84,26 +94,7 @@ namespace SoftLiu_VSMainMenuTools
                     }
                 }
             });
-            th.Start();
         }
-
-        private void excelToXmlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form excelToXml = new ExcelToXml.ExcelToXmlForm();
-            excelToXml.Show();
-        }
-
-        private void excelToCSVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form mySql = new MySqlBasedataForm();
-            FormManager.Instance.OpenForm(mySql);
-        }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -141,11 +132,25 @@ namespace SoftLiu_VSMainMenuTools
             //Console.WriteLine(js);
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void textBoxFilePath_DragDrop(object sender, DragEventArgs e)
         {
-            Form about = new AboutForm();
-            about.ShowDialog();
+            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();//获得路径
+            if (this.textBoxFilePath.Text.CompareTo(path) != 0)
+            {
+                this.textBoxFilePath.Text = path; //由一个textBox显示路径
+                this.textBoxMD5Str.Text = string.Empty;
+            }
         }
+
+        private void textBoxFilePath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All; //重要代码：表明是所有类型的数据，比如文件路径
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        #region Button Click
 
         private void buttonTimeSpan_Click(object sender, EventArgs e)
         {
@@ -171,9 +176,7 @@ namespace SoftLiu_VSMainMenuTools
                 MessageBox.Show(string.Format("{0}\r\n{1}", type, msg.Message), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private Thread m_CountTimeTh = null;
-        private DateTime m_CountTimeDt;
-        private bool m_cancelCountTime = false;
+
         private void buttonCountdown_Click(object sender, EventArgs e)
         {
             if (buttonCountdown.Text == "确定")
@@ -247,42 +250,6 @@ namespace SoftLiu_VSMainMenuTools
                     buttonCountdown.Text = "确定";
                 }
             }
-        }
-
-        private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.m_formClosing = true;
-        }
-        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                Environment.Exit(Environment.ExitCode);
-                this.Dispose();
-                this.Close();
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine($"MainMenu_FormClosed Error:{error.Message}");
-            }
-        }
-
-        private void textBoxFilePath_DragDrop(object sender, DragEventArgs e)
-        {
-            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();//获得路径
-            if (this.textBoxFilePath.Text.CompareTo(path) != 0)
-            {
-                this.textBoxFilePath.Text = path; //由一个textBox显示路径
-                this.textBoxMD5Str.Text = string.Empty;
-            }
-        }
-
-        private void textBoxFilePath_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.All; //重要代码：表明是所有类型的数据，比如文件路径
-            else
-                e.Effect = DragDropEffects.None;
         }
 
         private Thread m_MD5ExchargeThread = null;
@@ -389,12 +356,12 @@ namespace SoftLiu_VSMainMenuTools
             {
                 StringBuilder sb16 = new StringBuilder();
                 StringBuilder sb2 = new StringBuilder();
-                List<int> list = Get16thList(result);
+                List<int> list = ConvertUtils.To16thList(result);
                 for (int i = 0; i < list.Count; i++)
                 {
                     int index = list[i];
-                    sb16.Append(Get16thChar(list[i]));
-                    List<int> list2 = Get2thList(index);
+                    sb16.Append(ConvertUtils.To16thChar(list[i]));
+                    List<int> list2 = ConvertUtils.To2thList(index);
                     StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < list2.Count; j++)
                     {
@@ -426,106 +393,6 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private List<int> Get16thList(int value)
-        {
-            List<int> list = new List<int>();
-            if (value / 16 > 0)
-            {
-                list.AddRange(Get16thList(value / 16));
-            }
-            list.Add(value % 16);
-
-            return list;
-        }
-        private List<int> Get2thList(int index)
-        {
-            List<int> list = new List<int>();
-            if (index / 2 > 0)
-            {
-                list.AddRange(Get2thList(index / 2));
-            }
-            list.Add(index % 2);
-            return list;
-        }
-        private char Get16thChar(int index)
-        {
-            char ch = '0';
-            switch (index)
-            {
-                case 10:
-                    ch = 'A';
-                    break;
-                case 11:
-                    ch = 'B';
-                    break;
-                case 12:
-                    ch = 'C';
-                    break;
-                case 13:
-                    ch = 'D';
-                    break;
-                case 14:
-                    ch = 'E';
-                    break;
-                case 15:
-                    ch = 'F';
-                    break;
-                default:
-                    ch = index.ToString().ToCharArray(0, 1)[0];
-                    break;
-            }
-            return ch;
-        }
-        private string Get16String(int value)
-        {
-            StringBuilder sb16 = new StringBuilder();
-            List<int> list = Get16thList(value);
-            for (int i = 0; i < list.Count; i++)
-            {
-                int index = list[i];
-                sb16.Append(Get16thChar(list[i]));
-            }
-            int len = sb16.ToString().Length % 2;
-            string head = "";
-            if (len != 0)
-            {
-                head = "0";
-            }
-            return (head + sb16.ToString());
-        }
-        private int GetHexInt(char hex)
-        {
-            int ch = 0;
-            switch (hex)
-            {
-                case 'A':
-                    ch = 10;
-                    break;
-                case 'B':
-                    ch = 11;
-                    break;
-                case 'C':
-                    ch = 12;
-                    break;
-                case 'D':
-                    ch = 13;
-                    break;
-                case 'E':
-                    ch = 14;
-                    break;
-                case 'F':
-                    ch = 15;
-                    break;
-                default:
-                    if (!int.TryParse(hex.ToString(), out ch))
-                    {
-                        ch = -1;
-                    }
-                    break;
-            }
-            return ch;
-        }
-
         private void textBoxSix_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -535,7 +402,7 @@ namespace SoftLiu_VSMainMenuTools
         {
 
         }
-
+       
         private void buttonSixExchange_Click(object sender, EventArgs e)
         {
             string input = textBoxSix.Text.Trim();
@@ -548,7 +415,7 @@ namespace SoftLiu_VSMainMenuTools
             bool isAllZero = true;
             for (int i = 0; i < input.Length; i++)
             {
-                int hex = GetHexInt(input[input.Length - i - 1]);
+                int hex = ConvertUtils.ToHexToInt(input[input.Length - i - 1]);
                 if (hex < 0)
                 {
                     MessageBox.Show("输入有错，重新输入.");
@@ -556,14 +423,14 @@ namespace SoftLiu_VSMainMenuTools
                     return;
                 }
                 hexList.Add(hex);
-                int index = GetHexInt(input[i]);
+                int index = ConvertUtils.ToHexToInt(input[i]);
                 if (index < 0)
                 {
                     MessageBox.Show("输入有错，重新输入.");
                     //textBoxSix.Text = string.Empty;
                     return;
                 }
-                list2 = Get2thList(index);
+                list2 = ConvertUtils.To2thList(index);
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < list2.Count; j++)
                 {
@@ -632,7 +499,7 @@ namespace SoftLiu_VSMainMenuTools
                         hex += (int)Math.Pow(2, j);
                     }
                 }
-                sb.Append(Get16thChar(hex));
+                sb.Append(ConvertUtils.To16thChar(hex));
                 hexList.Add(hex);
             }
 
@@ -687,19 +554,19 @@ namespace SoftLiu_VSMainMenuTools
                 textBoxColorB.Text = b.ToString();
 
                 List<int> list = new List<int>();
-                List<int> listR = Get16thList(r);
+                List<int> listR = ConvertUtils.To16thList(r);
                 for (int i = listR.Count; i < 2; i++)
                 {
                     list.Add(0);
                 }
                 list.AddRange(listR);
-                List<int> listG = Get16thList(g);
+                List<int> listG = ConvertUtils.To16thList(g);
                 for (int i = listG.Count; i < 2; i++)
                 {
                     list.Add(0);
                 }
                 list.AddRange(listG);
-                List<int> listB = Get16thList(b);
+                List<int> listB = ConvertUtils.To16thList(b);
                 for (int i = listB.Count; i < 2; i++)
                 {
                     list.Add(0);
@@ -710,7 +577,7 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     int value = list[i];
-                    sb.Append(Get16thChar(value));
+                    sb.Append(ConvertUtils.To16thChar(value));
                 }
                 textBoxColorHex.Text = sb.ToString();
 
@@ -743,12 +610,12 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < listStr.Count; i++)
                 {
                     string value = listStr[i];
-                    int one = GetHexInt(value[0]);
-                    int two = GetHexInt(value[1]);
+                    int one = ConvertUtils.ToHexToInt(value[0]);
+                    int two = ConvertUtils.ToHexToInt(value[1]);
                     int result = one * 16 + two;
                     if (result > 255 || result < 0)
                         result = 0;
-                    colorSB.Append(Get16String(result));
+                    colorSB.Append(ConvertUtils.To16thString(result));
                     colorInt.Add(result);
                 }
 
@@ -771,19 +638,19 @@ namespace SoftLiu_VSMainMenuTools
                 int.TryParse(gInput.Replace(" ", ""), out g);
                 int.TryParse(bInput.Replace(" ", ""), out b);
                 List<int> list = new List<int>();
-                List<int> listR = Get16thList(r);
+                List<int> listR = ConvertUtils.To16thList(r);
                 for (int i = listR.Count; i < 2; i++)
                 {
                     list.Add(0);
                 }
                 list.AddRange(listR);
-                List<int> listG = Get16thList(g);
+                List<int> listG = ConvertUtils.To16thList(g);
                 for (int i = listG.Count; i < 2; i++)
                 {
                     list.Add(0);
                 }
                 list.AddRange(listG);
-                List<int> listB = Get16thList(b);
+                List<int> listB = ConvertUtils.To16thList(b);
                 for (int i = listB.Count; i < 2; i++)
                 {
                     list.Add(0);
@@ -794,7 +661,7 @@ namespace SoftLiu_VSMainMenuTools
                 for (int i = 0; i < list.Count; i++)
                 {
                     int value = list[i];
-                    sb.Append(Get16thChar(value));
+                    sb.Append(ConvertUtils.To16thChar(value));
                 }
                 textBoxColorShowHex.Text = sb.ToString();
                 buttonColorShow.BackColor = Color.FromArgb(r, g, b);
@@ -805,26 +672,6 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private void tCPIPTestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form tcp = new TCP_IPMenuForm();
-            //tcp.Show();
-            FormManager.Instance.OpenForm(tcp);
-        }
-
-        private void otherToolsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form tools = new SoftLiu_VSMainMenuTools.OtherTools.OtherTools();
-            tools.Show();
-        }
-
-        private void webSocketClientToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form webSocket = new WebSocketClient();
-            //tcp.Show();
-            FormManager.Instance.OpenForm(webSocket);
-        }
-
         private void buttonCheckCardID_Click(object sender, EventArgs e)
         {
             textBoxCheckCardIDArea.Text = "";
@@ -832,7 +679,6 @@ namespace SoftLiu_VSMainMenuTools
             textBoxCheckCardIDAge.Text = "";
 
             string cardID = textBoxCheckCardID.Text.Trim();
-            textBoxLog.AppendText($"身份证号码：{cardID}\r\n");
 
             int gender = -1;
             DateTime brithday = default(DateTime);
@@ -856,9 +702,61 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private void MainMenuForm_Activated(object sender, EventArgs e)
+        #endregion
+
+        #region Menu Item Click
+
+        private void excelToXmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.TopMost = false;
+            Form excelToXml = new ExcelToXml.ExcelToXmlForm();
+            excelToXml.Show();
         }
+
+        private void excelToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openMySqlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form mySql = new MySqlBasedataForm();
+            FormManager.Instance.OpenForm(mySql);
+        }
+
+        private void tCPIPTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form tcp = new TCP_IPMenuForm();
+            //tcp.Show();
+            FormManager.Instance.OpenForm(tcp);
+        }
+
+        private void otherToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form tools = new SoftLiu_VSMainMenuTools.OtherTools.OtherTools();
+            tools.Show();
+        }
+
+        private void webSocketClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form webSocket = new WebSocketClient();
+            FormManager.Instance.OpenForm(webSocket);
+        }
+
+        private void readerPDFToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form pdf = new ReaderPDFTools();
+            //tcp.Show();
+            FormManager.Instance.OpenForm(pdf);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form about = new AboutForm();
+            about.ShowDialog();
+        }
+
+        #endregion
+
+        
     }
 }

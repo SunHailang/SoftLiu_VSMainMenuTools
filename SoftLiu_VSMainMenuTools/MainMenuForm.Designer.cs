@@ -140,6 +140,7 @@
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.readerPDFToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -155,6 +156,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.DarkSalmon;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
@@ -191,7 +193,8 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.excelToXmlToolStripMenuItem,
             this.excelToCSVToolStripMenuItem,
-            this.otherToolsToolStripMenuItem});
+            this.otherToolsToolStripMenuItem,
+            this.readerPDFToolsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -290,6 +293,7 @@
             // 
             // tabPageTimeTools
             // 
+            this.tabPageTimeTools.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageTimeTools.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPageTimeTools.Controls.Add(this.buttonSecondsCount);
             this.tabPageTimeTools.Controls.Add(this.buttonCountdown);
@@ -321,7 +325,6 @@
             this.tabPageTimeTools.Size = new System.Drawing.Size(280, 530);
             this.tabPageTimeTools.TabIndex = 0;
             this.tabPageTimeTools.Text = "时间转换";
-            this.tabPageTimeTools.UseVisualStyleBackColor = true;
             // 
             // buttonSecondsCount
             // 
@@ -1229,10 +1232,18 @@
             this.textBoxLog.Size = new System.Drawing.Size(668, 152);
             this.textBoxLog.TabIndex = 4;
             // 
+            // readerPDFToolsToolStripMenuItem
+            // 
+            this.readerPDFToolsToolStripMenuItem.Name = "readerPDFToolsToolStripMenuItem";
+            this.readerPDFToolsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.readerPDFToolsToolStripMenuItem.Text = "ReaderPDFTools";
+            this.readerPDFToolsToolStripMenuItem.Click += new System.EventHandler(this.readerPDFToolsToolStripMenuItem_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(986, 596);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.dataGridView1);
@@ -1383,6 +1394,7 @@
         private System.Windows.Forms.TextBox textBoxCheckCardIDAge;
         private System.Windows.Forms.TextBox textBoxCheckCardIDGender;
         private System.Windows.Forms.TextBox textBoxCheckCardIDArea;
+        private System.Windows.Forms.ToolStripMenuItem readerPDFToolsToolStripMenuItem;
     }
 }
 

@@ -169,7 +169,14 @@
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UGUI\FormManager.cs" />
+    <Compile Include="UGUI\Tools\ReaderPDF\ReaderPDFTools.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UGUI\Tools\ReaderPDF\ReaderPDFTools.Designer.cs">
+      <DependentUpon>ReaderPDFTools.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ConfigurationUtils.cs" />
+    <Compile Include="Utils\ConvertUtils.cs" />
     <Compile Include="Utils\DatabaseManager\MysqlManager.cs" />
     <Compile Include="Singleton\DataStruct.cs" />
     <Compile Include="Utils\EventsManager\EventManager.cs" />
@@ -225,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SocketClient\TCP_IPMenuForm.resx">
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UGUI\Tools\ReaderPDF\ReaderPDFTools.resx">
+      <DependentUpon>ReaderPDFTools.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

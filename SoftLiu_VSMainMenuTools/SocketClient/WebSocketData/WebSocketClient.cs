@@ -351,7 +351,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
         private void MatchTimeCallback(byte[] bsend)
         {
-            ThreadPool.QueueUserWorkItem((state) =>
+            ThreadPoolManager.Instance.QueueUserWorkItem((state) =>
             {
                 while (!gameing && !m_closeWebsocket)
                 {
@@ -492,7 +492,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             int hp = 100;
             int score = 0;
             gameing = true;
-            ThreadPool.QueueUserWorkItem((state) =>
+            ThreadPoolManager.Instance.QueueUserWorkItem((state) =>
             {
                 while (!gameOver && !m_closeWebsocket)
                 {
