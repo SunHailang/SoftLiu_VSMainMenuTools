@@ -1,4 +1,5 @@
 #####################
+<<<<<<< HEAD
 
 /Out/SoftLiu_VSMainMenuTools.exe
 /Out/SoftLiu_VSMainMenuTools.pdb
@@ -6,6 +7,12 @@
 /SoftLiu_VSMainMenuTools/SoftLiu_VSMainMenuTools.csproj.user
 
 
+=======
+/SoftLiu_VSMainMenuTools/SoftLiu_VSMainMenuTools.csproj.user
+/Out/SoftLiu_VSMainMenuTools.vshost.exe.manifest
+/Out/SoftLiu_VSMainMenuTools.exe
+/Out/SoftLiu_VSMainMenuTools.pdb
+>>>>>>> b8660fa3cc68f965b2d26f1f6c68629acd70cfac
 
 #####################
 /Library/
