@@ -56,9 +56,9 @@ namespace SoftLiu_VSMainMenuTools
         {
             try
             {
-                Environment.Exit(Environment.ExitCode);
                 this.Dispose();
                 this.Close();
+                Environment.Exit(Environment.ExitCode);
             }
             catch (Exception error)
             {

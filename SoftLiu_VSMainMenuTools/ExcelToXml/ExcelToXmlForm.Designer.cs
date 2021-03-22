@@ -41,12 +41,12 @@
             // textBoxPath
             // 
             this.textBoxPath.AllowDrop = true;
-            this.textBoxPath.Location = new System.Drawing.Point(100, 60);
+            this.textBoxPath.Location = new System.Drawing.Point(100, 55);
             this.textBoxPath.Multiline = true;
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.ReadOnly = true;
             this.textBoxPath.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPath.Size = new System.Drawing.Size(495, 88);
+            this.textBoxPath.Size = new System.Drawing.Size(495, 82);
             this.textBoxPath.TabIndex = 0;
             this.textBoxPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxPath_DragDrop);
             this.textBoxPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxPath_DragEnter);
@@ -54,59 +54,57 @@
             // labelPath
             // 
             this.labelPath.AutoSize = true;
-            this.labelPath.Location = new System.Drawing.Point(36, 63);
+            this.labelPath.Location = new System.Drawing.Point(36, 58);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(61, 13);
+            this.labelPath.Size = new System.Drawing.Size(71, 12);
             this.labelPath.TabIndex = 1;
             this.labelPath.Text = "Excel Path:";
             // 
             // buttonSure
             // 
-            this.buttonSure.Location = new System.Drawing.Point(519, 155);
+            this.buttonSure.Location = new System.Drawing.Point(519, 143);
             this.buttonSure.Name = "buttonSure";
-            this.buttonSure.Size = new System.Drawing.Size(75, 23);
+            this.buttonSure.Size = new System.Drawing.Size(75, 21);
             this.buttonSure.TabIndex = 2;
             this.buttonSure.Text = "转换";
             this.buttonSure.UseVisualStyleBackColor = true;
-            this.buttonSure.Click += new System.EventHandler(this.buttonSure_Click);
             // 
             // comboBoxLanguage
             // 
             this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(100, 22);
+            this.comboBoxLanguage.Location = new System.Drawing.Point(100, 20);
             this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.comboBoxLanguage.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxLanguage.Size = new System.Drawing.Size(120, 20);
             this.comboBoxLanguage.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(22, 172);
+            this.button1.Location = new System.Drawing.Point(22, 159);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 21);
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(100, 242);
+            this.textBox1.Location = new System.Drawing.Point(100, 197);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(494, 20);
+            this.textBox1.Size = new System.Drawing.Size(494, 21);
             this.textBox1.TabIndex = 5;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(101, 281);
+            this.textBox2.Location = new System.Drawing.Point(101, 233);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(186, 20);
+            this.textBox2.Size = new System.Drawing.Size(186, 21);
             this.textBox2.TabIndex = 5;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(356, 278);
+            this.button2.Location = new System.Drawing.Point(356, 231);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(75, 21);
             this.button2.TabIndex = 4;
             this.button2.Text = "删除";
             this.button2.UseVisualStyleBackColor = true;
@@ -114,9 +112,9 @@
             // 
             // ExcelToXmlForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 430);
+            this.ClientSize = new System.Drawing.Size(791, 397);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);

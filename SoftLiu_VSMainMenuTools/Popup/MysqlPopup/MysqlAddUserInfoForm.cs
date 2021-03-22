@@ -16,8 +16,6 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
     public partial class MysqlAddUserInfoForm : Form
     {
 
-        private bool m_autoInsertData = false;
-
         private List<ChinaInfo> m_chinaList = null;
 
         private Dictionary<string, Dictionary<string, List<string>>> cityDic = new Dictionary<string, Dictionary<string, List<string>>>();
@@ -206,7 +204,6 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
             List<string> cardIdList = new List<string>();
             Thread th = new Thread(() =>
             {
-                m_autoInsertData = true;
                 int sutunum = 1;
                 //insert into student(classid, gradeid, stunum, cardid, name, age, gender, phonenum, email, address, isdelete) 
                 //       values(1, 1, '100102020110001', '342201200201204892', 'zhansan', 18, 0, '1587920110', 'unknow@emil', '', 0);
@@ -228,7 +225,7 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
                     {
                         break;
                     }
-                    m_autoInsertData = true;
+
                     sutunum += 1;
                     textBoxCardID.Text = string.Format("{0}", sutunum);
                     StringBuilder sb = new StringBuilder();
@@ -285,11 +282,8 @@ namespace SoftLiu_VSMainMenuTools.Popup.MysqlPopup
                 {
                     MessageBox.Show("insert Failed.");
                 }
-                m_autoInsertData = false;
             });
             th.Start();
-
-
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

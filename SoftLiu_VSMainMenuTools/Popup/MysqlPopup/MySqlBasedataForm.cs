@@ -26,12 +26,6 @@ namespace SoftLiu_VSMainMenuTools
 
         private List<Student> m_currentStudentIsDeleteList = null;
 
-        //private delegate void StudentDatabaseDelegate(Student student); // 委托的声明
-
-        //private StudentDatabaseDelegate ModifyDataFunc;
-        //private StudentDatabaseDelegate DeletaDataFunc;
-
-        private Student m_currentDatabaseStudent = null;
         
 
         public MySqlBasedataForm()
