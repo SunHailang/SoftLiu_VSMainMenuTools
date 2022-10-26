@@ -1,5 +1,6 @@
 ﻿using Config.ExcelConfigAttribute;
 using ExcelTConfig.Base;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -284,6 +285,109 @@ namespace ExcelTConfig
 
             FlushKlassOrders();
             CheckMetaHashDirtyCount();
+        }
+        private static void FlushKlassOrders()
+        {
+            var klassOrders = new Dictionary<string, int>();
+            Entry.klassOrders = klassOrders;
+            var prevOrders = new Dictionary<string, int>();
+            Entry.klassStoredMetaHashes = new Dictionary<string, int>();
+            var prevMetaHash = Entry.klassStoredMetaHashes;
+            var i18nKlassOrders = new Dictionary<string, int>();
+            Entry.i18nKlassOrders = i18nKlassOrders;
+            var prevI18NOrders = new Dictionary<string, int>();
+            Entry.classPropertiesInfo = new Dictionary<string, KlassDataInfo>();
+
+            var orderFilePath = typeof(Entry).Namespace.ToString() + "Order.json";
+            JObject config = null;
+            if (File.Exists(orderFilePath))
+            {
+                string data = File.ReadAllText(orderFilePath);
+                if (!string.IsNullOrEmpty(data))
+                {
+                    config = JObject.Parse(data);
+
+                    JToken jToken;
+                    if (config.TryGetValue(OrderKey, out jToken))
+                    {
+                        var orderConfig = jToken as JObject;
+                        foreach (var kv in orderConfig) prevOrders[kv.Key] = (int)kv.Value;
+                    }
+                    if (config.TryGetValue(MetaHashKey, out jToken))
+                    {
+                        var metaHashConfig = jToken as JObject;
+                        foreach (var kv in metaHashConfig) prevMetaHash[kv.Key] = (int)kv.Value;
+                    }
+                    if (config.TryGetValue(I18NOrderKey, out jToken))
+                    {
+                        var i18nOrderConfig = jToken as JObject;
+                        foreach (var kv in i18nOrderConfig) prevI18NOrders[kv.Key] = (int)kv.Value;
+                    }
+                }
+            }
+
+            var classInfoPath = typeof(Entry).Namespace.ToString() + "ClassInfo.json";
+            if (File.Exists(classInfoPath))
+            {
+                string data = File.ReadAllText(classInfoPath);
+                if (!string.IsNullOrEmpty(data))
+                {
+                    var classInfoJson = JObject.Parse(data);
+                    JToken jToken;
+                    if (classInfoJson.TryGetValue(ClassInfoKey, out jToken))
+                    {
+                        var classInfoConfig = jToken as JObject;
+                        foreach (var kv in classInfoConfig) Entry.classPropertiesInfo[kv.Key] = kv.Value.ToObject<KlassDataInfo>();
+                    }
+                }
+            }
+
+            int orderGen = prevOrders.Count == 0 ? 1 : (prevOrders.Max(kv => kv.Value) + 1);
+            bool dirty = false;
+            foreach (var kv in Entry.klasses)
+            {
+                var klass = kv.Value;
+                if (klass.type != Klass.KlassType.Config && klass.type != Klass.KlassType.Static) continue;
+
+                int order;
+                if (!prevOrders.TryGetValue(klass.name, out order))
+                {
+                    order = orderGen++;
+                    dirty = true;
+                }
+
+                klassOrders[kv.Key] = order;
+            }
+            int i18nOrderGen = prevI18NOrders.Count == 0 ? 1 : (prevI18NOrders.Max(kv => kv.Value) + 1);
+            foreach (var kv in Entry.i18NKlasses)
+            {
+                var i18nKlass = kv.Value;
+
+                int order;
+                if (!prevI18NOrders.TryGetValue(i18nKlass.name, out order))
+                {
+                    order = i18nOrderGen++;
+                    dirty = true;
+                }
+
+                i18nKlassOrders[kv.Key] = order;
+            }
+            if (dirty)
+            {
+                if (config == null) config = new JObject();
+
+                var orderConfig = new JObject();
+                config[OrderKey] = orderConfig;
+                foreach (var kv in Entry.klasses.Where(kv => kv.Value.type == Klass.KlassType.Config || kv.Value.type == Klass.KlassType.Static).OrderBy(kv => klassOrders[kv.Key]))
+                {
+                    orderConfig[kv.Key] = klassOrders[kv.Key];
+                }
+                var i18nOrderConfig = new JObject();
+                config[I18NOrderKey] = i18nOrderConfig;
+                foreach (var kv in Entry.i18NKlasses.OrderBy(kv => i18nKlassOrders[kv.Key])) i18nOrderConfig[kv.Key] = i18nKlassOrders[kv.Key];
+
+                File.WriteAllText(orderFilePath, config.ToString());
+            }
         }
 
 

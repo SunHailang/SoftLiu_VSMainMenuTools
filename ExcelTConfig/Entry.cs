@@ -11,6 +11,19 @@ using System.Text;
 
 namespace ExcelTConfig
 {
+
+    public struct KlassSingleDataInfo
+    {
+        public string name;
+        public DataRangeInfo range;
+    }
+
+    public class KlassDataInfo
+    {
+        public int rowBegin;
+        public List<KlassSingleDataInfo> listDatas = new List<KlassSingleDataInfo>();
+    }
+
     public class Entry
     {
         private static HashSet<string> dllNamespace = new HashSet<string>()
@@ -28,6 +41,20 @@ namespace ExcelTConfig
         public static string SqlDataAndTableFolderPath { get; private set; }
         public static string[] Lang { get; private set; }
         #endregion
+
+        public static List<string> DLLKlasses { get; private set; } = new List<string>();
+
+        public static Dictionary<string, Klass> klasses;
+
+        public static Dictionary<string, I18NKlass> i18NKlasses;
+
+        public static Dictionary<string, int> klassOrders;
+
+        public static Dictionary<string, int> klassStoredMetaHashes;
+
+        public static Dictionary<string, int> i18nKlassOrders;
+
+        public static Dictionary<string, KlassDataInfo> classPropertiesInfo;
 
 
         public void LoadInit()
@@ -105,7 +132,7 @@ namespace ExcelTConfig
             }
         }
 
-        public static List<string> DLLKlasses { get; private set; } = new List<string>();
+        
         private void LoadDLLKlassesData()
         {
             DLLKlasses.Clear();
@@ -141,9 +168,6 @@ namespace ExcelTConfig
             }
         }
 
-        public static Dictionary<string, Klass> klasses;
-
-        public static Dictionary<string, I18NKlass> i18NKlasses;
         
     }
 }

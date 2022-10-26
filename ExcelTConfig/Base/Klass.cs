@@ -29,6 +29,8 @@ namespace ExcelTConfig.Base
         public string[] excels { get; private set; }
         public string[] sheets { get; private set; }
         public ListType listType { get; private set; }
+
+        public bool hasClassifyKey { get { return classifyKeyProperty != null; } }
         public bool isKeyValuePair { get; private set; }
         public bool isPersistentEnum { get; private set; }
         public string enumCustomDataValidation { get; private set; }
@@ -49,6 +51,19 @@ namespace ExcelTConfig.Base
         public Property classifyKeyProperty { get; private set; }
         public Property groupKeyProperty { get; private set; }
         public Property markAsIdProperty { get; private set; }
+        public int idPropertyIndex { get; private set; } = -1;
+        public int codeNamePropertyIndex { get; private set; } = -1;
+        public int designNamePropertyIndex { get; private set; } = -1;
+        public int classifyKeyPropertyIndex { get; private set; } = -1;
+        public int groupKeyPropertyIndex { get; private set; } = -1;
+
+        public List<Property> baseTypes { get; private set; } = new List<Property>();
+
+        public List<string> otherNames { get; private set; } = new List<string>();
+        public int rawWidth { get => baseTypes.Count; }
+
+        public int width { get; private set; }
+        public int depth { get; private set; }
 
         public List<Property> rawProperties { get; private set; } = new List<Property>();
         public List<Property> properties { get; private set; } = new List<Property>();
@@ -338,6 +353,78 @@ namespace ExcelTConfig.Base
             this.width = width;
             this.depth = depth;
         }
+
+        public void CalculateBaseTypes()
+        {
+            foreach (var property in rawProperties) CalculateBaseTypesOnProperty(property);
+
+            if (type == KlassType.Config || type == KlassType.Enum)
+            {
+                if (idProperty != null) idPropertyIndex = baseTypes.IndexOf(idProperty);
+                if (codeNameProperty != null) codeNamePropertyIndex = baseTypes.IndexOf(codeNameProperty);
+                if (designNameProperty != null) designNamePropertyIndex = baseTypes.IndexOf(designNameProperty);
+                if (classifyKeyProperty != null) classifyKeyPropertyIndex = baseTypes.IndexOf(classifyKeyProperty);
+                if (groupKeyProperty != null) groupKeyPropertyIndex = baseTypes.IndexOf(groupKeyProperty);
+            }
+        }
+
+        private void CalculateBaseTypesOnProperty(Property property, bool inArray = false)
+        {
+            if (property.isArray && !inArray)
+            {
+                for (int it = 0; it < property.arrayLength; it++)
+                {
+                    CalculateBaseTypesOnProperty(property, true);
+                }
+            }
+            else if (property.isBasicType) baseTypes.Add(property);
+            else if (property.refKlass.type == KlassType.Enum) baseTypes.Add(property);
+            else if (property.refKlass.type == KlassType.Config)
+            {
+                if (property.refKlass.hasClassifyKey) baseTypes.Add(property.refKlass.classifyKeyProperty.clonedClassifyKeyProperty);
+                baseTypes.Add(property);
+            }
+            else
+            {
+                foreach (var subProperty in property.refKlass.rawProperties) CalculateBaseTypesOnProperty(subProperty);
+            }
+        }
+
+        public void SetOtherNames()
+        {
+            foreach (var property in rawProperties) SetOtherNameOnProperty(property, property.name);
+        }
+        private void SetOtherNameOnProperty(Property property, string name, int arraryIndex = -1)
+        {
+            if (arraryIndex != -1)
+            {
+                name = string.Format("{0}_{1}", name, arraryIndex);
+            }
+
+            if (property.isArray && arraryIndex == -1)
+            {
+                for (int it = 0; it < property.arrayLength; it++)
+                {
+                    SetOtherNameOnProperty(property, name, it);
+                }
+            }
+
+            else if (property.isBasicType) otherNames.Add(name);
+            else if (property.refKlass.type == KlassType.Enum) otherNames.Add(name);
+            else if (property.refKlass.type == KlassType.Config)
+            {
+                throw new ConfigException("No define referece config current !!!");
+            }
+            else
+            {
+                foreach (var subProperty in property.refKlass.rawProperties)
+                {
+                    var newName = string.Format("{0}_{1}", name, subProperty.name);
+                    SetOtherNameOnProperty(subProperty, newName);
+                }
+            }
+        }
+
     }
 
     public class KlassInfo
