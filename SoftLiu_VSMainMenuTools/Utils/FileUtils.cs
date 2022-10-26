@@ -97,16 +97,16 @@ namespace SoftLiu_VSMainMenuTools.Utils
         /// </summary>
         /// <param name="m_path"></param>
         /// <returns></returns>
-        public static byte[] ReadFileBytes(string m_path)
+        public static byte[] ReadFileBytes(string m_path, bool isCreate = false)
         {
-            if (!File.Exists(m_path))
+            if (!File.Exists(m_path) && !isCreate)
             {
                 return null;
             }
             byte[] bytes = null;
             try
             {
-                using (FileStream stream = new FileStream(m_path, FileMode.Open, FileAccess.Read))
+                using (FileStream stream = new FileStream(m_path, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     long leftLength = stream.Length;
                     bytes = new byte[leftLength];
