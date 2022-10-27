@@ -1,9 +1,4 @@
 ﻿using Config.ExcelConfigAttribute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Config.ClientAndServer
 {
@@ -24,5 +19,11 @@ namespace Config.ClientAndServer
         public EnumType dict_type;
         [Tips("介绍Desc"), MarkSpecificType(SpecificType.VARCHAR, 64)]
         public string dict_desc;
+        [Tips("Int类型数组"), Capacity(3), MarkSpecificType(SpecificType.INT, 10)]
+        public int[] arrayInt;
+        [Tips("Int类型分割"), MarkSplitString(SplitSingleType.Int), MarkSpecificType(SpecificType.INT, 10)]
+        public string splitInt;
+        [Tips("String类型分割"), MarkSplitString(SplitSingleType.String), MarkSpecificType(SpecificType.VARCHAR, 64)]
+        public string splitString;
     }
 }

@@ -84,7 +84,7 @@ namespace ExcelTConfig
                 jsonText = Encoding.UTF8.GetString(bytes);
             }
 
-            JObject config = null;
+            JObject config;
             if (string.IsNullOrEmpty(jsonText))
             {
                 config = new JObject();
@@ -95,11 +95,13 @@ namespace ExcelTConfig
             }
 
             JToken dllToken;
-            if (!config.TryGetValue(nameof(DLLPath), out dllToken) || !(dllToken is JArray)) throw new ConfigException(ErrorMessage.JsonConfigFileNoDllFileField);
+            if (!config.TryGetValue(nameof(DLLPath), out dllToken) || !(dllToken is JArray))
+            {
+                config[nameof(DLLPath)] = new JArray();
+            }
             DLLPath.Clear();
             foreach (var v in dllToken as JArray)
             {
-                // "../TableDefine/Config.ClientAndServer.dll"
                 var path = v.ToString();
                 DLLPath.Add(path);
                 if (!File.Exists(path)) throw new ConfigException(ErrorMessage.FileNotExist, path);
@@ -108,7 +110,12 @@ namespace ExcelTConfig
             string getValue(string key)
             {
                 bool suc = config.TryGetValue(key, out JToken jToken);
-                return suc ? jToken.ToString() : throw new Exception($"Path:{jsonPath}, Key:{key} config not exist.");
+                if(!suc)
+                {
+                    jToken = JToken.Parse("");
+                    config[key] = jToken;
+                }
+                return jToken.ToString();
             }
 
             ExcelFolderPath = getValue(nameof(ExcelFolderPath));
@@ -118,11 +125,12 @@ namespace ExcelTConfig
             InsertSqlFolderPath = getValue(nameof(InsertSqlFolderPath));
             SqlDataAndTableFolderPath = getValue(nameof(SqlDataAndTableFolderPath));
 
-
             JToken langToken;
             if (!config.TryGetValue(nameof(Lang), out langToken) || !(langToken is JArray))
             {
-                throw new Exception($"Path:{jsonPath}, Key:{nameof(Lang)} Error.");
+                langToken = new JArray();
+                config[nameof(Lang)] = langToken;
+                //throw new Exception($"Path:{jsonPath}, Key:{nameof(Lang)} Error.");
             }
             JArray langArray = langToken as JArray;
             Lang = new string[langArray.Count];
