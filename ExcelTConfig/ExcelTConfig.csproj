@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="EPPlus" Version="6.0.8" />
+    <PackageReference Include="EPPlus.Interfaces" Version="6.0.0" />
+    <PackageReference Include="EPPlus.System.Drawing" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,9 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="EPPlus">
-      <HintPath>EPPlus.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Libriry\Mono.Cecil.dll</HintPath>
     </Reference>

@@ -2,6 +2,7 @@
 using ExcelTConfig.Base;
 using Mono.Cecil;
 using Newtonsoft.Json.Linq;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +60,8 @@ namespace ExcelTConfig
 
         public void LoadInit()
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             // 1. 加载Json配置
             LoadJsonConfigData();
             // 2. 加载DLL文件
