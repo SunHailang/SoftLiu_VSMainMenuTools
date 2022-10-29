@@ -79,6 +79,24 @@ namespace ExcelTConfig.Base
         public List<KeyValuePair<string, string>> dbPropertyInfo { get; private set; }
 
 
+        public string persistenceEnumToolTip
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                char seperator = data.Count > 6 ? ' ' : '\n';
+                bool first = true;
+                foreach (var line in data)
+                {
+                    if (first) first = false;
+                    else sb.Append(seperator);
+
+                    sb.Append(line[designNamePropertyIndex]).Append(':').Append(line[idPropertyIndex]);
+                }
+                return sb.ToString();
+            }
+        }
+
         public Klass(KlassInfo klassInfo)
         {
             name = klassInfo.name;

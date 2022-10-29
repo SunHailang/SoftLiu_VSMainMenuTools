@@ -1,4 +1,6 @@
-﻿namespace SoftLiu_VSMainMenuTools
+﻿using System;
+
+namespace SoftLiu_VSMainMenuTools
 {
     partial class MainMenuForm
     {
@@ -484,7 +486,7 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(259, 28);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "总秒数转化\r\n时间格式：dd HH:mm:ss";
+            this.textBox2.Text = $"总秒数转化{Environment.NewLine}时间格式：dd HH:mm:ss";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxTimeBefor
@@ -503,7 +505,7 @@
             this.textBoxTimeCountdown.ReadOnly = true;
             this.textBoxTimeCountdown.Size = new System.Drawing.Size(259, 28);
             this.textBoxTimeCountdown.TabIndex = 2;
-            this.textBoxTimeCountdown.Text = "倒计时\r\n时间格式：yyyy-MM-dd HH:mm:ss";
+            this.textBoxTimeCountdown.Text = $"倒计时{Environment.NewLine}时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxTimeCountdown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxDesc
@@ -515,7 +517,7 @@
             this.textBoxDesc.ReadOnly = true;
             this.textBoxDesc.Size = new System.Drawing.Size(259, 28);
             this.textBoxDesc.TabIndex = 2;
-            this.textBoxDesc.Text = "时间和时间戳互相转换\r\n时间格式：yyyy-MM-dd HH:mm:ss";
+            this.textBoxDesc.Text = $"时间和时间戳互相转换{Environment.NewLine}时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // richTextBoxTimeSpan
@@ -954,7 +956,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(256, 31);
             this.textBox3.TabIndex = 6;
-            this.textBox3.Text = "在 Hex Color(不包含Alpha)  或者 RGB 中任选一个\r\n输入颜色的值";
+            this.textBox3.Text = $"在 Hex Color(不包含Alpha)  或者 RGB 中任选一个{Environment.NewLine}输入颜色的值";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label16

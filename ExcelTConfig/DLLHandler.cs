@@ -298,7 +298,7 @@ namespace ExcelTConfig
             var prevI18NOrders = new Dictionary<string, int>();
             Entry.classPropertiesInfo = new Dictionary<string, KlassDataInfo>();
 
-            var orderFilePath = typeof(Entry).Namespace.ToString() + "Order.json";
+            var orderFilePath = Path.GetFullPath($"{Entry.RootPath}/ConfigOrder.json");
             JObject config = null;
             if (File.Exists(orderFilePath))
             {
@@ -326,7 +326,7 @@ namespace ExcelTConfig
                 }
             }
 
-            var classInfoPath = typeof(Entry).Namespace.ToString() + "ClassInfo.json";
+            var classInfoPath = Path.GetFullPath($"{Entry.RootPath}/ConfigClassInfo.json");
             if (File.Exists(classInfoPath))
             {
                 string data = File.ReadAllText(classInfoPath);
@@ -549,6 +549,130 @@ namespace ExcelTConfig
                 {
                     sb.Append(fieldValue.ToString());
                 }
+            }
+        }
+
+        public static void ReflushMetaHash()
+        {
+            var orderFilePath = $"{Entry.RootPath}/ConfigOrder.json";
+            using (FileStream fs = new FileStream(orderFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                int totalLength = (int)fs.Length;
+                byte[] bytes = new byte[totalLength];
+                int readLength = 0;
+                while (readLength < totalLength)
+                {
+                    int len = fs.Read(bytes, readLength, totalLength);
+                    readLength += len;
+                }
+                string data = Encoding.UTF8.GetString(bytes);
+
+                // 清空数据
+                fs.Seek(0, SeekOrigin.Begin);
+                fs.SetLength(0);
+
+                JObject config;
+                if (string.IsNullOrEmpty(data))
+                {
+                    config = new JObject();
+                }
+                else
+                {
+                    config = JObject.Parse(data);
+                }
+                JObject perMetaHashConfig = null;
+                if (config.TryGetValue(MetaHashKey, out JToken metaHashToken) && (metaHashToken is JObject))
+                {
+                    perMetaHashConfig = metaHashToken as JObject;
+                }
+                JObject metaHashConfig = new JObject();
+                config[MetaHashKey] = metaHashConfig;
+                Entry.klassStoredMetaHashes = new Dictionary<string, int>();
+                foreach (var kv in Entry.klasses)
+                {
+                    if (perMetaHashConfig != null && perMetaHashConfig.TryGetValue(kv.Key, out JToken kvToken))
+                    {
+                        int perHash = (int)kvToken;
+                        if (perHash != kv.Value.metaHash)
+                        {
+                            Entry.UpdateLogInfo($"Order Meta Hash different {kv.Key}", LogLevelType.WarnningType);
+                        }
+                        perMetaHashConfig.Remove(kv.Key);
+                    }
+                    metaHashConfig[kv.Key] = kv.Value.metaHash;
+                    Entry.klassStoredMetaHashes[kv.Key] = kv.Value.metaHash;
+                }
+                if (perMetaHashConfig != null && perMetaHashConfig.Count > 0)
+                {
+                    foreach (var item in perMetaHashConfig)
+                    {
+                        Entry.UpdateLogInfo($"Order Meta Hash More: {item.Key},{item.Value}", LogLevelType.WarnningType);
+                    }
+                }
+
+                byte[] writeBytes = Encoding.UTF8.GetBytes(config.ToString());
+                fs.Write(writeBytes, 0, writeBytes.Length);
+            }
+
+
+            CheckMetaHashDirtyCount();
+        }
+
+        public static void RefreshClassProperticesInfo(List<string> refreshKlass, Dictionary<string, List<KlassSingleDataInfo>> klassSingleDataInfos)
+        {
+            var orderFilePath = $"{Entry.RootPath}/ConfigClassInfo.json";
+
+            using (FileStream fs = new FileStream(orderFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                int totalLength = (int)fs.Length;
+                byte[] bytes = new byte[totalLength];
+                int readLength = 0;
+                while (readLength < totalLength)
+                {
+                    int len = fs.Read(bytes, readLength, totalLength);
+                    readLength += len;
+                }
+                string data = Encoding.UTF8.GetString(bytes);
+
+                // 清空数据
+                fs.Seek(0, SeekOrigin.Begin);
+                fs.SetLength(0);
+
+                JObject config;
+                if (string.IsNullOrEmpty(data))
+                {
+                    config = new JObject();
+                }
+                else
+                {
+                    config = JObject.Parse(data);
+                }
+
+                if (config[ClassInfoKey] == null)
+                {
+                    config[ClassInfoKey] = new JObject();
+                }
+                var classInfoConfig = config[ClassInfoKey];
+
+                Entry.classPropertiesInfo = new Dictionary<string, KlassDataInfo>();
+                foreach (var kv in Entry.klasses)
+                {
+                    if (!refreshKlass.Contains(kv.Key))
+                        continue;
+
+                    if (kv.Value.type == Klass.KlassType.Config || kv.Value.type == Klass.KlassType.Static)
+                    {
+                        KlassDataInfo info = new KlassDataInfo();
+                        info.rowBegin = kv.Value.depth * 2 + 1;
+                        info.listDatas = klassSingleDataInfos[kv.Key];
+
+                        classInfoConfig[kv.Key] = JObject.FromObject(info);
+
+                        Entry.classPropertiesInfo[kv.Key] = info;
+                    }
+                }
+                byte[] writeBytes = Encoding.UTF8.GetBytes(config.ToString());
+                fs.Write(writeBytes, 0, writeBytes.Length);
             }
         }
     }

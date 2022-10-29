@@ -44,7 +44,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             {
                 string line = $"姓名：{residueList[i].m_name}\t\t学院：{residueList[i].m_college}\t\t专业：{residueList[i].m_subject}\t\t初试总分：{residueList[i].m_score}";
                 sbS.Append(line);
-                sbS.Append("\r\n");
+                sbS.Append(Environment.NewLine);
                 //DataRow dr = dtStudent.NewRow();
                 //dr["姓名"] = residueList[i].m_name;
                 //dr["学院"] = residueList[i].m_college;

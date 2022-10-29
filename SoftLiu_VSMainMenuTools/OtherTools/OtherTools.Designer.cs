@@ -1,4 +1,6 @@
-﻿namespace SoftLiu_VSMainMenuTools.OtherTools
+﻿using System;
+
+namespace SoftLiu_VSMainMenuTools.OtherTools
 {
     partial class OtherTools
     {
@@ -72,7 +74,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 36);
             this.label1.TabIndex = 2;
-            this.label1.Text = "删除文件的\r\n\r\n文件夹路径";
+            this.label1.Text = $"删除文件的{Environment.NewLine}文件夹路径";
             // 
             // statusStrip1
             // 

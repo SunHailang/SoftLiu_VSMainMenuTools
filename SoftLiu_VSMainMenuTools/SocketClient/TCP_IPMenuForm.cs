@@ -84,7 +84,7 @@ namespace SoftLiu_VSMainMenuTools
 
         private void OnTrainCheckCodeType(TCPEvents arg1, object[] arg2)
         {
-            textBoxTCPTips.AppendText(arg2.ToString() + "\r\n");
+            textBoxTCPTips.AppendText($"{arg2}{Environment.NewLine}");
             if (arg2 != null && arg2.Length > 0)
             {
                 Dictionary<string, object> jsonData = arg2[0] as Dictionary<string, object>;
@@ -100,12 +100,12 @@ namespace SoftLiu_VSMainMenuTools
                 }
                 else
                 {
-                    textBoxTCPTips.AppendText("Error OnTrainCheckCodeType: jsonData is null." + "\r\n");
+                    textBoxTCPTips.AppendText($"Error OnTrainCheckCodeType: jsonData is null.{Environment.NewLine}");
                 }
             }
             else
             {
-                textBoxTCPTips.AppendText("Error OnTrainCheckCodeType: arg2" + "\r\n");
+                textBoxTCPTips.AppendText($"Error OnTrainCheckCodeType: arg2{Environment.NewLine}");
             }
         }
 
@@ -162,7 +162,7 @@ namespace SoftLiu_VSMainMenuTools
             this.clientTcp = new SocketTCPClient(new IPEndPoint(tcpIP, this.m_curTcpServer.ServerPort));
             try
             {
-                textBoxTCPTips.AppendText("new client connect...\r\n");
+                textBoxTCPTips.AppendText($"new client connect...{Environment.NewLine}");
                 clientTcp.ConnectServer(ReceiveDataCallback);
             }
             catch (Exception ex)
@@ -183,7 +183,7 @@ namespace SoftLiu_VSMainMenuTools
                 client.DisconnectServer((error) =>
                 {
                     if (error.ErrorCode != ClientErrorCode.None)
-                        this.textBoxTCPTips.AppendText($"{error.ErrorStr}\r\n");
+                        this.textBoxTCPTips.AppendText($"{error.ErrorStr}{Environment.NewLine}");
                 });
             }
             client = null;
@@ -199,7 +199,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     if (errData.ErrorCode != ClientErrorCode.None)
                     {
-                        this.textBoxTCPTips.AppendText($"{errData.ErrorStr}\r\n");
+                        this.textBoxTCPTips.AppendText($"{errData.ErrorStr}{Environment.NewLine}");
                     }
                     if (errData.ErrorCode == ClientErrorCode.ConnectErrorType)
                     {
@@ -213,7 +213,7 @@ namespace SoftLiu_VSMainMenuTools
                 if (recvData.Length > 0)
                 {
                     string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                    this.textBoxTCPRecv.AppendText($"RecvData: {data}\r\n");
+                    this.textBoxTCPRecv.AppendText($"RecvData: {data}{Environment.NewLine}");
 
                     Assembly m_ass = Assembly.GetExecutingAssembly();
 
@@ -293,12 +293,12 @@ namespace SoftLiu_VSMainMenuTools
                                         }
                                         else
                                         {
-                                            textBoxTCPTips.AppendText("Error Code Parse: " + jsonObject["code"].ToString() + "\r\n");
+                                            textBoxTCPTips.AppendText($"Error Code Parse: {jsonObject["code"]}{Environment.NewLine}");
                                         }
                                     }
                                     else
                                     {
-                                        textBoxTCPTips.AppendText("Error Json Message: " + jsonMsg + "\r\n");
+                                        textBoxTCPTips.AppendText($"Error Json Message: {jsonMsg}{Environment.NewLine}");
                                     }
 
                                     if (msgl + 4 == cacheBuf.Length)
@@ -316,7 +316,7 @@ namespace SoftLiu_VSMainMenuTools
                         }
                         catch (Exception msg)
                         {
-                            Console.WriteLine("Recv Data Thread End.\r\n" + msg.Message, "Error");
+                            Console.WriteLine($"Recv Data Thread End.{Environment.NewLine}{msg.Message}");
                             break;
                         }
                     }
@@ -333,7 +333,7 @@ namespace SoftLiu_VSMainMenuTools
                 {
                     if (error.ErrorCode != ClientErrorCode.None)
                     {
-                        textBoxTCPTips.AppendText($"{error.ErrorStr}\r\n");
+                        textBoxTCPTips.AppendText($"{error.ErrorStr}{Environment.NewLine}");
                     }
                 });
             }
@@ -375,7 +375,7 @@ namespace SoftLiu_VSMainMenuTools
                             return;
                         }
                         string data = Encoding.UTF8.GetString(recvData.RecvBuffer, 0, recvData.Length);
-                        this.textBoxUDPReceive.AppendText($"{data}\r\n");
+                        this.textBoxUDPReceive.AppendText($"{data}{Environment.NewLine}");
                     });
                 }
                 string sendMsg = this.textBoxUDPSendMessage.Text.Trim();

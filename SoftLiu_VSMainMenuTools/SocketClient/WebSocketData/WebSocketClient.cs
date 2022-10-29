@@ -110,7 +110,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             catch (Exception error)
             {
                 string errorMsg = $"WebSocketConnectAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\r\n");
+                textBoxError.AppendText($"{errorMsg}{Environment.NewLine}");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -138,7 +138,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             catch (Exception error)
             {
                 string errorMsg = $"WebSocketCloseAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\r\n");
+                textBoxError.AppendText($"{errorMsg}{Environment.NewLine}");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -183,7 +183,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
 
                     WebSocketConnectAysnc(m_url, () =>
                     {
-                        textBoxError.AppendText($"WebSocket ReConnected!\r\n");
+                        textBoxError.AppendText($"WebSocket ReConnected!{Environment.NewLine}");
 
                         // connected
                         radioWebSocketState.Checked = true;
@@ -243,7 +243,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                     return;
                 }
                 string errorMsg = $"WebSocketReceiveAysnc Error: {error.Message}";
-                textBoxError.AppendText($"{errorMsg}\r\n");
+                textBoxError.AppendText($"{errorMsg}{Environment.NewLine}");
                 Console.WriteLine(errorMsg);
             }
         }
@@ -436,7 +436,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
                      {
                          if (!string.IsNullOrEmpty(error))
                          {
-                             textBoxError.AppendText($"{error}\r\n");
+                             textBoxError.AppendText($"{error}{Environment.NewLine}");
                          }
                      }, WebSocketMessageType.Text);
                  }
@@ -450,7 +450,7 @@ namespace SoftLiu_VSMainMenuTools.SocketClient.WebSocketData
             string recvStr = Encoding.UTF8.GetString(receiveData);
             recvStr = recvStr.TrimEnd('\0');
             if (string.IsNullOrEmpty(recvStr)) return;
-            textBoxReceive.AppendText($"{recvStr}\r\n");
+            textBoxReceive.AppendText($"{recvStr}{Environment.NewLine}");
 
             Dictionary<string, object> dataRecvDic = JsonUtils.Instance.JsonToDictionary(recvStr) as Dictionary<string, object>;
             if (dataRecvDic != null && dataRecvDic.ContainsKey("action"))
