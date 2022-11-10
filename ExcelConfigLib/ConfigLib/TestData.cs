@@ -17,7 +17,7 @@ namespace Config.ClientAndServer
         public int dict_id;
         [Tips("隐私"), MarkSpecificType(SpecificType.SMALLINT, 5)]
         public EnumType dict_type;
-        [Tips("介绍Desc"), MarkSpecificType(SpecificType.VARCHAR, 64)]
+        [Tips("介绍Desc"), MarkI18N, MarkSpecificType(SpecificType.VARCHAR, 64)]
         public string dict_desc;
         [Tips("Int类型数组"), Capacity(3), MarkSpecificType(SpecificType.INT, 10)]
         public int[] arrayInt;

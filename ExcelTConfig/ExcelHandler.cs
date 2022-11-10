@@ -155,7 +155,6 @@ namespace ExcelTConfig
                                 // 将开始~结束的列置灰
                                 for (int i = startColumn; i < descColumn; i++)
                                 {
-                                    Console.WriteLine($"gry: {sheet.Name}, column:{i}");
                                     hiddens.Add(i);
                                 }
                             }
@@ -564,7 +563,7 @@ namespace ExcelTConfig
         }
 
 
-        static int AddRowForDescription(ExcelWorksheet sheet, Property property, int row, int column, int arrayIndex)
+        private static int AddRowForDescription(ExcelWorksheet sheet, Property property, int row, int column, int arrayIndex)
         {
             int ret = column + 1;
 
@@ -736,7 +735,7 @@ namespace ExcelTConfig
             storageName = $"{storageName}@{name}";
             ExcelHyperLink hyperLink = null;
             bool bTail = true;
-            if (property.isArray && arrayIndex == 1)
+            if (property.isArray && arrayIndex == -1)
             {
                 lastRow = row + 1;
                 if (property.isDictionary) type = $"Dictionary{type}";
