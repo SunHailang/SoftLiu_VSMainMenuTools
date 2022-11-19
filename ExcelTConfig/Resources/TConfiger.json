@@ -1,0 +1,15 @@
+{
+    "DLLPath" :  [
+        "../client/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll",
+        "../client/Library/ScriptAssemblies/Assembly-CSharp.dll"
+    ],
+    "ExcelFolderPath" : "Excel",
+    "I18NExcelFolderPath" : "I18NExcel",
+    "VExcelFolderPath" : "VExcel",
+    "BinaryFolderPath" : "Binary",
+    "CSharpFolderPath" : "../client/Assets/Scripts/Table/Runtime",
+    "LuaFolderPath" : "../client/Assets/Lua/Config",
+    "JsonFolderPath" : "Server/Json",
+    "PythonFolderPath" : "Server/Python",
+    "Lang" : ["ZH", "EN"]
+}

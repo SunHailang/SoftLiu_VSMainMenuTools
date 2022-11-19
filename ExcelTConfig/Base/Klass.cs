@@ -254,7 +254,18 @@ namespace ExcelTConfig.Base
             public string excel;
             public string sheet;
         }
-
+        public LineInfo GetLineInfo(int row)
+        {
+            for (int it = 0; it < lineInfos.Length; it++)
+            {
+                var lineInfo = lineInfos[it];
+                if (row >= lineInfo.from && row < lineInfo.to)
+                {
+                    return lineInfo;
+                }
+            }
+            throw new Exception("could not find lineinfo");
+        }
         public void ResetData(List<object[]> data)
         {
             this.data = data;
@@ -372,6 +383,15 @@ namespace ExcelTConfig.Base
             this.depth = depth;
         }
 
+        public int binarySize { get; private set; }
+        private bool _everCalculateBinarySize;
+        public void CalculateBinarySize()
+        {
+            if (_everCalculateBinarySize) return;
+            _everCalculateBinarySize = true;
+
+            binarySize = properties.Count * 4;
+        }
         public void CalculateBaseTypes()
         {
             foreach (var property in rawProperties) CalculateBaseTypesOnProperty(property);
@@ -441,6 +461,15 @@ namespace ExcelTConfig.Base
                     SetOtherNameOnProperty(subProperty, newName);
                 }
             }
+        }
+        public int GetPropertyValueIndex(Property property)
+        {
+            int index = baseTypes.IndexOf(property);
+            for (int it = index - 1; it >= 0; it--)
+            {
+                if (baseTypes[it].commentOnly) index--;
+            }
+            return index;
         }
 
     }

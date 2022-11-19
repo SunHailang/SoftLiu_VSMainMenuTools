@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.0.8" />
     <PackageReference Include="EPPlus.Interfaces" Version="6.0.0" />
     <PackageReference Include="EPPlus.System.Drawing" Version="6.0.0" />
@@ -37,6 +43,78 @@
 
   <ItemGroup>
     <Folder Include="Libriry\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CSharpTemplate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CSharpTemplate.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CSharpTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CSharpTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CSharpTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="JavaTemplate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>JavaTemplate.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="JavaTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>JavaTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="JavaTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="PythonTemplate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PythonTemplate.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="PythonTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PythonTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PythonTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="LuaTemplate.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LuaTemplate.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="LuaTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LuaTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LuaTemplate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

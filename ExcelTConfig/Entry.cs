@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ExcelTConfig
 {
@@ -46,16 +47,23 @@ namespace ExcelTConfig
         public static List<string> DLLPath { get; private set; } = new List<string>();
         public static string ExcelFolderPath { get; private set; }
         public static string I18NExcelFolderPath { get; private set; }
+        public static string VExcelFolderPath { get; private set; }
+        public static string JsonFolderPath { get; private set; }
         public static string CSharpFolderPath { get; private set; }
         public static string BinaryFolderPath { get; private set; }
+        public static string BinaryPackOnePath { get; private set; }
+        public static string JavaFolderPath { get; private set; }
+        public static string PythonFolderPath { get; private set; }
         public static string InsertSqlFolderPath { get; private set; }
         public static string SqlDataAndTableFolderPath { get; private set; }
+        public static string LangPrefix { get; private set; }
         public static string[] Lang { get; private set; }
+        public static int LangCount { get; private set; }
         #endregion
 
         internal static string RootPath { get; private set; }
 
-        public static List<string> DLLKlasses { get; private set; } = new List<string>();
+        public static List<string> DLLKlasses { get; private set; } = new List<string>();        
 
         public static Dictionary<string, Klass> klasses;
 
@@ -69,6 +77,7 @@ namespace ExcelTConfig
 
         public static Dictionary<string, KlassDataInfo> classPropertiesInfo;
 
+        public static bool ExportPack = false;
 
         public static void LoadInit(string configDirectory)
         {
@@ -84,7 +93,7 @@ namespace ExcelTConfig
 
             DLLHandler.LoadDLL();
 
-            ExcelHandler.Export();
+            //ExcelHandler.Export();
         }
 
 
@@ -164,6 +173,7 @@ namespace ExcelTConfig
             BinaryFolderPath = getValue(nameof(BinaryFolderPath));
             InsertSqlFolderPath = getValue(nameof(InsertSqlFolderPath));
             SqlDataAndTableFolderPath = getValue(nameof(SqlDataAndTableFolderPath));
+            LangPrefix = getValue(nameof(LangPrefix));
 
             JToken langToken;
             if (!config.TryGetValue(nameof(Lang), out langToken) || !(langToken is JArray))
@@ -226,6 +236,71 @@ namespace ExcelTConfig
             }
         }
 
+        public static void ExportAll()
+        {
+            System.Diagnostics.Stopwatch swAll = new System.Diagnostics.Stopwatch();
+            swAll.Restart();
 
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Restart();
+
+            ExcelHandler.Export();
+            ExcelHandler.ExtractData(true);
+
+            sw.Stop();
+            Entry.UpdateLogInfo(string.Format("ExcelHandler总共花费{0}ms.", sw.Elapsed.TotalMilliseconds));
+            Console.WriteLine("ExcelHandler总共花费{0}ms.", sw.Elapsed.TotalMilliseconds);
+
+            sw.Restart();
+            var task1 = Task.Run(() => { CSharpHandler.Export(); });
+            var task2 = Task.Run(() => { BinaryHandler.Export(); });
+            var task3 = Task.Run(() =>
+            {
+                I18NHandlerExcel.ExportI18N();
+                I18NHandlerExcel.ExtractI18NData();
+                I18NHandlerBinary.ExportBinary();
+            });
+
+            var task4 = Task.Run(() => { VHandler.Export(); });
+
+            var tasks = new Task[] { task1, task2, task3, task4 };
+            Task.WaitAll(tasks);
+
+            sw.Stop();
+            Entry.UpdateLogInfo(string.Format("AllExport总共花费{0}ms.", sw.Elapsed.TotalMilliseconds));
+            //Console.WriteLine("AllExport总共花费{0}ms.", sw.Elapsed.TotalMilliseconds);
+
+            sw.Restart();
+
+            ExcelHandler.ExtractData(false, true);
+
+            sw.Stop();
+            //Console.WriteLine("ExtractData总共花费{0}ms.", sw.Elapsed.TotalMilliseconds);
+            Entry.UpdateLogInfo(string.Format("ExtractData总共花费{0}ms.", sw.Elapsed.TotalMilliseconds));
+            sw.Restart();
+            //ExcelHandler.ExtractCreateSqlData();
+
+            sw.Stop();
+            //Console.WriteLine("ExtractCreateSqlData{0}ms.", sw.Elapsed.TotalMilliseconds);
+            Entry.UpdateLogInfo(string.Format("ExtractCreateSqlData{0}ms.", sw.Elapsed.TotalMilliseconds));
+            sw.Restart();
+
+            //SqlHandler.Export(false);
+
+            sw.Stop();
+            //Console.WriteLine("SqlHandler{0}ms.", sw.Elapsed.TotalMilliseconds);
+            Entry.UpdateLogInfo(string.Format("SqlHandler{0}ms.", sw.Elapsed.TotalMilliseconds));
+            sw.Restart();
+            VersionHandler.WriteVersion(false);
+
+            sw.Stop();
+            //Console.WriteLine("VersionHandler{0}ms.", sw.Elapsed.TotalMilliseconds);
+            Entry.UpdateLogInfo(string.Format("VersionHandler{0}ms.", sw.Elapsed.TotalMilliseconds));
+            GC.Collect();
+            swAll.Stop();
+            //Console.WriteLine("doall_client_Click总共花费{0}ms.", swAll.Elapsed.TotalMilliseconds);
+            Entry.UpdateLogInfo(string.Format("doall_client_Click总共花费{0}ms.", swAll.Elapsed.TotalMilliseconds));
+
+        }
     }
 }

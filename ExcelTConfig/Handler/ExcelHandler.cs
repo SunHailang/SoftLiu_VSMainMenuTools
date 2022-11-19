@@ -1,4 +1,5 @@
 ﻿using ExcelTConfig.Base;
+using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ExcelTConfig
 {
@@ -133,7 +135,7 @@ namespace ExcelTConfig
                         {
                             column = HandleProperty(excelName, sheet, klass, property, 1, column, rowMax, klassSingleDataInfos, "");
                         }
-                        if(!bNewSheet)
+                        if (!bNewSheet)
                         {
                             int dataRowMax = GetDataRowMax(rowMax, tempSheet);
                             HandleData(rowMax, dataRowMax, column - 1, klass, tempSheet, sheet, klassSingleDataInfos);
@@ -930,5 +932,787 @@ namespace ExcelTConfig
             excel = refKlass.excels[0];
             sheet = refKlass.sheets[0];
         }
+
+
+        public static void ExtractData(bool bOnlyForClient = false, bool bOnlyForServer = false)
+        {
+            if (bOnlyForClient && bOnlyForServer)
+            {
+                Entry.UpdateLogInfo("ExtraData bOnlyForServer && bOnlyForClient Error", LogLevelType.ErrorType);
+                return;
+            }
+            var allKlass = Entry.klasses.Values.Where(k => k.type != Klass.KlassType.Struct && !k.isPersistentEnum);
+            foreach (var klass in allKlass)
+            {
+                klass.ResetData(null);
+            }
+            var excelFiles = CollectExportsInfo().GroupBy(p => p.excel);
+            BuildCached();
+            List<Task> tasks = new List<Task>();
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Restart();
+            foreach (var excelPair in excelFiles)
+            {
+                var tempPair = excelPair;
+                Task task = Task.Run(() =>
+                {
+                    var excel = tempPair.Key;
+                    var file = Path.Combine(Entry.ExcelFolderPath, excel as string + DotXLSX);
+                    if (!File.Exists(file)) return;
+
+                    foreach (var group in tempPair)
+                    {
+                        var klass = group.klass;
+                        var sheetName = group.sheet;
+                        var dataLineIndex = group.dataLineIndex;
+
+                        ExcelWorksheet cacheData;
+                        if (epplusCached.TryGetValue($"{excel}_{sheetName}", out cacheData))
+                        {
+                            if (cacheData == null)
+                                continue;
+
+                            ExtractKlassData(cacheData, klass, excel, sheetName, dataLineIndex, bOnlyForClient, bOnlyForServer);
+                        }
+                        else
+                        {
+                            throw new Exception("Can't find epplusCached");
+                        }
+                    }
+                });
+                tasks.Add(task);
+            }
+            Task.WaitAll(tasks.ToArray());
+            foreach (var klass in allKlass)
+            {
+                var lineInfos = klass.lineInfos;
+                var LineCount = 0;
+                foreach (var line in lineInfos)
+                {
+                    if (line.to > LineCount)
+                    {
+                        LineCount = line.to;
+                    }
+                }
+
+                Klass.LineInfo[] finnalLineInfo = new Klass.LineInfo[lineInfos.Length];
+                var finalData = new object[LineCount][];
+
+                var datas = klass.data.ToArray();
+                int destOffset = 0;
+                for (int i = 0; i < lineInfos.Length; i++)
+                {
+                    var line = lineInfos[i];
+                    var count = line.to - line.from;
+                    Array.Copy(datas, line.from, finalData, destOffset, count);
+
+                    finnalLineInfo[i] = new Klass.LineInfo { from = destOffset, to = destOffset + count, excel = line.excel, sheet = line.sheet };
+                    destOffset += count;
+                }
+
+                klass.ResetData(finalData.ToList());
+
+                for (int i = 0; i < finnalLineInfo.Length; i++)
+                {
+                    klass.lineInfos[i] = finnalLineInfo[i];
+                }
+            }
+            sw.Stop();
+            Entry.UpdateLogInfo($"ExtractKlassData总共花费{sw.Elapsed.TotalMilliseconds}ms.");
+            var idSet = new HashSet<int>();
+            var nameSet = new Dictionary<int, string>();
+            var designNameSet = new HashSet<string>();
+
+            //将引用类型转为ID
+            foreach (var kv in Entry.klasses)
+            {
+                var klass = kv.Value;
+
+                if (klass.type == Klass.KlassType.Struct || klass.isPersistentEnum) continue;
+
+                if (klass.data == null) throw new ConfigException(ErrorMessage.KlassDataNull, klass.name);
+
+                var data = klass.data;
+
+                var types = klass.baseTypes;
+
+                int jt = -1;
+                for (int column = 1; column <= klass.rawWidth; column++)
+                {
+                    var property = types[column - 1];
+                    if (property.commentOnly) continue;
+                    if ((bOnlyForClient && property.bServerOnly) ||
+                        (bOnlyForServer && property.bClientOnly)) continue;
+
+                    jt++;
+
+                    if (property.isBasicType)
+                    {
+                        if (property.isBasicArray) continue;
+                        if (jt == klass.idPropertyIndex)
+                        {
+                            idSet.Clear();
+                            for (int it = data.Count - 1; it >= 0; it--)
+                            {
+                                var value = data[it][jt];
+                                if (value == null) throw new ConfigException($"find empty id in [{klass.name}]");
+
+                                int intValue = (int)value;
+                                if (intValue < 0) throw new ConfigException($"find negative id [{intValue}] in [{klass.name}]");
+
+                                if (!idSet.Add(intValue)) throw new ConfigException($"find conflict id [{intValue}] in [{klass.name}]");
+                            }
+                        }
+                        else if (jt == klass.codeNamePropertyIndex)
+                        {
+                            nameSet.Clear();
+
+                            for (int it = data.Count - 1; it >= 0; it--)
+                            {
+                                var value = data[it][jt];
+                                if (value == null) throw new ConfigException($"find empty name in [{klass.name}]");
+
+                                var stringValue = value as string;
+                                if (!Util.IsValidName(stringValue)) throw new ConfigException($"invalid name [{stringValue}] in [{klass.name}]");
+
+                                int hash = stringValue.AscIIHash();
+                                if (nameSet.ContainsKey(hash)) throw new ConfigException($"find name hash conflict in [{klass.name}]: [{nameSet[hash]}] with [{stringValue}]");
+
+                                nameSet[hash] = stringValue;
+                            }
+                        }
+                        else if (jt == klass.designNamePropertyIndex)
+                        {
+                            designNameSet.Clear();
+
+                            for (int it = data.Count - 1; it >= 0; it--)
+                            {
+                                var value = data[it][jt];
+                                if (value == null) throw new ConfigException($"find empty designName in [{klass.name}]");
+
+                                if (!designNameSet.Add(value as string)) throw new ConfigException($"find conflict designName [{value as string}] in [{klass.name}]");
+                            }
+                        }
+                        continue;
+                    }
+
+                    for (int it = data.Count - 1; it >= 0; it--)
+                    {
+                        string stringVal = data[it][jt] as string;
+
+                        if (string.IsNullOrEmpty(stringVal))
+                        {
+                            data[it][jt] = null;
+                            continue;
+                        }
+
+                        int refID;
+                        var refKlass = property.refKlass;
+                        var refData = refKlass.data;
+                        if (refData == null) throw new ConfigException(ErrorMessage.KlassDataNull, property.refKlass.name);
+                        bool find = false;
+                        if (int.TryParse(stringVal, out refID))
+                        {
+                            for (int index = refData.Count - 1; index >= 0; index--)
+                            {
+                                if ((int)refData[index][refKlass.idPropertyIndex] == refID)
+                                {
+                                    find = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (refKlass.designNameProperty == null)
+                            {
+                                var lineInfo = klass.GetLineInfo(it);
+                                throw new ConfigException(ErrorMessage.RefTypeFormatError, lineInfo.excel, lineInfo.sheet, GetColumnLetter(column), it - lineInfo.from + 1 + 2 * klass.depth + 1, stringVal, refKlass.name);
+                            }
+                            for (int index = refData.Count - 1; index >= 0; index--)
+                            {
+                                if (refData[index][refKlass.designNamePropertyIndex] as string == stringVal)
+                                {
+                                    find = true;
+                                    refID = (int)refData[index][refKlass.idPropertyIndex];
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!find)
+                        {
+                            var lineInfo = klass.GetLineInfo(it);
+                            throw new ConfigException(ErrorMessage.RefTypeFormatError, lineInfo.excel, lineInfo.sheet, GetColumnLetter(column), it - lineInfo.from + 1 + 2 * klass.depth + 1, stringVal, refKlass.name);
+                        }
+
+                        data[it][jt] = refID;
+                    }
+                }
+            }
+        }
+
+        private static int ReadSheetInfo(ExcelWorksheet sheet, Klass klass)
+        {
+            var content = sheet.Cells[InfoRow, InfoColumn].Value?.ToString();
+            if (string.IsNullOrEmpty(content)) return 0;
+
+            //表头被修改
+            if (content.Length < 2 || content[0] != BlankChar || content[content.Length - 1] <= BlankChar || content[content.Length - 1] > BlankCharUpperLimit)
+            {
+                throw new ConfigException(ErrorMessage.SheetTitleDamaged, klass.name);
+            }
+
+            return content[content.Length - 1] - BlankChar;
+        }
+
+        static System.Collections.Concurrent.ConcurrentDictionary<string, ExcelWorksheet> epplusCached = new System.Collections.Concurrent.ConcurrentDictionary<string, ExcelWorksheet>();
+        private static void BuildCached()
+        {
+            if (epplusCached.IsEmpty)
+            {
+                System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                sw.Restart();
+
+                List<Task> tasks = new List<Task>();
+                var excelFiles = CollectExportsInfo().GroupBy(p => p.excel);
+                foreach (var excelPair in excelFiles)
+                {
+                    var tempPair = excelPair;
+                    Task task = Task.Run(() =>
+                    {
+                        var excel = tempPair.Key;
+                        var file = Path.Combine(Entry.ExcelFolderPath, excel as string + DotXLSX);
+                        if (!File.Exists(file)) return;
+
+                        using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        {
+                            using (var excelPackage = new ExcelPackage(fs))
+                            {
+                                var workbook = excelPackage.Workbook;
+                                foreach (var group in tempPair)
+                                {
+                                    var klass = group.klass;
+                                    var sheetName = group.sheet;
+                                    try
+                                    {
+                                        var sheet = workbook.Worksheets.SingleOrDefault(s => s.Name == sheetName);
+                                        if (!epplusCached.TryAdd($"{excel}_{sheetName}", sheet))
+                                        {
+                                            Entry.UpdateLogInfo($"{excel}_{sheetName} alreay exist", LogLevelType.WarnningType);
+                                            continue;
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        throw new Exception(string.Format("exception：{0} ExtractData file: {1} sheetName: {2}", e.ToString(), file, sheetName));
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    tasks.Add(task);
+                }
+
+                Task.WaitAll(tasks.ToArray());
+
+                sw.Stop();
+                Entry.UpdateLogInfo($"BuildCached总共花费{sw.Elapsed.TotalMilliseconds}ms.", LogLevelType.InfoType);
+            }
+        }
+        private delegate object CellValueParser(string content);
+
+        private static object ParseDateTime(string content) => DateTime.Parse(content);
+        private static object ParseInteger(string content) => int.Parse(content);
+        private static object ParseFloat(string content) => float.Parse(content);
+        private static object ParseString(string content) => content;
+        private static object ParseBoolean(string content)
+        {
+            if (TrueString.Equals(content, StringComparison.OrdinalIgnoreCase)) return true;
+            if (TrueString2.Equals(content, StringComparison.OrdinalIgnoreCase)) return true;
+
+            if (FalseString.Equals(content, StringComparison.OrdinalIgnoreCase)) return false;
+            if (FalseString2.Equals(content, StringComparison.OrdinalIgnoreCase)) return false;
+
+            throw new ConfigException($"bool value must be ({TrueString}/{FalseString}) or ({TrueString2}/{FalseString2})");
+        }
+        private static object ParseUInt(string content) => uint.Parse(content);
+        private static object ParseShort(string content) => short.Parse(content);
+        private static object ParseUShort(string content) => ushort.Parse(content);
+        private static object ParseSbyte(string content) => sbyte.Parse(content);
+        private static object ParseByte(string content) => byte.Parse(content);
+
+        private static PEG.Pattern functorPattern;
+        //解析返回bytes数组
+        private static CellValueParser GetFunctorParser(Config.ExcelConfigAttribute.Functor functor)
+        {
+            if (functorPattern == null) functorPattern = MiniScript.Parser.BuildPattern();
+
+            var localVarNames = functor.argNames;
+
+            return new CellValueParser(content =>
+            {
+                try
+                {
+                    var result = functorPattern.Match(content);
+                    var engine = new MiniScript.OpCodes.OpCodeEngine(MiniScript.GlobalFunctions.globalFunctionNames, localVarNames);
+                    return engine.Emit(content, result.Select(o => (MiniScript.Nodes.Node)o).ToArray());
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException(e.Message);
+                }
+            });
+        }
+
+        private static object ParseBasicIntegerArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new int[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (int)token;
+            }
+            return array;
+        }
+        private static object ParseBasicFloatArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new float[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer && token.Type != JTokenType.Float) throw new ConfigException("None Float Element");
+                array[it] = (float)token;
+            }
+            return array;
+        }
+        private static object ParseBasicStringArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new string[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.String) throw new ConfigException("None String Element");
+                array[it] = (string)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasicUintArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new uint[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (uint)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasicShortArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new short[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (short)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasicUShortArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new ushort[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (ushort)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasicSbyteArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new sbyte[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (sbyte)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasicByteArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+
+            var array = new byte[contentArray.Count];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var token = contentArray[it];
+                if (token.Type != JTokenType.Integer) throw new ConfigException("None Integer Element");
+                array[it] = (byte)token;
+            }
+            return array;
+        }
+
+        private static object ParseBasic2DIntegerArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new int[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new int[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (int)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+        private static object ParseBasic2DFloatArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new float[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new float[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (float)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+        private static object ParseBasic2DStringArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new string[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new string[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (string)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+        private static object ParseBasic2DUIntArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new uint[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new uint[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (uint)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+
+        private static object ParseBasic2DShortArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new short[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new short[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (short)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+        private static object ParseBasic2DUShortArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new ushort[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new ushort[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (ushort)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+        private static object ParseBasic2DSByteArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new sbyte[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new sbyte[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (sbyte)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+        private static object ParseBasic2DByteArray(string content)
+        {
+            var contentArray = JArray.Parse(content);
+            var array = new byte[contentArray.Count][];
+            for (int it = 0; it < array.Length; it++)
+            {
+                var pContentArray = contentArray[it] as JArray;
+                var pArray = new byte[pContentArray.Count];
+                array[it] = pArray;
+                for (int jt = 0; jt < pArray.Length; jt++)
+                {
+                    pArray[jt] = (byte)pContentArray[jt];
+                }
+            }
+            return array;
+        }
+
+        private static CellValueParser GetIntegerWithRangeParser(int min, int max)
+        {
+            return new CellValueParser(content =>
+            {
+                int value = int.Parse(content);
+                if (value < min || value > max) throw new ConfigException(ErrorMessage.RangeExceed, min, max);
+                return value;
+            });
+        }
+        private static CellValueParser GetFloatWithRangeParser(float min, float max)
+        {
+            return new CellValueParser(content =>
+            {
+                float value = float.Parse(content);
+                if (value < min || value > max) throw new ConfigException(ErrorMessage.RangeExceed, min, max);
+                return value;
+            });
+        }
+
+        private struct DataLine
+        {
+            public int row;
+            public string value;
+        }
+
+        static object lockObject = new object();
+        private static void ExtractKlassData(ExcelWorksheet sheet, Klass klass, string excelName, string sheetName, int dataLineIndex, bool bOnlyForClient = false, bool bOnlyForServer = false)
+        {
+            var cells = sheet.Cells;
+
+            var baseTypes = klass.baseTypes;
+
+            int info = ReadSheetInfo(sheet, klass);
+
+            if (info != 2 * klass.depth) throw new ConfigException(ErrorMessage.SheetNeedRe_Export, klass.name);
+            List<DataLine> dataLines = new List<DataLine>();
+            int firstContentRow = 2 * klass.depth + 1 + 1 + 1;//一行供描述使用,还有一行供database类型使用
+            int emptyLine = 0;
+            if (klass.type == Klass.KlassType.Static)
+            {
+                int row = firstContentRow;
+                string firstValue = cells[row, 1].Value?.ToString();
+                dataLines.Add(new DataLine { row = row, value = firstValue });
+            }
+            else
+            {
+                for (int row = firstContentRow; ; row++)
+                {
+                    string firstValue = cells[row, 1].Value?.ToString();
+                    if (string.IsNullOrEmpty(firstValue))
+                    {
+                        emptyLine++;
+
+                        if (emptyLine > 20) break;
+                        continue;
+                    }
+
+                    emptyLine = 0;
+                    dataLines.Add(new DataLine { row = row, value = firstValue });
+                }
+            }
+            var data = new object[dataLines.Count][];
+            int validDataColumns = klass.baseTypes.Where(p => !(p.commentOnly || (bOnlyForClient && p.bServerOnly) || (bOnlyForServer && p.bClientOnly))).Count();
+            for (int it = dataLines.Count - 1; it >= 0; it--) data[it] = new object[validDataColumns];
+            int dataColumn = -1;
+            for (int column = 1; column <= klass.rawWidth; column++)
+            {
+                CellValueParser parser;
+                var property = baseTypes[column - 1];
+
+                if (property.commentOnly) continue;
+                if ((bOnlyForClient && property.bServerOnly) ||
+                    (bOnlyForServer && property.bClientOnly)) continue;
+
+                dataColumn++;
+
+                if (property.isBasicArray)
+                {
+                    if (property.isBasic1DArray)
+                    {
+                        switch (property.basicType)
+                        {
+                            case Property.BasicType.Integer: parser = ParseBasicIntegerArray; break;
+                            case Property.BasicType.Float: parser = ParseBasicFloatArray; break;
+                            case Property.BasicType.String: parser = ParseBasicStringArray; break;
+                            case Property.BasicType.UInt: parser = ParseBasicUintArray; break;
+                            case Property.BasicType.Short: parser = ParseBasicShortArray; break;
+                            case Property.BasicType.UShort: parser = ParseBasicUShortArray; break;
+                            case Property.BasicType.SByte: parser = ParseBasicSbyteArray; break;
+                            case Property.BasicType.Byte: parser = ParseBasicByteArray; break;
+
+                            default: throw new Exception("aha???");
+                        }
+                    }
+                    else
+                    {
+                        switch (property.basicType)
+                        {
+                            case Property.BasicType.Integer: parser = ParseBasic2DIntegerArray; break;
+                            case Property.BasicType.Float: parser = ParseBasic2DFloatArray; break;
+                            case Property.BasicType.String: parser = ParseBasic2DStringArray; break;
+                            case Property.BasicType.UInt: parser = ParseBasic2DUIntArray; break;
+                            case Property.BasicType.Short: parser = ParseBasic2DShortArray; break;
+                            case Property.BasicType.UShort: parser = ParseBasic2DUShortArray; break;
+                            case Property.BasicType.SByte: parser = ParseBasic2DSByteArray; break;
+                            case Property.BasicType.Byte: parser = ParseBasic2DByteArray; break;
+                            default: throw new Exception("aha???");
+                        }
+                    }
+                }
+                else if (property.isBasicType)
+                {
+                    switch (property.basicType)
+                    {
+                        case Property.BasicType.Integer:
+                            {
+                                if (property.HasAttribute<Config.ExcelConfigAttribute.AsTimeStamp>()) parser = ParseDateTime;
+                                else
+                                {
+                                    var integerRange = property.GetAttribute<Config.ExcelConfigAttribute.IntegerRange>();
+                                    if (integerRange != null) parser = GetIntegerWithRangeParser(integerRange.min, integerRange.max);
+                                    else parser = ParseInteger;
+                                }
+                            }
+                            break;
+
+                        case Property.BasicType.Float:
+                            {
+                                var floatRange = property.GetAttribute<Config.ExcelConfigAttribute.FloatRange>();
+                                if (floatRange != null) parser = GetFloatWithRangeParser(floatRange.min, floatRange.max);
+                                else parser = ParseFloat;
+                            }
+                            break;
+
+                        case Property.BasicType.String:
+                            {
+                                var functor = property.GetAttribute<Config.ExcelConfigAttribute.Functor>();
+                                if (functor != null) parser = GetFunctorParser(functor);
+                                else parser = ParseString;
+                            }
+                            break;
+                        case Property.BasicType.Boolean: parser = ParseBoolean; break;
+                        case Property.BasicType.UInt: parser = ParseUInt; break;
+                        case Property.BasicType.Short: parser = ParseShort; break;
+                        case Property.BasicType.UShort: parser = ParseUShort; break;
+                        case Property.BasicType.SByte: parser = ParseSbyte; break;
+                        case Property.BasicType.Byte: parser = ParseByte; break;
+
+                        default: throw new Exception("aha??");
+                    }
+                }
+                else parser = ParseString;
+                if (property.type == "TeamPublicType")
+                {
+                    //Entry.UpdateLogText();
+                    Console.WriteLine($"Parser Type: {property.type}");
+                }
+                for (int dIndex = 0; dIndex < dataLines.Count; dIndex++)
+                {
+                    var dataLine = dataLines[dIndex];
+                    var row = dataLine.row;
+                    var rowData = data[dIndex];
+                    var content = column == 1 ? dataLine.value : cells[row, column].Value?.ToString();
+
+                    try
+                    {
+                        object value;
+                        if (string.IsNullOrEmpty(content))
+                        {
+                            value = null;
+                        }
+                        else
+                        {
+                            value = parser(content);
+                        }
+                        rowData[dataColumn] = value;
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ConfigException(ErrorMessage.BasicTypeFormatError, excelName, sheetName, GetColumnLetter(column), row, content, e.Message);
+                    }
+                }
+            }
+
+            dataLines.Clear();
+
+            //Excel下面同样的sheet会处理导相同的klass，所以需要加锁保证原子操作
+            lock (lockObject)
+            {
+                if (klass.data == null)
+                {
+                    klass.ResetData(new List<object[]>(data));
+                    klass.lineInfos[dataLineIndex] = new Klass.LineInfo { from = 0, to = klass.data.Count, excel = excelName, sheet = sheetName };
+                }
+                else
+                {
+                    klass.lineInfos[dataLineIndex] = new Klass.LineInfo { from = klass.data.Count, to = klass.data.Count + data.Length, excel = excelName, sheet = sheetName };
+                    klass.data.AddRange(data);
+                }
+            }
+        }
+
     }
+
 }
