@@ -814,9 +814,7 @@ namespace ExcelTConfig
                 {
                     pColumn = HandleProperty(excelPath, sheet, ownerKlass, pProperty, row + 2, pColumn, rowMax, klassSingleDataInfos, storageName);
                 }
-
                 ret = column + width;
-
                 bTail = false;
             }
             if (property.commentOnly) type += Config.ExcelConfigAttribute.CommentOnly.TypeName;
@@ -843,15 +841,11 @@ namespace ExcelTConfig
             descriptionCell.Style.Font.Color.SetColor(DescriptionFontColor);
             descriptionCell.Style.Font.Bold = true;
 
-
             bool nameTypeCellCrossCell = ret > column + 1 || lastRow > row + 1;
-            var nameTypeCell = nameTypeCellCrossCell ? sheet.Cells[row + 1, column, lastRow, ret - 1] : sheet.Cells[row + 1, column];
+            ExcelRange nameTypeCell = nameTypeCellCrossCell ? sheet.Cells[row + 1, column, lastRow, ret - 1] : sheet.Cells[row + 1, column];
             if (nameTypeCellCrossCell) nameTypeCell.Merge = true;
             //if (hyperLink != null) nameTypeCell.Hyperlink = hyperLink;
-            nameTypeCell.Style.Border.BorderAround(ExcelBorderStyle.Medium, TitleBorderColor);
-            nameTypeCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-            nameTypeCell.Style.Fill.BackgroundColor.SetColor(NameTypeBackgroundColor);
-
+            // 先设置文本
             nameTypeCell.RichText.Clear();
             var t = nameTypeCell.RichText.Add(name);
             t.Bold = true;
@@ -868,6 +862,10 @@ namespace ExcelTConfig
             t.UnderLine = true;
             t.Color = NameTypeFontColor;
             nameTypeCell.IsRichText = true;
+            // 设置单元格的配置
+            nameTypeCell.Style.Border.BorderAround(ExcelBorderStyle.Medium, TitleBorderColor);
+            nameTypeCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            nameTypeCell.Style.Fill.BackgroundColor.SetColor(NameTypeBackgroundColor);
 
             var prompt = property.GetAttribute<Config.ExcelConfigAttribute.Prompt>();
             if (prompt != null)
@@ -932,7 +930,6 @@ namespace ExcelTConfig
             excel = refKlass.excels[0];
             sheet = refKlass.sheets[0];
         }
-
 
         public static void ExtractData(bool bOnlyForClient = false, bool bOnlyForServer = false)
         {
