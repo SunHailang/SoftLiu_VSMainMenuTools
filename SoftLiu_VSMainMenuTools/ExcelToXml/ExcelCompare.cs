@@ -117,7 +117,7 @@ namespace SoftLiu_VSMainMenuTools.ExcelToXml
             StringBuilder content = new StringBuilder();
 
             //提取PDF所有页面的文本
-            int indexImage = 0;
+            //int indexImage = 0;
             foreach (PdfPageBase page in doc.Pages)
             {
                 content.Append(page.ExtractText());

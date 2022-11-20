@@ -131,7 +131,7 @@ namespace ExcelTConfig
                         int rowMax = klass.depth * 2;
                         int column = 1;
                         List<KlassSingleDataInfo> klassSingleDataInfos = new List<KlassSingleDataInfo>();
-                        foreach (var property in klass.rawProperties)
+                        foreach (Property property in klass.rawProperties)
                         {
                             column = HandleProperty(excelName, sheet, klass, property, 1, column, rowMax, klassSingleDataInfos, "");
                         }
@@ -145,7 +145,7 @@ namespace ExcelTConfig
                         int descColumn = 1;
                         int startColumn = descColumn;
                         hiddens.Clear();
-                        foreach (var property in klass.rawProperties)
+                        foreach (Property property in klass.rawProperties)
                         {
                             if (property.markDelete)
                             {
@@ -161,11 +161,13 @@ namespace ExcelTConfig
                                 }
                             }
                         }
+
                         int dbColumn = 1;
                         foreach (var property in klass.rawProperties)
                         {
-                            dbColumn = AddRowForDescription(sheet, property, rowMax + 2, dbColumn, -1);
+                            dbColumn = AddRowForDatabase(sheet, property, rowMax + 2, dbColumn, -1);
                         }
+
                         AddDataValidation(sheet, klass);
                         WriteSheetInfo(sheet, klass);
 
@@ -607,6 +609,151 @@ namespace ExcelTConfig
             descCell.Style.Fill.BackgroundColor.SetColor(DescriptionBackgroundColor);
         }
 
+        static int AddRowForDatabase(ExcelWorksheet sheet, Property property, int row, int column, int arrayIndex)
+        {
+            int ret = column + 1;
+
+            if (property.isArray && arrayIndex == -1)
+            {
+                int pColumn = column;
+                for (int it = 0; it < property.arrayLength; it++)
+                {
+                    pColumn = AddRowForDatabase(sheet, property, row, pColumn, it);
+                }
+
+                ret = pColumn;
+            }
+            else if (property.refKlass != null && property.refKlass.type == Klass.KlassType.Struct)
+            {
+                Klass klass = property.refKlass;
+
+                int pColumn = column;
+                foreach (var pProperty in klass.rawProperties)
+                {
+                    pColumn = AddRowForDatabase(sheet, pProperty, row, pColumn, -1);
+                }
+
+                ret = pColumn;
+            }
+            else
+            {
+                FillDBInfo(sheet, property, row, column);
+            }
+
+            return ret;
+        }
+        static void FillDBInfo(ExcelWorksheet sheet, Property property, int row, int column)
+        {
+            ExcelRange dbCell = sheet.Cells[row, column];
+
+            dbCell.Style.Border.BorderAround(ExcelBorderStyle.Medium, TitleBorderColor);
+            dbCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            dbCell.Style.Fill.BackgroundColor.SetColor(NameTypeBackgroundColor);
+            if (property.specificType != -1)
+            {
+                var type = (Config.ExcelConfigAttribute.SpecificType)property.specificType;
+
+                dbCell.Value = GetDBString(type, property.vLen);
+            }
+            else
+            {
+                if (dbCell.Value == null || string.IsNullOrEmpty(dbCell.Value.ToString()))
+                {
+                    // 目前只使用这两种Base数据类型
+                    switch (property.basicType)
+                    {
+                        case Property.BasicType.Integer:
+                            {
+                                dbCell.Value = "INT(10) UNSIGNED";
+                            }
+                            break;
+                        case Property.BasicType.Float:
+                            break;
+                        case Property.BasicType.Boolean:
+                            break;
+                        case Property.BasicType.String:
+                            {
+                                dbCell.Value = "VARCHAR(64)";
+                            }
+                            break;
+                        case Property.BasicType.UInt:
+                            break;
+                        case Property.BasicType.Short:
+                            break;
+                        case Property.BasicType.UShort:
+                            break;
+                        case Property.BasicType.SByte:
+                            break;
+                        case Property.BasicType.Byte:
+                            break;
+                        default:
+                            {
+                                switch (property.refKlass.type)
+                                {
+                                    case Klass.KlassType.Config:
+                                        break;
+                                    case Klass.KlassType.Struct:
+                                        break;
+                                    case Klass.KlassType.Enum:
+                                        {
+                                            dbCell.Value = "SMALLINT(5) UNSIGNED";
+                                        }
+                                        break;
+                                    case Klass.KlassType.Static:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        private static string GetDBString(Config.ExcelConfigAttribute.SpecificType specificType, int len)
+        {
+            string unsigned= "";
+            switch (specificType)
+            {
+                case Config.ExcelConfigAttribute.SpecificType.INT:
+                    {
+                        len = len <= 0 ? 10 : len;
+                        unsigned = " UNSIGNED";
+                    }
+                    break;
+                case Config.ExcelConfigAttribute.SpecificType.TINYINT:
+                    {
+                        len = len <= 0 ? 3 : len;
+                        unsigned = " UNSIGNED";
+                    }
+                    break;
+                case Config.ExcelConfigAttribute.SpecificType.SMALLINT:
+                    {
+                        len = len <= 0 ? 5 : len;
+                        unsigned = " UNSIGNED";
+                    }
+                    break;
+                //case Config.ExcelConfigAttribute.SpecificType.MEDIUMINT:
+                //    break;
+                //case Config.ExcelConfigAttribute.SpecificType.FLOAT:
+                    //break;
+                case Config.ExcelConfigAttribute.SpecificType.VARCHAR:
+                    {
+                        len = len <= 0 ? 64 : len;
+                    }
+                    break;
+                //case Config.ExcelConfigAttribute.SpecificType.CHAR:
+                //    break;
+                default:
+                    {
+                        //specificType = Config.ExcelConfigAttribute.SpecificType.VARCHAR;
+                        Entry.UpdateLogInfo($"GetDBString Type {specificType}  {len}");
+                    }
+                    break;
+            }
+            return $"{specificType}({len}){unsigned}";
+        }
+
         static void HandleData(int titleRowMax, int dataRowMax, int colMax, Klass klass, ExcelWorksheet tempSheet, ExcelWorksheet targetSheet,
             List<KlassSingleDataInfo> newklassSingleDataInfos)
         {
@@ -698,7 +845,7 @@ namespace ExcelTConfig
             sheet.Cells.Style.WrapText = true;
             sheet.DefaultRowHeight = 16f;
 
-            for (int i = 1; i < klass.rawWidth; i++)
+            for (int i = 1; i <= klass.rawWidth; i++)
             {
                 var style = sheet.Column(i).Style;
 
@@ -844,7 +991,6 @@ namespace ExcelTConfig
             bool nameTypeCellCrossCell = ret > column + 1 || lastRow > row + 1;
             ExcelRange nameTypeCell = nameTypeCellCrossCell ? sheet.Cells[row + 1, column, lastRow, ret - 1] : sheet.Cells[row + 1, column];
             if (nameTypeCellCrossCell) nameTypeCell.Merge = true;
-            //if (hyperLink != null) nameTypeCell.Hyperlink = hyperLink;
             // 先设置文本
             nameTypeCell.RichText.Clear();
             var t = nameTypeCell.RichText.Add(name);
@@ -880,7 +1026,6 @@ namespace ExcelTConfig
             {
                 var persistenceEnumTooltip = property.refKlass.persistenceEnumToolTip;
                 AddComment(descriptionCell, persistenceEnumTooltip, null);
-                //enum不用tooltip,因为数据太多会导致验证出错  AddPrompt(nameTypeCell, persistenceEnumTooltip, null);
             }
 
             return ret;
@@ -895,7 +1040,7 @@ namespace ExcelTConfig
             dv.ShowInputMessage = true;
             var content = promptContent == null ? string.Empty : promptContent;
             int nCount = 0; foreach (var c in content) if (c == '\n') nCount++;
-            if (nCount > 6) content = content.Replace("\n", "  ");
+            if (nCount > 6) content = content.Replace("\n", " ");
             dv.Prompt = content;
             dv.PromptTitle = promptTitle == null ? Config.ExcelConfigAttribute.Prompt.DefaultTitle : promptTitle;
         }

@@ -4,13 +4,13 @@ namespace Config.ExcelConfigAttribute
 {
     public enum SpecificType
     {
-        INT,
+        INT = 0,
         TINYINT,
         SMALLINT,
-        MEDIUMINT,
-        FLOAT,
+        //MEDIUMINT,
+        //FLOAT,
         VARCHAR,
-        CHAR,
+        //CHAR,
 
     }
 

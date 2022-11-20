@@ -31,6 +31,7 @@ namespace WinFormsExcel
         {
             this.richTextLog = new System.Windows.Forms.RichTextBox();
             this.btnExcel = new System.Windows.Forms.Button();
+            this.btnCSharp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextLog
@@ -38,29 +39,40 @@ namespace WinFormsExcel
             this.richTextLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextLog.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.richTextLog.Location = new System.Drawing.Point(13, 214);
+            this.richTextLog.Location = new System.Drawing.Point(13, 189);
             this.richTextLog.Name = "richTextLog";
             this.richTextLog.ReadOnly = true;
             this.richTextLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextLog.Size = new System.Drawing.Size(854, 190);
+            this.richTextLog.Size = new System.Drawing.Size(854, 168);
             this.richTextLog.TabIndex = 0;
             this.richTextLog.Text = "";
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(13, 12);
+            this.btnExcel.Location = new System.Drawing.Point(13, 11);
             this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnExcel.Size = new System.Drawing.Size(75, 20);
             this.btnExcel.TabIndex = 1;
             this.btnExcel.Text = "Excel";
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
+            // btnCSharp
+            // 
+            this.btnCSharp.Location = new System.Drawing.Point(13, 38);
+            this.btnCSharp.Name = "btnCSharp";
+            this.btnCSharp.Size = new System.Drawing.Size(75, 23);
+            this.btnCSharp.TabIndex = 2;
+            this.btnCSharp.Text = "C#";
+            this.btnCSharp.UseVisualStyleBackColor = true;
+            this.btnCSharp.Click += new System.EventHandler(this.btnCSharp_Click);
+            // 
             // WinFormsExcel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 416);
+            this.ClientSize = new System.Drawing.Size(879, 367);
+            this.Controls.Add(this.btnCSharp);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.richTextLog);
             this.Name = "WinFormsExcel";
@@ -74,6 +86,7 @@ namespace WinFormsExcel
 
         private System.Windows.Forms.RichTextBox richTextLog;
         private System.Windows.Forms.Button btnExcel;
+        private System.Windows.Forms.Button btnCSharp;
     }
 }
 

@@ -16,6 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="EnumTemplate.cs" />
+    <Compile Remove="InstanceTemplate.cs" />
+    <Compile Remove="StaticTemplate.cs" />
+    <Compile Remove="StructTemplate.cs" />
+    <Compile Remove="TableIndex.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.0.8" />
     <PackageReference Include="EPPlus.Interfaces" Version="6.0.0" />
     <PackageReference Include="EPPlus.System.Drawing" Version="6.0.0" />
@@ -46,24 +54,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="CSharpTemplate.resx" />
+    <EmbeddedResource Update="CSharpTemplate.resx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CSharpTemplate.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="CSharpTemplate.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CSharpTemplate.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="CSharpTemplate.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CSharpTemplate.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="CSharpTemplate.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="JavaTemplate.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

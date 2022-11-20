@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TConfiger;
 
 namespace ExcelTConfig
 {
@@ -32,6 +31,16 @@ namespace ExcelTConfig
 
         public static void Export()
         {
+            //if (CSharpTemplate.ResourceManager == null)
+            //{
+            //    Console.WriteLine("Error");
+            //}
+
+            //string tableStr = CSharpTemplate.ResourceManager.GetString("TableIndex");
+           
+            //Entry.UpdateLogInfo(tableStr);
+
+            //return;
             if (string.IsNullOrEmpty(Entry.CSharpFolderPath)) throw new ConfigException(ErrorMessage.JsonConfigFileNoXXXXField, "CSharp Folder Path");
             if (!Directory.Exists(Entry.CSharpFolderPath)) throw new ConfigException(ErrorMessage.FolderNotExist, "CSharp");
 

@@ -12,7 +12,7 @@ namespace SoctLiu_Client
     public class Client : IDisposable
     {
         //创建 1个客户端套接字 和1个负责监听服务端请求的线程
-        Thread threadclient = null;
+        //Thread threadclient = null;
         Socket m_tcpClient = null;
 
         private byte[] m_buffer = new byte[1024 * 1024];
@@ -101,7 +101,7 @@ namespace SoctLiu_Client
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.Message);
                     break;
                 }
             }

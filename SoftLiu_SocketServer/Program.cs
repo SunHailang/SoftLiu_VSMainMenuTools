@@ -12,7 +12,7 @@ namespace SoftLiu_SocketServer
     class Program
     {
 
-        private static Socket socServer;
+        private static Socket socServer = null;
 
         private static byte[] buffer = new byte[1024];
 

@@ -13,6 +13,8 @@ namespace WinFormsExcel
 {
     public partial class WinFormsExcel : Form
     {
+        public static readonly string configPath = Path.GetFullPath($"{Environment.CurrentDirectory}/../../../");
+
         public WinFormsExcel()
         {
             InitializeComponent();
@@ -26,7 +28,7 @@ namespace WinFormsExcel
             updateLogInfo("Warnning Type ...", ExcelTConfig.LogLevelType.WarnningType);
             updateLogInfo("Error Type ...", ExcelTConfig.LogLevelType.ErrorType);
 
-            string configPath = Path.GetFullPath($"{Environment.CurrentDirectory}/../../../");
+            //string configPath = Path.GetFullPath($"{Environment.CurrentDirectory}/../../../");
             ExcelTConfig.Entry.LoadInit(configPath);
 
 
@@ -55,6 +57,11 @@ namespace WinFormsExcel
         {
             //ExcelTConfig.Entry.ExportAll();
             ExcelTConfig.ExcelHandler.Export();
+        }
+
+        private void btnCSharp_Click(object sender, EventArgs e)
+        {
+            ExcelTConfig.CSharpHandler.Export();
         }
     }
 }
