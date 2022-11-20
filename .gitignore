@@ -18,7 +18,11 @@
 /SoftLiu_SocketServer/bin/
 /SoftLiu_SocketServer/obj/
 
-/WinFormsExcel/
+/WinFormsExcel/bin/
+/WinFormsExcel/obj/
+/WinFormsExcel/**Path/
+/WinFormsExcel/LangPrefix/
+/WinFormsExcel/*.json
 
 /SoctLiu_Client/bin/
 /SoctLiu_Client/obj/
