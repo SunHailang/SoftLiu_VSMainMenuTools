@@ -1089,7 +1089,6 @@ namespace ExcelTConfig
                 klass.ResetData(null);
             }
             var excelFiles = CollectExportsInfo().GroupBy(p => p.excel);
-            BuildCached();
             List<Task> tasks = new List<Task>();
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Restart();
@@ -1102,23 +1101,27 @@ namespace ExcelTConfig
                     var file = Path.Combine(Entry.ExcelFolderPath, excel as string + DotXLSX);
                     if (!File.Exists(file)) return;
 
-                    foreach (var group in tempPair)
+                    using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
-                        var klass = group.klass;
-                        var sheetName = group.sheet;
-                        var dataLineIndex = group.dataLineIndex;
-
-                        ExcelWorksheet cacheData;
-                        if (epplusCached.TryGetValue($"{excel}_{sheetName}", out cacheData))
+                        using (ExcelPackage excelPackage = new ExcelPackage(fs))
                         {
-                            if (cacheData == null)
-                                continue;
-
-                            ExtractKlassData(cacheData, klass, excel, sheetName, dataLineIndex, bOnlyForClient, bOnlyForServer);
-                        }
-                        else
-                        {
-                            throw new Exception("Can't find epplusCached");
+                            var workbook = excelPackage.Workbook;
+                            foreach (ExportInfo group in tempPair)
+                            {
+                                Klass klass = group.klass;
+                                string sheetName = group.sheet;
+                                int dataLineIndex = group.dataLineIndex;
+                                try
+                                {
+                                    ExcelWorksheet sheet = workbook.Worksheets.SingleOrDefault(s => s.Name == sheetName);
+                                    if (sheet == null) continue;
+                                    ExtractKlassData(sheet, klass, excel, sheetName, dataLineIndex, bOnlyForClient, bOnlyForServer);
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new Exception(string.Format("exception：{0} ExtractData file: {1} sheetName: {2}", e.ToString(), file, sheetName));
+                                }
+                            }
                         }
                     }
                 });
@@ -1308,61 +1311,6 @@ namespace ExcelTConfig
             return content[content.Length - 1] - BlankChar;
         }
 
-        static System.Collections.Concurrent.ConcurrentDictionary<string, ExcelWorksheet> epplusCached = new System.Collections.Concurrent.ConcurrentDictionary<string, ExcelWorksheet>();
-        private static void BuildCached()
-        {
-            if (epplusCached.IsEmpty)
-            {
-                System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-                sw.Restart();
-
-                List<Task> tasks = new List<Task>();
-                var excelFiles = CollectExportsInfo().GroupBy(p => p.excel);
-                foreach (var excelPair in excelFiles)
-                {
-                    var tempPair = excelPair;
-                    Task task = Task.Run(() =>
-                    {
-                        var excel = tempPair.Key;
-                        var file = Path.Combine(Entry.ExcelFolderPath, excel as string + DotXLSX);
-                        if (!File.Exists(file)) return;
-
-                        using (FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        {
-                            using (var excelPackage = new ExcelPackage(fs))
-                            {
-                                var workbook = excelPackage.Workbook;
-                                foreach (var group in tempPair)
-                                {
-                                    var klass = group.klass;
-                                    var sheetName = group.sheet;
-                                    try
-                                    {
-                                        var sheet = workbook.Worksheets.SingleOrDefault(s => s.Name == sheetName);
-                                        if (!epplusCached.TryAdd($"{excel}_{sheetName}", sheet))
-                                        {
-                                            Entry.UpdateLogInfo($"{excel}_{sheetName} alreay exist", LogLevelType.WarnningType);
-                                            continue;
-                                        }
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        throw new Exception(string.Format("exception：{0} ExtractData file: {1} sheetName: {2}", e.ToString(), file, sheetName));
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    tasks.Add(task);
-                }
-
-                Task.WaitAll(tasks.ToArray());
-
-                sw.Stop();
-                Entry.UpdateLogInfo($"BuildCached总共花费{sw.Elapsed.TotalMilliseconds}ms.", LogLevelType.InfoType);
-            }
-        }
         private delegate object CellValueParser(string content);
 
         private static object ParseDateTime(string content) => DateTime.Parse(content);
@@ -1681,9 +1629,9 @@ namespace ExcelTConfig
         static object lockObject = new object();
         private static void ExtractKlassData(ExcelWorksheet sheet, Klass klass, string excelName, string sheetName, int dataLineIndex, bool bOnlyForClient = false, bool bOnlyForServer = false)
         {
-            var cells = sheet.Cells;
+            ExcelRange cells = sheet.Cells;
 
-            var baseTypes = klass.baseTypes;
+            List<Property> baseTypes = klass.baseTypes;
 
             int info = ReadSheetInfo(sheet, klass);
 

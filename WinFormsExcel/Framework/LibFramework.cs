@@ -20,36 +20,13 @@ namespace Framework
 
         public void LibFrameworkInit(bool bEditorUsePacked)
         {
-#if UNITY_EDITOR_OSX
-                NativeFramework.RegisterDebugCallBack((str)=>{Debug.Log($"FrameWork DebugInfo {str}");});
-#endif
-            string tablePath = "";
-
-#if UNITY_EDITOR && !DEBUG_HOTUPDATE
-            tablePath =  FrameworkConst.GetEditorBytesPath(bEditorUsePacked);
-#else
-
-            //AddressType addressType;
-            //var filePath = ResourceProxy.instance.GetResFilePath(ResType.CONFIG, FrameworkConst.VERSION_FILE_NAME, "", out addressType, false);
-#if !UNITY_EDITOR && UNITY_ANDROID
-            if (addressType == AddressType.PACKAGE)
-            {
-                tablePath = FrameworkConst.GetLocalPath();
-            }
-            else
-            {
-                tablePath =  System.IO.Path.GetDirectoryName(filePath);
-            }
-#else
-            //tablePath = System.IO.Path.GetDirectoryName(filePath);
-#endif
-#endif
+            string tablePath = $"{WinFormsExcel.WinFormsExcel.configPath}BinaryFolderPath";
             InitNative(tablePath);
         }
 
         void InitNative(string tablePath)
         {
-            Console.WriteLine($"{tablePath}");
+            ExcelTConfig.Entry.UpdateLogInfo($"InitNative Path:{tablePath}");
             NativeFramework.LibFrameworkInit("", $"{tablePath}/");
         }
 

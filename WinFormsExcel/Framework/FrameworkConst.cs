@@ -44,19 +44,19 @@ namespace Framework
         
 #endif
 
-        public static string GetLocalPath()
-        {
-            return $"{WinFormsExcel.configPath}/TableData";
-        }
+        //public static string GetLocalPath()
+        //{
+        //    return $"{WinFormsExcel.configPath}/TableData";
+        //}
 
-        public static string GetPackagePath()
-        {
-            return $"{WinFormsExcel.configPath}/TableData/";
-        }
+        //public static string GetPackagePath()
+        //{
+        //    return $"{WinFormsExcel.configPath}/TableData/";
+        //}
 
-        public static string GetPackageVersionFile()
-        {
-            return $"{GetPackagePath()}{VERSION_FILE_NAME}";
-        }
+        //public static string GetPackageVersionFile()
+        //{
+        //    return $"{GetPackagePath()}{VERSION_FILE_NAME}";
+        //}
     }
 }

@@ -32,6 +32,9 @@ namespace WinFormsExcel
             this.richTextLog = new System.Windows.Forms.RichTextBox();
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnCSharp = new System.Windows.Forms.Button();
+            this.btnBinary = new System.Windows.Forms.Button();
+            this.btnExportAll = new System.Windows.Forms.Button();
+            this.btnRead = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextLog
@@ -67,11 +70,44 @@ namespace WinFormsExcel
             this.btnCSharp.UseVisualStyleBackColor = true;
             this.btnCSharp.Click += new System.EventHandler(this.btnCSharp_Click);
             // 
+            // btnBinary
+            // 
+            this.btnBinary.Location = new System.Drawing.Point(13, 68);
+            this.btnBinary.Name = "btnBinary";
+            this.btnBinary.Size = new System.Drawing.Size(75, 23);
+            this.btnBinary.TabIndex = 3;
+            this.btnBinary.Text = "Binary";
+            this.btnBinary.UseVisualStyleBackColor = true;
+            this.btnBinary.Click += new System.EventHandler(this.btnBinary_Click);
+            // 
+            // btnExportAll
+            // 
+            this.btnExportAll.Location = new System.Drawing.Point(122, 11);
+            this.btnExportAll.Name = "btnExportAll";
+            this.btnExportAll.Size = new System.Drawing.Size(75, 23);
+            this.btnExportAll.TabIndex = 4;
+            this.btnExportAll.Text = "Export All";
+            this.btnExportAll.UseVisualStyleBackColor = true;
+            this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
+            // 
+            // btnRead
+            // 
+            this.btnRead.Location = new System.Drawing.Point(13, 160);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(75, 23);
+            this.btnRead.TabIndex = 5;
+            this.btnRead.Text = "Read";
+            this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
+            // 
             // WinFormsExcel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(879, 367);
+            this.Controls.Add(this.btnRead);
+            this.Controls.Add(this.btnExportAll);
+            this.Controls.Add(this.btnBinary);
             this.Controls.Add(this.btnCSharp);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.richTextLog);
@@ -87,6 +123,9 @@ namespace WinFormsExcel
         private System.Windows.Forms.RichTextBox richTextLog;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.Button btnCSharp;
+        private System.Windows.Forms.Button btnBinary;
+        private System.Windows.Forms.Button btnExportAll;
+        private System.Windows.Forms.Button btnRead;
     }
 }
 

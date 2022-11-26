@@ -36,7 +36,7 @@ namespace ExcelTConfig
     public class Entry
     {
         public static event Action<string, LogLevelType> LogInfoEvent;
-        internal static void UpdateLogInfo(string msg, LogLevelType level = LogLevelType.InfoType) => LogInfoEvent?.Invoke(msg, level);
+        public static void UpdateLogInfo(string msg, LogLevelType level = LogLevelType.InfoType) => LogInfoEvent?.Invoke(msg, level);
 
         private static HashSet<string> dllNamespace = new HashSet<string>()
         {

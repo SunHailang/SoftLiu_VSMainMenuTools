@@ -63,5 +63,30 @@ namespace WinFormsExcel
         {
             ExcelTConfig.CSharpHandler.Export();
         }
+
+        private void btnBinary_Click(object sender, EventArgs e)
+        {
+            ExcelTConfig.ExcelHandler.ExtractData(true);
+            ExcelTConfig.BinaryHandler.Export();
+            ExcelTConfig.VHandler.Export();
+        }
+
+        private void btnExportAll_Click(object sender, EventArgs e)
+        {
+            ExcelTConfig.Entry.ExportAll();
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            Framework.LibFramework.Init();
+
+            for (int i = 0; i < Framework.TestData.Count; i++)
+            {
+                Framework.TestData testData = Framework.TestData.ByIndex(i);
+                ExcelTConfig.Entry.UpdateLogInfo($"{testData.dict_id}, {testData.dict_type.ToString()}, {testData.dict_desc}");
+            }
+
+            Framework.LibFramework.Destroy();
+        }
     }
 }
