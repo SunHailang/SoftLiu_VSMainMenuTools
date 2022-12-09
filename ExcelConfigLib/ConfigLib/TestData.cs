@@ -2,7 +2,7 @@
 
 namespace Config.ClientAndServer
 {
-    [PersistentEnum, CustomDescEnum("Test Data Enum Type")]
+    [PersistentEnum]
     public enum EnumType
     {
         [Tips("公开")] PUBLIC = 0,

@@ -285,6 +285,19 @@ namespace ExcelTConfig
                         dv.ErrorStyle = OfficeOpenXml.DataValidation.ExcelDataValidationWarningStyle.stop;
                         dv.ErrorTitle = "错误";
                     }
+                    else if (baseType.basicType == Property.BasicType.String)
+                    {
+                        int minValue = int.MinValue;
+                        int maxValue = int.MaxValue;
+
+                        var integerRange = baseType.GetAttribute<Config.ExcelConfigAttribute.IntegerRange>();
+                        if (integerRange != null)
+                        {
+                            minValue = integerRange.min;
+                            maxValue = integerRange.max;
+                        }
+                        range.Style.Numberformat.Format = "@";
+                    }
                     else if (baseType.basicType == Property.BasicType.Integer)
                     {
                         if (baseType.HasAttribute<Config.ExcelConfigAttribute.AsTimeStamp>())
@@ -469,7 +482,6 @@ namespace ExcelTConfig
                         dv.Error = $"请输入介于{minValue}与{maxValue}之间的整数";
                         dv.ErrorStyle = OfficeOpenXml.DataValidation.ExcelDataValidationWarningStyle.stop;
                         dv.ErrorTitle = "错误";
-
                     }
                 }
                 else
@@ -491,7 +503,7 @@ namespace ExcelTConfig
                     }
                     else if (refKlass.isPersistentEnum)
                     {
-                        if (!String.IsNullOrEmpty(refKlass.enumCustomDataValidation))
+                        if (!string.IsNullOrEmpty(refKlass.enumCustomDataValidation))
                         {
                             var dv = range.DataValidation.AddListDataValidation();
                             dv.Formula.ExcelFormula = refKlass.enumCustomDataValidation;
@@ -712,7 +724,7 @@ namespace ExcelTConfig
         }
         private static string GetDBString(Config.ExcelConfigAttribute.SpecificType specificType, int len)
         {
-            string unsigned= "";
+            string unsigned = "";
             switch (specificType)
             {
                 case Config.ExcelConfigAttribute.SpecificType.INT:
@@ -736,7 +748,7 @@ namespace ExcelTConfig
                 //case Config.ExcelConfigAttribute.SpecificType.MEDIUMINT:
                 //    break;
                 //case Config.ExcelConfigAttribute.SpecificType.FLOAT:
-                    //break;
+                //break;
                 case Config.ExcelConfigAttribute.SpecificType.VARCHAR:
                     {
                         len = len <= 0 ? 64 : len;

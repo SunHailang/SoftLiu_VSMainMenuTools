@@ -13,7 +13,7 @@ namespace WinFormsExcel
 {
     public partial class WinFormsExcel : Form
     {
-        public static readonly string configPath = Path.GetFullPath($"{Environment.CurrentDirectory}/../../../");
+        public static readonly string configPath = Path.GetFullPath($"{Environment.CurrentDirectory}/../../..");
 
         public WinFormsExcel()
         {
@@ -78,15 +78,16 @@ namespace WinFormsExcel
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            Framework.LibFramework.Init();
+            TableLoader.LoadMain();
+            //Framework.LibFramework.Init();
 
-            for (int i = 0; i < Framework.TestData.Count; i++)
-            {
-                Framework.TestData testData = Framework.TestData.ByIndex(i);
-                ExcelTConfig.Entry.UpdateLogInfo($"{testData.dict_id}, {testData.dict_type.ToString()}, {testData.dict_desc}");
-            }
+            //for (int i = 0; i < Framework.TestData.Count; i++)
+            //{
+            //    Framework.TestData testData = Framework.TestData.ByIndex(i);
+            //    ExcelTConfig.Entry.UpdateLogInfo($"{testData.dict_id}, {testData.dict_type.ToString()}, {testData.dict_desc}");
+            //}
 
-            Framework.LibFramework.Destroy();
+            //Framework.LibFramework.Destroy();
         }
     }
 }

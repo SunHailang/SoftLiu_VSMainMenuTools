@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using WinFormsExcel;
 
 namespace Framework
 {
@@ -14,14 +15,31 @@ namespace Framework
         [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void TableShutdown();
 
-        [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GetTableIndex(string tableName);
+        //[DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
+        public static /*extern*/ int GetTableIndex(string tableName)
+        {
+            if (TableLoader.kMap.TryGetValue(tableName, out int order))
+            {
+                return order;
+            }
+            else
+            {
+                Console.WriteLine($"GetTableIndex TableName:{tableName}");
+            }
+            return 0;
+        }
 
-        [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void* GetConfigDataPointer(int tableIndex);
+        //[DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
+        public static /*extern*/ void* GetConfigDataPointer(int tableIndex)
+        {
+            return TableLoader.kInfo[tableIndex].dataPointer;
+        }
 
-        [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void* ConfigByID(int tableIndex, int id);
+        //[DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
+        private static /*extern*/ void* ConfigByID(int tableIndex, int id)
+        {
+            return TableLoader.kInfo[tableIndex].ByID(id);
+        }
 
         [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void* ConfigByStringID(int tableIndex, IntPtr utf16String, int stringLength);
@@ -29,14 +47,20 @@ namespace Framework
         [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetConfigCount(int tableIndex);
 
-        [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void* ConfigByIndex(int tableIndex, int index);
+        //[DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
+        private static /*extern*/ void* ConfigByIndex(int tableIndex, int index)
+        {
+            return TableLoader.kInfo[tableIndex].ByIndex(index);
+        }
 
         [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void* ConfigByGroupKey(int tableIndex, int id);
 
-        [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GetTableVersion();
+        //[DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
+        public static /*extern*/ int GetTableVersion()
+        {
+            return 0;
+        }
 
         [DllImport(FrameworkConst.DLLNAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void* GetI18N(int i18nKlassHash, int id);
@@ -146,26 +170,18 @@ namespace Framework
         [System.Diagnostics.Conditional("DEBUG")]
         public static void PointerCheck(void* p, int pVersion)
         {
-#if UNITY_EDITOR
-                if (p == null) throw new NullReferenceException();
-                if (pVersion != GetTableVersion()) throw new Exception("Version不匹配，table已销毁或重新建立，该指针可能是野指针");
-#endif
+            if (p == null) throw new NullReferenceException();
+            if (pVersion != GetTableVersion()) throw new Exception("Version不匹配，table已销毁或重新建立，该指针可能是野指针");
         }
 
-        [System.Diagnostics.Conditional("DEBUG")]
         public static void VersionCheck(int pVersion)
         {
-#if UNITY_EDITOR
-                if (pVersion != GetTableVersion()) throw new Exception("Version不匹配，table已销毁或重新建立，该指针可能是野指针");
-#endif
+            if (pVersion != GetTableVersion()) throw new Exception("Version不匹配，table已销毁或重新建立，该指针可能是野指针");
         }
 
-        [System.Diagnostics.Conditional("DEBUG")]
         public static void TableIndexCheck(int tableIndex)
         {
-#if UNITY_EDITOR
-            if(tableIndex == 0) throw new Exception("table index should not be zero!");
-#endif
+            if (tableIndex == 0) throw new Exception("table index should not be zero!");
         }
 
         public Table()
@@ -176,46 +192,46 @@ namespace Framework
         }
         public static void LogTableData<T>() where T : unmanaged, IConfigType
         {
-            var indexProperty = typeof(TableIndex).GetProperty(typeof(T).Name, System.Reflection.BindingFlags.GetProperty
-                | System.Reflection.BindingFlags.Public
-                | System.Reflection.BindingFlags.Static);
-            if (indexProperty == null)
-            {
-                Console.WriteLine("Table could not find tableindex");
-                return;
-            }
+            //var indexProperty = typeof(TableIndex).GetProperty(typeof(T).Name, System.Reflection.BindingFlags.GetProperty
+            //    | System.Reflection.BindingFlags.Public
+            //    | System.Reflection.BindingFlags.Static);
+            //if (indexProperty == null)
+            //{
+            //    Console.WriteLine("Table could not find tableindex");
+            //    return;
+            //}
 
-            int tableIndex = (int)indexProperty.GetMethod.Invoke(null, null);
+            //int tableIndex = (int)indexProperty.GetMethod.Invoke(null, null);
 
-            TableIndexCheck(tableIndex);
+            //TableIndexCheck(tableIndex);
 
-            int count = GetConfigCount(tableIndex);
-            Console.WriteLine($"Table { typeof(T).Name} count: {count}");
+            //int count = GetConfigCount(tableIndex);
+            //Console.WriteLine($"Table { typeof(T).Name} count: {count}");
 
-            var properties = typeof(T).GetProperties(
-                System.Reflection.BindingFlags.GetProperty
-                | System.Reflection.BindingFlags.Public
-                | System.Reflection.BindingFlags.Instance);
+            //var properties = typeof(T).GetProperties(
+            //    System.Reflection.BindingFlags.GetProperty
+            //    | System.Reflection.BindingFlags.Public
+            //    | System.Reflection.BindingFlags.Instance);
 
-            var sb = new System.Text.StringBuilder();
-            for (int it = 0; it < count; it++)
-            {
-                var config = ByIndex<T>(tableIndex, it);
+            //var sb = new System.Text.StringBuilder();
+            //for (int it = 0; it < count; it++)
+            //{
+            //    var config = ByIndex<T>(tableIndex, it);
 
-                sb.Clear();
-                sb.Append($"{typeof(T).Name} {it} - ");
-                bool first = true;
-                foreach (var property in properties)
-                {
-                    if (first) first = false;
-                    else sb.Append(", ");
-                    sb.Append(property.Name).Append(" : ");
+            //    sb.Clear();
+            //    sb.Append($"{typeof(T).Name} {it} - ");
+            //    bool first = true;
+            //    foreach (var property in properties)
+            //    {
+            //        if (first) first = false;
+            //        else sb.Append(", ");
+            //        sb.Append(property.Name).Append(" : ");
 
-                    var value = property.GetMethod.Invoke(config, null);
-                    AppendLogValue(value, sb);
-                }
-                Console.WriteLine($"Table {sb.ToString()}");
-            }
+            //        var value = property.GetMethod.Invoke(config, null);
+            //        AppendLogValue(value, sb);
+            //    }
+            //    Console.WriteLine($"Table {sb.ToString()}");
+            //}
         }
 
         private static void AppendLogValue(object value, System.Text.StringBuilder sb)
