@@ -95,8 +95,29 @@ namespace ExcelTConfig
                     if (skip) continue;
                 }
                 bool fileExists = File.Exists(filePath);
+                string newPath = filePath;
+                if (fileExists)
+                {
+                    string dir = Path.GetDirectoryName(filePath);
+                    string exten = Path.GetExtension(filePath);
+                    newPath = $"{dir}/{excelName}_temp_&{exten}";
+                    File.Move(filePath, newPath);
+                }
+
                 using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
+                    FileStream tempStream = null;
+                    ExcelPackage tempExcelPackage = null;
+                    ExcelWorkbook tempWorkbook = null;
+                    if (File.Exists(newPath))
+                    {
+                        tempStream = new FileStream(newPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        {
+                            tempExcelPackage = new ExcelPackage(tempStream);
+                            tempWorkbook = tempExcelPackage.Workbook;
+                        }
+                    }
+
                     ExcelPackage excelPackage = new ExcelPackage(stream);
                     ExcelWorkbook workbook = excelPackage.Workbook;
                     List<int> hiddens = new List<int>();
@@ -109,19 +130,23 @@ namespace ExcelTConfig
 
                         bool bNewSheet = sheet == null;
                         ExcelWorksheet tempSheet = null;
+                        if (tempWorkbook != null)
+                        {
+                            tempSheet = tempWorkbook.Worksheets.SingleOrDefault(s => s.Name == sheetName);
+                        }
                         if (bNewSheet)
                         {
                             sheet = workbook.Worksheets.Add(sheetName);
                         }
-                        else
-                        {
-                            string tempName = "_&";
-                            tempSheet = workbook.Worksheets.Copy(sheetName, tempName);
+                        //else
+                        //{
+                        //    string tempName = "_&";
+                        //    tempSheet = workbook.Worksheets.Copy(sheetName, tempName);
 
-                            workbook.Worksheets.Delete(sheetName);
+                        //    workbook.Worksheets.Delete(sheetName);
 
-                            sheet = workbook.Worksheets.Add(sheetName);
-                        }
+                        //    sheet = workbook.Worksheets.Add(sheetName);
+                        //}
                         if (sheet == null)
                         {
                             Entry.UpdateLogInfo($"Sheet Create failed: {sheetName}, Len:{sheetName.Length} (Max Length < 32 char).", LogLevelType.ErrorType);
@@ -135,12 +160,10 @@ namespace ExcelTConfig
                         {
                             column = HandleProperty(excelName, sheet, klass, property, 1, column, rowMax, klassSingleDataInfos, "");
                         }
-                        if (!bNewSheet)
+                        if (tempSheet != null)
                         {
                             int dataRowMax = GetDataRowMax(rowMax, tempSheet);
                             HandleData(rowMax, dataRowMax, column - 1, klass, tempSheet, sheet, klassSingleDataInfos);
-
-                            workbook.Worksheets.Delete(tempSheet);
                         }
                         int descColumn = 1;
                         int startColumn = descColumn;
@@ -186,6 +209,11 @@ namespace ExcelTConfig
                         }
                     }
                     excelPackage.Save();
+                    if (tempStream != null)
+                    {
+                        tempStream.Dispose();
+                        //File.Delete(newPath);
+                    }
                 }
             }
             if (reflushMetaHash)
@@ -1107,7 +1135,7 @@ namespace ExcelTConfig
             foreach (var excelPair in excelFiles)
             {
                 var tempPair = excelPair;
-                Task task = Task.Run(() =>
+                //Task task = Task.Run(() =>
                 {
                     var excel = tempPair.Key;
                     var file = Path.Combine(Entry.ExcelFolderPath, excel as string + DotXLSX);
@@ -1136,10 +1164,11 @@ namespace ExcelTConfig
                             }
                         }
                     }
-                });
-                tasks.Add(task);
+                }
+                //});
+                //tasks.Add(task);
             }
-            Task.WaitAll(tasks.ToArray());
+            //Task.WaitAll(tasks.ToArray());
             foreach (var klass in allKlass)
             {
                 var lineInfos = klass.lineInfos;
@@ -1680,6 +1709,10 @@ namespace ExcelTConfig
             int dataColumn = -1;
             for (int column = 1; column <= klass.rawWidth; column++)
             {
+                if (column == 53)
+                {
+                    Console.WriteLine("");
+                }
                 CellValueParser parser;
                 var property = baseTypes[column - 1];
 
@@ -1688,7 +1721,6 @@ namespace ExcelTConfig
                     (bOnlyForServer && property.bClientOnly)) continue;
 
                 dataColumn++;
-
                 if (property.isBasicArray)
                 {
                     if (property.isBasic1DArray)
@@ -1776,7 +1808,10 @@ namespace ExcelTConfig
                     var row = dataLine.row;
                     var rowData = data[dIndex];
                     var content = column == 1 ? dataLine.value : cells[row, column].Value?.ToString();
-
+                    if (row == 7)
+                    {
+                        Console.WriteLine("");
+                    }
                     try
                     {
                         object value;
@@ -1792,6 +1827,7 @@ namespace ExcelTConfig
                     }
                     catch (Exception e)
                     {
+                        ExcelTConfig.Entry.UpdateLogInfo(string.Format(ErrorMessage.BasicTypeFormatError, excelName, sheetName, GetColumnLetter(column), row, content, e.Message));
                         throw new ConfigException(ErrorMessage.BasicTypeFormatError, excelName, sheetName, GetColumnLetter(column), row, content, e.Message);
                     }
                 }

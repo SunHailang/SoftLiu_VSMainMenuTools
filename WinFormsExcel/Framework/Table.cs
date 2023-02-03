@@ -186,9 +186,9 @@ namespace Framework
 
         public Table()
         {
-            var ptr = TableInit();
-            if (ptr != null) throw new Exception(Marshal.PtrToStringAnsi((IntPtr)ptr));
-            TableIndex.SetData();
+            //var ptr = TableInit();
+            //if (ptr != null) throw new Exception(Marshal.PtrToStringAnsi((IntPtr)ptr));
+            //TableIndex.SetData();
         }
         public static void LogTableData<T>() where T : unmanaged, IConfigType
         {

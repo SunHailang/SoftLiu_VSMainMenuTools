@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExcelConfigLib\ExcelConfigLib.csproj" />
     <ProjectReference Include="..\ExcelTConfig\ExcelTConfig.csproj" />
   </ItemGroup>
 

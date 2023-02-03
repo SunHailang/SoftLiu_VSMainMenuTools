@@ -76,11 +76,11 @@ namespace WinFormsExcel
                 KInfo info = new KInfo(infoPtr);
                 kInfo[order] = info;
             }
-            Framework.TableIndex.SetData();
+            //Framework.TableIndex.SetData();
 
-            Framework.TestData data = Framework.TestData.ByIndex(2);
+            //Framework.TestData data = Framework.TestData.ByIndex(2);
 
-            Console.WriteLine(data.arrayInt);
+            //Console.WriteLine(data.arrayInt);
         }
 
 

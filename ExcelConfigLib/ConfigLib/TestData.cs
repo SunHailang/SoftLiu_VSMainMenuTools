@@ -25,5 +25,7 @@ namespace Config.ClientAndServer
         public string splitInt;
         [Tips("String类型分割"), MarkSplitString(SplitSingleType.String), MarkSpecificType(SpecificType.VARCHAR, 64)]
         public string splitString;
+        [Tips("String类型分割1"), MarkSplitString(SplitSingleType.String), MarkSpecificType(SpecificType.VARCHAR, 64)]
+        public string splitString1;
     }
 }
