@@ -21,10 +21,10 @@ namespace SoftLiu_SocketServer
             Console.WriteLine("start server.");
             try
             {
-                //Server server = new Server();
-                //server.StartAsyncSocket();
-                ServerRAW raw = new ServerRAW();
-                raw.Server("10.192.91.40", 8080);
+                //ServerTCP server = new ServerTCP("10.20.24.22", 13000);
+                ServerTCP server = new ServerTCP("127.0.0.1", 13000);
+                server.StartAsyncSocket();
+                //raw.Server("10.20.24.22", 8080);
 
                 //ServerUDP udp = new ServerUDP();
                 ////udp.Server("10.192.91.40", 30010);

@@ -17,14 +17,14 @@ namespace SoftLiu_SocketServer.ServerData
 
         private byte[] m_recvBuffer = new byte[1024 * 1024];
 
-        public ServerTCP()
+        public ServerTCP(string ipAddress, int port)
         {
             // 创建一个Socket对象
             m_socServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             // IP 地址
-            IPAddress address = IPAddress.Parse("10.192.91.40");
+            IPAddress address = IPAddress.Parse(ipAddress);
             // Port
-            IPEndPoint point = new IPEndPoint(address, 11060);
+            IPEndPoint point = new IPEndPoint(address, port);
             // 绑定 IP ，端口号 
             m_socServer.Bind(point);
             // 开启监听  监听长度

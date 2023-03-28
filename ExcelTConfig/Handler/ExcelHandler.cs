@@ -101,6 +101,10 @@ namespace ExcelTConfig
                     string dir = Path.GetDirectoryName(filePath);
                     string exten = Path.GetExtension(filePath);
                     newPath = $"{dir}/{excelName}_temp_&{exten}";
+                    if (File.Exists(newPath))
+                    {
+                        File.Delete(newPath);
+                    }
                     File.Move(filePath, newPath);
                 }
 
@@ -133,6 +137,17 @@ namespace ExcelTConfig
                         if (tempWorkbook != null)
                         {
                             tempSheet = tempWorkbook.Worksheets.SingleOrDefault(s => s.Name == sheetName);
+                        }
+                        if (tempWorkbook.Worksheets.Count > 1)
+                        {
+                            for (int i = 0; i < tempWorkbook.Worksheets.Count; i++)
+                            {
+                                ExcelWorksheet copySheet = tempWorkbook.Worksheets[i];
+                                if (copySheet.Name == sheetName) continue;
+                                Console.WriteLine(copySheet.Names);
+                                workbook.Worksheets.Add(copySheet.Name, copySheet);
+                                //workbook.Worksheets.Add(copySheet.Name);
+                            }
                         }
                         if (bNewSheet)
                         {
