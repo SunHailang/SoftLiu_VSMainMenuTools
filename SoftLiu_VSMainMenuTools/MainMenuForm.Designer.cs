@@ -297,11 +297,12 @@ namespace SoftLiu_VSMainMenuTools
             this.tabControlMainTools.Location = new System.Drawing.Point(686, 26);
             this.tabControlMainTools.Name = "tabControlMainTools";
             this.tabControlMainTools.SelectedIndex = 0;
-            this.tabControlMainTools.Size = new System.Drawing.Size(288, 513);
+            this.tabControlMainTools.Size = new System.Drawing.Size(288, 524);
             this.tabControlMainTools.TabIndex = 2;
             // 
             // tabPageTimeTools
             // 
+            this.tabPageTimeTools.AutoScroll = true;
             this.tabPageTimeTools.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageTimeTools.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPageTimeTools.Controls.Add(this.buttonSecondsCount);
@@ -331,7 +332,7 @@ namespace SoftLiu_VSMainMenuTools
             this.tabPageTimeTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimeTools.Name = "tabPageTimeTools";
             this.tabPageTimeTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 487);
+            this.tabPageTimeTools.Size = new System.Drawing.Size(280, 498);
             this.tabPageTimeTools.TabIndex = 0;
             this.tabPageTimeTools.Text = "时间转换";
             // 
@@ -486,7 +487,7 @@ namespace SoftLiu_VSMainMenuTools
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(259, 28);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = $"总秒数转化{Environment.NewLine}时间格式：dd HH:mm:ss";
+            this.textBox2.Text = "总秒数转化\r\n时间格式：dd HH:mm:ss";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxTimeBefor
@@ -505,7 +506,7 @@ namespace SoftLiu_VSMainMenuTools
             this.textBoxTimeCountdown.ReadOnly = true;
             this.textBoxTimeCountdown.Size = new System.Drawing.Size(259, 28);
             this.textBoxTimeCountdown.TabIndex = 2;
-            this.textBoxTimeCountdown.Text = $"倒计时{Environment.NewLine}时间格式：yyyy-MM-dd HH:mm:ss";
+            this.textBoxTimeCountdown.Text = "倒计时\r\n时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxTimeCountdown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxDesc
@@ -517,7 +518,7 @@ namespace SoftLiu_VSMainMenuTools
             this.textBoxDesc.ReadOnly = true;
             this.textBoxDesc.Size = new System.Drawing.Size(259, 28);
             this.textBoxDesc.TabIndex = 2;
-            this.textBoxDesc.Text = $"时间和时间戳互相转换{Environment.NewLine}时间格式：yyyy-MM-dd HH:mm:ss";
+            this.textBoxDesc.Text = "时间和时间戳互相转换\r\n时间格式：yyyy-MM-dd HH:mm:ss";
             this.textBoxDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // richTextBoxTimeSpan
@@ -561,6 +562,7 @@ namespace SoftLiu_VSMainMenuTools
             // 
             // tabPageMD5Tools
             // 
+            this.tabPageMD5Tools.AutoScroll = true;
             this.tabPageMD5Tools.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPageMD5Tools.Controls.Add(this.buttonSelectFile);
             this.tabPageMD5Tools.Controls.Add(this.comboBoxMD5);
@@ -574,7 +576,7 @@ namespace SoftLiu_VSMainMenuTools
             this.tabPageMD5Tools.Location = new System.Drawing.Point(4, 22);
             this.tabPageMD5Tools.Name = "tabPageMD5Tools";
             this.tabPageMD5Tools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 487);
+            this.tabPageMD5Tools.Size = new System.Drawing.Size(280, 498);
             this.tabPageMD5Tools.TabIndex = 1;
             this.tabPageMD5Tools.Text = "MD5转换";
             this.tabPageMD5Tools.UseVisualStyleBackColor = true;
@@ -669,6 +671,7 @@ namespace SoftLiu_VSMainMenuTools
             // 
             // tabPageHex
             // 
+            this.tabPageHex.AutoScroll = true;
             this.tabPageHex.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPageHex.Controls.Add(this.groupBoxTwo);
             this.tabPageHex.Controls.Add(this.groupBoxSix);
@@ -676,7 +679,7 @@ namespace SoftLiu_VSMainMenuTools
             this.tabPageHex.Location = new System.Drawing.Point(4, 22);
             this.tabPageHex.Name = "tabPageHex";
             this.tabPageHex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHex.Size = new System.Drawing.Size(280, 487);
+            this.tabPageHex.Size = new System.Drawing.Size(280, 498);
             this.tabPageHex.TabIndex = 2;
             this.tabPageHex.Text = "进制转换";
             this.tabPageHex.UseVisualStyleBackColor = true;
@@ -920,6 +923,7 @@ namespace SoftLiu_VSMainMenuTools
             // 
             // tabPageColor
             // 
+            this.tabPageColor.AutoScroll = true;
             this.tabPageColor.Controls.Add(this.textBox3);
             this.tabPageColor.Controls.Add(this.label16);
             this.tabPageColor.Controls.Add(this.labelColorHex);
@@ -943,7 +947,7 @@ namespace SoftLiu_VSMainMenuTools
             this.tabPageColor.Location = new System.Drawing.Point(4, 22);
             this.tabPageColor.Name = "tabPageColor";
             this.tabPageColor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageColor.Size = new System.Drawing.Size(280, 487);
+            this.tabPageColor.Size = new System.Drawing.Size(280, 498);
             this.tabPageColor.TabIndex = 3;
             this.tabPageColor.Text = "调色板";
             this.tabPageColor.UseVisualStyleBackColor = true;
@@ -956,7 +960,7 @@ namespace SoftLiu_VSMainMenuTools
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(256, 31);
             this.textBox3.TabIndex = 6;
-            this.textBox3.Text = $"在 Hex Color(不包含Alpha)  或者 RGB 中任选一个{Environment.NewLine}输入颜色的值";
+            this.textBox3.Text = "在 Hex Color(不包含Alpha)  或者 RGB 中任选一个输入颜色的值";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label16
@@ -1124,6 +1128,7 @@ namespace SoftLiu_VSMainMenuTools
             // 
             // tabPageCheckCoardID
             // 
+            this.tabPageCheckCoardID.AutoScroll = true;
             this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDAge);
             this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDGender);
             this.tabPageCheckCoardID.Controls.Add(this.labelCheckCardIDArea);
@@ -1136,7 +1141,7 @@ namespace SoftLiu_VSMainMenuTools
             this.tabPageCheckCoardID.Location = new System.Drawing.Point(4, 22);
             this.tabPageCheckCoardID.Name = "tabPageCheckCoardID";
             this.tabPageCheckCoardID.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCheckCoardID.Size = new System.Drawing.Size(280, 487);
+            this.tabPageCheckCoardID.Size = new System.Drawing.Size(280, 498);
             this.tabPageCheckCoardID.TabIndex = 4;
             this.tabPageCheckCoardID.Text = "身份证号码校验";
             this.tabPageCheckCoardID.UseVisualStyleBackColor = true;
@@ -1226,14 +1231,14 @@ namespace SoftLiu_VSMainMenuTools
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 54);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(667, 340);
+            this.dataGridView1.Size = new System.Drawing.Size(667, 351);
             this.dataGridView1.TabIndex = 3;
             // 
             // textBoxLog
             // 
             this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLog.Location = new System.Drawing.Point(12, 399);
+            this.textBoxLog.Location = new System.Drawing.Point(12, 410);
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
@@ -1246,7 +1251,7 @@ namespace SoftLiu_VSMainMenuTools
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(986, 550);
+            this.ClientSize = new System.Drawing.Size(986, 561);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControlMainTools);

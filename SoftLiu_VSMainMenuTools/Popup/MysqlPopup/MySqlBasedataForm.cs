@@ -176,61 +176,6 @@ namespace SoftLiu_VSMainMenuTools
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int rowIndex = e.RowIndex;
-            int columnIndex = e.ColumnIndex;
-            if (rowIndex >= 0)
-            {
-                string stuNum = dataGridView1[3, rowIndex].Value.ToString();
-                switch (dataGridView1.Columns[columnIndex].Name)
-                {
-                    case "btnModify":
-                        DialogResult modifyResult = MessageBox.Show("确认修改选择的信息！", "修改", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if (modifyResult == DialogResult.OK)
-                        {
-                            //TODO
-                            IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
-                            {
-                                return stu.StuNum == stuNum;
-                            });
-                            Student student = students.FirstOrDefault();
-                            if (student != null)
-                            {
-                                ModifyData(student);
-                            }
-                            else
-                            {
-                                MessageBox.Show("未查到该用户数据，失败！", "修改", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                        break;
-                    case "btnDelete":
-                        DialogResult deleteResult = MessageBox.Show("确认删除选择的信息！", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if (deleteResult == DialogResult.OK)
-                        {
-                            //TODO
-                            IEnumerable<Student> students = this.m_currentStudentList.Where((stu) =>
-                            {
-                                return stu.StuNum == stuNum;
-                            });
-                            Student student = students.FirstOrDefault();
-                            if (student != null)
-                            {
-                                DeleteData(student, rowIndex);
-                            }
-                            else
-                            {
-                                MessageBox.Show("未查到该用户数据，失败！", "删除", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
         private void ModifyData(Student student)
         {
             //TODO

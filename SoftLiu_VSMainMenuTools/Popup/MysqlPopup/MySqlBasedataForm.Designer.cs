@@ -63,9 +63,6 @@
             this.buttonFind = new System.Windows.Forms.Button();
             this.textBoxFind = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonAddUser = new System.Windows.Forms.Button();
-            this.selectDatabase = new System.Windows.Forms.Button();
-            this.tabControlBasedata = new System.Windows.Forms.TabControl();
             this.ColumnIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnGradeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnClassID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,6 +74,9 @@
             this.ColumnPhoneNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonAddUser = new System.Windows.Forms.Button();
+            this.selectDatabase = new System.Windows.Forms.Button();
+            this.tabControlBasedata = new System.Windows.Forms.TabControl();
             this.tabPageIsDelete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIsDelete)).BeginInit();
             this.tabPageShowData.SuspendLayout();
@@ -94,7 +94,7 @@
             this.tabPageIsDelete.Location = new System.Drawing.Point(4, 22);
             this.tabPageIsDelete.Name = "tabPageIsDelete";
             this.tabPageIsDelete.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageIsDelete.Size = new System.Drawing.Size(1036, 529);
+            this.tabPageIsDelete.Size = new System.Drawing.Size(1036, 486);
             this.tabPageIsDelete.TabIndex = 3;
             this.tabPageIsDelete.Text = "查看已删除数据";
             this.tabPageIsDelete.UseVisualStyleBackColor = true;
@@ -106,16 +106,16 @@
             "序号",
             "姓名",
             "手机号"});
-            this.comboBoxIsDelete.Location = new System.Drawing.Point(7, 13);
+            this.comboBoxIsDelete.Location = new System.Drawing.Point(7, 12);
             this.comboBoxIsDelete.Name = "comboBoxIsDelete";
-            this.comboBoxIsDelete.Size = new System.Drawing.Size(62, 21);
+            this.comboBoxIsDelete.Size = new System.Drawing.Size(62, 20);
             this.comboBoxIsDelete.TabIndex = 10;
             // 
             // buttonFindIsDelete
             // 
-            this.buttonFindIsDelete.Location = new System.Drawing.Point(186, 11);
+            this.buttonFindIsDelete.Location = new System.Drawing.Point(186, 10);
             this.buttonFindIsDelete.Name = "buttonFindIsDelete";
-            this.buttonFindIsDelete.Size = new System.Drawing.Size(52, 23);
+            this.buttonFindIsDelete.Size = new System.Drawing.Size(52, 21);
             this.buttonFindIsDelete.TabIndex = 9;
             this.buttonFindIsDelete.Text = "搜索";
             this.buttonFindIsDelete.UseVisualStyleBackColor = true;
@@ -123,9 +123,9 @@
             // 
             // textBoxIsDelete
             // 
-            this.textBoxIsDelete.Location = new System.Drawing.Point(75, 13);
+            this.textBoxIsDelete.Location = new System.Drawing.Point(75, 12);
             this.textBoxIsDelete.Name = "textBoxIsDelete";
-            this.textBoxIsDelete.Size = new System.Drawing.Size(105, 20);
+            this.textBoxIsDelete.Size = new System.Drawing.Size(105, 21);
             this.textBoxIsDelete.TabIndex = 8;
             // 
             // dataGridViewIsDelete
@@ -164,9 +164,9 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewIsDelete.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewIsDelete.Location = new System.Drawing.Point(6, 46);
+            this.dataGridViewIsDelete.Location = new System.Drawing.Point(6, 42);
             this.dataGridViewIsDelete.Name = "dataGridViewIsDelete";
-            this.dataGridViewIsDelete.Size = new System.Drawing.Size(1024, 478);
+            this.dataGridViewIsDelete.Size = new System.Drawing.Size(1024, 441);
             this.dataGridViewIsDelete.TabIndex = 6;
             this.dataGridViewIsDelete.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellContentClick);
             this.dataGridViewIsDelete.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellMouseEnter);
@@ -258,9 +258,9 @@
             // buttonRushIsDelete
             // 
             this.buttonRushIsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRushIsDelete.Location = new System.Drawing.Point(942, 7);
+            this.buttonRushIsDelete.Location = new System.Drawing.Point(942, 6);
             this.buttonRushIsDelete.Name = "buttonRushIsDelete";
-            this.buttonRushIsDelete.Size = new System.Drawing.Size(88, 33);
+            this.buttonRushIsDelete.Size = new System.Drawing.Size(88, 30);
             this.buttonRushIsDelete.TabIndex = 7;
             this.buttonRushIsDelete.Text = "刷新所有数据";
             this.buttonRushIsDelete.UseVisualStyleBackColor = true;
@@ -277,7 +277,7 @@
             this.tabPageShowData.Location = new System.Drawing.Point(4, 22);
             this.tabPageShowData.Name = "tabPageShowData";
             this.tabPageShowData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageShowData.Size = new System.Drawing.Size(1036, 529);
+            this.tabPageShowData.Size = new System.Drawing.Size(1036, 486);
             this.tabPageShowData.TabIndex = 0;
             this.tabPageShowData.Text = "查看所有数据";
             this.tabPageShowData.UseVisualStyleBackColor = true;
@@ -289,16 +289,16 @@
             "序号",
             "姓名",
             "手机号"});
-            this.comboBoxFind.Location = new System.Drawing.Point(7, 13);
+            this.comboBoxFind.Location = new System.Drawing.Point(7, 12);
             this.comboBoxFind.Name = "comboBoxFind";
-            this.comboBoxFind.Size = new System.Drawing.Size(62, 21);
+            this.comboBoxFind.Size = new System.Drawing.Size(62, 20);
             this.comboBoxFind.TabIndex = 5;
             // 
             // buttonFind
             // 
-            this.buttonFind.Location = new System.Drawing.Point(186, 11);
+            this.buttonFind.Location = new System.Drawing.Point(186, 10);
             this.buttonFind.Name = "buttonFind";
-            this.buttonFind.Size = new System.Drawing.Size(52, 23);
+            this.buttonFind.Size = new System.Drawing.Size(52, 21);
             this.buttonFind.TabIndex = 4;
             this.buttonFind.Text = "搜索";
             this.buttonFind.UseVisualStyleBackColor = true;
@@ -306,9 +306,9 @@
             // 
             // textBoxFind
             // 
-            this.textBoxFind.Location = new System.Drawing.Point(75, 13);
+            this.textBoxFind.Location = new System.Drawing.Point(75, 12);
             this.textBoxFind.Name = "textBoxFind";
-            this.textBoxFind.Size = new System.Drawing.Size(105, 20);
+            this.textBoxFind.Size = new System.Drawing.Size(105, 21);
             this.textBoxFind.TabIndex = 3;
             // 
             // dataGridView1
@@ -346,48 +346,12 @@
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 46);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 42);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1024, 478);
+            this.dataGridView1.Size = new System.Drawing.Size(1024, 441);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // buttonAddUser
-            // 
-            this.buttonAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddUser.Location = new System.Drawing.Point(838, 7);
-            this.buttonAddUser.Name = "buttonAddUser";
-            this.buttonAddUser.Size = new System.Drawing.Size(88, 33);
-            this.buttonAddUser.TabIndex = 1;
-            this.buttonAddUser.Text = "添加数据";
-            this.buttonAddUser.UseVisualStyleBackColor = true;
-            this.buttonAddUser.Click += new System.EventHandler(this.buttonAddUser_Click);
-            // 
-            // selectDatabase
-            // 
-            this.selectDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectDatabase.Location = new System.Drawing.Point(942, 7);
-            this.selectDatabase.Name = "selectDatabase";
-            this.selectDatabase.Size = new System.Drawing.Size(88, 33);
-            this.selectDatabase.TabIndex = 1;
-            this.selectDatabase.Text = "刷新所有数据";
-            this.selectDatabase.UseVisualStyleBackColor = true;
-            this.selectDatabase.Click += new System.EventHandler(this.secectDatabase_Click);
-            // 
-            // tabControlBasedata
-            // 
-            this.tabControlBasedata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlBasedata.Controls.Add(this.tabPageShowData);
-            this.tabControlBasedata.Controls.Add(this.tabPageIsDelete);
-            this.tabControlBasedata.Location = new System.Drawing.Point(12, 12);
-            this.tabControlBasedata.Name = "tabControlBasedata";
-            this.tabControlBasedata.SelectedIndex = 0;
-            this.tabControlBasedata.Size = new System.Drawing.Size(1044, 555);
-            this.tabControlBasedata.TabIndex = 5;
-            this.tabControlBasedata.SelectedIndexChanged += new System.EventHandler(this.tabControlBasedata_SelectedIndexChanged);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIsDelete_CellContentClick);
             // 
             // ColumnIndex
             // 
@@ -484,11 +448,47 @@
             this.ColumnAddress.Name = "ColumnAddress";
             this.ColumnAddress.ReadOnly = true;
             // 
+            // buttonAddUser
+            // 
+            this.buttonAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddUser.Location = new System.Drawing.Point(838, 6);
+            this.buttonAddUser.Name = "buttonAddUser";
+            this.buttonAddUser.Size = new System.Drawing.Size(88, 30);
+            this.buttonAddUser.TabIndex = 1;
+            this.buttonAddUser.Text = "添加数据";
+            this.buttonAddUser.UseVisualStyleBackColor = true;
+            this.buttonAddUser.Click += new System.EventHandler(this.buttonAddUser_Click);
+            // 
+            // selectDatabase
+            // 
+            this.selectDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectDatabase.Location = new System.Drawing.Point(942, 6);
+            this.selectDatabase.Name = "selectDatabase";
+            this.selectDatabase.Size = new System.Drawing.Size(88, 30);
+            this.selectDatabase.TabIndex = 1;
+            this.selectDatabase.Text = "刷新所有数据";
+            this.selectDatabase.UseVisualStyleBackColor = true;
+            this.selectDatabase.Click += new System.EventHandler(this.secectDatabase_Click);
+            // 
+            // tabControlBasedata
+            // 
+            this.tabControlBasedata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlBasedata.Controls.Add(this.tabPageShowData);
+            this.tabControlBasedata.Controls.Add(this.tabPageIsDelete);
+            this.tabControlBasedata.Location = new System.Drawing.Point(12, 11);
+            this.tabControlBasedata.Name = "tabControlBasedata";
+            this.tabControlBasedata.SelectedIndex = 0;
+            this.tabControlBasedata.Size = new System.Drawing.Size(1044, 512);
+            this.tabControlBasedata.TabIndex = 5;
+            this.tabControlBasedata.SelectedIndexChanged += new System.EventHandler(this.tabControlBasedata_SelectedIndexChanged);
+            // 
             // MySqlBasedataForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1068, 579);
+            this.ClientSize = new System.Drawing.Size(1068, 534);
             this.Controls.Add(this.tabControlBasedata);
             this.Name = "MySqlBasedataForm";
             this.Text = "MySqlBasedata";
