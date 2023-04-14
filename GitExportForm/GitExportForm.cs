@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,15 +19,15 @@ namespace GitExportForm
         public GitExportForm()
         {
             InitializeComponent();
-            
+
         }
 
-        private Configuration configuration = null;
+        private Configuration m_configuration = null;
 
         private void GitExportForm_Load(object sender, EventArgs e)
         {
             this.buttonExport.Visible = m_fileStatusDict.Count > 0;
-            configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            m_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             this.textBoxGitPath.Text = GetConfiguration("GitPath");
             this.textBoxSvnPath.Text = GetConfiguration("SvnPath");
         }
@@ -43,31 +44,32 @@ namespace GitExportForm
                     MessageBox.Show(this, "文件夹路径不能为空", "提示");
                     return;
                 }
-                this.textBoxGitPath.Text = dialog.SelectedPath;
-                SaveConfiguration("GitPath", dialog.SelectedPath);
+                string path = dialog.SelectedPath.Replace("\\", "/");
+                this.textBoxGitPath.Text = path;
+                SaveConfiguration("GitPath", path);
             }
         }
         private string GetConfiguration(string key)
         {
-            KeyValueConfigurationCollection collection = configuration.AppSettings.Settings;
+            KeyValueConfigurationCollection collection = m_configuration.AppSettings.Settings;
             string[] keys = collection.AllKeys;
             if (keys != null && keys.Length > 0)
             {
                 for (int i = 0; i < keys.Length; i++)
                 {
-                    if(keys[i] == key)
+                    if (keys[i] == key)
                     {
                         return collection[key].Value;
                     }
                 }
             }
             collection.Add(new KeyValueConfigurationElement(key, ""));
-            configuration.Save();
+            m_configuration.Save();
             return collection[key].Value;
         }
         private void SaveConfiguration(string key, string value)
         {
-            KeyValueConfigurationCollection collection = configuration.AppSettings.Settings;
+            KeyValueConfigurationCollection collection = m_configuration.AppSettings.Settings;
             string[] keys = collection.AllKeys;
             if (keys != null && keys.Length > 0)
             {
@@ -76,13 +78,13 @@ namespace GitExportForm
                     if (keys[i] == key)
                     {
                         collection[key].Value = value;
-                        configuration.Save();
+                        m_configuration.Save();
                         return;
                     }
                 }
             }
             collection.Add(new KeyValueConfigurationElement(key, value));
-            configuration.Save();            
+            m_configuration.Save();
         }
         private void buttonSvnPath_Click(object sender, EventArgs e)
         {
@@ -96,8 +98,9 @@ namespace GitExportForm
                     MessageBox.Show(this, "文件夹路径不能为空", "提示");
                     return;
                 }
-                this.textBoxSvnPath.Text = dialog.SelectedPath;
-                SaveConfiguration("SvnPath", dialog.SelectedPath);
+                string path = dialog.SelectedPath.Replace("\\", "/");
+                this.textBoxSvnPath.Text = path;
+                SaveConfiguration("SvnPath", path);
             }
         }
         private void buttonGitStatus_Click(object sender, EventArgs e)
@@ -110,7 +113,7 @@ namespace GitExportForm
                 return;
             }
 
-            string strInput = $"git status";//Console.ReadLine();
+            string strInput = $"git status -u";//Console.ReadLine();
             Process p = new Process();
             //设置要启动的应用程序
             p.StartInfo.FileName = "cmd.exe";
@@ -240,7 +243,9 @@ namespace GitExportForm
                 string[] addSplits = addStrOutput.Split('\n', '\t');
                 for (int i = 0; i < addSplits.Length; i++)
                 {
-                    AddDataGirdViewRow(true, addSplits[i]);
+                    string path = addSplits[i];
+                    if (string.IsNullOrEmpty(path)) continue;
+                    AddDataGirdViewRow(true, path);
                 }
             }
 
@@ -308,9 +313,6 @@ namespace GitExportForm
             }
             return FileRecordType.None;
         }
-
-       
-
 
         private void dataGridViewGitInfo_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
