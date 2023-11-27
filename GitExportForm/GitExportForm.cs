@@ -339,5 +339,10 @@ namespace GitExportForm
                 }
             }
         }
+
+        private void fetchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
