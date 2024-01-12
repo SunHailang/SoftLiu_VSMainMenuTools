@@ -143,6 +143,7 @@ namespace SoftLiu_VSMainMenuTools
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.colorDialogColorPanel = new System.Windows.Forms.ColorDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.ticketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControlMainTools.SuspendLayout();
             this.tabPageTimeTools.SuspendLayout();
@@ -165,29 +166,30 @@ namespace SoftLiu_VSMainMenuTools
             this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.windowToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.ticketToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(986, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(986, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // toolsToolStripMenuItem
@@ -198,34 +200,34 @@ namespace SoftLiu_VSMainMenuTools
             this.otherToolsToolStripMenuItem,
             this.readerPDFToolsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // excelToXmlToolStripMenuItem
             // 
             this.excelToXmlToolStripMenuItem.Name = "excelToXmlToolStripMenuItem";
-            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.excelToXmlToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.excelToXmlToolStripMenuItem.Text = "Excel To Xml";
             this.excelToXmlToolStripMenuItem.Click += new System.EventHandler(this.excelToXmlToolStripMenuItem_Click);
             // 
             // excelToCSVToolStripMenuItem
             // 
             this.excelToCSVToolStripMenuItem.Name = "excelToCSVToolStripMenuItem";
-            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.excelToCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.excelToCSVToolStripMenuItem.Text = "Excel To CSV";
             this.excelToCSVToolStripMenuItem.Click += new System.EventHandler(this.excelToCSVToolStripMenuItem_Click);
             // 
             // otherToolsToolStripMenuItem
             // 
             this.otherToolsToolStripMenuItem.Name = "otherToolsToolStripMenuItem";
-            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.otherToolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.otherToolsToolStripMenuItem.Text = "OtherTools";
             this.otherToolsToolStripMenuItem.Click += new System.EventHandler(this.otherToolsToolStripMenuItem_Click);
             // 
             // readerPDFToolsToolStripMenuItem
             // 
             this.readerPDFToolsToolStripMenuItem.Name = "readerPDFToolsToolStripMenuItem";
-            this.readerPDFToolsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.readerPDFToolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.readerPDFToolsToolStripMenuItem.Text = "ReaderPDFTools";
             this.readerPDFToolsToolStripMenuItem.Click += new System.EventHandler(this.readerPDFToolsToolStripMenuItem_Click);
             // 
@@ -236,27 +238,27 @@ namespace SoftLiu_VSMainMenuTools
             this.tCPIPTestToolStripMenuItem,
             this.webSocketClientToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(67, 21);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // openMySqlToolStripMenuItem
             // 
             this.openMySqlToolStripMenuItem.Name = "openMySqlToolStripMenuItem";
-            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.openMySqlToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openMySqlToolStripMenuItem.Text = "Open mySql";
             this.openMySqlToolStripMenuItem.Click += new System.EventHandler(this.openMySqlToolStripMenuItem_Click);
             // 
             // tCPIPTestToolStripMenuItem
             // 
             this.tCPIPTestToolStripMenuItem.Name = "tCPIPTestToolStripMenuItem";
-            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.tCPIPTestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tCPIPTestToolStripMenuItem.Text = "TCP/IP Test";
             this.tCPIPTestToolStripMenuItem.Click += new System.EventHandler(this.tCPIPTestToolStripMenuItem_Click);
             // 
             // webSocketClientToolStripMenuItem
             // 
             this.webSocketClientToolStripMenuItem.Name = "webSocketClientToolStripMenuItem";
-            this.webSocketClientToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.webSocketClientToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.webSocketClientToolStripMenuItem.Text = "WebSocketClient";
             this.webSocketClientToolStripMenuItem.Click += new System.EventHandler(this.webSocketClientToolStripMenuItem_Click);
             // 
@@ -265,13 +267,13 @@ namespace SoftLiu_VSMainMenuTools
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -1246,6 +1248,13 @@ namespace SoftLiu_VSMainMenuTools
             this.textBoxLog.Size = new System.Drawing.Size(668, 141);
             this.textBoxLog.TabIndex = 4;
             // 
+            // ticketToolStripMenuItem
+            // 
+            this.ticketToolStripMenuItem.Name = "ticketToolStripMenuItem";
+            this.ticketToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.ticketToolStripMenuItem.Text = "Ticket";
+            this.ticketToolStripMenuItem.Click += new System.EventHandler(this.ticketToolStripMenuItem_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1402,6 +1411,7 @@ namespace SoftLiu_VSMainMenuTools
         private System.Windows.Forms.TextBox textBoxCheckCardIDGender;
         private System.Windows.Forms.TextBox textBoxCheckCardIDArea;
         private System.Windows.Forms.ToolStripMenuItem readerPDFToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ticketToolStripMenuItem;
     }
 }
 

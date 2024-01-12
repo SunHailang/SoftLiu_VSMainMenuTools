@@ -7,6 +7,12 @@
       "m_serverPort": 13000
     },
     {
+      "m_key": "TCP",
+      "m_name": "Ubuntu Life",
+      "m_serverIP": "192.168.1.6",
+      "m_serverPort": 10001
+    },
+    {
       "m_key": "UDP",
       "m_name": "本机",
       "m_serverIP": "10.192.91.40",

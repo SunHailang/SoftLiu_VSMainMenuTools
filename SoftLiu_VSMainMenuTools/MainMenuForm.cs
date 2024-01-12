@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SoftLiu_VSMainMenuTools.UGUI;
 using SoftLiu_VSMainMenuTools.SocketClient.WebSocketData;
 using SoftLiu_VSMainMenuTools.UGUI.Tools;
+using SoftLiu_VSMainMenuTools.TrainTicket;
 
 namespace SoftLiu_VSMainMenuTools
 {
@@ -755,8 +756,14 @@ namespace SoftLiu_VSMainMenuTools
             about.ShowDialog();
         }
 
+        private void ticketToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form ticket = new TrainTicket.TrainTicket();
+            FormManager.Instance.OpenForm(ticket);
+        }
+
         #endregion
 
-        
+
     }
 }

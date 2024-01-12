@@ -35,6 +35,8 @@
             this.uDPClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlClient = new System.Windows.Forms.TabControl();
             this.tabPageTCP_Client = new System.Windows.Forms.TabPage();
+            this.labelSend = new System.Windows.Forms.Label();
+            this.labelRecv = new System.Windows.Forms.Label();
             this.comboBoxTcpAddress = new System.Windows.Forms.ComboBox();
             this.labelTCPAddress = new System.Windows.Forms.Label();
             this.textBoxTCPRecv = new System.Windows.Forms.TextBox();
@@ -55,8 +57,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.labelRecv = new System.Windows.Forms.Label();
-            this.labelSend = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlClient.SuspendLayout();
             this.tabPageTCP_Client.SuspendLayout();
@@ -112,10 +112,10 @@
             this.tabControlClient.Controls.Add(this.tabPageUDPClient);
             this.tabControlClient.Controls.Add(this.tabPageTools);
             this.tabControlClient.ItemSize = new System.Drawing.Size(67, 18);
-            this.tabControlClient.Location = new System.Drawing.Point(13, 28);
+            this.tabControlClient.Location = new System.Drawing.Point(13, 26);
             this.tabControlClient.Name = "tabControlClient";
             this.tabControlClient.SelectedIndex = 0;
-            this.tabControlClient.Size = new System.Drawing.Size(945, 475);
+            this.tabControlClient.Size = new System.Drawing.Size(945, 438);
             this.tabControlClient.TabIndex = 1;
             // 
             // tabPageTCP_Client
@@ -133,65 +133,83 @@
             this.tabPageTCP_Client.Location = new System.Drawing.Point(4, 22);
             this.tabPageTCP_Client.Name = "tabPageTCP_Client";
             this.tabPageTCP_Client.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTCP_Client.Size = new System.Drawing.Size(937, 449);
+            this.tabPageTCP_Client.Size = new System.Drawing.Size(937, 412);
             this.tabPageTCP_Client.TabIndex = 0;
             this.tabPageTCP_Client.Text = "TCP Client";
             this.tabPageTCP_Client.UseVisualStyleBackColor = true;
             // 
+            // labelSend
+            // 
+            this.labelSend.AutoSize = true;
+            this.labelSend.Location = new System.Drawing.Point(17, 53);
+            this.labelSend.Name = "labelSend";
+            this.labelSend.Size = new System.Drawing.Size(71, 12);
+            this.labelSend.TabIndex = 8;
+            this.labelSend.Text = "Send Data：";
+            // 
+            // labelRecv
+            // 
+            this.labelRecv.AutoSize = true;
+            this.labelRecv.Location = new System.Drawing.Point(380, 53);
+            this.labelRecv.Name = "labelRecv";
+            this.labelRecv.Size = new System.Drawing.Size(89, 12);
+            this.labelRecv.TabIndex = 8;
+            this.labelRecv.Text = "Receive Data：";
+            // 
             // comboBoxTcpAddress
             // 
             this.comboBoxTcpAddress.FormattingEnabled = true;
-            this.comboBoxTcpAddress.Location = new System.Drawing.Point(84, 11);
+            this.comboBoxTcpAddress.Location = new System.Drawing.Point(84, 10);
             this.comboBoxTcpAddress.Name = "comboBoxTcpAddress";
-            this.comboBoxTcpAddress.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxTcpAddress.Size = new System.Drawing.Size(109, 20);
             this.comboBoxTcpAddress.TabIndex = 7;
             this.comboBoxTcpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxTcpAddress_SelectedIndexChanged);
             // 
             // labelTCPAddress
             // 
             this.labelTCPAddress.AutoSize = true;
-            this.labelTCPAddress.Location = new System.Drawing.Point(17, 14);
+            this.labelTCPAddress.Location = new System.Drawing.Point(17, 13);
             this.labelTCPAddress.Name = "labelTCPAddress";
-            this.labelTCPAddress.Size = new System.Drawing.Size(61, 13);
+            this.labelTCPAddress.Size = new System.Drawing.Size(65, 12);
             this.labelTCPAddress.TabIndex = 6;
             this.labelTCPAddress.Text = "主机地址：";
             // 
             // textBoxTCPRecv
             // 
-            this.textBoxTCPRecv.Location = new System.Drawing.Point(383, 73);
+            this.textBoxTCPRecv.Location = new System.Drawing.Point(383, 67);
             this.textBoxTCPRecv.Multiline = true;
             this.textBoxTCPRecv.Name = "textBoxTCPRecv";
             this.textBoxTCPRecv.ReadOnly = true;
             this.textBoxTCPRecv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPRecv.Size = new System.Drawing.Size(548, 238);
+            this.textBoxTCPRecv.Size = new System.Drawing.Size(548, 220);
             this.textBoxTCPRecv.TabIndex = 4;
             // 
             // textBoxTCPSend
             // 
-            this.textBoxTCPSend.Location = new System.Drawing.Point(20, 73);
+            this.textBoxTCPSend.Location = new System.Drawing.Point(20, 67);
             this.textBoxTCPSend.Multiline = true;
             this.textBoxTCPSend.Name = "textBoxTCPSend";
             this.textBoxTCPSend.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPSend.Size = new System.Drawing.Size(254, 240);
+            this.textBoxTCPSend.Size = new System.Drawing.Size(254, 222);
             this.textBoxTCPSend.TabIndex = 4;
             // 
             // textBoxTCPTips
             // 
             this.textBoxTCPTips.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTCPTips.Location = new System.Drawing.Point(6, 332);
+            this.textBoxTCPTips.Location = new System.Drawing.Point(6, 306);
             this.textBoxTCPTips.Multiline = true;
             this.textBoxTCPTips.Name = "textBoxTCPTips";
             this.textBoxTCPTips.ReadOnly = true;
             this.textBoxTCPTips.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxTCPTips.Size = new System.Drawing.Size(925, 111);
+            this.textBoxTCPTips.Size = new System.Drawing.Size(925, 103);
             this.textBoxTCPTips.TabIndex = 3;
             // 
             // buttonConnectTcp
             // 
-            this.buttonConnectTcp.Location = new System.Drawing.Point(357, 9);
+            this.buttonConnectTcp.Location = new System.Drawing.Point(357, 8);
             this.buttonConnectTcp.Name = "buttonConnectTcp";
-            this.buttonConnectTcp.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnectTcp.Size = new System.Drawing.Size(75, 21);
             this.buttonConnectTcp.TabIndex = 2;
             this.buttonConnectTcp.Text = "Connect";
             this.buttonConnectTcp.UseVisualStyleBackColor = true;
@@ -199,9 +217,9 @@
             // 
             // buttonSend
             // 
-            this.buttonSend.Location = new System.Drawing.Point(280, 290);
+            this.buttonSend.Location = new System.Drawing.Point(280, 268);
             this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(75, 23);
+            this.buttonSend.Size = new System.Drawing.Size(75, 21);
             this.buttonSend.TabIndex = 1;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
@@ -211,7 +229,7 @@
             // 
             this.radioConnectStatus.AutoSize = true;
             this.radioConnectStatus.BackColor = System.Drawing.Color.Transparent;
-            this.radioConnectStatus.Location = new System.Drawing.Point(447, 14);
+            this.radioConnectStatus.Location = new System.Drawing.Point(447, 13);
             this.radioConnectStatus.Name = "radioConnectStatus";
             this.radioConnectStatus.Size = new System.Drawing.Size(14, 13);
             this.radioConnectStatus.TabIndex = 0;
@@ -228,7 +246,7 @@
             this.tabPageUDPClient.Location = new System.Drawing.Point(4, 22);
             this.tabPageUDPClient.Name = "tabPageUDPClient";
             this.tabPageUDPClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUDPClient.Size = new System.Drawing.Size(937, 449);
+            this.tabPageUDPClient.Size = new System.Drawing.Size(937, 412);
             this.tabPageUDPClient.TabIndex = 1;
             this.tabPageUDPClient.Text = "UDP Client";
             this.tabPageUDPClient.UseVisualStyleBackColor = true;
@@ -236,27 +254,27 @@
             // comboBoxUdpAddress
             // 
             this.comboBoxUdpAddress.FormattingEnabled = true;
-            this.comboBoxUdpAddress.Location = new System.Drawing.Point(85, 18);
+            this.comboBoxUdpAddress.Location = new System.Drawing.Point(85, 17);
             this.comboBoxUdpAddress.Name = "comboBoxUdpAddress";
-            this.comboBoxUdpAddress.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxUdpAddress.Size = new System.Drawing.Size(109, 20);
             this.comboBoxUdpAddress.TabIndex = 9;
             this.comboBoxUdpAddress.SelectedIndexChanged += new System.EventHandler(this.comboBoxUdpAddress_SelectedIndexChanged);
             // 
             // labelUdpAddress
             // 
             this.labelUdpAddress.AutoSize = true;
-            this.labelUdpAddress.Location = new System.Drawing.Point(18, 21);
+            this.labelUdpAddress.Location = new System.Drawing.Point(18, 19);
             this.labelUdpAddress.Name = "labelUdpAddress";
-            this.labelUdpAddress.Size = new System.Drawing.Size(61, 13);
+            this.labelUdpAddress.Size = new System.Drawing.Size(65, 12);
             this.labelUdpAddress.TabIndex = 8;
             this.labelUdpAddress.Text = "主机地址：";
             // 
             // buttonUDPSend
             // 
             this.buttonUDPSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUDPSend.Location = new System.Drawing.Point(852, 239);
+            this.buttonUDPSend.Location = new System.Drawing.Point(852, 221);
             this.buttonUDPSend.Name = "buttonUDPSend";
-            this.buttonUDPSend.Size = new System.Drawing.Size(78, 28);
+            this.buttonUDPSend.Size = new System.Drawing.Size(78, 26);
             this.buttonUDPSend.TabIndex = 3;
             this.buttonUDPSend.Text = "发送";
             this.buttonUDPSend.UseVisualStyleBackColor = true;
@@ -267,22 +285,22 @@
             this.textBoxUDPReceive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUDPReceive.Location = new System.Drawing.Point(6, 287);
+            this.textBoxUDPReceive.Location = new System.Drawing.Point(6, 265);
             this.textBoxUDPReceive.Multiline = true;
             this.textBoxUDPReceive.Name = "textBoxUDPReceive";
             this.textBoxUDPReceive.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxUDPReceive.Size = new System.Drawing.Size(925, 156);
+            this.textBoxUDPReceive.Size = new System.Drawing.Size(925, 144);
             this.textBoxUDPReceive.TabIndex = 2;
             // 
             // textBoxUDPSendMessage
             // 
             this.textBoxUDPSendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUDPSendMessage.Location = new System.Drawing.Point(6, 104);
+            this.textBoxUDPSendMessage.Location = new System.Drawing.Point(6, 96);
             this.textBoxUDPSendMessage.Multiline = true;
             this.textBoxUDPSendMessage.Name = "textBoxUDPSendMessage";
             this.textBoxUDPSendMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxUDPSendMessage.Size = new System.Drawing.Size(925, 128);
+            this.textBoxUDPSendMessage.Size = new System.Drawing.Size(925, 118);
             this.textBoxUDPSendMessage.TabIndex = 2;
             // 
             // tabPageTools
@@ -292,7 +310,7 @@
             this.tabPageTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageTools.Name = "tabPageTools";
             this.tabPageTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTools.Size = new System.Drawing.Size(937, 449);
+            this.tabPageTools.Size = new System.Drawing.Size(937, 412);
             this.tabPageTools.TabIndex = 2;
             this.tabPageTools.Text = "Tools";
             this.tabPageTools.UseVisualStyleBackColor = true;
@@ -302,17 +320,17 @@
             this.richTextBoxToolsLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxToolsLog.Location = new System.Drawing.Point(7, 245);
+            this.richTextBoxToolsLog.Location = new System.Drawing.Point(7, 226);
             this.richTextBoxToolsLog.Name = "richTextBoxToolsLog";
-            this.richTextBoxToolsLog.Size = new System.Drawing.Size(924, 198);
+            this.richTextBoxToolsLog.Size = new System.Drawing.Size(924, 183);
             this.richTextBoxToolsLog.TabIndex = 1;
             this.richTextBoxToolsLog.Text = "";
             // 
             // buttonToolsGetIP
             // 
-            this.buttonToolsGetIP.Location = new System.Drawing.Point(6, 19);
+            this.buttonToolsGetIP.Location = new System.Drawing.Point(6, 18);
             this.buttonToolsGetIP.Name = "buttonToolsGetIP";
-            this.buttonToolsGetIP.Size = new System.Drawing.Size(75, 23);
+            this.buttonToolsGetIP.Size = new System.Drawing.Size(75, 21);
             this.buttonToolsGetIP.TabIndex = 0;
             this.buttonToolsGetIP.Text = "获取IP";
             this.buttonToolsGetIP.UseVisualStyleBackColor = true;
@@ -324,7 +342,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 520);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 478);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(969, 24);
             this.statusStrip1.TabIndex = 3;
@@ -334,7 +352,7 @@
             // 
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(832, 19);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(801, 19);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
@@ -347,29 +365,11 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(120, 18);
             this.toolStripProgressBar1.Value = 50;
             // 
-            // labelRecv
-            // 
-            this.labelRecv.AutoSize = true;
-            this.labelRecv.Location = new System.Drawing.Point(380, 57);
-            this.labelRecv.Name = "labelRecv";
-            this.labelRecv.Size = new System.Drawing.Size(79, 13);
-            this.labelRecv.TabIndex = 8;
-            this.labelRecv.Text = "Receive Data：";
-            // 
-            // labelSend
-            // 
-            this.labelSend.AutoSize = true;
-            this.labelSend.Location = new System.Drawing.Point(17, 57);
-            this.labelSend.Name = "labelSend";
-            this.labelSend.Size = new System.Drawing.Size(64, 13);
-            this.labelSend.TabIndex = 8;
-            this.labelSend.Text = "Send Data：";
-            // 
             // TCP_IPMenuForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 544);
+            this.ClientSize = new System.Drawing.Size(969, 502);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControlClient);
             this.Controls.Add(this.menuStrip1);

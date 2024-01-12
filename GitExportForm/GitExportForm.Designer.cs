@@ -234,7 +234,7 @@ namespace GitExportForm
             this.MainMenuStrip = this.mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GitExportForm";
-            this.Text = "Form1";
+            this.Text = "SunGit";
             this.Load += new System.EventHandler(this.GitExportForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGitInfo)).EndInit();
             this.mainMenuStrip.ResumeLayout(false);

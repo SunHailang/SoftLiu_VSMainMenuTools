@@ -166,6 +166,20 @@
     <Compile Include="SocketClient\TCP_IPMenuForm.Designer.cs">
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrainTicket\TrainTicketLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainTicket\TrainTicketLogin.Designer.cs">
+      <DependentUpon>TrainTicketLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrainTicket\TrainTiketData.cs" />
+    <Compile Include="Utils\MiniJSON.cs" />
+    <Compile Include="TrainTicket\TrainTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrainTicket\TrainTicket.Designer.cs">
+      <DependentUpon>TrainTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="UGUI\FormManager.cs" />
     <Compile Include="UGUI\Tools\ReaderPDF\ReaderPDFTools.cs">
       <SubType>Form</SubType>
@@ -230,6 +244,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SocketClient\TCP_IPMenuForm.resx">
       <DependentUpon>TCP_IPMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrainTicket\TrainTicket.resx">
+      <DependentUpon>TrainTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrainTicket\TrainTicketLogin.resx">
+      <DependentUpon>TrainTicketLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UGUI\Tools\ReaderPDF\ReaderPDFTools.resx">
       <DependentUpon>ReaderPDFTools.cs</DependentUpon>
